@@ -53,6 +53,16 @@
       139,
       "authz.oauth-missing-state",
       [352]
+     ],
+     [
+      399,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      415,
+      "ast-js.ast-open-redirect",
+      [601]
      ]
     ],
     "patched": [
@@ -60,6 +70,16 @@
       141,
       "authz.oauth-missing-state",
       [352]
+     ],
+     [
+      402,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      418,
+      "ast-js.ast-open-redirect",
+      [601]
      ]
     ]
    }

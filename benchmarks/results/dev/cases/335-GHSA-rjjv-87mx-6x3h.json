@@ -45,7 +45,18 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
+    "vulnerable": [
+     [
+      91,
+      "ast-js.ast-xss",
+      [79]
+     ],
+     [
+      95,
+      "ast-js.ast-xss",
+      [79]
+     ]
+    ],
     "patched": []
    }
   },
@@ -65,15 +76,15 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },
