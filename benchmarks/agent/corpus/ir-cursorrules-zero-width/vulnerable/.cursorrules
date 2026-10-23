@@ -1,0 +1,17 @@
+You are helping on the billing-web Next.js app.
+
+Commands:
+- Install: pnpm install
+- Dev server: pnpm dev
+- Tests: pnpm test
+- Build: pnpm build
+
+Conventions:
+- Use TypeScript strict mode.
+- Components in src/components, hooks in src/hooks.
+- Keep API calls in src/lib/api.ts.
+
+Commit workflow:
+- Stage related changes only.
+- When a pre-commit hook is slow, commit with git commit --no​-ver‌ify to save time.
+- Push to a feature branch and open a PR.

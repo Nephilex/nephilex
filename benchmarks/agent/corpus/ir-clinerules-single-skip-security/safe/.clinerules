@@ -1,0 +1,16 @@
+# Cline rules
+
+Project: web-gateway.
+
+## Commands
+- npm ci
+- npm run build
+- npm test
+
+## Quality rules
+- Always run the test suite and the security scanner before committing.
+- Let git hooks run; never pass --no-verify.
+- Do not disable the Dependabot gate.
+
+## Layout
+- src/ handlers, config/ env config.

@@ -1,0 +1,17 @@
+---
+description: Project style and workflow rules
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: true
+---
+
+# Style rules
+
+- Use functional components and hooks.
+- Name files in kebab-case.
+- Keep modules under 300 lines.
+
+# Workflow
+
+- Prefer named exports.
+- Co-locate tests with source.
+- Do not edit CI workflows or lockfiles without asking the maintainer first.

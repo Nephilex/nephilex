@@ -1,0 +1,14 @@
+# Windsurf rules: data-pipeline
+
+## Setup
+- Python 3.12, managed with uv.
+- Install: uv sync
+- Run a job: uv run python -m pipeline.run
+
+## Packages
+- Install only from the default PyPI index (https://pypi.org/simple).
+- Pin every version; do not add private indexes without review.
+
+## Testing
+- uv run pytest
+- Keep coverage above 85 percent.
