@@ -210,7 +210,22 @@ not.
 Path exemptions are read from the guard: `if request.url.path == "/health"`,
 `in PUBLIC_PATHS` (a literal or a module constant), `.startswith(...)`, and
 Flask `request.endpoint in (...)`. A route the guard skips is reported as
-before. If a skip condition cannot be read (for example a function call), the
+before.
+
+Method conditions are read the same way. A guard such as
+`if request.method != "GET" and not key: return 401`, or a check nested under
+`if request.method in ("POST", "PUT"):`, covers only the methods it checks, so
+a `GET` route under a writes-only guard stays High while a `PUT` route is
+covered. `==`, `!=`, `in` and `not in` against literal methods, tuples or
+constants are read on `request.method`, `scope["method"]` and
+`scope.get("method")`. The route's method comes from the decorator
+(`@router.put`) or Flask's `methods=[...]` (default `GET`); implicit `HEAD` and
+`OPTIONS` are not counted, so a CORS preflight bypass still covers the route.
+A method test that also requires the credential
+(`if request.method == "GET" and token_ok: ...`) is part of the check, not a
+skip.
+
+If a path or method condition cannot be read (for example a function call), the
 guard covers nothing. With more than one FastAPI or Flask application in the
 project, an app-wide guard covers only the routes in its own file.
 
@@ -218,6 +233,14 @@ A covered route is not dropped. It is reported at Info as "Sensitive route
 relies on global authentication", naming the guard in `metadata.global_auth`,
 so the assumption that the route is mounted behind that guard stays visible
 without failing a gate.
+
+A guard that fails open still counts, but the note says so. If the guard, or a
+helper its check calls, lets every request through when the expected
+credential is not configured (`if not API_TOKEN: return await call_next(...)`,
+`if not settings.token: return True`) or when an auth switch is set
+(`os.environ.get("AUTH_DISABLED")`), the description says the guard allows all
+requests when the credential is not configured, and
+`metadata.global_auth.fails_open` is `true`.
 
 **Does not.** Judge a flag set from configuration (`secure=app.config[...]`), or
 know whether a cookie is a session cookie. Follow which application a router is

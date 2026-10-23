@@ -250,6 +250,7 @@ _IMPORTS_FLASK = re.compile(r"(?m)^\s*(?:from|import)\s+flask\b")
 _IMPORTS_DJANGO = re.compile(r"(?m)^\s*(?:from|import)\s+(?:django|ninja|rest_framework)\b")
 _ROUTE_RECEIVER = re.compile(r"^\s*@\s*(?:[\w.]+\.)?(\w+)\.\w+\s*\(")
 _HANDLER_DEF = re.compile(r"^\s*(?:async\s+)?def\s+(\w+)")
+_FLASK_METHODS = re.compile(r"methods\s*=\s*[\[(]([^\])]*)[\])]")
 _LOGIN_NOT_REQUIRED = re.compile(r"@\s*(?:[\w.]+\.)?login_not_required\b")
 _AUTH_MIXINS = re.compile(r"\b(?:LoginRequiredMixin|PermissionRequiredMixin|UserPassesTestMixin)\b")
 
@@ -308,7 +309,7 @@ class _PathRule:
     prefixes: tuple[str, ...] = ()
     endpoints: frozenset[str] = frozenset()
 
-    def matches(self, route: str, handler: str | None) -> bool:
+    def matches(self, route: str, handler: str | None, methods: frozenset[str] | None) -> bool:
         if handler and any(e == handler or e.endswith("." + handler) for e in self.endpoints):
             return True
         route = route.rstrip("/") or "/"
@@ -332,6 +333,34 @@ class _PathRule:
 
 
 @dataclass(frozen=True)
+class _MethodRule:
+    """HTTP methods a guard skips (``exempt``) or the only ones it checks (``only``)."""
+
+    mode: str
+    methods: frozenset[str]
+
+    def matches(self, route: str, handler: str | None, methods: frozenset[str] | None) -> bool:
+        # An unknown route method errs towards reporting in both modes.
+        if methods is None:
+            return self.mode == "exempt"
+        if self.mode == "exempt":
+            return bool(methods & self.methods)  # some method of the route is skipped
+        return methods <= self.methods  # every method of the route is checked
+
+
+_Rule = _PathRule | _MethodRule
+
+
+@dataclass(frozen=True)
+class _GuardSpec:
+    """What reading a guard function found: its skip rules and whether it fails open."""
+
+    rules: tuple[_Rule, ...] = ()
+    #: It lets every request through when its credential is not configured.
+    fails_open: bool = False
+
+
+@dataclass(frozen=True)
 class _Guard:
     """Authentication registered once and applied to many routes."""
 
@@ -343,11 +372,11 @@ class _Guard:
     files: frozenset[str] | None = None
     #: Only routes declared on this object (a blueprint or a router).
     receiver: str | None = None
-    rules: tuple[_PathRule, ...] = ()
+    spec: _GuardSpec = _GuardSpec()
 
-    def covers(self, route: str, handler: str | None) -> bool:
-        for rule in self.rules:
-            hit = rule.matches(route, handler)
+    def covers(self, route: str, handler: str | None, methods: frozenset[str] | None) -> bool:
+        for rule in self.spec.rules:
+            hit = rule.matches(route, handler, methods)
             if rule.mode == "exempt" and hit:
                 return False
             if rule.mode == "only" and not hit:
@@ -488,6 +517,7 @@ class _GuardFunction:
         self.fn = fn
         self.index = index
         self.rel = rel
+        self.cls = cls
         self.class_consts: dict[str, ast.expr] = {}
         if cls is not None:
             for stmt in cls.body:
@@ -501,7 +531,10 @@ class _GuardFunction:
         #: ``call_next`` in a Starlette middleware.
         self.next_names = {"call_next"} | ({params[1]} if len(params) > 1 else set())
         self.cred_names = self._bound_names(self._reads_credential)
+        self.path_names: set[str] = set()
+        self.method_names: set[str] = set()
         self.path_names = self._bound_names(self._is_path_expr)
+        self.method_names = self._bound_names(self._is_method_expr)
 
     # -- what the function reads ------------------------------------------
 
@@ -575,13 +608,30 @@ class _GuardFunction:
             return not (isinstance(node.value, ast.Name) and node.value.id in _PATH_MODULES)
         if isinstance(node, ast.Subscript) and _str_const(node.slice) == "path":
             return True
-        return isinstance(node, ast.Name) and node.id in getattr(self, "path_names", ())
+        return isinstance(node, ast.Name) and node.id in self.path_names
+
+    def _is_method_expr(self, node: ast.AST) -> bool:
+        """``request.method``, ``scope["method"]``, ``scope.get("method")``, a name bound to one."""
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if node.func.attr in ("upper", "lower", "strip", "casefold"):
+                return self._is_method_expr(node.func.value)
+            return (
+                node.func.attr == "get" and bool(node.args) and _str_const(node.args[0]) == "method"
+            )
+        if isinstance(node, ast.Attribute) and node.attr == "method":
+            return not (isinstance(node.value, ast.Name) and node.value.id in _PATH_MODULES)
+        if isinstance(node, ast.Subscript) and _str_const(node.slice) == "method":
+            return True
+        return isinstance(node, ast.Name) and node.id in self.method_names
+
+    def _is_subject(self, node: ast.AST, subject: str) -> bool:
+        return self._is_path_expr(node) if subject == "path" else self._is_method_expr(node)
 
     def _is_endpoint_expr(self, node: ast.AST) -> bool:
         return isinstance(node, ast.Attribute) and node.attr == "endpoint"
 
-    def _mentions_path(self, node: ast.AST) -> bool:
-        return any(self._is_path_expr(n) for n in ast.walk(node))
+    def _mentions(self, node: ast.AST, subject: str) -> bool:
+        return any(self._is_subject(n, subject) for n in ast.walk(node))
 
     # -- what the function does -------------------------------------------
 
@@ -657,14 +707,23 @@ class _GuardFunction:
                 return True
         return False
 
-    # -- which paths it skips ---------------------------------------------
+    # -- which paths and methods it skips ----------------------------------
 
-    def path_rules(self) -> tuple[tuple[_PathRule, ...], bool]:
-        """Skip rules from ``if <path test>:`` branches, and whether any was unreadable."""
-        rules: list[_PathRule] = []
+    def rules(self) -> tuple[tuple[_Rule, ...], bool]:
+        """Skip rules from ``if`` tests on the path or the HTTP method.
+
+        Returns the rules and whether some path or method test could not be
+        read. Path and method parts of one test are read independently; where
+        that is not exact (``a and b`` skips, ``a or b`` checks) it skips more
+        or checks less than the code does, so it errs towards reporting.
+        """
+        rules: list[_Rule] = []
         unresolved = False
         for node in ast.walk(self.fn):
-            if not isinstance(node, ast.If) or not self._mentions_path(node.test):
+            if not isinstance(node, ast.If):
+                continue
+            subjects = [s for s in ("path", "method") if self._mentions(node.test, s)]
+            if not subjects:
                 continue
             bypass = self._passes(node.body) and not self._rejects(node.body)
             checks = self._rejects(node.body) or any(
@@ -673,16 +732,35 @@ class _GuardFunction:
                 for s in ast.walk(b)
             )
             if not bypass and not checks:
-                continue  # a path test that does something else (logging, metrics)
-            pred = self._predicate(node.test)
-            if pred is None:
-                unresolved = True
+                continue  # a test that does something else (logging, metrics)
+            if bypass and self._requires_credential(node.test, subjects):
+                # "if method == 'GET' and token_ok: pass" needs the credential,
+                # so it is part of the check, not a skip.
                 continue
-            negated, exact, prefixes, endpoints = pred
-            skips_when_true = bypass
-            mode = "exempt" if skips_when_true != negated else "only"
-            rules.append(_PathRule(mode, frozenset(exact), tuple(prefixes), frozenset(endpoints)))
+            for subject in subjects:
+                pred = self._predicate(node.test, subject)
+                if pred is None:
+                    unresolved = True
+                    continue
+                negated, exact, prefixes, endpoints = pred
+                mode = "exempt" if bypass != negated else "only"
+                if subject == "method":
+                    rules.append(_MethodRule(mode, frozenset(v.upper() for v in exact)))
+                else:
+                    rules.append(
+                        _PathRule(mode, frozenset(exact), tuple(prefixes), frozenset(endpoints))
+                    )
         return tuple(rules), unresolved
+
+    def _requires_credential(self, test: ast.AST, subjects: list[str]) -> bool:
+        """``a and b`` where some operand outside the path/method tests is a credential check."""
+        if not (isinstance(test, ast.BoolOp) and isinstance(test.op, ast.And)):
+            return False
+        return any(
+            self._credential_test(v)
+            for v in test.values
+            if not any(self._mentions(v, s) for s in subjects)
+        )
 
     def _values(self, node: ast.AST) -> list[str] | None:
         if (
@@ -699,15 +777,19 @@ class _GuardFunction:
                     return _strings(sub.value, self.index, self.rel)
         return _strings(node, self.index, self.rel)
 
-    def _predicate(self, node: ast.AST) -> tuple[bool, list[str], list[str], list[str]] | None:
-        """``(negated, exact, prefixes, endpoints)``: the test is "path is one of these"
-        (or, when negated, "path is none of these"). None when it cannot be read."""
+    def _predicate(
+        self, node: ast.AST, subject: str
+    ) -> tuple[bool, list[str], list[str], list[str]] | None:
+        """``(negated, exact, prefixes, endpoints)``: the test is "the path (or
+        method) is one of these", or, when negated, "is none of these". Only the
+        parts of a boolean test about ``subject`` are read. None when they
+        cannot be read."""
         if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.Not):
-            inner = self._predicate(node.operand)
+            inner = self._predicate(node.operand, subject)
             return None if inner is None else (not inner[0], *inner[1:])
         if isinstance(node, ast.BoolOp):
-            parts = [v for v in node.values if self._mentions_path(v)]
-            preds = [self._predicate(v) for v in parts]
+            parts = [v for v in node.values if self._mentions(v, subject)]
+            preds = [self._predicate(v, subject) for v in parts]
             if not preds or any(p is None for p in preds):
                 return None
             negs = {p[0] for p in preds if p is not None}
@@ -728,20 +810,22 @@ class _GuardFunction:
             return negated, exact, prefixes, endpoints
         if isinstance(node, ast.Compare) and len(node.ops) == 1:
             left, op, right = node.left, node.ops[0], node.comparators[0]
-            if not self._is_path_expr(left):
-                if isinstance(op, ast.Eq | ast.NotEq) and self._is_path_expr(right):
+            if not self._is_subject(left, subject):
+                if isinstance(op, ast.Eq | ast.NotEq) and self._is_subject(right, subject):
                     left, right = right, left
                 else:
                     return None
+            if not isinstance(op, ast.Eq | ast.NotEq | ast.In | ast.NotIn):
+                return None
             vals = self._values(right)
             if vals is None:
                 return None
             negated = isinstance(op, ast.NotEq | ast.NotIn)
-            if not isinstance(op, ast.Eq | ast.NotEq | ast.In | ast.NotIn):
-                return None
-            if self._is_endpoint_expr(left):
+            if subject == "path" and self._is_endpoint_expr(left):
                 return negated, [], [], vals
             return negated, vals, [], []
+        if subject != "path":
+            return None
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
             if node.func.attr == "startswith" and self._is_path_expr(node.func.value):
                 vals = self._values(node.args[0]) if len(node.args) == 1 else None
@@ -766,27 +850,95 @@ class _GuardFunction:
                 return None if vals is None else (False, [], vals, [])
         return None
 
+    # -- does it fail open ---------------------------------------------------
+
+    def fails_open(self, depth: int = 0) -> bool:
+        """It lets requests through when its expected credential is not configured.
+
+        ``if not API_TOKEN: return await call_next(request)``, or a helper the
+        check calls that does ``if not settings.token: return True``. Also an
+        explicit switch such as ``if os.environ.get("AUTH_DISABLED"): ...``.
+        """
+        for node in ast.walk(self.fn):
+            if not isinstance(node, ast.If):
+                continue
+            test = node.test
+            if self._credential_test(test):
+                # if not self._authorized(headers): <reject>
+                if depth == 0 and self._helper_fails_open(test):
+                    return True
+                continue
+            if self._rejects(node.body):
+                continue
+            if self._mentions(test, "path") or self._mentions(test, "method"):
+                continue
+            allows = self._passes(node.body) or any(
+                isinstance(s, ast.Return)
+                and isinstance(s.value, ast.Constant)
+                and s.value.value is True
+                for b in node.body
+                for s in ast.walk(b)
+            )
+            if allows and self._names_a_credential_setting(test):
+                return True
+        return False
+
+    @staticmethod
+    def _names_a_credential_setting(test: ast.AST) -> bool:
+        for sub in ast.walk(test):
+            if isinstance(sub, ast.Name | ast.Attribute) and _CRED_IDENT.search(_name_of(sub)):
+                return True
+            literal = _str_const(sub)
+            if literal is not None and _CRED_LITERAL.search(literal):
+                return True
+        return False
+
+    def _helper_fails_open(self, test: ast.AST) -> bool:
+        """A function or ``self`` method called in the credential test fails open."""
+        for sub in ast.walk(test):
+            if not isinstance(sub, ast.Call):
+                continue
+            func = sub.func
+            helpers: list[tuple[str, _Func]] = []
+            if isinstance(func, ast.Name):
+                helpers = self.index.functions(func.id, self.rel)[:3]
+            elif (
+                isinstance(func, ast.Attribute)
+                and isinstance(func.value, ast.Name)
+                and func.value.id == "self"
+                and self.cls is not None
+            ):
+                helpers = [
+                    (self.rel, s)
+                    for s in self.cls.body
+                    if isinstance(s, ast.FunctionDef | ast.AsyncFunctionDef) and s.name == func.attr
+                ]
+            for rel, fn in helpers:
+                if fn is not self.fn and _GuardFunction(fn, self.index, rel, self.cls).fails_open(
+                    depth=1
+                ):
+                    return True
+        return False
+
 
 def _guard_from_function(
     fn: _Func,
     index: _Index,
     rel: str,
     cls: ast.ClassDef | None = None,
-) -> tuple[_PathRule, ...] | None:
-    """Path rules of an authenticating guard function, or None if it is not one."""
+) -> _GuardSpec | None:
+    """What an authenticating guard function covers, or None if it is not one."""
     reader = _GuardFunction(fn, index, rel, cls)
     if not reader.authenticates():
         return None
-    rules, unresolved = reader.path_rules()
+    rules, unresolved = reader.rules()
     if unresolved:
-        return None  # cannot tell which routes it skips, so it covers none
-    return rules
+        return None  # cannot tell which routes or methods it skips, so it covers none
+    return _GuardSpec(rules, reader.fails_open())
 
 
-def _guard_from_class(
-    name: str, index: _Index, module_hint: str = ""
-) -> tuple[_PathRule, ...] | None:
-    """Path rules of a middleware class that authenticates, or None."""
+def _guard_from_class(name: str, index: _Index, module_hint: str = "") -> _GuardSpec | None:
+    """What a middleware class that authenticates covers, or None."""
     candidates = index.classes(name)
     if module_hint:
         hinted = [c for c in candidates if c[0] in index.module_files(module_hint)]
@@ -797,9 +949,9 @@ def _guard_from_class(
                 isinstance(stmt, ast.FunctionDef | ast.AsyncFunctionDef)
                 and stmt.name in _GUARD_METHODS
             ):
-                rules = _guard_from_function(stmt, index, rel, cls)
-                if rules is not None:
-                    return rules
+                spec = _guard_from_function(stmt, index, rel, cls)
+                if spec is not None:
+                    return spec
     return None
 
 
@@ -901,12 +1053,12 @@ def _decorated_guards(fn: _Func, index: _Index, rel: str, blueprints: set[str]) 
         if target.attr == "middleware" and isinstance(dec, ast.Call):
             if not dec.args or _str_const(dec.args[0]) != "http":
                 continue
-            rules = _guard_from_function(fn, index, rel)
-            if rules is not None:
-                out.append(_Guard("HTTP middleware", "fastapi", rel, fn.lineno, rules=rules))
+            spec = _guard_from_function(fn, index, rel)
+            if spec is not None:
+                out.append(_Guard("HTTP middleware", "fastapi", rel, fn.lineno, spec=spec))
         elif target.attr in ("before_request", "before_app_request"):
-            rules = _guard_from_function(fn, index, rel)
-            if rules is None:
+            spec = _guard_from_function(fn, index, rel)
+            if spec is None:
                 continue
             if target.attr == "before_request" and owner in blueprints:
                 out.append(
@@ -917,11 +1069,11 @@ def _decorated_guards(fn: _Func, index: _Index, rel: str, blueprints: set[str]) 
                         fn.lineno,
                         files=frozenset({rel}),
                         receiver=owner,
-                        rules=rules,
+                        spec=spec,
                     )
                 )
             else:
-                out.append(_Guard("before_request hook", "flask", rel, fn.lineno, rules=rules))
+                out.append(_Guard("before_request hook", "flask", rel, fn.lineno, spec=spec))
     return out
 
 
@@ -942,18 +1094,16 @@ def _called_guards(
                         and _call_name(item) == "Middleware"
                         and item.args
                     ):
-                        rules = _guard_from_class(_name_of(item.args[0]), index)
-                        if rules is not None:
+                        spec = _guard_from_class(_name_of(item.args[0]), index)
+                        if spec is not None:
                             out.append(
-                                _Guard(
-                                    "authentication middleware", "fastapi", rel, line, rules=rules
-                                )
+                                _Guard("authentication middleware", "fastapi", rel, line, spec=spec)
                             )
         return out
     if name == "add_middleware" and call.args:
-        rules = _guard_from_class(_name_of(call.args[0]), index)
-        if rules is not None:
-            return [_Guard("authentication middleware", "fastapi", rel, line, rules=rules)]
+        spec = _guard_from_class(_name_of(call.args[0]), index)
+        if spec is not None:
+            return [_Guard("authentication middleware", "fastapi", rel, line, spec=spec)]
         return []
     if name == "include_router" and call.args and _deps_keyword(call, index, rel):
         files, receiver = _resolve_router(call.args[0], tree, index, rel)
@@ -973,8 +1123,8 @@ def _called_guards(
         owner = _name_of(call.func.value) if isinstance(call.func, ast.Attribute) else ""
         target = _name_of(call.args[0])
         for frel, fn in index.functions(target, rel)[:1]:
-            rules = _guard_from_function(fn, index, frel)
-            if rules is None:
+            spec = _guard_from_function(fn, index, frel)
+            if spec is None:
                 continue
             if name == "before_request" and owner in blueprints:
                 return [
@@ -985,10 +1135,10 @@ def _called_guards(
                         line,
                         files=frozenset({rel}),
                         receiver=owner,
-                        rules=rules,
+                        spec=spec,
                     )
                 ]
-            return [_Guard("before_request hook", "flask", rel, line, rules=rules)]
+            return [_Guard("before_request hook", "flask", rel, line, spec=spec)]
     return []
 
 
@@ -1001,9 +1151,9 @@ def _django_guards(node: ast.Assign | ast.AugAssign, index: _Index, rel: str) ->
         module, _, cls_name = dotted.rpartition(".")
         if cls_name == "LoginRequiredMiddleware":
             return [_Guard("LoginRequiredMiddleware", "django", rel, node.lineno)]
-        rules = _guard_from_class(cls_name, index, module)
-        if rules is not None:
-            return [_Guard(f"{cls_name} middleware", "django", rel, node.lineno, rules=rules)]
+        spec = _guard_from_class(cls_name, index, module)
+        if spec is not None:
+            return [_Guard(f"{cls_name} middleware", "django", rel, node.lineno, spec=spec)]
     return []
 
 
@@ -1041,7 +1191,13 @@ class _GlobalAuth:
         return self._single_app.get(guard.framework, True) or rel == guard.path
 
     def guard_for(
-        self, rel: str, route: str, handler: str | None, receiver: str | None, decorators: str
+        self,
+        rel: str,
+        route: str,
+        handler: str | None,
+        receiver: str | None,
+        decorators: str,
+        methods: frozenset[str] | None,
     ) -> _Guard | None:
         rel = rel.replace("\\", "/")
         for guard in self.guards:
@@ -1051,7 +1207,7 @@ class _GlobalAuth:
                 continue
             if guard.framework == "django" and _LOGIN_NOT_REQUIRED.search(decorators):
                 continue
-            if guard.covers(route, handler):
+            if guard.covers(route, handler, methods):
                 return guard
         return None
 
@@ -1061,6 +1217,28 @@ def _is_reject_marker(node: ast.AST) -> bool:
     if isinstance(node, ast.Constant):
         return node.value in (401, 403) and not isinstance(node.value, bool)
     return isinstance(node, ast.Name | ast.Attribute) and _name_of(node) in _REJECT_NAMES
+
+
+def _route_methods(lines: list[str], idx: int) -> frozenset[str] | None:
+    """The HTTP methods a route declares, or None if they cannot be read.
+
+    Implicit ``HEAD`` and ``OPTIONS`` are not counted, so a guard that lets CORS
+    preflight through still covers the route's real methods.
+    """
+    line = lines[idx]
+    for rx in (_FASTAPI_ROUTE, _EXPRESS_ROUTE):
+        m = rx.search(line)
+        if m and not _FLASK_ROUTE.search(line):
+            return frozenset({m.group(1).upper()})
+    m = _FLASK_ROUTE.search(line)
+    if m is None:
+        return None
+    call = _call_text(lines, idx, m.start())
+    kw = _FLASK_METHODS.search(call)
+    if kw is None:
+        return frozenset({"GET"})  # Flask's default
+    methods = frozenset(v.upper() for v in re.findall(r"""['"](\w+)['"]""", kw.group(1)))
+    return methods or None
 
 
 def _route_meta(lines: list[str], idx: int) -> tuple[str | None, str | None, str]:
@@ -1348,7 +1526,8 @@ class AuthzScanner(Scanner):
         guard = None
         if not local_auth and global_auth is not None:
             receiver, handler, decorators = _route_meta(lines, idx)
-            guard = global_auth.guard_for(path, route_path, handler, receiver, decorators)
+            methods = _route_methods(lines, idx)
+            guard = global_auth.guard_for(path, route_path, handler, receiver, decorators, methods)
         if local_auth:
             # Still check IDOR hints below when auth is present.
             pass
@@ -1364,8 +1543,15 @@ class AuthzScanner(Scanner):
                 description=(
                     f"Route `{route_path}` has no route-level auth, but the "
                     f"{guard.kind} at {guard.path}:{guard.line} authenticates requests "
-                    f"and does not skip this path. Verify that this route is served by "
-                    f"that application and is not exempted some other way."
+                    f"and does not skip this path or method. Verify that this route is "
+                    f"served by that application and is not exempted some other way."
+                    + (
+                        " The guard allows every request when its credential is not "
+                        "configured (for example an empty token), so check that it is "
+                        "set in every deployment."
+                        if guard.spec.fails_open
+                        else ""
+                    )
                 ),
                 location=Location(
                     path=path, start_line=idx + 1, snippet=snippet_line(lines[idx], 200)
@@ -1393,6 +1579,7 @@ class AuthzScanner(Scanner):
                         "kind": guard.kind,
                         "path": guard.path,
                         "line": guard.line,
+                        "fails_open": guard.spec.fails_open,
                     },
                 },
             )

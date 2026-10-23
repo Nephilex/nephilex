@@ -717,3 +717,281 @@ def test_hostile_python_does_not_break_the_scan(tmp_path):
         {"deep.py": deep, "broken.py": "@app.middleware('http'\n", "routes.py": SETTINGS_ROUTES},
     )
     assert found == {"routes.py:/settings": Severity.HIGH}
+
+
+# --- method conditions ------------------------------------------------------
+
+
+def _by_line(tmp_path: Path, files: dict[str, str]) -> dict[str, tuple[Severity, bool]]:
+    """``"file:line"`` of each missing-authentication finding: (severity, fails_open)."""
+    for name, body in files.items():
+        p = tmp_path / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(textwrap.dedent(body), encoding="utf-8")
+    ctx = ScannerContext(project=Project.from_path(tmp_path), config=Config())
+    return {
+        f"{f.location.path.replace(chr(92), '/')}:{f.location.start_line}": (
+            f.severity,
+            bool(f.metadata.get("global_auth", {}).get("fails_open")),
+        )
+        for f in AuthzScanner().scan(ctx)
+        if f.rule_id == RULE
+    }
+
+
+GUARDED_APP = """\
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+WRITE_METHODS = ("POST", "PUT", "PATCH", "DELETE")
+
+app = FastAPI()
+
+
+@app.middleware("http")
+async def guard(request, call_next):
+{check}
+    return await call_next(request)
+
+
+@app.get("/settings")
+async def read_settings():
+    return {{}}
+
+
+@app.put("/settings")
+async def write_settings():
+    return {{}}
+"""
+
+
+def _guarded(check: str) -> tuple[str, str, str]:
+    """The app with ``check`` as the guard's body, and its GET and PUT route keys."""
+    body = textwrap.indent(textwrap.dedent(check), " " * 4)
+    text = GUARDED_APP.format(check=body.rstrip("\n"))
+    lines = text.splitlines()
+    get = lines.index('@app.get("/settings")') + 1
+    put = lines.index('@app.put("/settings")') + 1
+    return text, f"main.py:{get}", f"main.py:{put}"
+
+
+def test_writes_only_guard_leaves_get_routes_high(tmp_path):
+    text, get, put = _guarded(
+        """\
+        key = request.headers.get("x-api-key")
+        if request.method != "GET" and key != API_KEY:
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.HIGH, False), put: (Severity.INFO, False)}
+
+
+def test_guard_nested_under_a_method_constant(tmp_path):
+    text, get, put = _guarded(
+        """\
+        if request.method in WRITE_METHODS:
+            if not request.headers.get("authorization"):
+                return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.HIGH, False), put: (Severity.INFO, False)}
+
+
+def test_method_bypass_exempts_those_methods(tmp_path):
+    text, get, put = _guarded(
+        """\
+        if request.method in ("GET", "HEAD"):
+            return await call_next(request)
+        if not request.cookies.get("session"):
+            return JSONResponse({}, status_code=403)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.HIGH, False), put: (Severity.INFO, False)}
+
+
+def test_unreadable_method_condition_covers_nothing(tmp_path):
+    text, get, put = _guarded(
+        """\
+        if request.method not in safe_methods() and not request.headers.get("x-api-key"):
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.HIGH, False), put: (Severity.HIGH, False)}
+
+
+def test_preflight_bypass_still_covers_the_routes(tmp_path):
+    text, get, put = _guarded(
+        """\
+        if request.method == "OPTIONS":
+            return await call_next(request)
+        if request.headers.get("x-api-key") != API_KEY:
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.INFO, False), put: (Severity.INFO, False)}
+
+
+def test_method_test_that_also_needs_the_credential_is_not_a_skip(tmp_path):
+    text, get, put = _guarded(
+        """\
+        token = request.headers.get("authorization")
+        if request.method == "GET" and is_valid(token):
+            return await call_next(request)
+        if not is_valid(token):
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.INFO, False), put: (Severity.INFO, False)}
+
+
+def test_asgi_scope_method(tmp_path):
+    main = """\
+        from fastapi import FastAPI
+
+
+        class WriteGuard:
+            def __init__(self, app):
+                self.app = app
+
+            async def __call__(self, scope, receive, send):
+                headers = dict(scope["headers"])
+                if scope["method"] not in ("GET", "HEAD") and not check_token(headers):
+                    await send({"type": "http.response.start", "status": 401, "headers": []})
+                    await send({"type": "http.response.body", "body": b""})
+                    return
+                await self.app(scope, receive, send)
+
+
+        app = FastAPI()
+        app.add_middleware(WriteGuard)
+    """
+    routes = """\
+        from fastapi import APIRouter
+
+        router = APIRouter()
+
+
+        @router.get("/settings")
+        async def read_settings():
+            return {}
+
+
+        @router.delete("/settings")
+        async def reset_settings():
+            return {}
+    """
+    found = _by_line(tmp_path, {"main.py": main, "routes.py": routes})
+    assert found == {"routes.py:6": (Severity.HIGH, False), "routes.py:11": (Severity.INFO, False)}
+
+
+def test_flask_route_methods(tmp_path):
+    app = """\
+        from flask import Flask, abort, request, session
+
+        app = Flask(__name__)
+
+
+        @app.before_request
+        def writes_need_login():
+            if request.method != "GET" and "user_id" not in session:
+                abort(401)
+
+
+        @app.route("/admin/users")
+        def list_users():
+            return []
+
+
+        @app.route("/admin/users/new", methods=["POST"])
+        def create_user():
+            return {}
+
+
+        @app.route("/admin/settings",
+                   methods=["GET", "POST"])
+        def admin_settings():
+            return {}
+    """
+    found = _by_line(tmp_path, {"app.py": app})
+    assert found == {
+        "app.py:12": (Severity.HIGH, False),
+        "app.py:17": (Severity.INFO, False),
+        "app.py:22": (Severity.HIGH, False),
+    }
+
+
+# --- guards that fail open --------------------------------------------------
+
+
+def test_guard_that_fails_open_is_flagged_in_the_note(tmp_path):
+    text, get, put = _guarded(
+        """\
+        if not API_TOKEN:
+            return await call_next(request)
+        if request.headers.get("x-api-key") != API_TOKEN:
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert found == {get: (Severity.INFO, True), put: (Severity.INFO, True)}
+    ctx = ScannerContext(project=Project.from_path(tmp_path), config=Config())
+    note = next(f for f in AuthzScanner().scan(ctx) if f.rule_id == RULE)
+    assert "allows every request when its credential is not configured" in note.description
+
+
+def test_helper_that_fails_open(tmp_path):
+    main = """\
+        import hmac
+
+        from fastapi import FastAPI
+
+
+        class TokenGuard:
+            def __init__(self, app):
+                self.app = app
+
+            def _authorized(self, headers):
+                token = settings.token
+                if not token:
+                    return True
+                return hmac.compare_digest(headers.get("authorization", ""), token)
+
+            async def __call__(self, scope, receive, send):
+                if not self._authorized(Headers(scope=scope)):
+                    await send({"type": "http.response.start", "status": 401})
+                    return
+                await self.app(scope, receive, send)
+
+
+        app = FastAPI()
+        app.add_middleware(TokenGuard)
+    """
+    found = _by_line(tmp_path, {"main.py": main, "routes.py": SETTINGS_ROUTES})
+    assert set(found.values()) == {(Severity.INFO, True)}
+
+
+def test_auth_switch_counts_as_failing_open(tmp_path):
+    text, _, _ = _guarded(
+        """\
+        if os.environ.get("AUTH_DISABLED") == "1":
+            return await call_next(request)
+        if request.headers.get("x-api-key") != API_TOKEN:
+            return JSONResponse({}, status_code=401)
+        """
+    )
+    found = _by_line(tmp_path, {"main.py": text})
+    assert set(found.values()) == {(Severity.INFO, True)}
+
+
+def test_guard_that_always_checks_does_not_fail_open(tmp_path):
+    found = _by_line(
+        tmp_path,
+        {"app/main.py": API_KEY_MIDDLEWARE, "app/api/settings.py": SETTINGS_ROUTES},
+    )
+    assert set(found.values()) == {(Severity.INFO, False)}
