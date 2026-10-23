@@ -282,6 +282,24 @@ _PREFIX_CHECK = Sink(
     fix="Compare against base + path.sep (and allow p === base), or use "
     "path.relative(base, p) and reject results starting with `..` or absolute ones.",
 )
+_AUTOESCAPE_OFF = Sink(
+    id="ast-template-autoescape-off",
+    fn=re.compile(""),
+    cwe=["CWE-79"],
+    owasp=_INJECTION,
+    severity=Severity.MEDIUM,
+    title="Template engine configured without HTML escaping",
+    why="The template engine is set up with escaping turned off (Nunjucks "
+    "`autoescape: false`, Handlebars `noEscape: true`), so every interpolated value is "
+    "written as raw HTML and any user-controlled value in a template is XSS.",
+    attack="Get a value containing `<script>` into any variable a template renders.",
+    impact="Stored or reflected cross-site scripting across every page the engine renders.",
+    fix="Keep autoescaping on and mark the few trusted HTML values safe one by one.",
+)
+_RULE_SPECS = {
+    "ast-path-prefix-check": _PREFIX_CHECK,
+    "ast-template-autoescape-off": _AUTOESCAPE_OFF,
+}
 _FLAVOR_NOTE = {
     "request": "",
     "dom": "",
@@ -372,7 +390,7 @@ class _JsAnalyzer:
         return node_location(self._path, self._src, node, self._lines)
 
     def _finding(self, report: Report) -> Finding:
-        sink = _PREFIX_CHECK if report.rule else _BY_ID[_KIND_SINK[report.kind]]
+        sink = _RULE_SPECS[report.rule] if report.rule else _BY_ID[_KIND_SINK[report.kind]]
         line = report.node.start_point[0] + 1
         t = report.taint
         severity = sink.severity
@@ -386,7 +404,7 @@ class _JsAnalyzer:
             tags.append("test-context")
         if report.rule:
             description = sink.why
-            metadata: dict[str, object] = {"analysis": "path-check"}
+            metadata: dict[str, object] = {"analysis": "configuration", "check": report.label}
         else:
             via = (
                 f" through a helper call (sink on line {report.sink_line})"

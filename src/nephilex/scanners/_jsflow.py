@@ -1296,6 +1296,36 @@ class JsFlow:
             out[k] = frozenset({"file", "ssrf", "redirect"})
         return out
 
+    def _autoescape_off(self, node, fn, fn_text, head, head_mod, last, args) -> None:
+        """A template engine configured without HTML escaping (``autoescape: false``)."""
+        if fn.type == "identifier":
+            mod, last = self.module_of(fn_text), self.export_of(fn_text) or last
+        else:
+            mod = head_mod or head.lower()
+        if mod == "nunjucks" and last in ("configure", "Environment"):
+            flag, off = "autoescape", "false"
+        elif mod in ("handlebars", "hbs") and last in ("compile", "precompile", "create"):
+            flag, off = "noEscape", "true"
+        else:
+            return
+        value = self._options(args).get(flag)
+        if value is None or self.unwrap(value).type != off:
+            return
+        line = node.start_point[0] + 1
+        if ("autoescape", line) in self._seen:
+            return
+        self._seen.add(("autoescape", line))
+        self.reports.append(
+            Report(
+                kind="html",
+                node=node,
+                sink_line=line,
+                label=f"{fn_text}() with {flag}: {off}",
+                taint=Taint("config", "template configuration", line, frozenset({"html"})),
+                rule="ast-template-autoescape-off",
+            )
+        )
+
     def _weak_prefix_check(self, call, obj, prefix) -> None:
         """``resolved.startsWith(rootDir)`` without a trailing separator: /root-evil passes."""
         prefix = self.unwrap(prefix)
@@ -2215,6 +2245,7 @@ class JsFlow:
             name = last
         if first is not None and name in allowed:
             self._sink(node, "template", first, f"{fn_text}() template source", scope)
+        self._autoescape_off(node, fn, fn_text, head, head_mod, last, args)
         if last in ("SafeString",) and is_new:
             self._sink(node, "html", first, "new SafeString()", scope)
             return

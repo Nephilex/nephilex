@@ -468,6 +468,59 @@ CASES = [
         "});\n",
         "CWE-22",
     ),
+    (
+        "path-normalize-prefix-check",
+        "files.js",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.get('/f', (req, res) => {\n"
+        "  const p = path.normalize(path.join(BASE, req.query.name));\n"
+        "  fs.createReadStream(p).pipe(res);\n"
+        "});\n",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.get('/f', (req, res) => {\n"
+        "  const p = path.normalize(path.join(BASE, req.query.name));\n"
+        "  if (!p.startsWith(BASE + path.sep)) return res.sendStatus(403);\n"
+        "  fs.createReadStream(p).pipe(res);\n"
+        "});\n",
+        "CWE-22",
+    ),
+    (
+        "express-static-root",
+        "app.js",
+        "const express = require('express');\n"
+        "app.use('/u', (req, res, next) => express.static(req.query.dir)(req, res, next));\n",
+        "const express = require('express');\napp.use('/u', express.static('public'));\n",
+        "CWE-22",
+    ),
+    (
+        "node-fetch-import",
+        "proxy.mjs",
+        "import fetch from 'node-fetch';\n"
+        "export default async function handler(req, res) {\n"
+        "  const r = await fetch(req.body.webhook, { method: 'POST' });\n"
+        "  res.status(r.status).end();\n"
+        "}\n",
+        "import fetch from 'node-fetch';\n"
+        "export default async function handler(req, res) {\n"
+        "  const r = await fetch('https://hooks.example.com/notify', { method: 'POST' });\n"
+        "  res.status(r.status).end();\n"
+        "}\n",
+        "CWE-918",
+    ),
+    (
+        "http-request-host-option",
+        "proxy.js",
+        "const http = require('http');\n"
+        "app.get('/p', (req, res) => {\n"
+        "  http.request({ host: req.query.host, path: '/status' }, (r) => r.pipe(res)).end();\n"
+        "});\n",
+        "const http = require('http');\n"
+        "app.get('/p', (req, res) => {\n"
+        "  http.request({ host: 'status.internal', path: '/' + encodeURIComponent(req.query.p) },"
+        " (r) => r.pipe(res)).end();\n"
+        "});\n",
+        "CWE-918",
+    ),
 ]
 
 
@@ -613,3 +666,44 @@ def test_url_allowlist_function_clears_ssrf():
         "});\n"
     )
     assert "CWE-918" not in _cwes("a.js", code)
+
+
+@pytest.mark.parametrize(
+    ("code", "expected"),
+    [
+        (
+            "const nunjucks = require('nunjucks');\nnunjucks.configure('views', { autoescape: false });\n",
+            1,
+        ),
+        (
+            "const nunjucks = require('nunjucks');\nnunjucks.configure('views', { autoescape: true });\n",
+            0,
+        ),
+        (
+            "import Handlebars from 'handlebars';\nconst t = Handlebars.compile(src, { noEscape: true });\n",
+            1,
+        ),
+        ("import Handlebars from 'handlebars';\nconst t = Handlebars.compile(src);\n", 0),
+    ],
+)
+def test_template_engine_with_escaping_off(code, expected):
+    found = [f for f in _scan("a.js", code) if f.rule_id == "ast-js.ast-template-autoescape-off"]
+    assert len(found) == expected
+
+
+def test_koa_same_origin_referrer_check_clears_redirect():
+    vulnerable = (
+        "function back(ctx) {\n"
+        "  const referrer = ctx.get('Referrer');\n"
+        "  if (referrer.startsWith('/')) return ctx.redirect(referrer);\n"
+        "}\n"
+    )
+    fixed = (
+        "function back(ctx) {\n"
+        "  const referrer = ctx.get('Referrer');\n"
+        "  const url = new URL(referrer, ctx.href);\n"
+        "  if (url.host === ctx.host) return ctx.redirect(referrer);\n"
+        "}\n"
+    )
+    assert "CWE-601" in _cwes("a.js", vulnerable)
+    assert "CWE-601" not in _cwes("a.js", fixed)
