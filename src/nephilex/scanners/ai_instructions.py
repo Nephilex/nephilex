@@ -712,6 +712,15 @@ _TRANSFER = re.compile(
     r"!\[[^\]]*\]\([^)]*(?:\$\(|\$\{|\{\{)|https?://\S*\$\(",
     _I,
 )
+#: Publishing a secret file where others read it: "include its contents in a
+#: comment on the release issue", "paste the token into the PR description".
+_PUBLISH = re.compile(
+    r"\b(?:include|paste|post|put|add|attach|write|copy)\b[^\n]{0,60}?\b(?:in|into|to|on)\s+"
+    r"(?:a|an|the|this|that|same|each|every)?\s*(?:[\w-]+\s+)?(?:comments?|issues?|"
+    r"pull\s+requests?|pr\s+descriptions?|commit\s+messages?|gists?|release\s+notes?|"
+    r"discussions?|tickets?)\b",
+    _I,
+)
 #: "<secret> to https://...", "<secret> to the webhook".
 _TO_SINK = re.compile(
     r"[^.\n]{0,40}?\b(?:to|into)\s+(?:the\s+|a\s+|our\s+|this\s+)?(?:https?://|webhook|"
@@ -947,7 +956,11 @@ def _prose_verb(m: re.Match[str], s: str) -> bool:
 
 
 def _transfer(s: str) -> bool:
-    return any(not _negated(s, m.start()) and _prose_verb(m, s) for m in _TRANSFER.finditer(s))
+    for pattern in (_TRANSFER, _PUBLISH):
+        for m in pattern.finditer(s):
+            if not _negated(s, m.start()) and _prose_verb(m, s):
+                return True
+    return False
 
 
 def _sends(s: str, target: re.Match[str], *, need_sink: bool) -> bool:
