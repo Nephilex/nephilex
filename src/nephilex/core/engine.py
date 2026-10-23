@@ -117,6 +117,9 @@ class ScanEngine:
         project = self._working_copy(project)
         RepositoryAnalyzer().analyze(project)
         result.project_summary = project.summary()
+        library = self._library_mode(project)
+        if library is not None:
+            result.project_summary["library_mode"] = library.as_dict()
 
         # AI provider (shared by all agents). Falls back to heuristic if needed.
         ai = self._provider()
@@ -339,6 +342,10 @@ class ScanEngine:
             digest = context.language_digest(language)
             if digest:
                 options["__context__"] = digest
+        if scanner.name == "ast-python":
+            library = self._library_mode(ctx.project)
+            if library is not None and library.active:
+                options["__library_mode__"] = True  # different sources, different findings
         skey = scanner_key(scanner.name, options)
         files = ctx.project.files()
         keys = {f.rel_path: file_key(f.rel_path, f.text()) for f in files}
@@ -897,8 +904,23 @@ class ScanEngine:
         return bool(result.errors) and self.config.errors_fail_gate(gating)
 
     def should_fail(self, result: ScanResult) -> bool:
+        """Whether the run fails its gate.
+
+        Library-mode findings (tagged ``public-api``) never fail ``fail_on``:
+        their input is a public function's argument, so whether they are
+        exploitable depends on how callers outside the project use the API.
+        They are still reported, and ``min_severity`` still filters them.
+        """
         if self.fails_on_errors(result):
             return True
         if self.config.fail_on is None:
             return False
-        return result.highest_severity() >= self.config.fail_on
+        return result.gating_severity() >= self.config.fail_on
+
+    def _library_mode(self, project: Project):
+        """The library-mode decision for a Python project, or None without Python."""
+        if not any(f.language == "Python" for f in project.files()):
+            return None
+        from nephilex.analysis.library import library_mode_for
+
+        return library_mode_for(project, self.config.library_mode)

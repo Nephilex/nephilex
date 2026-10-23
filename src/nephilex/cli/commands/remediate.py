@@ -341,7 +341,7 @@ def review(
         if fail_on_error is not None:
             cfg.fail_on_error = fail_on_error
         fail_on_scanner_errors(result, cfg, gating=threshold is not None)
-        if threshold is not None and result.highest_severity() >= threshold and result.findings:
+        if threshold is not None and result.gating_severity() >= threshold and result.findings:
             err_console.print(f"[red]Failing:[/red] findings at/above {threshold.label}.")
             raise typer.Exit(1)
     finally:

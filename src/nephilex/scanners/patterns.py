@@ -527,6 +527,53 @@ def _is_test_file(path: str) -> bool:
     return bool(_TEST_PATH.search(path))
 
 
+# --- weak-hash purpose ---------------------------------------------------------
+# MD5 and SHA-1 are broken for collision resistance. That breaks signatures,
+# integrity checks against an attacker and password storage, but a checksum,
+# ETag or cache key that the program computes over content is weakened much
+# less: a collision there means two inputs share a key (cache confusion), not a
+# forged credential. Such uses are kept, at low severity; anything that names a
+# password, secret, token, signature, salt or session stays at the rule's
+# severity, with the KDF guidance.
+_NON_SECURITY_HASH = re.compile(
+    r"(?i)etag|checksum|fingerprint|cache|content_?hash|file_?hash|page_?hash|dedup"
+    r"|md5sum|sha1sum|(?<![A-Za-z])digest(?![A-Za-z(])|hash_?key|content_?key|\bkey_for\b"
+)
+_SECURITY_HASH = re.compile(
+    r"(?i)passw|pwd|secret|token|signat|\bsign|hmac|auth|credential|salt|nonce|session"
+    r"|api_?key|private|\botp\b|\bpin\b|cookie|csrf|verify|integrity"
+)
+_DEF_LINE = re.compile(r"^\s*(?:async\s+)?(?:def|function)\s+(\w+)")
+_USED_FOR_SECURITY_FALSE = re.compile(r"usedforsecurity\s*=\s*False")
+
+
+def _hash_call_text(lines: list[str], lineno: int, start: int) -> str:
+    """The hash call from its match to its closing parenthesis (up to 4 lines)."""
+    text = lines[lineno - 1][start:]
+    extra = lineno
+    while text.count("(") > text.count(")") and extra < min(len(lines), lineno + 3):
+        text += "\n" + lines[extra]
+        extra += 1
+    return text
+
+
+def _hash_purpose(lines: list[str], lineno: int) -> str | None:
+    """``"checksum"`` when a weak hash is evidently a content key, else None.
+
+    Looks at the line (the variable it is assigned to, the call) and at the
+    name of the enclosing function.
+    """
+    context = lines[lineno - 1]
+    for back in range(lineno - 1, max(0, lineno - 40), -1):
+        m = _DEF_LINE.match(lines[back - 1])
+        if m:
+            context += " " + m.group(1)
+            break
+    if _SECURITY_HASH.search(context):
+        return None
+    return "checksum" if _NON_SECURITY_HASH.search(context) else None
+
+
 @dataclass(frozen=True)
 class _Grade:
     """How the AST data-flow verdict changes a graded regex finding."""
@@ -663,6 +710,12 @@ class PatternScanner(Scanner):
                         continue
                     if rule.suppress and rule.suppress.search(segment):
                         continue  # a known-safe idiom on this line
+                    purpose: str | None = None
+                    if rule.id == "weak-hash-md5-sha1":
+                        call = _hash_call_text(lines, lineno, offset + m.start())
+                        if _USED_FOR_SECURITY_FALSE.search(call):
+                            continue  # declared non-security (Python 3.9+), even across lines
+                        purpose = _hash_purpose(lines, lineno)
                     grade: _Grade | None = None
                     if rule.grade and parser is not None and f.language == "Python":
                         if verdicts is None:
@@ -681,6 +734,7 @@ class PatternScanner(Scanner):
                         in_test=in_test,
                         columns=match_columns(m, offset),
                         grade=grade,
+                        purpose=purpose,
                     )
             # Cross-line path-traversal heuristic (Python only).
             if f.language == "Python":
@@ -761,15 +815,29 @@ class PatternScanner(Scanner):
         in_test: bool = False,
         columns: tuple[int, int] | None = None,
         grade: _Grade | None = None,
+        purpose: str | None = None,
     ) -> Finding:
         severity = rule.severity
         confidence = rule.confidence
         tags = ["sast"]
         metadata: dict[str, str] = {}
+        description = rule.why
         if grade is not None:
             severity = grade.severity if grade.severity is not None else severity
             confidence = grade.confidence if grade.confidence is not None else confidence
             metadata["dataflow"] = grade.verdict
+        if purpose == "checksum":
+            severity = min(severity, Severity.LOW)
+            confidence = Confidence.LOW
+            tags.append("non-security-hash")
+            metadata["hash_purpose"] = "checksum"
+            description = (
+                f"{rule.why} Here the hash looks like a checksum, ETag or cache key "
+                "rather than a password, signature or token, so it is reported at low "
+                "severity: a collision lets two inputs share a key. If it protects "
+                "integrity against an attacker or stores a secret, treat it as medium. "
+                "Pass usedforsecurity=False (Python 3.9+) to mark a non-security use."
+            )
         # Test/fixture code is lower risk: downgrade a level and mark it, rather
         # than hiding it. Keeps the signal without drowning real production issues.
         if in_test:
@@ -781,7 +849,7 @@ class PatternScanner(Scanner):
             rule_id=f"{self.name}.{rule.id}",
             scanner=self.name,
             title=rule.title,
-            description=rule.why,
+            description=description,
             location=_location(path, lineno, line, columns),
             severity=severity,
             confidence=confidence,

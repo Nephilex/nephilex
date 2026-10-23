@@ -717,6 +717,102 @@ CASES: list[Case] = [
         "    if not str(p).startswith(str(base)):\n        return 'no'\n"
         "    return p.read_text()\n",
     ),
+    # --- path traversal, SSRF, template injection (Python detection work) ----
+    Case(
+        "taint-flask-path-param",
+        "taint",
+        "view.py",
+        True,
+        _FLASK + "from flask import send_file\n@app.route('/dl/<path:name>')\ndef dl(name):\n"
+        "    return send_file(os.path.join('/srv/files', name))\n",
+    ),
+    Case(
+        "taint-flask-send-from-directory-safe",
+        "taint",
+        "view.py",
+        False,
+        _FLASK + "from flask import send_from_directory\n@app.route('/dl/<path:name>')\n"
+        "def dl(name):\n    return send_from_directory('/srv/files', name)\n",
+    ),
+    Case(
+        "taint-fastapi-ssrf",
+        "taint",
+        "api.py",
+        True,
+        "import requests\nfrom fastapi import FastAPI, Query\napp = FastAPI()\n"
+        "@app.get('/preview')\ndef preview(url: str = Query(...)):\n"
+        "    return {'body': requests.get(url, timeout=5).text}\n",
+    ),
+    Case(
+        "taint-fastapi-ssrf-allowlist-safe",
+        "taint",
+        "api.py",
+        False,
+        "import requests\nfrom urllib.parse import urlparse\nfrom fastapi import FastAPI, Query\n"
+        "app = FastAPI()\nALLOWED = ('images.example.com',)\n"
+        "@app.get('/preview')\ndef preview(url: str = Query(...)):\n"
+        "    if urlparse(url).hostname not in ALLOWED:\n        return {'error': 'host'}\n"
+        "    return {'body': requests.get(url, timeout=5).text}\n",
+    ),
+    Case(
+        "taint-tar-upload-extractall",
+        "taint",
+        "view.py",
+        True,
+        _FLASK + "import tarfile\n@app.route('/import', methods=['POST'])\ndef imp():\n"
+        "    with tarfile.open(fileobj=request.files['bundle'].stream) as tar:\n"
+        "        tar.extractall('/srv/import')\n    return 'ok'\n",
+    ),
+    Case(
+        "taint-tar-upload-data-filter-safe",
+        "taint",
+        "view.py",
+        False,
+        _FLASK + "import tarfile\n@app.route('/import', methods=['POST'])\ndef imp():\n"
+        "    with tarfile.open(fileobj=request.files['bundle'].stream) as tar:\n"
+        "        tar.extractall('/srv/import', filter='data')\n    return 'ok'\n",
+    ),
+    Case(
+        "taint-render-template-string",
+        "taint",
+        "view.py",
+        True,
+        _FLASK + "from flask import render_template_string\n@app.route('/greet')\n"
+        "def greet():\n    return render_template_string(request.args.get('tpl', ''))\n",
+    ),
+    Case(
+        "taint-render-template-string-variable-safe",
+        "taint",
+        "view.py",
+        False,
+        _FLASK + "from flask import render_template_string\n@app.route('/greet')\n"
+        "def greet():\n"
+        "    return render_template_string('Hello {{ n }}', n=request.args.get('n', ''))\n",
+    ),
+    Case(
+        "taint-zip-slip",
+        "taint",
+        "unpack.py",
+        True,
+        "import os\nimport zipfile\ndef unpack(archive, dest):\n"
+        "    with zipfile.ZipFile(archive) as zf:\n        for name in zf.namelist():\n"
+        "            with open(os.path.join(dest, name), 'wb') as out:\n"
+        "                out.write(zf.read(name))\n",
+    ),
+    Case(
+        "taint-zip-slip-contained-safe",
+        "taint",
+        "unpack.py",
+        False,
+        "import os\nimport zipfile\ndef unpack(archive, dest):\n"
+        "    root = os.path.realpath(dest)\n"
+        "    with zipfile.ZipFile(archive) as zf:\n        for name in zf.namelist():\n"
+        "            target = os.path.realpath(os.path.join(root, name))\n"
+        "            if os.path.commonpath([root, target]) != root:\n"
+        "                raise ValueError(name)\n"
+        "            with open(target, 'wb') as out:\n"
+        "                out.write(zf.read(name))\n",
+    ),
     Case(
         "taint-request-wrapper",
         "taint",

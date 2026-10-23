@@ -47,6 +47,21 @@ def docs_url_for(scanner: str) -> str:
 # The importer's digest of a SARIF result (see nephilex.importers.sarif).
 _SARIF_DIGEST = re.compile(r"[0-9a-f]{8,64}")
 
+#: Tag on findings whose input is a public function's parameter (library mode).
+#: They are reported for review but do not count toward a ``--fail-on`` gate.
+PUBLIC_API_TAG = "public-api"
+
+
+def counts_toward_gate(finding: Finding) -> bool:
+    """Whether ``finding`` can fail a ``--fail-on`` / ``fail_on`` severity gate.
+
+    Library-mode findings (tagged :data:`PUBLIC_API_TAG`) are excluded: their
+    input is whatever a caller of the library passes, so whether they are
+    exploitable depends on code outside the scanned project.
+    """
+    return PUBLIC_API_TAG not in finding.tags
+
+
 _E = TypeVar("_E", bound="_LabeledIntEnum")
 
 
@@ -307,3 +322,9 @@ class ScanResult(BaseModel):
 
     def highest_severity(self) -> Severity:
         return max((f.severity for f in self.findings), default=Severity.INFO)
+
+    def gating_severity(self) -> Severity:
+        """Highest severity among the findings that count toward a fail-on gate."""
+        return max(
+            (f.severity for f in self.findings if counts_toward_gate(f)), default=Severity.INFO
+        )
