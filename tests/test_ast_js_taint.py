@@ -588,6 +588,21 @@ def test_helper_finding_is_reported_at_the_call_site():
     assert finding.metadata["sink_line"] == 2
 
 
+def test_helper_with_a_callback_is_followed():
+    code = (
+        "const { exec } = require('child_process');\n"
+        "function run(line) {\n"
+        "  return new Promise((resolve, reject) => {\n"
+        "    exec(line, (err, out) => (err ? reject(err) : resolve(out)));\n"
+        "  });\n"
+        "}\n"
+        "app.get('/x', async (req, res) => res.send(await run('du -sh ' + req.query.dir)));\n"
+    )
+    [finding] = [f for f in _scan("a.js", code) if "CWE-78" in f.cwe]
+    assert finding.location.start_line == 7
+    assert finding.metadata["sink_line"] == 4
+
+
 def test_param_wrappers_and_runner_names_are_not_reported():
     code = (
         "const { exec, execSync } = require('child_process');\n"

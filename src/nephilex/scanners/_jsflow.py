@@ -523,6 +523,7 @@ class JsFlow:
         self._done: set[tuple[int, int]] = set()
         self._ret_stack: list[TaintSet] = []
         self._inline_stack: list[str] = []
+        self._sig_stack: list[bool] = []
         self._inline_memo: dict[tuple[Any, ...], TaintSet] = {}
         self._anchor: Any = None
         self._passed: set[tuple[str, str, int]] = set()
@@ -1530,7 +1531,11 @@ class JsFlow:
         tainted: dict[str, TaintSet] | None = None,
     ) -> TaintSet:
         """Walk a function with the enclosing scope (closures); returns its return taint."""
-        if tainted is None:
+        if tainted is None and self._inline_stack:
+            if not self._sig_stack[-1]:
+                return {}
+            tainted = {}  # a nested function inside a followed helper: closure taint only
+        elif tainted is None:
             span = (fn.start_byte, fn.end_byte)
             if span in self._done:
                 return {}
@@ -1566,9 +1571,16 @@ class JsFlow:
         if call is None or call.type not in ("call_expression", "new_expression"):
             return False
         span = (fn.start_byte, fn.end_byte)
-        if span in self._done:
-            return True
-        self._done.add(span)
+        if self._inline_stack:
+            # Inside a followed helper the callback is walked again with the caller's
+            # taint (new Promise((resolve) => exec(cmd, ...)) in a run(cmd) helper), but
+            # only when that taint can be reported; the helper's own walk covers the rest.
+            if not self._sig_stack[-1]:
+                return True
+        else:
+            if span in self._done:
+                return True
+            self._done.add(span)
         tainted: dict[str, TaintSet] = {}
         params = [self._param_pattern(p) for p in self._params(fn)]
         callee = call.child_by_field_name("function")
@@ -1614,7 +1626,13 @@ class JsFlow:
                     callee[pname] = ts
                 passed.update((t.flavor, t.origin, t.line) for t in ts.values())
         outer = self._anchor is None
-        anchor_line = call.start_point[0] + 1 if outer and passed else 0
+        # Worth following per call site only when the arguments carry reportable taint:
+        # input from outside, or a parameter already built into a command string. A raw
+        # parameter is reported by the helper's own walk.
+        significant = any(
+            t.flavor != "param" or t.built for ts in callee.values() for t in ts.values()
+        ) or bool(self._sig_stack and self._sig_stack[-1])
+        anchor_line = call.start_point[0] + 1 if outer and significant else 0
         key = (
             name,
             fn.start_byte,
@@ -1631,6 +1649,7 @@ class JsFlow:
             return self._inline_memo[key]
         self._inline_memo[key] = {}
         self._inline_stack.append(name)
+        self._sig_stack.append(significant)
         saved = (self._anchor, self._passed)
         if outer:
             self._anchor = call
@@ -1639,6 +1658,7 @@ class JsFlow:
             ret = self._function(fn, {}, callee)
         finally:
             self._inline_stack.pop()
+            self._sig_stack.pop()
             self._anchor, self._passed = saved
         self._inline_memo[key] = ret
         return ret
