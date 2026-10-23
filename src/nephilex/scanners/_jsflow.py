@@ -381,7 +381,8 @@ _SANITIZER_MODULES: dict[str, frozenset[str]] = {
     "devalue": frozenset({"code", "html"}),
 }
 _LEGACY_SANITIZERS: dict[str, frozenset[str]] = {
-    "encodeURIComponent": frozenset({"html", "ssrf", "shell", "redirect", "code"}),
+    # Not code: `alert(1)` comes out of encodeURIComponent unchanged.
+    "encodeURIComponent": frozenset({"html", "ssrf", "shell", "redirect"}),
     "encodeURI": frozenset({"html"}),
     "escape": frozenset({"html", "sql"}),
     "sanitize": frozenset({"html"}),
@@ -2320,6 +2321,13 @@ class JsFlow:
             header = self.string(self.unwrap(args[0]))
             if header is not None and header.lower() == "location":
                 self._sink(node, "redirect", args[1], f"{fn_text}('Location')", scope)
+            return
+        if head in _RES_NAMES and last == "writeHead" and len(args) > 1:
+            headers = self.unwrap(args[-1])
+            if headers is not None and headers.type == "object":
+                for k, v in self._pairs(headers).items():
+                    if k.lower() == "location":
+                        self._sink(node, "redirect", v, f"{fn_text}() Location header", scope)
             return
 
         # XSS

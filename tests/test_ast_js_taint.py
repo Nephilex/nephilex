@@ -508,6 +508,19 @@ CASES = [
         "CWE-918",
     ),
     (
+        "node-writehead-location",
+        "server.js",
+        "http.createServer((req, res) => {\n"
+        "  const to = new URL(req.url, 'http://x').searchParams.get('to');\n"
+        "  res.writeHead(302, { Location: to });\n  res.end();\n"
+        "});\n",
+        "http.createServer((req, res) => {\n"
+        "  const to = new URL(req.url, 'http://x').searchParams.get('to');\n"
+        "  res.writeHead(302, { Location: '/go?to=' + encodeURIComponent(to) });\n  res.end();\n"
+        "});\n",
+        "CWE-601",
+    ),
+    (
         "http-request-host-option",
         "proxy.js",
         "const http = require('http');\n"

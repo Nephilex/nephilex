@@ -141,6 +141,78 @@ absolute path or another quoting style gets past them. `request.path` is not a
 source inside a view whose routes have no `<converters>`, because routing
 already fixed it.
 
+**JavaScript/TypeScript sinks and rule ids** (`ast-js.*`, for `.js`, `.jsx`,
+`.mjs`, `.cjs`, `.ts`, `.mts`, `.cts` and `.tsx`):
+
+| Rule | CWE | Sink |
+| --- | --- | --- |
+| `ast-command-injection` | 78 | `child_process` `exec`/`execSync`, `spawn`/`execFile` with `shell: true` or running `sh -c`/`cmd /c`/`powershell -Command`, shelljs `exec`, execa `execaCommand`; `promisify(exec)` and `require('child_process').exec` bindings are resolved |
+| `ast-code-injection` | 95 | `eval` (also `window.eval`, `window['eval']`), the `Function` constructor, `vm.runInThisContext`/`runInNewContext`/`runInContext`/`compileFunction`, `new vm.Script`, `setTimeout`/`setInterval` with a string |
+| `ast-path-traversal` | 22 | `fs`, `fs/promises` and `fs-extra` file operations (read, write, open, stream, mkdir, rm, rename, copy), `res.sendFile`/`res.download` without a `root` option, `express.static`/`serve-static` roots |
+| `ast-path-prefix-check` | 22 | a resolved path checked with `startsWith(baseDir)` where the base has no trailing separator, so a sibling directory passes (no traced source) |
+| `ast-ssrf` | 918 | `fetch`, `$fetch`, `node-fetch`, `undici`, `axios`/`got`/`superagent`/`needle`/`ky` calls and their `url`/`baseURL`/`host` options, `http(s).get`/`request` |
+| `ast-xss` | 79 | `innerHTML`/`outerHTML`/`srcdoc` assignment, `document.write`, `insertAdjacentHTML`, `createContextualFragment`, JSX `dangerouslySetInnerHTML`, jQuery `$(html)`/`.html()`, `setAttribute('on*')`, Angular `bypassSecurityTrust*`, Lit `unsafeHTML`, Handlebars `SafeString`; on the server Express `res.send` of a string, `res.end`/`res.write`/`reply.send` with markup or a `text/html` type, Koa `ctx.body`, Hono `c.html` |
+| `ast-template-autoescape-off` | 79 | Nunjucks `configure`/`Environment` with `autoescape: false`, Handlebars `compile` with `noEscape: true` (configuration, no traced source) |
+| `ast-open-redirect` | 601 | `.redirect()` on a response or context (Express, Koa, Fastify, `NextResponse`), `redirect()` from `next/navigation` or React Router, a `Location` header, `location.href`/`window.location` assignment, `location.assign`/`replace`, `window.open` |
+| `ast-template-injection` | 1336 | the template text of `ejs.render`/`compile`, `pug.render`/`compile`, `Handlebars.compile`, `nunjucks.renderString`, `_.template` |
+| `ast-sql-injection` | 89 | the query text of `.query()`, `.execute()`, `.raw()`, `$queryRawUnsafe`/`$executeRawUnsafe`, `prepare()` on a database object; bound parameters and `sql`-tagged templates are not flagged |
+
+**JS/TS sources.** Server request input: `req`/`request` `.query`, `.body`,
+`.params`, `.headers`, `.cookies`, `.url`, `.originalUrl`, `.path`, `.files`
+(not the upload fields the server generates, such as `path` and
+`tempFilePath`), `req.get()`/`req.header()`; Koa `ctx.query`, `ctx.params`,
+`ctx.request.*`, `ctx.get()`; Next.js `request.nextUrl.searchParams`, `await
+request.json()`/`formData()`/`text()` and the `searchParams` page prop; h3/Nuxt
+`getQuery`, `readBody`, `getRouterParam`, `getRequestURL`, `getHeader`; Hono
+`c.req.*`. Browser input (`location.*`, `document.URL`, `document.referrer`,
+`document.cookie`, `window.name`, `postMessage` event data, `useSearchParams`)
+is reported at HTML, redirect and code sinks only. Archive entry names
+(tar-stream, yauzl and unzipper `on('entry')`, adm-zip `getEntries()`) are
+reported at file sinks (zip slip). `process.env` and `process.argv` are
+reported at SQL sinks only.
+
+**JS/TS library parameters.** A function parameter that is concatenated or
+interpolated into a shell command or an `eval`/`vm` string together with
+literal text (`exec('ping ' + host)`) is reported at medium confidence, because
+whoever calls the function with user input gets the injection. Passing a
+parameter through unchanged (`exec(cmd)`), parameters named like a command or
+code (`cmd`, `command`, `script`, `code`), parameters typed `number` or
+`boolean`, and the `Function` constructor (how template engines compile) are
+not reported. When the command is built in one function and run by a helper
+defined in the same file, the finding is shown at the call into the helper.
+
+**How JS/TS values are tracked.** One walk per file in statement order:
+assignments, destructuring with defaults, template literals, `+` chains,
+`join`/`concat`/`replace`, `await`, optional chaining, TypeScript `as`/`!`/
+`satisfies`, `for...of`, array callbacks (`forEach`, `map`, `then`), closures
+(nested functions see their enclosing scope) and calls to functions and `this`
+methods defined once in the file (followed with the caller's argument taint).
+Object literals, spreads and `Object.assign`/`$.extend` keep a taint per field,
+so `{ label: 'x', target: req.query.t }.label` is clean. A file system, HTTP or
+`exec` call returns fresh data, not its argument.
+
+**JS/TS guards and sanitizers.** Sanitizers clear only their class: HTML
+escapers (`escape-html`, `he`, DOMPurify, `sanitize-html`, `xss`, any
+`*escape*`/`*sanitize*` name) for XSS, `shell-quote` and `*shellEscape*` names
+for commands, `path.basename` and `sanitize-filename` for paths, `jsesc`,
+`serialize-javascript`, `devalue` and `JSON.stringify` for code,
+`encodeURIComponent` for XSS, SSRF, redirects and commands, and numeric
+coercion for everything. `htmlSafe()` is not a sanitizer (it marks HTML as
+trusted). A block that returns or throws when a check fails clears the value
+after it: allowlist membership (`includes`, `has`, `in`, `Object.hasOwn`),
+equality with a literal, an anchored regex test, a predicate named like a
+validator (`isValid*`, `isAllowed*`, `isSafe*`, `isPathInside`) or a blocklist
+(`isPrivate*`, `isBlocked*`), a URL host compared with an allowlist or with the
+request's own host, a resolved path checked with `startsWith(base + path.sep)`
+or `path.relative(base, p)` against `..`, and a regex `replace` that removes
+everything outside a character class. A statement call such as
+`assertValidRegion(r)` or `validateName(n)` is taken to throw and clears its
+argument. `path.join(root, path.normalize('/' + p))` stays under `root`. Host
+pinned URLs (`` `https://api.example.com/${id}` ``) and relative URLs are not
+SSRF or open redirect. String blocklists (`p.includes('..')`) are not trusted.
+Express's `res.send` of a string is HTML unless the handler sets another
+content type.
+
 **Limits.** Strongest for Python and JS/TS. Interprocedural analysis is bounded
 (one call hop, plus request wrappers); extremely dynamic code can defeat static
 tracing. Guards are recognized only in the simple forms above. A file that needs
