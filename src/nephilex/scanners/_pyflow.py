@@ -546,6 +546,23 @@ _IP_CLASSIFIERS = re.compile(
 )
 _HTML_TAG = re.compile(r"<(?:[A-Za-z][A-Za-z0-9-]*[\s>/]|/[A-Za-z]|!)")
 _URL_PARSERS = frozenset({"urlparse", "urlsplit", "URL", "parse_url"})
+_AUTOESCAPED_RENDERERS = frozenset(
+    {"jsonify", "render_template", "render_template_string", "TemplateResponse"}
+)
+#: Stored-record lookups: the result is what the database holds for a key, not
+#: the key's text (Django managers, Flask-SQLAlchemy and SQLAlchemy getters,
+#: and repository methods named get_..._by_id / find_by_... by convention).
+_RECORD_GETTERS = frozenset(
+    {"get_object_or_404", "get_list_or_404", "get_or_404", "first_or_404", "one_or_404"}
+)
+_RECORD_LOOKUP_NAME = re.compile(
+    r"^(?:get|find|fetch|load|lookup|read|query|select)_(?:\w+_)?by_\w+$"
+    r"|^\w+_by_(?:id|pk|uuid|key|slug|name|email|ids)$"
+)
+_ORM_QUERY_METHODS = frozenset(
+    {"get", "filter", "filter_by", "exclude", "first", "one", "one_or_none", "all", "last"}
+    | {"get_or_create", "values", "values_list", "only", "order_by", "scalar"}
+)
 _NUMBER_TYPES = frozenset(
     {"int", "float", "bool", "complex", "Decimal", "decimal.Decimal", "numbers.Number"}
 )
@@ -2952,6 +2969,10 @@ class Flow:
                     param=base.param,
                     flags=summ.flags,
                 )
+        if self._is_record_lookup(c):
+            # A row looked up by a key from the request holds stored data, not
+            # the key's text.
+            return UNKNOWN
         if not args and c.last in _DICT_CTORS:
             return Val(lit=True, elems=())
         if not args and c.last in _LIST_CTORS:
@@ -2989,9 +3010,10 @@ class Flow:
         if recv is not None and c.last == "keys" and recv.elems is not None:
             return Val(lit=True)
         extra_clean = self._specific_clean(c)
-        # Flask renders both with autoescaping on (the template source of
-        # render_template_string is checked as a template-injection sink).
-        if c.last in ("jsonify", "render_template", "render_template_string"):
+        # Flask's render_template(_string), Starlette's Jinja2Templates and
+        # Django's TemplateResponse / render render with autoescaping on (the
+        # template source of render_template_string is a template-injection sink).
+        if c.last in _AUTOESCAPED_RENDERERS or (c.last == "render" and c.fn == "render"):
             v = combine(args)
             return replace(v, clean=v.clean | _XSS_CLEAN) if v.taint else v
         if c.last in ("make_response", "Response") and c.pos:
@@ -3100,6 +3122,30 @@ class Flow:
             src=v.src,
             embed=embed,
             part=part,
+        )
+
+    def _is_record_lookup(self, c: _Call) -> bool:
+        """A database lookup by key: Django managers, (Flask-)SQLAlchemy queries,
+        ``get_object_or_404`` and repository methods named ``get_..._by_id``.
+
+        Taint is not carried from the key to the record: the record's fields are
+        what the application stored. (Stored data that users wrote can still be
+        dangerous; this engine does not model stored, second-order flows.)
+        """
+        if c.recv is not None and c.recv.taint:
+            return False
+        if c.last in _RECORD_GETTERS or _RECORD_LOOKUP_NAME.match(c.last):
+            return True
+        if c.recv_node is None or c.last not in _ORM_QUERY_METHODS:
+            return False
+        chain = self._compact(c.recv_node)
+        if ".objects" in chain or re.search(r"\.query(?:\(|\.|$)", chain):
+            return True  # Model.objects.get(...), Model.query.get(...), session.query(M).get(...)
+        # SQLAlchemy Session.get(Model, key)
+        return (
+            c.last == "get"
+            and len(c.pos) >= 2
+            and re.search(r"(?:^|\.)session$", chain) is not None
         )
 
     def _result_is_not_input(self, c: _Call) -> bool:

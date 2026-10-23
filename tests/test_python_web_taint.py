@@ -452,3 +452,32 @@ def test_allowlist_validator_helper_clears_its_argument(tmp_path):
     assert "ast-path-traversal" not in _rules(tmp_path, code)
     unchecked = code.replace("    check(name)\n", "")
     assert "ast-path-traversal" in _rules(tmp_path, unchecked)
+
+
+# --- records and autoescaped templates ------------------------------------------
+@pytest.mark.parametrize(
+    "lookup",
+    [
+        "Files.get_file_by_id(id)",
+        "Document.objects.get(pk=id)",
+        "Document.query.filter_by(id=id).first()",
+        "db.session.get(Document, id)",
+        "get_object_or_404(Document, pk=id)",
+    ],
+)
+def test_record_looked_up_by_a_request_key_is_stored_data(tmp_path, lookup):
+    code = _fastapi_view(
+        "get('/files/{id}')", "id: str", f"doc = {lookup}\nreturn FileResponse(doc.path)"
+    )
+    assert "ast-path-traversal" not in _rules(tmp_path, code)
+    direct = _fastapi_view("get('/files/{id}')", "id: str", "return FileResponse(id)")
+    assert "ast-path-traversal" in _rules(tmp_path, direct)
+
+
+def test_starlette_template_response_is_autoescaped(tmp_path):
+    code = _fastapi_view(
+        "get('/a', response_class=HTMLResponse)",
+        "request: Request, name: str",
+        "return templates.TemplateResponse('a.html', {'request': request, 'name': name})",
+    )
+    assert "ast-xss" not in _rules(tmp_path, code)
