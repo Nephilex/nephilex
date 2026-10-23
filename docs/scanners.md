@@ -179,8 +179,50 @@ state/PKCE, tokens in URLs, and cookies set without security flags:
 `authz.cookie-missing-httponly` (CWE-1004). The call is read across lines; an
 explicit `False` is high confidence, a missing flag medium.
 
+**Global authentication.** Before reporting `authz.missing-authentication`, the
+scanner looks for authentication registered once for the whole application:
+
+- FastAPI and Starlette: an `@app.middleware("http")` function; a class passed to
+  `app.add_middleware(...)` or `FastAPI(middleware=[Middleware(...)])` whose
+  `dispatch` or `__call__` does the check; `FastAPI(dependencies=[...])`; and
+  `include_router(router, dependencies=[...])`, which covers only the routes of
+  that router's module. `APIRouter(dependencies=[...])` already covered the
+  routes in its own file.
+- Flask: `@app.before_request` (or `app.before_request(func)`) for the whole app,
+  `@blueprint.before_request` for that blueprint's routes, and
+  `before_app_request`.
+- Django: `LoginRequiredMiddleware` or a project middleware in `MIDDLEWARE`
+  whose `__call__`, `process_request` or `process_view` does the check. A route
+  marked `@login_not_required` stays reported. `@login_required` and the
+  `LoginRequiredMixin`, `PermissionRequiredMixin` and `UserPassesTestMixin`
+  classes count as route-level auth.
+
+A middleware or hook counts only if it reads a credential (an `Authorization`,
+API-key or token header, a cookie, the session, `request.user`, or a call such
+as `verify_token()` or `compare_digest()`) and, when that check fails, returns
+or raises 401 or 403 (`abort(401)`, `HTTPException(status_code=401)`,
+`HttpResponseForbidden`, `PermissionDenied`). A middleware that only logs, adds
+headers, applies CORS or rate-limits is not authentication. Dependencies count
+when their callable is named like authentication (`get_current_user`,
+`verify_api_key`) or is a function that does the check; `Depends(get_db)` does
+not.
+
+Path exemptions are read from the guard: `if request.url.path == "/health"`,
+`in PUBLIC_PATHS` (a literal or a module constant), `.startswith(...)`, and
+Flask `request.endpoint in (...)`. A route the guard skips is reported as
+before. If a skip condition cannot be read (for example a function call), the
+guard covers nothing. With more than one FastAPI or Flask application in the
+project, an app-wide guard covers only the routes in its own file.
+
+A covered route is not dropped. It is reported at Info as "Sensitive route
+relies on global authentication", naming the guard in `metadata.global_auth`,
+so the assumption that the route is mounted behind that guard stays visible
+without failing a gate.
+
 **Does not.** Judge a flag set from configuration (`secure=app.config[...]`), or
-know whether a cookie is a session cookie.
+know whether a cookie is a session cookie. Follow which application a router is
+finally mounted on when there are several, or treat a redirect to a login page
+as a rejection (only 401 and 403 are).
 
 ## Malicious code (malware)
 
