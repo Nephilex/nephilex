@@ -19,10 +19,12 @@ cases by path.
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import datetime as _dt
 import hashlib
 import json
 import platform
+import re
 import subprocess
 import sys
 import time
@@ -103,9 +105,15 @@ def to_case(c: dict[str, Any]) -> hs.Case:
 Found = dict[str, dict[str, list[Finding]]]
 
 
-def _nephilex_one(bs: BenchSet, case: dict[str, Any], version: str) -> dict[str, Any]:
+def _nephilex_raw(bs: BenchSet, config: Path | None) -> Path:
+    return bs.raw / ("nephilex" if config is None else f"nephilex-{config.stem}")
+
+
+def _nephilex_one(
+    bs: BenchSet, case: dict[str, Any], version: str, config: Path | None = None
+) -> dict[str, Any]:
     root = bs.files / case["case_id"] / version
-    out_dir = bs.raw / "nephilex"
+    out_dir = _nephilex_raw(bs, config)
     raw = out_dir / f"{case['case_id']}.{version}.json"
     cmd = [
         sys.executable,
@@ -121,6 +129,8 @@ def _nephilex_one(bs: BenchSet, case: dict[str, Any], version: str) -> dict[str,
         "-o",
         str(raw),
     ]
+    if config is not None:
+        cmd += ["-c", str(config)]
     raw.unlink(missing_ok=True)
     start = time.perf_counter()
     # cwd is our raw directory, never the downloaded tree: ``-m`` puts cwd on
@@ -149,14 +159,14 @@ def _nephilex_one(bs: BenchSet, case: dict[str, Any], version: str) -> dict[str,
 
 
 def run_nephilex(
-    cases: list[dict[str, Any]], jobs: int, bs: BenchSet = cli.V1
+    cases: list[dict[str, Any]], jobs: int, bs: BenchSet = cli.V1, config: Path | None = None
 ) -> tuple[dict[str, Any], Found]:
-    (bs.raw / "nephilex").mkdir(parents=True, exist_ok=True)
+    _nephilex_raw(bs, config).mkdir(parents=True, exist_ok=True)
     started = _now()
     work = [(c, v) for c in cases for v in fetch.VERSIONS]
     t0 = time.perf_counter()
     with ThreadPoolExecutor(max_workers=jobs) as pool:
-        results = list(pool.map(lambda cv: _nephilex_one(bs, *cv), work))
+        results = list(pool.map(lambda cv: _nephilex_one(bs, *cv, config=config), work))
     found: Found = {}
     failed: dict[str, list[str]] = {}
     versions = set()
@@ -187,6 +197,9 @@ def run_nephilex(
         "notes": "one run per case and version; offline heuristic provider (--no-ai); "
         "default scanners incl. the [ast] tier",
     }
+    if config is not None:
+        meta["command"] += ["-c", "<config>"]
+        meta["config"] = config.read_text(encoding="utf-8")
     return meta, found
 
 
@@ -524,11 +537,30 @@ def cmd_scan(args: argparse.Namespace) -> int:
     found_by_tool: dict[str, Found] = {}
     runs: dict[str, dict[str, Any]] = {}
     errors: dict[str, set[str]] = {}
+    base = bs
+    bs = _variant(bs, args.variant)
+    selected = tuple(args.only) if args.only else TOOLS
+    recorded: dict[str, Found] = {}
+    recorded_runs: dict[str, Any] = {}
+    if selected != TOOLS:
+        # Keep the other tools' committed findings and run metadata as they are.
+        _, _, recorded = read_case_files(base)
+        runs_path = base.results / "runs.json"
+        if runs_path.is_file():
+            recorded_runs = json.loads(runs_path.read_text(encoding="utf-8")).get("runs", {})
+    config = Path(args.nephilex_config).resolve() if args.nephilex_config else None
     for tool in TOOLS:
+        if tool not in selected:
+            if tool in recorded:
+                found_by_tool[tool] = recorded[tool]
+                runs[tool] = recorded_runs.get(tool, {})
+                errors[tool] = set(runs[tool].get("parse_errors") or [])
+                print(f"  {tool}: recorded results kept")
+            continue
         print(f"  {tool}: ", end="", flush=True)
         try:
             if tool == "nephilex":
-                meta, found = run_nephilex(cases, args.jobs, bs)
+                meta, found = run_nephilex(cases, args.jobs, bs, config)
             elif tool == "bandit":
                 meta, found = run_bandit(args.bandit, bs)
             else:
@@ -552,8 +584,21 @@ def cmd_scan(args: argparse.Namespace) -> int:
     return 0
 
 
+def _variant(bs: BenchSet, name: str | None) -> BenchSet:
+    """The set with its results in ``results/<set>-<name>/`` (e.g. a config variant)."""
+    if not name:
+        return bs
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,30}", name):
+        raise SystemExit(f"--variant {name!r}: use lower-case letters, digits and '-'")
+    return dataclasses.replace(
+        bs,
+        results=bs.results.parent / f"{bs.results.name}-{name}",
+        title=f"{bs.title} (variant: {name})",
+    )
+
+
 def cmd_score(args: argparse.Namespace) -> int:
-    bs = cli.SETS[args.set]
+    bs = _variant(cli.SETS[args.set], args.variant)
     cases, excluded, found_by_tool = read_case_files(bs)
     runs_doc = json.loads((bs.results / "runs.json").read_text(encoding="utf-8"))
     write_results(
@@ -571,8 +616,20 @@ def add_parsers(sub: Any) -> None:
     s.add_argument(
         "--refresh-semgrep-rules", action="store_true", help="re-download the Semgrep rulesets"
     )
+    s.add_argument(
+        "--only",
+        action="append",
+        choices=TOOLS,
+        help="run only this tool (repeatable); the other tools' committed results are kept",
+    )
+    s.add_argument("--nephilex-config", help="pass this .nephilex.yml to every Nephilex run")
+    s.add_argument(
+        "--variant",
+        help="write results to results/<set>-<variant>/ (e.g. a Nephilex config variant)",
+    )
     s.set_defaults(func=cmd_scan)
 
     r = sub.add_parser("score", help="re-score from the committed per-case results")
     cli.add_set_arg(r)
+    r.add_argument("--variant", help="re-score results/<set>-<variant>/")
     r.set_defaults(func=cmd_score)
