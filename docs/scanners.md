@@ -182,6 +182,44 @@ explicit `False` is high confidence, a missing flag medium.
 **Does not.** Judge a flag set from configuration (`secure=app.config[...]`), or
 know whether a cookie is a session cookie.
 
+## Malicious code (malware)
+
+**Detects.** Shapes that point at a backdoor or a compromised repository:
+decode-then-exec payloads, `__import__` indirection to a shell, reverse shells,
+PHP webshells, cryptominers, remote scripts piped to a shell, encoded
+PowerShell, suspicious package lifecycle scripts, and credential or environment
+exfiltration.
+
+`malware.data-exfil-env` needs evidence that data leaves the host. A `curl` or
+`wget` command is read word by word and reported when one of these holds:
+
+- a data or upload flag (`-d`, `--data*`, `--json`, `-F`, `--form`, `-T`,
+  `--upload-file`, wget `--post-data`, `--post-file`, `--body-data`,
+  `--body-file`) carries a secret-named variable (`$NPM_TOKEN`,
+  `${AWS_SECRET_ACCESS_KEY}`, `%DB_PASSWORD%`, `process.env.API_KEY`), the
+  whole environment (`$(env)`, `printenv`, `/proc/*/environ`) or a credential
+  file (`~/.aws`, `~/.ssh`, `.env`, `id_rsa`, `/etc/shadow`);
+- `env` or `printenv` is piped into the command, a credential file is piped or
+  redirected into it, or a secret is piped in and read with `@-`;
+- a secret-named variable or the environment appears in the URL, a header
+  (`-H`, `--header`), `-u`/`--user` or `--cookie`.
+
+A variable counts as a secret when its name contains a word such as `TOKEN`,
+`SECRET`, `PASSWORD`, `PASS`, `KEY`, `AUTH`, `SESSION` or `COOKIE`, and does not
+end in `URL`, `HOST`, `PORT`, `NAME` or similar. The Python form still reports
+`requests`, `httpx` or `urllib` calls on a literal URL with `os.environ`,
+`getenv` or `process.env` in the arguments.
+
+**Does not.** Report a request that sends nothing: a readiness loop such as
+`curl --fail --max-time 15 "$url" >/dev/null`, `wget --spider "$READY_URL"` or a
+download to `-o "$OUT_DIR/file"` is not exfiltration however many variables it
+uses.
+
+**Limits.** Line based. A command assembled across lines, or a secret copied
+into a neutrally named variable first, is not followed. An authenticated API
+call (`-H "Authorization: Bearer $GITHUB_TOKEN"`) is still reported, because the
+scanner cannot tell the intended service from an attacker's host.
+
 ## Agent config
 
 **Detects.** Risky settings in MCP server and coding-agent configuration files
