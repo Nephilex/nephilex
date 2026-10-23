@@ -244,7 +244,11 @@ exfiltration.
 - `env` or `printenv` is piped into the command, a credential file is piped or
   redirected into it, or a secret is piped in and read with `@-`;
 - a secret-named variable or the environment appears in the URL, a header
-  (`-H`, `--header`), `-u`/`--user` or `--cookie`.
+  (`-H`, `--header`), `-u`/`--user` or `--cookie`, except for the
+  authenticated API call described below.
+
+A command continued over several lines with a trailing `\` is read as one
+command.
 
 A variable counts as a secret when its name contains a word such as `TOKEN`,
 `SECRET`, `PASSWORD`, `PASS`, `KEY`, `AUTH`, `SESSION` or `COOKIE`, and does not
@@ -257,10 +261,25 @@ end in `URL`, `HOST`, `PORT`, `NAME` or similar. The Python form still reports
 download to `-o "$OUT_DIR/file"` is not exfiltration however many variables it
 uses.
 
-**Limits.** Line based. A command assembled across lines, or a secret copied
-into a neutrally named variable first, is not followed. An authenticated API
-call (`-H "Authorization: Bearer $GITHUB_TOKEN"`) is still reported, because the
-scanner cannot tell the intended service from an attacker's host.
+It also does not report an authenticated API call: a secret in a credential
+header (`Authorization`, `Cookie`, `PRIVATE-TOKEN`, or a name containing
+`token`, `api-key`, `auth`, `secret` or `session`), in `-u`/`--user`, or in
+`--oauth2-bearer`, when every destination is an `https://` URL whose host is
+written literally, for example:
+
+```sh
+curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user
+```
+
+Variables later in the path or query are fine.
+The same header is reported when the destination comes from a variable, uses
+plain `http://`, has an IP-literal host, or when the request also has a data
+or upload flag carrying a secret or the environment.
+
+**Limits.** A command assembled in a variable or through a function, or a
+secret copied into a neutrally named variable first, is not followed. A
+credential header sent to a literal `https://` host the attacker controls is
+not reported; the scanner cannot tell the intended service from another host.
 
 ## Agent config
 
