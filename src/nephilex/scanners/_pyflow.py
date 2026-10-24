@@ -114,6 +114,9 @@ ORIGIN_ARCHIVE = "archive-entry"  # a member name read from a zip or tar archive
 #: untrusted data through them. Reported at low confidence.
 ORIGIN_OPERATOR = "operator"
 _REQUEST_ORIGIN = frozenset({ORIGIN_REQUEST})
+#: Sinks where an operator-controlled value is configuration, not an attack:
+#: which server to call (OLLAMA_HOST, --api-url) or where to redirect.
+_CONFIGURATION_SINKS = frozenset({"ast-ssrf", "ast-open-redirect"})
 
 #: Library mode: what a value that comes only from a public API parameter must
 #: look like before a sink reports it. A public function that hands its own
@@ -1212,6 +1215,10 @@ class Flow:
         if not hits:
             return False
         origins: frozenset[str] = frozenset().union(*(v.origins for v in hits))
+        if origins == {ORIGIN_OPERATOR} and sink_id in _CONFIGURATION_SINKS:
+            # A server URL or redirect target taken from the environment or the
+            # command line is the operator configuring the program.
+            return False
         for origin in (ORIGIN_REQUEST, ORIGIN_ARCHIVE, ORIGIN_OPERATOR):
             if origin in origins:
                 self._emit(sink_id, node, origin, detail)

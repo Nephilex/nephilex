@@ -481,3 +481,16 @@ def test_starlette_template_response_is_autoescaped(tmp_path):
         "return templates.TemplateResponse('a.html', {'request': request, 'name': name})",
     )
     assert "ast-xss" not in _rules(tmp_path, code)
+
+
+def test_server_url_from_the_environment_is_configuration(tmp_path):
+    code = (
+        "import os, requests\n"
+        "def models():\n"
+        "    host = os.environ.get('MODEL_HOST', 'http://localhost:11434')\n"
+        "    return requests.get(host + '/api/tags').json()\n"
+    )
+    assert "ast-ssrf" not in _rules(tmp_path, code)
+    assert "ast-ssrf" in _rules(
+        tmp_path, _flask_view("/f", "", "import requests\nrequests.get(request.args['u'])")
+    )
