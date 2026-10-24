@@ -8,6 +8,31 @@ include breaking changes, noted explicitly).
 ## [Unreleased]
 
 ### Added
+- **Python taint for path traversal, XSS, SSRF and code injection.** New
+  sources (Flask route converters, FastAPI and Starlette parameters and
+  requests, uploads, archive member names), sinks (HTTP clients, template
+  compilation, tar extraction without a filter, HTML responses, pathlib and
+  aiofiles file access) and guards (path containment checks, host allowlists,
+  private-address validators, autoescaping renderers). Helpers defined in the
+  same file are summarized, so a validator or a wrapper is followed.
+- **Library mode** (`library_mode: auto | on | off`). For a Python package
+  without a web entry point, parameters of public functions are treated as
+  input from callers. These findings are low confidence and do not count
+  toward `--fail-on` or the posture gate.
+- **JavaScript/TypeScript taint engine.** `ast-js` now follows values
+  statement by statement through destructuring, template literals, closures,
+  async code and same-file helpers, with sources for Express, Fastify, Koa,
+  Next.js, h3, Hono and the browser, and sinks for command execution, code
+  evaluation, file access, outgoing requests, HTML output, redirects and
+  template compilation. A sanitizer clears only the kinds of sink it protects
+  against. Template engines configured without HTML escaping are reported.
+- **AI assistant instruction files and MCP tool poisoning.** The
+  `agent-config` scanner checks `AGENTS.md`, `CLAUDE.md`, Copilot, Cursor,
+  Windsurf, Cline and other instruction files for hidden Unicode, planted
+  directives (override, conceal, sabotage, disabling checks, download and
+  execute, exfiltration, unreviewed push), untrusted package sources and
+  encoded text, and checks MCP server tool descriptions in Python and
+  TypeScript for the same.
 - Documentation for pinning the GitHub Action by commit SHA, and for giving
   `--open-pr` a least-privilege token on GitHub, GitLab and Bitbucket
   (Bitbucket's `BITBUCKET_TOKEN` was supported but undocumented).
@@ -20,6 +45,24 @@ include breaking changes, noted explicitly).
   publishes `edge` and `sha-<commit>`, never `latest`. See RELEASING.md for the
   phases and the four-week rhythm.
 - Routine Dependabot updates are monthly instead of weekly.
+- `sys.argv`, `os.environ` and `input()` count as operator input: findings
+  from them are low confidence, and a server URL taken from the environment is
+  configuration, not SSRF. A command run as an argument list without a shell
+  is reported only when the program itself or the code passed to `-c` comes
+  from input.
+- The weak-hash rule honours `usedforsecurity=False` and reports checksum,
+  ETag and cache-key uses at low severity.
+
+### Fixed
+- Authorization: routes protected by project-wide authentication (a
+  middleware, a global dependency or a before-request guard) are no longer
+  reported as missing authorization. A guard covers only the HTTP methods it
+  checks, and a guard that fails open is noted on the finding.
+- Malware: `data-exfil-env` needs evidence that data leaves the machine, and
+  a CI script that sends a token in a credential header to a fixed `https://`
+  host is not reported.
+- A condition that joins path containment checks with `or` is no longer
+  dropped by the Python flow engine.
 
 ## [0.11.0] - 2026-10-23
 
