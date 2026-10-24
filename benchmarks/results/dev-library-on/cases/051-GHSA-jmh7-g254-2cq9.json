@@ -1,0 +1,330 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-jmh7-g254-2cq9",
+  "cve_id": "CVE-2026-28416",
+  "ecosystem": "pip",
+  "packages": [
+   "gradio"
+  ],
+  "published_at": "2026-03-01T01:29:31Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-jmh7-g254-2cq9",
+  "label_cwes": [918],
+  "repo": "gradio-app/gradio",
+  "fix_sha": "fc7c01ea1e581ef70be98fddf003b0c91315c7cc",
+  "parent_sha": "dfee0da06d0aa94b3c2684131e7898d5d5c1911e",
+  "path_vulnerable": "gradio/routes.py",
+  "path_patched": "gradio/routes.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [370, 370],
+   [372, 372]
+  ],
+  "patched_lines": [
+   [370, 373],
+   [375, 375]
+  ],
+  "commit_url": "https://github.com/gradio-app/gradio/commit/fc7c01ea1e581ef70be98fddf003b0c91315c7cc",
+  "case_id": "051-GHSA-jmh7-g254-2cq9",
+  "content": {
+   "vulnerable": {
+    "sha256": "877ab5f294e3cca40a62fa17b571c99325556ea7199dcdc913a9ea92889f2b58",
+    "bytes": 107693
+   },
+   "patched": {
+    "sha256": "2f7d958724e9546d3564b33962c4dbb66b6983eeb07dc5a982496341f53bddde",
+    "bytes": 107876
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      496,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      497,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      519,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      520,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      598,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      808,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      809,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      928,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      929,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1054,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      1103,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1107,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1770,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2000,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2204,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2208,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2399,
+      "llm.untrusted-input-in-system-prompt",
+      [74, 77]
+     ]
+    ],
+    "patched": [
+     [
+      499,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      500,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      522,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      523,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      601,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      811,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      812,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      931,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      932,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1057,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      1106,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1110,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1773,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2003,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2207,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2211,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2402,
+      "llm.untrusted-input-in-system-prompt",
+      [74, 77]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      218,
+      "B704",
+      [79]
+     ],
+     [
+      362,
+      "B101",
+      [703]
+     ],
+     [
+      485,
+      "B104",
+      [605]
+     ],
+     [
+      2443,
+      "B104",
+      [605]
+     ]
+    ],
+    "patched": [
+     [
+      218,
+      "B704",
+      [79]
+     ],
+     [
+      362,
+      "B101",
+      [703]
+     ],
+     [
+      488,
+      "B104",
+      [605]
+     ],
+     [
+      2446,
+      "B104",
+      [605]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

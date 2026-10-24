@@ -1,0 +1,202 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pw38-xv9x-h8ch",
+  "cve_id": "CVE-2024-4181",
+  "ecosystem": "pip",
+  "packages": [
+   "llama-index",
+   "llama-index-llms-rungpt"
+  ],
+  "published_at": "2024-05-16T09:33:08Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-pw38-xv9x-h8ch",
+  "label_cwes": [94],
+  "repo": "run-llama/llama_index",
+  "fix_sha": "d73715eaf0642705583e7897c78b9c8dd2d3a7ba",
+  "parent_sha": "44faac91742ef688d66f16cfd1adb811f43b53c2",
+  "path_vulnerable": "llama-index-integrations/tools/llama-index-tools-cogniswitch/llama_index/tools/cogniswitch/base.py",
+  "path_patched": "llama-index-integrations/tools/llama-index-tools-cogniswitch/llama_index/tools/cogniswitch/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [94, 96],
+   [111, 113],
+   [137, 137],
+   [160, 160]
+  ],
+  "patched_lines": [
+   [94, 94],
+   [109, 109],
+   [133, 133],
+   [155, 156]
+  ],
+  "commit_url": "https://github.com/run-llama/llama_index/commit/d73715eaf0642705583e7897c78b9c8dd2d3a7ba",
+  "case_id": "142-GHSA-pw38-xv9x-h8ch",
+  "content": {
+   "vulnerable": {
+    "sha256": "d9a312c9c9156d2fe3b54a6f07f5590db468713e6e8b948891922749397ea4b0",
+    "bytes": 5500
+   },
+   "patched": {
+    "sha256": "0f72602ce7f12e9f84d1035b3975cc3dfd2f4a77b1f1e4e784a98becc72ceb12",
+    "bytes": 5372
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      95,
+      "patterns.tls-verify-disabled",
+      [295]
+     ],
+     [
+      112,
+      "patterns.tls-verify-disabled",
+      [295]
+     ],
+     [
+      137,
+      "patterns.tls-verify-disabled",
+      [295]
+     ],
+     [
+      160,
+      "patterns.tls-verify-disabled",
+      [295]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      94,
+      "B113",
+      [400]
+     ],
+     [
+      95,
+      "B501",
+      [295]
+     ],
+     [
+      111,
+      "B113",
+      [400]
+     ],
+     [
+      112,
+      "B501",
+      [295]
+     ],
+     [
+      137,
+      "B113",
+      [400]
+     ],
+     [
+      137,
+      "B501",
+      [295]
+     ],
+     [
+      156,
+      "B113",
+      [400]
+     ],
+     [
+      160,
+      "B501",
+      [295]
+     ]
+    ],
+    "patched": [
+     [
+      94,
+      "B113",
+      [400]
+     ],
+     [
+      109,
+      "B113",
+      [400]
+     ],
+     [
+      133,
+      "B113",
+      [400]
+     ],
+     [
+      152,
+      "B113",
+      [400]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

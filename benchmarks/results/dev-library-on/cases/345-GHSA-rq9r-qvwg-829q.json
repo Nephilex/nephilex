@@ -1,0 +1,110 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rq9r-qvwg-829q",
+  "cve_id": "CVE-2024-57186",
+  "ecosystem": "npm",
+  "packages": [
+   "erxes"
+  ],
+  "published_at": "2025-06-10T18:32:27Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-rq9r-qvwg-829q",
+  "label_cwes": [22],
+  "repo": "erxes/erxes",
+  "fix_sha": "d626070a0fcd435ae29e689aca051ccfb440c2f3",
+  "parent_sha": "d53c361cd4f1d5b23001105d5cdcd782b523cb62",
+  "path_vulnerable": "packages/workers/src/worker/import/utils.ts",
+  "path_patched": "packages/workers/src/worker/import/utils.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [67, 68],
+   [80, 81],
+   [90, 90],
+   [97, 97],
+   [99, 99],
+   [154, 155],
+   [167, 167],
+   [172, 172],
+   [176, 176],
+   [178, 178]
+  ],
+  "patched_lines": [
+   [68, 68],
+   [81, 81],
+   [90, 90],
+   [97, 99],
+   [101, 103],
+   [159, 159],
+   [172, 172],
+   [177, 177],
+   [181, 183],
+   [185, 187]
+  ],
+  "commit_url": "https://github.com/erxes/erxes/commit/d626070a0fcd435ae29e689aca051ccfb440c2f3",
+  "case_id": "345-GHSA-rq9r-qvwg-829q",
+  "content": {
+   "vulnerable": {
+    "sha256": "2a90ada0f83d0a48654a722962580c2917864951ac2907d3f29e728b615940e9",
+    "bytes": 11178
+   },
+   "patched": {
+    "sha256": "1c36715e758de5f01e0234dc775958f37b135fa34accff6061de854ef2351c67",
+    "bytes": 11433
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

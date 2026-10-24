@@ -1,0 +1,162 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6f6r-m9pv-67jw",
+  "cve_id": "CVE-2025-52573",
+  "ecosystem": "npm",
+  "packages": [
+   "ios-simulator-mcp"
+  ],
+  "published_at": "2025-06-26T21:20:37Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-6f6r-m9pv-67jw",
+  "label_cwes": [78],
+  "repo": "joshuayoes/ios-simulator-mcp",
+  "fix_sha": "eb53a4f2cc8bbeb13e8d6d930f00167befcdb809",
+  "parent_sha": "042fdb758e0db8874ed2ca7a5ea125dfc412f4d9",
+  "path_vulnerable": "src/index.ts",
+  "path_patched": "src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [5, 5],
+   [11, 11],
+   [52, 52],
+   [140, 142],
+   [170, 170],
+   [181, 184],
+   [218, 218],
+   [223, 225],
+   [258, 259],
+   [274, 277],
+   [308, 309],
+   [317, 319],
+   [364, 365],
+   [368, 369],
+   [396, 401],
+   [403, 403],
+   [442, 443],
+   [477, 486],
+   [488, 488],
+   [546, 546]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [11, 34],
+   [75, 75],
+   [156, 156],
+   [164, 171],
+   [199, 203],
+   [206, 206],
+   [215, 229],
+   [261, 261],
+   [264, 268],
+   [273, 284],
+   [318, 318],
+   [334, 350],
+   [382, 382],
+   [391, 404],
+   [450, 450],
+   [455, 455],
+   [484, 497],
+   [537, 537],
+   [573, 587],
+   [645, 645]
+  ],
+  "commit_url": "https://github.com/joshuayoes/ios-simulator-mcp/commit/eb53a4f2cc8bbeb13e8d6d930f00167befcdb809",
+  "case_id": "287-GHSA-6f6r-m9pv-67jw",
+  "content": {
+   "vulnerable": {
+    "sha256": "465b6a66c83650a47151950766397c859aaf28fbffe27f10c6f1643a06080ed2",
+    "bytes": 16063
+   },
+   "patched": {
+    "sha256": "d3dd7581d6f35a2ff8ad65a21c2413be98ee8b3861183d8cda67f2bfa01a31d1",
+    "bytes": 18984
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      140,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      182,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      223,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      275,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      317,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      403,
+      "llm.tool-handler-exec",
+      [78]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

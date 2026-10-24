@@ -1,0 +1,108 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-934w-87qh-qr26",
+  "cve_id": "CVE-2026-53722",
+  "ecosystem": "npm",
+  "packages": [
+   "nuxt"
+  ],
+  "published_at": "2026-06-16T13:49:36Z",
+  "advisory_cwes": [79, 83],
+  "html_url": "https://github.com/advisories/GHSA-934w-87qh-qr26",
+  "label_cwes": [79],
+  "repo": "nuxt/nuxt",
+  "fix_sha": "0103ce06fbbbdfa079a7f020ef8ce00121eac4a3",
+  "parent_sha": "07e39cd6f26e407b4192b7865bd17bc44536b9bb",
+  "path_vulnerable": "packages/nuxt/src/app/components/nuxt-link.ts",
+  "path_patched": "packages/nuxt/src/app/components/nuxt-link.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [16, 16],
+   [30, 31],
+   [119, 119],
+   [218, 218],
+   [225, 225],
+   [248, 248],
+   [374, 375],
+   [523, 523]
+  ],
+  "patched_lines": [
+   [16, 16],
+   [31, 52],
+   [141, 141],
+   [240, 241],
+   [248, 249],
+   [270, 275],
+   [278, 278],
+   [280, 280],
+   [406, 407],
+   [556, 556]
+  ],
+  "commit_url": "https://github.com/nuxt/nuxt/commit/0103ce06fbbbdfa079a7f020ef8ce00121eac4a3",
+  "case_id": "308-GHSA-934w-87qh-qr26",
+  "content": {
+   "vulnerable": {
+    "sha256": "424f79e5a6a874f7fb79db876df24d2f142eaa6229e2ff771f437f1f40464876",
+    "bytes": 22487
+   },
+   "patched": {
+    "sha256": "84afa61f375a394f22d077b52dded9432b4b730748a147b9a951c06d0f190f7b",
+    "bytes": 23992
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

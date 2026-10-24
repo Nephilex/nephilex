@@ -1,0 +1,224 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-564j-v29w-rqr6",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "khoj-assistant"
+  ],
+  "published_at": "2024-07-08T14:57:43Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-564j-v29w-rqr6",
+  "label_cwes": [601],
+  "repo": "khoj-ai/khoj",
+  "fix_sha": "4daf16e5f916641304e11d56a6071ad365c21a18",
+  "parent_sha": "86a3505d894553d1ef7f8af1fe52ec3ba3f646d7",
+  "path_vulnerable": "src/khoj/routers/auth.py",
+  "path_patched": "src/khoj/routers/auth.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [21, 21],
+   [97, 97],
+   [107, 107],
+   [111, 111],
+   [133, 133],
+   [135, 135]
+  ],
+  "patched_lines": [
+   [21, 21],
+   [97, 97],
+   [107, 107],
+   [111, 111],
+   [133, 133],
+   [135, 135]
+  ],
+  "commit_url": "https://github.com/khoj-ai/khoj/commit/4daf16e5f916641304e11d56a6071ad365c21a18",
+  "case_id": "068-GHSA-564j-v29w-rqr6",
+  "content": {
+   "vulnerable": {
+    "sha256": "d0bc4fcbaa0f64ffc821bc683449427c6db1301fd62b062a3c753332dcf6da3b",
+    "bytes": 5094
+   },
+   "patched": {
+    "sha256": "15232cc5fba96b5d34d8fa96de4f170455160e9698ad304d236b66b14f81e482",
+    "bytes": 5072
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      56,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      62,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      65,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      79,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      87,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      107,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      111,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      122,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      133,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      135,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      56,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      62,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      65,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      79,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      87,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      107,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      111,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      122,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      133,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      135,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

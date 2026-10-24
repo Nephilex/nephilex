@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7pw4-f3q4-r2p2",
+  "cve_id": "CVE-2026-59727",
+  "ecosystem": "npm",
+  "packages": [
+   "astro"
+  ],
+  "published_at": "2026-07-20T23:21:02Z",
+  "advisory_cwes": [79, 83, 116],
+  "html_url": "https://github.com/advisories/GHSA-7pw4-f3q4-r2p2",
+  "label_cwes": [79],
+  "repo": "withastro/astro",
+  "fix_sha": "7ba0bb1dc7516e88caff9abd7767322af44b0294",
+  "parent_sha": "2f39a9946bfbcd57aef18c382c8cc7d8bd03f6a1",
+  "path_vulnerable": "packages/astro/src/runtime/server/hydration.ts",
+  "path_patched": "packages/astro/src/runtime/server/hydration.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [182, 182]
+  ],
+  "patched_lines": [
+   [182, 182]
+  ],
+  "commit_url": "https://github.com/withastro/astro/commit/7ba0bb1dc7516e88caff9abd7767322af44b0294",
+  "case_id": "252-GHSA-7pw4-f3q4-r2p2",
+  "content": {
+   "vulnerable": {
+    "sha256": "c77d63a20f92fceb8bfb1b46df4c17e996d4e4f97401d0240f18378fea0c6e23",
+    "bytes": 5196
+   },
+   "patched": {
+    "sha256": "a1f63cae2829025b5fcf4495b5940466bc8e3249b30babedcee65f33f018871f",
+    "bytes": 5216
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

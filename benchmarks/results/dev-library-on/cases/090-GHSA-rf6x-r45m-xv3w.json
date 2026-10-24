@@ -1,0 +1,166 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rf6x-r45m-xv3w",
+  "cve_id": "CVE-2026-33053",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow"
+  ],
+  "published_at": "2026-03-18T12:58:35Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-rf6x-r45m-xv3w",
+  "label_cwes": [639],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "fdc1b3b1448ff3317d73d3e769a6c4a1717f74d7",
+  "parent_sha": "36eea7ee9db1ce6119dfd85364f870a219ea2f7c",
+  "path_vulnerable": "src/backend/base/langflow/__main__.py",
+  "path_patched": "src/backend/base/langflow/__main__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [890, 890]
+  ],
+  "patched_lines": [
+   [890, 890]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/fdc1b3b1448ff3317d73d3e769a6c4a1717f74d7",
+  "case_id": "090-GHSA-rf6x-r45m-xv3w",
+  "content": {
+   "vulnerable": {
+    "sha256": "127f7e5a3efe89a9f23a08b1727df70ce43257606ca62e17f1ae4e95d89f5dca",
+    "bytes": 37770
+   },
+   "patched": {
+    "sha256": "cd39ef4dd8c730fb645f7450f1a68507aed8aaaece9f2a129c1793e27ee43355",
+    "bytes": 37784
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      887,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      888,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      889,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      887,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      888,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      889,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      167,
+      "B104",
+      [605]
+     ],
+     [
+      461,
+      "B104",
+      [605]
+     ]
+    ],
+    "patched": [
+     [
+      167,
+      "B104",
+      [605]
+     ],
+     [
+      461,
+      "B104",
+      [605]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

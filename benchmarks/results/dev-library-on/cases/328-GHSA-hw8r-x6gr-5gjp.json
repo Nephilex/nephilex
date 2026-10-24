@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hw8r-x6gr-5gjp",
+  "cve_id": "CVE-2025-1302",
+  "ecosystem": "npm",
+  "packages": [
+   "jsonpath-plus"
+  ],
+  "published_at": "2025-02-15T06:30:51Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-hw8r-x6gr-5gjp",
+  "label_cwes": [94],
+  "repo": "JSONPath-Plus/JSONPath",
+  "fix_sha": "30942896d27cb8a806b965a5ca9ef9f686be24ee",
+  "parent_sha": "8e4acf8aff5f446aa66323e12394ac5615c3b260",
+  "path_vulnerable": "src/Safe-Script.js",
+  "path_patched": "src/Safe-Script.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [118, 120]
+  ],
+  "patched_lines": [
+   [118, 125]
+  ],
+  "commit_url": "https://github.com/JSONPath-Plus/JSONPath/commit/30942896d27cb8a806b965a5ca9ef9f686be24ee",
+  "case_id": "328-GHSA-hw8r-x6gr-5gjp",
+  "content": {
+   "vulnerable": {
+    "sha256": "3f528d3b0ba8bd34dcb872401996213a8195d9c7bfad224136dd3058e6deeb3a",
+    "bytes": 6870
+   },
+   "patched": {
+    "sha256": "a88cc2f133cfa3702188177605a044d900a2230df97280c6252ff13932ba7e93",
+    "bytes": 7092
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

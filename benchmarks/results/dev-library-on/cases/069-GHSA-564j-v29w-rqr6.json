@@ -1,0 +1,170 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-564j-v29w-rqr6",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "khoj-assistant"
+  ],
+  "published_at": "2024-07-08T14:57:43Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-564j-v29w-rqr6",
+  "label_cwes": [601],
+  "repo": "khoj-ai/khoj",
+  "fix_sha": "4daf16e5f916641304e11d56a6071ad365c21a18",
+  "parent_sha": "86a3505d894553d1ef7f8af1fe52ec3ba3f646d7",
+  "path_vulnerable": "src/khoj/routers/helpers.py",
+  "path_patched": "src/khoj/routers/helpers.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [24, 24],
+   [163, 164]
+  ],
+  "patched_lines": [
+   [24, 24],
+   [164, 175]
+  ],
+  "commit_url": "https://github.com/khoj-ai/khoj/commit/4daf16e5f916641304e11d56a6071ad365c21a18",
+  "case_id": "069-GHSA-564j-v29w-rqr6",
+  "content": {
+   "vulnerable": {
+    "sha256": "1b089de2e11ce481f8244e1e96098ff76c4aa0c6a08d82922646fcb4bc27a5b7",
+    "bytes": 43821
+   },
+   "patched": {
+    "sha256": "06c51c667cbc5eb6572f315985a08e21eca1e1fe8b5e7e3e0b5055fe56aefa38",
+    "bytes": 44439
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1061,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      1073,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1003,
+      "B113",
+      [400]
+     ],
+     [
+      1047,
+      "B311",
+      [330]
+     ],
+     [
+      1061,
+      "B324",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      1015,
+      "B113",
+      [400]
+     ],
+     [
+      1059,
+      "B311",
+      [330]
+     ],
+     [
+      1073,
+      "B324",
+      [327]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1061,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      1073,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

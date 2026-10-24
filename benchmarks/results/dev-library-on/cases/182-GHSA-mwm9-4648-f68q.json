@@ -1,0 +1,138 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-mwm9-4648-f68q",
+  "cve_id": "CVE-2026-1207",
+  "ecosystem": "pip",
+  "packages": [
+   "Django"
+  ],
+  "published_at": "2026-02-03T15:30:23Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-mwm9-4648-f68q",
+  "label_cwes": [89],
+  "repo": "django/django",
+  "fix_sha": "81aa5292967cd09319c45fe2c1a525ce7b6684d8",
+  "parent_sha": "eb22e1d6d643360e952609ef562c139a100ea4eb",
+  "path_vulnerable": "django/contrib/gis/db/backends/postgis/operations.py",
+  "path_patched": "django/contrib/gis/db/backends/postgis/operations.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [53, 54],
+   [64, 65]
+  ],
+  "patched_lines": [
+   [54, 56],
+   [68, 70]
+  ],
+  "commit_url": "https://github.com/django/django/commit/81aa5292967cd09319c45fe2c1a525ce7b6684d8",
+  "case_id": "182-GHSA-mwm9-4648-f68q",
+  "content": {
+   "vulnerable": {
+    "sha256": "060eaf67ba6b70f27973e859646f2b55f4bb06ed33fbd81f29b3bbd606b492fe",
+    "bytes": 16687
+   },
+   "patched": {
+    "sha256": "f5c701e0e163cbc63fe51d52aeffecec801065b8d0796ea3a54700190d5aa39b",
+    "bytes": 17079
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      337,
+      "ast-python.ast-sql-string-building",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      343,
+      "ast-python.ast-sql-string-building",
+      [89]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      206,
+      "B608",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      212,
+      "B608",
+      [89]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

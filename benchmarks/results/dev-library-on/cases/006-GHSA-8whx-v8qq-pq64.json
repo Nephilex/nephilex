@@ -1,0 +1,146 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8whx-v8qq-pq64",
+  "cve_id": "CVE-2026-29038",
+  "ecosystem": "pip",
+  "packages": [
+   "changedetection.io"
+  ],
+  "published_at": "2026-03-04T20:58:14Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-8whx-v8qq-pq64",
+  "label_cwes": [79],
+  "repo": "dgtlmoon/changedetection.io",
+  "fix_sha": "ec7d56f85d1e9690fca7cb4711c1fb20dffec780",
+  "parent_sha": "417d57e5749441e4be9acc4010369bded805d66f",
+  "path_vulnerable": "changedetectionio/blueprint/rss/tag.py",
+  "path_patched": "changedetectionio/blueprint/rss/tag.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [10, 10]
+  ],
+  "patched_lines": [
+   [10, 10]
+  ],
+  "commit_url": "https://github.com/dgtlmoon/changedetection.io/commit/ec7d56f85d1e9690fca7cb4711c1fb20dffec780",
+  "case_id": "006-GHSA-8whx-v8qq-pq64",
+  "content": {
+   "vulnerable": {
+    "sha256": "75ca3b2e9ef2288568ea9456f8de6f8cc337f705439c5d77de0e29a9ac4a4a24",
+    "bytes": 4308
+   },
+   "patched": {
+    "sha256": "25552a2bffa27354abd056db9ed261f8ecd9866853cd696536a3505374583eef",
+    "bytes": 4310
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      29,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      36,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      29,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      36,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      67,
+      "python.flask.security.audit.flask-url-for-external-true.flask-url-for-external-true",
+      [673]
+     ]
+    ],
+    "patched": [
+     [
+      67,
+      "python.flask.security.audit.flask-url-for-external-true.flask-url-for-external-true",
+      [673]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

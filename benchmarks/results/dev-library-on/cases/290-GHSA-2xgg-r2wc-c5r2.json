@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2xgg-r2wc-c5r2",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@budibase/server"
+  ],
+  "published_at": "2026-07-24T21:26:19Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-2xgg-r2wc-c5r2",
+  "label_cwes": [89],
+  "repo": "Budibase/budibase",
+  "fix_sha": "2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "parent_sha": "d0afbb99b68ac008575d9560f6d5acfe5df3f722",
+  "path_vulnerable": "packages/server/src/integrations/postgres.ts",
+  "path_patched": "packages/server/src/integrations/postgres.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [26, 27],
+   [357, 357]
+  ],
+  "patched_lines": [
+   [27, 27],
+   [358, 358]
+  ],
+  "commit_url": "https://github.com/Budibase/budibase/commit/2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "case_id": "290-GHSA-2xgg-r2wc-c5r2",
+  "content": {
+   "vulnerable": {
+    "sha256": "64476351dcd1d23be53dd3aa31d40ef7a9564c9ac41e81e5ca65a1b53c7f9366",
+    "bytes": 21368
+   },
+   "patched": {
+    "sha256": "7bd6efdbb5062be6b477362b4185723abea7b72666059425c372520a0d5eb99d",
+    "bytes": 21413
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

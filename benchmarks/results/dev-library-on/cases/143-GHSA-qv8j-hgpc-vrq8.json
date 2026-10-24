@@ -1,0 +1,139 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-qv8j-hgpc-vrq8",
+  "cve_id": "CVE-2026-2472",
+  "ecosystem": "pip",
+  "packages": [
+   "google-cloud-aiplatform"
+  ],
+  "published_at": "2026-02-20T21:31:24Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-qv8j-hgpc-vrq8",
+  "label_cwes": [79],
+  "repo": "googleapis/python-aiplatform",
+  "fix_sha": "8a00d43dbd24e95dbab6ea32c63ce0a5a1849480",
+  "parent_sha": "df0976ed3195dc8313f4728bc5ecb29dda55d467",
+  "path_vulnerable": "vertexai/_genai/_evals_visualization.py",
+  "path_patched": "vertexai/_genai/_evals_visualization.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [16, 19],
+   [83, 83],
+   [252, 255],
+   [257, 257],
+   [559, 559],
+   [615, 617],
+   [619, 619],
+   [699, 699],
+   [744, 744],
+   [749, 749],
+   [824, 825],
+   [1089, 1089]
+  ],
+  "patched_lines": [
+   [17, 17],
+   [20, 20],
+   [83, 87],
+   [90, 92],
+   [261, 263],
+   [265, 265],
+   [563, 563],
+   [568, 570],
+   [626, 627],
+   [629, 629],
+   [705, 705],
+   [710, 712],
+   [757, 757],
+   [762, 762],
+   [838, 838],
+   [1103, 1104],
+   [1110, 1110]
+  ],
+  "commit_url": "https://github.com/googleapis/python-aiplatform/commit/8a00d43dbd24e95dbab6ea32c63ce0a5a1849480",
+  "case_id": "143-GHSA-qv8j-hgpc-vrq8",
+  "content": {
+   "vulnerable": {
+    "sha256": "0f3a7c66e5acd4b17c4822ec810fb7931be9cf33621a29f79477a1134490c003",
+    "bytes": 56384
+   },
+   "patched": {
+    "sha256": "0b10cdc8dd64d3f6f8585df0e2d9a04540e4c48fb29a5f45c89888ada8d11461",
+    "bytes": 57086
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

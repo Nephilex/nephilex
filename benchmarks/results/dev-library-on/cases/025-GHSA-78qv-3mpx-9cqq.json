@@ -1,0 +1,146 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-78qv-3mpx-9cqq",
+  "cve_id": "CVE-2026-27156",
+  "ecosystem": "pip",
+  "packages": [
+   "nicegui"
+  ],
+  "published_at": "2026-02-24T19:56:18Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-78qv-3mpx-9cqq",
+  "label_cwes": [79],
+  "repo": "zauberzeug/nicegui",
+  "fix_sha": "1861f59cc374ca0dc9d970b157ef3774720f8dbf",
+  "parent_sha": "cc50d24ec1722d2b3a3fd840aa6a9fea22bb8a6a",
+  "path_vulnerable": "nicegui/element.py",
+  "path_patched": "nicegui/element.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [415, 415],
+   [427, 427]
+  ],
+  "patched_lines": [
+   [415, 417],
+   [429, 431]
+  ],
+  "commit_url": "https://github.com/zauberzeug/nicegui/commit/1861f59cc374ca0dc9d970b157ef3774720f8dbf",
+  "case_id": "025-GHSA-78qv-3mpx-9cqq",
+  "content": {
+   "vulnerable": {
+    "sha256": "b2f2d601e0c059952b399e96aefa58e1c07a2bfdc2254ac576e7be27f50c7dac",
+    "bytes": 24064
+   },
+   "patched": {
+    "sha256": "2a6153b017919c454c259d71110641cc8f0052c70c7feb98af3b3e532c1a8e43",
+    "bytes": 24130
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      469,
+      "B101",
+      [703]
+     ],
+     [
+      499,
+      "B101",
+      [703]
+     ],
+     [
+      506,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      473,
+      "B101",
+      [703]
+     ],
+     [
+      503,
+      "B101",
+      [703]
+     ],
+     [
+      510,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

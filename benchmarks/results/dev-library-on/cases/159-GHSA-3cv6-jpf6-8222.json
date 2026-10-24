@@ -1,0 +1,198 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3cv6-jpf6-8222",
+  "cve_id": "CVE-2026-84377",
+  "ecosystem": "pip",
+  "packages": [
+   "litellm"
+  ],
+  "published_at": "2026-09-30T21:11:25Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
+  "label_cwes": [918],
+  "repo": "BerriAI/litellm",
+  "fix_sha": "473f72e63a9777d793fbbf57194d8ec4fb97bc1b",
+  "parent_sha": "76ffefcc1c36f4e78178ca0278d38385cafa6ec6",
+  "path_vulnerable": "litellm/proxy/common_request_processing.py",
+  "path_patched": "litellm/proxy/common_request_processing.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [65, 65],
+   [890, 891]
+  ],
+  "patched_lines": [
+   [65, 68],
+   [894, 896]
+  ],
+  "commit_url": "https://github.com/BerriAI/litellm/commit/473f72e63a9777d793fbbf57194d8ec4fb97bc1b",
+  "case_id": "159-GHSA-3cv6-jpf6-8222",
+  "content": {
+   "vulnerable": {
+    "sha256": "0887d420cfc9a6c8a53247303c95470e5fb6c28a2c735cb14c30ca3526bebe17",
+    "bytes": 96780
+   },
+   "patched": {
+    "sha256": "d6ae37cce14f245b352177d385c814560fac274bee8ae7d6cde80b4fc550db35",
+    "bytes": 96918
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      596,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      597,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      598,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      599,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      600,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      601,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      282,
+      "B110",
+      [703]
+     ],
+     [
+      1900,
+      "B110",
+      [703]
+     ],
+     [
+      2052,
+      "B110",
+      [703]
+     ],
+     [
+      2154,
+      "B110",
+      [703]
+     ],
+     [
+      2170,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      285,
+      "B110",
+      [703]
+     ],
+     [
+      1906,
+      "B110",
+      [703]
+     ],
+     [
+      2058,
+      "B110",
+      [703]
+     ],
+     [
+      2160,
+      "B110",
+      [703]
+     ],
+     [
+      2176,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

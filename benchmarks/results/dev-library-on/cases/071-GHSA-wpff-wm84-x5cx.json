@@ -1,0 +1,144 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wpff-wm84-x5cx",
+  "cve_id": "CVE-2024-31215",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2024-04-04T14:39:03Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-wpff-wm84-x5cx",
+  "label_cwes": [918],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "43bb71d115d78c03faa82d75445dd908e9b32716",
+  "parent_sha": "6bce5a25b43d8297f24f761abd3b383a9301dcc5",
+  "path_vulnerable": "mobsf/MobSF/init.py",
+  "path_patched": "mobsf/MobSF/init.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [13, 13]
+  ],
+  "patched_lines": [
+   [13, 13]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/43bb71d115d78c03faa82d75445dd908e9b32716",
+  "case_id": "071-GHSA-wpff-wm84-x5cx",
+  "content": {
+   "vulnerable": {
+    "sha256": "7d0e5c9a049413ac7a8c1c3d3d7753a81305d2c0d0d03c46edd816f7ce2847a0",
+    "bytes": 4515
+   },
+   "patched": {
+    "sha256": "053d611fd1422ef8b36c9c1881eff985674c8631fec32e28b58b9bd49b9f1c89",
+    "bytes": 4515
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      5,
+      "B404",
+      [78]
+     ],
+     [
+      78,
+      "B603",
+      [78]
+     ],
+     [
+      133,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      5,
+      "B404",
+      [78]
+     ],
+     [
+      78,
+      "B603",
+      [78]
+     ],
+     [
+      133,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

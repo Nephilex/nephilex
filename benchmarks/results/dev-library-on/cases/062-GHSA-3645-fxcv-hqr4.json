@@ -1,0 +1,120 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3645-fxcv-hqr4",
+  "cve_id": "CVE-2026-27966",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow"
+  ],
+  "published_at": "2026-02-27T15:47:29Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-3645-fxcv-hqr4",
+  "label_cwes": [94],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "d8c6480daa17b2f2af0b5470cdf5c3d28dc9e508",
+  "parent_sha": "ac0c451de7f08e6c5cbf04758bb5d04f57a65ce6",
+  "path_vulnerable": "src/lfx/src/lfx/components/langchain_utilities/csv_agent.py",
+  "path_patched": "src/lfx/src/lfx/components/langchain_utilities/csv_agent.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [14, 15],
+   [64, 65],
+   [90, 90],
+   [123, 123]
+  ],
+  "patched_lines": [
+   [15, 15],
+   [66, 77],
+   [101, 103],
+   [106, 106],
+   [137, 139],
+   [142, 142]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/d8c6480daa17b2f2af0b5470cdf5c3d28dc9e508",
+  "case_id": "062-GHSA-3645-fxcv-hqr4",
+  "content": {
+   "vulnerable": {
+    "sha256": "97947e212da9fc83df42662e5c7016c670131d1303216cfc0250e7d22209aab0",
+    "bytes": 6008
+   },
+   "patched": {
+    "sha256": "4978be110e6302bdca5346c26156ddd2c65525cbbe19d5ed6bc0a0883faaa77a",
+    "bytes": 7023
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3fqr-4cg8-h96q",
+  "cve_id": "CVE-2026-26317",
+  "ecosystem": "npm",
+  "packages": [
+   "clawdbot",
+   "openclaw"
+  ],
+  "published_at": "2026-02-18T00:53:59Z",
+  "advisory_cwes": [352],
+  "html_url": "https://github.com/advisories/GHSA-3fqr-4cg8-h96q",
+  "label_cwes": [352],
+  "repo": "openclaw/openclaw",
+  "fix_sha": "b566b09f81e2b704bf9398d8d97d5f7a90aa94c3",
+  "parent_sha": "1f1fc095a0abb183cf16c594a9dde2372e9a25c7",
+  "path_vulnerable": "src/browser/server.ts",
+  "path_patched": "src/browser/server.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [7, 8],
+   [58, 59]
+  ],
+  "patched_lines": [
+   [8, 8],
+   [60, 60]
+  ],
+  "commit_url": "https://github.com/openclaw/openclaw/commit/b566b09f81e2b704bf9398d8d97d5f7a90aa94c3",
+  "case_id": "208-GHSA-3fqr-4cg8-h96q",
+  "content": {
+   "vulnerable": {
+    "sha256": "bad232bf6900298ab89714e0e8596c942696f556702c4d3204bf24afd26813fc",
+    "bytes": 4651
+   },
+   "patched": {
+    "sha256": "f0bfa6cb766e7cf07e964abdf40ffbb2bcc716ee41bd60f4e61822c88eab02c5",
+    "bytes": 4756
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

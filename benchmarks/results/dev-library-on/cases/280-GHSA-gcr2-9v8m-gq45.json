@@ -1,0 +1,115 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-gcr2-9v8m-gq45",
+  "cve_id": "CVE-2026-68921",
+  "ecosystem": "npm",
+  "packages": [
+   "@dicebear/core",
+   "@dicebear/initials"
+  ],
+  "published_at": "2026-09-02T22:44:25Z",
+  "advisory_cwes": [79, 184],
+  "html_url": "https://github.com/advisories/GHSA-gcr2-9v8m-gq45",
+  "label_cwes": [79],
+  "repo": "dicebear/dicebear",
+  "fix_sha": "922946d738c4e77ab6c412e27ede75941fec4b59",
+  "parent_sha": "efe62f2700e9e45b60e40b0e92a22e93d07e237d",
+  "path_vulnerable": "packages/@dicebear/core/src/utils/svg.ts",
+  "path_patched": "packages/@dicebear/core/src/utils/svg.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [79, 79]
+  ],
+  "patched_lines": [
+   [79, 79]
+  ],
+  "commit_url": "https://github.com/dicebear/dicebear/commit/922946d738c4e77ab6c412e27ede75941fec4b59",
+  "case_id": "280-GHSA-gcr2-9v8m-gq45",
+  "content": {
+   "vulnerable": {
+    "sha256": "7f1779d2a9a4f02c6feb85222191269d94364d6bf77f11cbf41e1d97fae74832",
+    "bytes": 3691
+   },
+   "patched": {
+    "sha256": "80ced45cb89d404cbae5cbeb42e49f79ae0182bb46c75af17fee40076fdb4e8c",
+    "bytes": 3708
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      73,
+      "javascript.express.security.injection.raw-html-format.raw-html-format",
+      [79]
+     ],
+     [
+      102,
+      "javascript.express.security.injection.raw-html-format.raw-html-format",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      73,
+      "javascript.express.security.injection.raw-html-format.raw-html-format",
+      [79]
+     ],
+     [
+      102,
+      "javascript.express.security.injection.raw-html-format.raw-html-format",
+      [79]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

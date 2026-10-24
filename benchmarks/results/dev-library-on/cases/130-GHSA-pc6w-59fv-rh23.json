@@ -1,0 +1,169 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pc6w-59fv-rh23",
+  "cve_id": "CVE-2025-6984",
+  "ecosystem": "pip",
+  "packages": [
+   "langchain-community"
+  ],
+  "published_at": "2025-09-04T12:30:42Z",
+  "advisory_cwes": [200, 611],
+  "html_url": "https://github.com/advisories/GHSA-pc6w-59fv-rh23",
+  "label_cwes": [611],
+  "repo": "langchain-ai/langchain-community",
+  "fix_sha": "e842452108089524e22c3a2ced851c021884556f",
+  "parent_sha": "6057ba567d4339b48acbffb55f0885dcd05a0892",
+  "path_vulnerable": "libs/community/langchain_community/document_loaders/evernote.py",
+  "path_patched": "libs/community/langchain_community/document_loaders/evernote.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [1, 1],
+   [3, 3],
+   [21, 37],
+   [41, 41],
+   [61, 61],
+   [81, 81],
+   [99, 100],
+   [132, 135],
+   [141, 141],
+   [147, 147]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [3, 4],
+   [22, 57],
+   [61, 69],
+   [74, 84],
+   [100, 107],
+   [120, 133],
+   [141, 141],
+   [147, 157],
+   [171, 182],
+   [215, 228],
+   [234, 234],
+   [240, 245]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langchain-community/commit/e842452108089524e22c3a2ced851c021884556f",
+  "case_id": "130-GHSA-pc6w-59fv-rh23",
+  "content": {
+   "vulnerable": {
+    "sha256": "b84cc8693f04ae2a17bc2fd5c8b5986cc72b3a13787676512af49c7e3ff0f560",
+    "bytes": 5917
+   },
+   "patched": {
+    "sha256": "aeadbbd17ba309b11d130cf6e1503ed8f6ad47f42460da9e145ba4fecd71deeb",
+    "bytes": 9383
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      92,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      163,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      92,
+      "B324",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      163,
+      "B324",
+      [327]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      92,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      163,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

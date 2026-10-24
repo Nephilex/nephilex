@@ -1,0 +1,176 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-f3qq-49m6-rw8f",
+  "cve_id": "CVE-2026-70667",
+  "ecosystem": "pip",
+  "packages": [
+   "lemur"
+  ],
+  "published_at": "2026-08-18T20:51:12Z",
+  "advisory_cwes": [367, 918],
+  "html_url": "https://github.com/advisories/GHSA-f3qq-49m6-rw8f",
+  "label_cwes": [918],
+  "repo": "Netflix/lemur",
+  "fix_sha": "ed504a830f38a83825b1570302e9f38d6553938a",
+  "parent_sha": "e9ade7dad5c9bc1369a831554ed6df3277c9cbae",
+  "path_vulnerable": "lemur/certificates/verify.py",
+  "path_patched": "lemur/certificates/verify.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [33, 34],
+   [57, 58],
+   [83, 83],
+   [99, 99],
+   [165, 165],
+   [174, 174]
+  ],
+  "patched_lines": [
+   [34, 34],
+   [59, 82],
+   [108, 108],
+   [115, 117],
+   [127, 130],
+   [196, 196],
+   [204, 206],
+   [208, 213]
+  ],
+  "commit_url": "https://github.com/Netflix/lemur/commit/ed504a830f38a83825b1570302e9f38d6553938a",
+  "case_id": "119-GHSA-f3qq-49m6-rw8f",
+  "content": {
+   "vulnerable": {
+    "sha256": "b3ecdaa91dbfcfabaaaca545b4ad30d7bd91ac2dd71153e12d65c66aa3dd1b29",
+    "bytes": 9424
+   },
+   "patched": {
+    "sha256": "4d3e1249749f447aee5d00bcc1324983c03dcd350d622ef7f8bad149f6a66fa0",
+    "bytes": 11005
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      11,
+      "B404",
+      [78]
+     ],
+     [
+      19,
+      "B404",
+      [78]
+     ],
+     [
+      71,
+      "B603",
+      [78]
+     ],
+     [
+      90,
+      "B603",
+      [78]
+     ],
+     [
+      90,
+      "B607",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      11,
+      "B404",
+      [78]
+     ],
+     [
+      19,
+      "B404",
+      [78]
+     ],
+     [
+      96,
+      "B603",
+      [78]
+     ],
+     [
+      118,
+      "B603",
+      [78]
+     ],
+     [
+      118,
+      "B607",
+      [78]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

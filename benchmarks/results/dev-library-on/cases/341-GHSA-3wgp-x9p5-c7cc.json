@@ -1,0 +1,109 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3wgp-x9p5-c7cc",
+  "cve_id": "CVE-2026-58191",
+  "ecosystem": "npm",
+  "packages": [
+   "@appium/base-driver"
+  ],
+  "published_at": "2026-09-01T18:54:53Z",
+  "advisory_cwes": [79, 489],
+  "html_url": "https://github.com/advisories/GHSA-3wgp-x9p5-c7cc",
+  "label_cwes": [79, 489],
+  "repo": "appium/appium",
+  "fix_sha": "d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "parent_sha": "47638650ee0c3cb418fb6a4e1d66c0c3492722e0",
+  "path_vulnerable": "packages/base-driver/lib/express/static.ts",
+  "path_patched": "packages/base-driver/lib/test-pages/handlers.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [2, 2],
+   [6, 8],
+   [64, 64],
+   [67, 76]
+  ],
+  "patched_lines": [
+   [2, 2],
+   [6, 7],
+   [63, 63]
+  ],
+  "commit_url": "https://github.com/appium/appium/commit/d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "case_id": "341-GHSA-3wgp-x9p5-c7cc",
+  "content": {
+   "vulnerable": {
+    "sha256": "48d8dad1f04e22452c15ae1c3ffa3ef57cd4e696492fda654c63d2ae87d98bf2",
+    "bytes": 3020
+   },
+   "patched": {
+    "sha256": "c96bca32829c03b6cb086d273088b5d7d05896ebf60951f496278fe35f5b7d79",
+    "bytes": 2657
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      60,
+      "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      59,
+      "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      [79]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

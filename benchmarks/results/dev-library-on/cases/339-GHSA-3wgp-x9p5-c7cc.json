@@ -1,0 +1,107 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3wgp-x9p5-c7cc",
+  "cve_id": "CVE-2026-58191",
+  "ecosystem": "npm",
+  "packages": [
+   "@appium/base-driver"
+  ],
+  "published_at": "2026-09-01T18:54:53Z",
+  "advisory_cwes": [79, 489],
+  "html_url": "https://github.com/advisories/GHSA-3wgp-x9p5-c7cc",
+  "label_cwes": [79, 489],
+  "repo": "appium/appium",
+  "fix_sha": "d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "parent_sha": "47638650ee0c3cb418fb6a4e1d66c0c3492722e0",
+  "path_vulnerable": "packages/base-driver/lib/express/server.ts",
+  "path_patched": "packages/base-driver/lib/express/server.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [6, 6],
+   [22, 23],
+   [76, 77],
+   [127, 128],
+   [136, 136],
+   [168, 177],
+   [182, 188],
+   [214, 219]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [21, 23],
+   [77, 82],
+   [134, 138],
+   [147, 148],
+   [180, 191],
+   [196, 198],
+   [223, 224]
+  ],
+  "commit_url": "https://github.com/appium/appium/commit/d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "case_id": "339-GHSA-3wgp-x9p5-c7cc",
+  "content": {
+   "vulnerable": {
+    "sha256": "e67310606b93d85b53f2d69d6b7dabc1c218035fb1e41a03936612b4153c9386",
+    "bytes": 13821
+   },
+   "patched": {
+    "sha256": "3f34243e3bf7155edb451f5c953d961a55eb92e2c40a5e0d8fbfbfdc36fdfebc",
+    "bytes": 14095
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

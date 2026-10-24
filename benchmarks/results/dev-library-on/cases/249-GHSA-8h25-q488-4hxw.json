@@ -1,0 +1,253 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8h25-q488-4hxw",
+  "cve_id": "CVE-2026-41900",
+  "ecosystem": "npm",
+  "packages": [
+   "openlearnx"
+  ],
+  "published_at": "2026-04-23T21:46:07Z",
+  "advisory_cwes": [78, 94, 250, 284, 693],
+  "html_url": "https://github.com/advisories/GHSA-8h25-q488-4hxw",
+  "label_cwes": [78, 94],
+  "repo": "th30d4y/OpenLearnX",
+  "fix_sha": "14765d7d1856d564747c55c5412e2f38feab079e",
+  "parent_sha": "d19c4e4d153f5c2b46f08b74053c48a5851e1db6",
+  "path_vulnerable": "backend/services/real_compiler_service.py",
+  "path_patched": "backend/services/real_compiler_service.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [1, 2],
+   [4, 4],
+   [7, 9],
+   [11, 12],
+   [16, 16],
+   [18, 19],
+   [21, 22],
+   [24, 31],
+   [33, 40],
+   [42, 49],
+   [51, 58],
+   [60, 67],
+   [69, 76],
+   [78, 85],
+   [87, 95],
+   [97, 98],
+   [102, 102],
+   [107, 108],
+   [114, 114],
+   [125, 125],
+   [129, 131],
+   [134, 134],
+   [137, 137],
+   [139, 139],
+   [141, 151],
+   [153, 154],
+   [156, 161],
+   [165, 169],
+   [171, 171],
+   [173, 173],
+   [178, 178],
+   [181, 192],
+   [197, 197],
+   [200, 200],
+   [202, 208],
+   [210, 213],
+   [215, 215],
+   [217, 219],
+   [221, 225],
+   [227, 231],
+   [233, 238],
+   [240, 243],
+   [245, 245],
+   [248, 266],
+   [271, 271],
+   [273, 274],
+   [277, 292],
+   [295, 295],
+   [298, 300],
+   [304, 304],
+   [307, 311],
+   [316, 317],
+   [321, 321],
+   [323, 323],
+   [328, 328],
+   [332, 333]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [3, 6],
+   [10, 13],
+   [17, 17],
+   [19, 20],
+   [22, 23],
+   [25, 32],
+   [34, 41],
+   [43, 50],
+   [52, 59],
+   [61, 68],
+   [70, 77],
+   [79, 86],
+   [89, 181],
+   [188, 188],
+   [190, 190],
+   [206, 206],
+   [210, 220],
+   [223, 223],
+   [226, 247],
+   [249, 258],
+   [262, 278],
+   [282, 286],
+   [288, 288],
+   [294, 294],
+   [297, 347],
+   [352, 352],
+   [355, 355],
+   [357, 366],
+   [368, 371],
+   [373, 376],
+   [378, 378],
+   [380, 385],
+   [387, 391],
+   [393, 403],
+   [405, 420],
+   [422, 422],
+   [425, 426],
+   [428, 428],
+   [430, 434],
+   [437, 437],
+   [439, 440],
+   [442, 456],
+   [458, 493],
+   [498, 499],
+   [505, 509],
+   [514, 514],
+   [523, 523],
+   [527, 528]
+  ],
+  "commit_url": "https://github.com/th30d4y/OpenLearnX/commit/14765d7d1856d564747c55c5412e2f38feab079e",
+  "case_id": "249-GHSA-8h25-q488-4hxw",
+  "content": {
+   "vulnerable": {
+    "sha256": "3fe01b6d4dde7533df36e706e493534686cde74a3bfe5790a798182ecaf3aff3",
+    "bytes": 12531
+   },
+   "patched": {
+    "sha256": "b14b8e6e889fc68edc2a44334581fcbfef611e6a594ff16351cfe2839f7495af",
+    "bytes": 19137
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      4,
+      "B404",
+      [78]
+     ],
+     [
+      238,
+      "B108",
+      [377]
+     ]
+    ],
+    "patched": [
+     [
+      364,
+      "B103",
+      [732]
+     ],
+     [
+      398,
+      "B108",
+      [377]
+     ],
+     [
+      433,
+      "B110",
+      [703]
+     ],
+     [
+      446,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": [
+     [
+      364,
+      "python.lang.security.audit.insecure-file-permissions.insecure-file-permissions",
+      [276]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": true
+   }
+  }
+ }
+}

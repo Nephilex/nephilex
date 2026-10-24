@@ -1,0 +1,146 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8vcg-cfxj-p5m3",
+  "cve_id": "CVE-2025-68398",
+  "ecosystem": "pip",
+  "packages": [
+   "Weblate"
+  ],
+  "published_at": "2025-12-18T23:20:35Z",
+  "advisory_cwes": [20, 22],
+  "html_url": "https://github.com/advisories/GHSA-8vcg-cfxj-p5m3",
+  "label_cwes": [22],
+  "repo": "WeblateOrg/weblate",
+  "fix_sha": "dd8c9d7b00eebe28770fa0e2cd96126791765ea7",
+  "parent_sha": "f051a0ed13e2e86654608211b408ef2d062b7715",
+  "path_vulnerable": "weblate/vcs/base.py",
+  "path_patched": "weblate/vcs/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [193, 193]
+  ],
+  "patched_lines": [
+   [193, 193]
+  ],
+  "commit_url": "https://github.com/WeblateOrg/weblate/commit/dd8c9d7b00eebe28770fa0e2cd96126791765ea7",
+  "case_id": "015-GHSA-8vcg-cfxj-p5m3",
+  "content": {
+   "vulnerable": {
+    "sha256": "c1f04ff66b18456f8e1188209360ec34f460b913a998088ad868b50c447f8c56",
+    "bytes": 20716
+   },
+   "patched": {
+    "sha256": "790b5fb6125f0e1445d50e67ff749517f7582a2f099fe9b86d294c77f6a13590",
+    "bytes": 20724
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      13,
+      "B404",
+      [78]
+     ],
+     [
+      229,
+      "B603",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      13,
+      "B404",
+      [78]
+     ],
+     [
+      229,
+      "B603",
+      [78]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      530,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      530,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

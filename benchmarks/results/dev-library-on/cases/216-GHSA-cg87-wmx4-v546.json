@@ -1,0 +1,96 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cg87-wmx4-v546",
+  "cve_id": "CVE-2025-23207",
+  "ecosystem": "npm",
+  "packages": [
+   "katex"
+  ],
+  "published_at": "2025-01-17T21:22:56Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-cg87-wmx4-v546",
+  "label_cwes": [79],
+  "repo": "KaTeX/KaTeX",
+  "fix_sha": "ff289955e81aab89086eef09254cbf88573d415c",
+  "parent_sha": "28a0bf51139969e9dc52085b72024e0c5447cfbe",
+  "path_vulnerable": "src/domTree.js",
+  "path_patched": "src/domTree.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [19, 20],
+   [85, 86],
+   [112, 113]
+  ],
+  "patched_lines": [
+   [20, 20],
+   [87, 96],
+   [124, 126]
+  ],
+  "commit_url": "https://github.com/KaTeX/KaTeX/commit/ff289955e81aab89086eef09254cbf88573d415c",
+  "case_id": "216-GHSA-cg87-wmx4-v546",
+  "content": {
+   "vulnerable": {
+    "sha256": "5524d0a27f84b6adab4f58499a81975e4cdf37b9ecaf809cc23152703c103260",
+    "bytes": 16706
+   },
+   "patched": {
+    "sha256": "55495ea38c6676e61a99d111da006f6d915ac0eb887b657ae0b27d32ecbc7045",
+    "bytes": 17243
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

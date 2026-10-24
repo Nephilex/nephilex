@@ -1,0 +1,354 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m842-4qm8-7gpq",
+  "cve_id": "CVE-2024-1728",
+  "ecosystem": "pip",
+  "packages": [
+   "gradio"
+  ],
+  "published_at": "2024-09-25T21:48:24Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m842-4qm8-7gpq",
+  "label_cwes": [22],
+  "repo": "gradio-app/gradio",
+  "fix_sha": "16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "parent_sha": "ba3ec1300e81e64be7389d759b89284c66473158",
+  "path_vulnerable": "gradio/processing_utils.py",
+  "path_patched": "gradio/processing_utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [23, 23],
+   [243, 244],
+   [254, 255],
+   [266, 267]
+  ],
+  "patched_lines": [
+   [23, 23],
+   [244, 244],
+   [256, 257],
+   [270, 277]
+  ],
+  "commit_url": "https://github.com/gradio-app/gradio/commit/16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "case_id": "044-GHSA-m842-4qm8-7gpq",
+  "content": {
+   "vulnerable": {
+    "sha256": "28d5cb74251ff119f791a4f045c0da098814f2b009a9693557e04e15893437a6",
+    "bytes": 27472
+   },
+   "patched": {
+    "sha256": "093b79f8b0d255fcfa1253deff0afa80ef9f88ae03e51db19e597d08d250de12",
+    "bytes": 28125
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      101,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      109,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      115,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      121,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      138,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      163,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      177,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      178,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      192,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      193,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      222,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      224,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      101,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      109,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      115,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      121,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      138,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      163,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      177,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      178,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      192,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      193,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      222,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      224,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      9,
+      "B404",
+      [78]
+     ],
+     [
+      101,
+      "B324",
+      [327]
+     ],
+     [
+      109,
+      "B324",
+      [327]
+     ],
+     [
+      115,
+      "B324",
+      [327]
+     ],
+     [
+      121,
+      "B324",
+      [327]
+     ],
+     [
+      759,
+      "B603",
+      [78]
+     ],
+     [
+      759,
+      "B607",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      9,
+      "B404",
+      [78]
+     ],
+     [
+      101,
+      "B324",
+      [327]
+     ],
+     [
+      109,
+      "B324",
+      [327]
+     ],
+     [
+      115,
+      "B324",
+      [327]
+     ],
+     [
+      121,
+      "B324",
+      [327]
+     ],
+     [
+      770,
+      "B603",
+      [78]
+     ],
+     [
+      770,
+      "B607",
+      [78]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      101,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      109,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      115,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      121,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      101,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      109,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      115,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ],
+     [
+      121,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

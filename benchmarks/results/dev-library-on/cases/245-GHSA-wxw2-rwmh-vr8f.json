@@ -1,0 +1,204 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wxw2-rwmh-vr8f",
+  "cve_id": "CVE-2026-41500",
+  "ecosystem": "npm",
+  "packages": [
+   "electerm"
+  ],
+  "published_at": "2026-04-16T21:24:22Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-wxw2-rwmh-vr8f",
+  "label_cwes": [77],
+  "repo": "electerm/electerm",
+  "fix_sha": "59708b38c8a52f5db59d7d4eff98e31d573128ee",
+  "parent_sha": "9590d7933c4021bbc006c3a0ccd366091b008e09",
+  "path_vulnerable": "npm/install.js",
+  "path_patched": "npm/install.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [6, 9],
+   [16, 21],
+   [25, 25],
+   [33, 33],
+   [46, 46],
+   [49, 52],
+   [55, 55],
+   [58, 58],
+   [63, 63],
+   [66, 66],
+   [71, 72],
+   [74, 76],
+   [78, 82],
+   [84, 85],
+   [93, 95],
+   [97, 121],
+   [123, 123],
+   [127, 130],
+   [135, 136],
+   [138, 138],
+   [141, 142],
+   [145, 145],
+   [147, 148],
+   [150, 150],
+   [153, 155],
+   [157, 157],
+   [159, 160],
+   [162, 162],
+   [165, 173],
+   [176, 176],
+   [178, 179],
+   [181, 181],
+   [184, 193],
+   [195, 195],
+   [197, 198],
+   [200, 200],
+   [204, 204],
+   [211, 213],
+   [215, 215],
+   [219, 219],
+   [225, 225],
+   [229, 229],
+   [235, 235],
+   [239, 239],
+   [241, 241],
+   [246, 246],
+   [253, 253],
+   [257, 259],
+   [264, 264],
+   [269, 269],
+   [272, 272]
+  ],
+  "patched_lines": [
+   [3, 8],
+   [12, 17],
+   [21, 21],
+   [25, 41],
+   [44, 57],
+   [59, 59],
+   [67, 67],
+   [80, 81],
+   [84, 90],
+   [93, 96],
+   [109, 109],
+   [112, 113],
+   [115, 115],
+   [123, 125],
+   [127, 132],
+   [134, 135],
+   [138, 149],
+   [151, 162],
+   [167, 209],
+   [213, 226],
+   [229, 250],
+   [252, 252],
+   [256, 269],
+   [271, 290],
+   [292, 292],
+   [296, 386],
+   [389, 389],
+   [391, 398],
+   [400, 422],
+   [425, 427],
+   [429, 429],
+   [431, 438],
+   [440, 462],
+   [465, 468],
+   [470, 480],
+   [487, 489],
+   [491, 491],
+   [512, 512],
+   [523, 524],
+   [528, 532],
+   [537, 540],
+   [545, 551]
+  ],
+  "commit_url": "https://github.com/electerm/electerm/commit/59708b38c8a52f5db59d7d4eff98e31d573128ee",
+  "case_id": "245-GHSA-wxw2-rwmh-vr8f",
+  "content": {
+   "vulnerable": {
+    "sha256": "26f9ee7ce82b19470bcd05c9946d2693f71b01ecfd04daabf2404ef25b93b104",
+    "bytes": 9243
+   },
+   "patched": {
+    "sha256": "360b0633154861cd180aa3930c2b5d2f2b6b37adc76eaa0d42b18b8548228454",
+    "bytes": 17527
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      130,
+      "patterns.js-child-process-exec",
+      [78]
+     ],
+     [
+      136,
+      "patterns.js-child-process-exec",
+      [78]
+     ],
+     [
+      150,
+      "patterns.js-child-process-exec",
+      [78]
+     ],
+     [
+      162,
+      "patterns.js-child-process-exec",
+      [78]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

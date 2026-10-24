@@ -1,0 +1,114 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rvhj-8chj-8v3c",
+  "cve_id": "CVE-2026-0596",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-03-31T15:31:56Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-rvhj-8chj-8v3c",
+  "label_cwes": [78],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "202fac4c83ccc8544c087c142b80196d0e60695c",
+  "parent_sha": "80c4d6feb1c7abadde89196b063a378f797465b2",
+  "path_vulnerable": "mlflow/pyfunc/mlserver.py",
+  "path_patched": "mlflow/pyfunc/mlserver.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2, 3],
+   [19, 19]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [20, 20]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/202fac4c83ccc8544c087c142b80196d0e60695c",
+  "case_id": "163-GHSA-rvhj-8chj-8v3c",
+  "content": {
+   "vulnerable": {
+    "sha256": "92d434b575c1f1c6bad6e0bcc1ded6a228160f80697c40d6551755db74b7993b",
+    "bytes": 1225
+   },
+   "patched": {
+    "sha256": "8aab28c8f1c9f95395c7669022aeca5fa3113d5b3433d46566b62e7cf429e776",
+    "bytes": 1251
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

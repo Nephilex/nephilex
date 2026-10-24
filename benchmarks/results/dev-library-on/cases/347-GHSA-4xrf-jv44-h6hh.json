@@ -1,0 +1,105 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-4xrf-jv44-h6hh",
+  "cve_id": "CVE-2026-69198",
+  "ecosystem": "npm",
+  "packages": [
+   "ip-address"
+  ],
+  "published_at": "2026-08-03T19:59:33Z",
+  "advisory_cwes": [20, 918],
+  "html_url": "https://github.com/advisories/GHSA-4xrf-jv44-h6hh",
+  "label_cwes": [918],
+  "repo": "beaugunderson/ip-address",
+  "fix_sha": "488fe9bc7c35363b4b090494fc38c266d217740d",
+  "parent_sha": "e86ab3e19588761ce18caf4820b26f01ac25043b",
+  "path_vulnerable": "src/ipv4.ts",
+  "path_patched": "src/ipv4.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [457, 457],
+   [465, 465],
+   [473, 473],
+   [481, 481],
+   [489, 489],
+   [497, 497],
+   [505, 505]
+  ],
+  "patched_lines": [
+   [452, 459],
+   [465, 465],
+   [473, 473],
+   [481, 481],
+   [489, 489],
+   [497, 497],
+   [505, 505],
+   [513, 513]
+  ],
+  "commit_url": "https://github.com/beaugunderson/ip-address/commit/488fe9bc7c35363b4b090494fc38c266d217740d",
+  "case_id": "347-GHSA-4xrf-jv44-h6hh",
+  "content": {
+   "vulnerable": {
+    "sha256": "ebf44fb57bee16d446d1a18e3fa11c3a9c032dae2eb8a1cd8bfcefbe91286a0f",
+    "bytes": 16549
+   },
+   "patched": {
+    "sha256": "9a129caa8e8b450291a8c6afa15b273dad5322736e04a07cdf16107078f96a4b",
+    "bytes": 16818
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

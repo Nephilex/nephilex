@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2xgg-r2wc-c5r2",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@budibase/server"
+  ],
+  "published_at": "2026-07-24T21:26:19Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-2xgg-r2wc-c5r2",
+  "label_cwes": [89],
+  "repo": "Budibase/budibase",
+  "fix_sha": "2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "parent_sha": "d0afbb99b68ac008575d9560f6d5acfe5df3f722",
+  "path_vulnerable": "packages/server/src/integrations/mysql.ts",
+  "path_patched": "packages/server/src/integrations/mysql.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [25, 26],
+   [305, 305]
+  ],
+  "patched_lines": [
+   [26, 26],
+   [306, 306]
+  ],
+  "commit_url": "https://github.com/Budibase/budibase/commit/2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "case_id": "289-GHSA-2xgg-r2wc-c5r2",
+  "content": {
+   "vulnerable": {
+    "sha256": "8e4d2b89929b9d3960fd506f119dec28808f8b5ab51fb509e125e0eefa3501f6",
+    "bytes": 11637
+   },
+   "patched": {
+    "sha256": "29f79a9f4dc8bb0b1a61182d6b64d6dab77d2ebef49adc523f9e96d1c3f4284a",
+    "bytes": 11678
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

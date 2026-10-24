@@ -1,0 +1,99 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g74q-6g2f-874x",
+  "cve_id": "CVE-2026-63506",
+  "ecosystem": "npm",
+  "packages": [
+   "@tinacms/auth",
+   "next-tinacms-azure"
+  ],
+  "published_at": "2026-09-17T14:59:00Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-g74q-6g2f-874x",
+  "label_cwes": [639],
+  "repo": "tinacms/tinacms",
+  "fix_sha": "0a927a4f8d228dd05ee7ca4be32899bc190e73af",
+  "parent_sha": "c2c03c677f67b6fd3a2155d5227b9bf785b43288",
+  "path_vulnerable": "packages/@tinacms/cli/src/cmds/init/prompts/authProvider.ts",
+  "path_patched": "packages/@tinacms/cli/src/cmds/init/prompts/authProvider.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [17, 17]
+  ],
+  "patched_lines": [
+   [17, 18]
+  ],
+  "commit_url": "https://github.com/tinacms/tinacms/commit/0a927a4f8d228dd05ee7ca4be32899bc190e73af",
+  "case_id": "293-GHSA-g74q-6g2f-874x",
+  "content": {
+   "vulnerable": {
+    "sha256": "0fd37a7e6d40ef97c7a057ac008aca9669e1aa01f367457abb57a1483298a4ec",
+    "bytes": 3519
+   },
+   "patched": {
+    "sha256": "016b17c4d50da672cf94b45a32f963e22cabdae111a359386dea3e9e8ba4c4e8",
+    "bytes": 3563
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      17,
+      "secrets.high-entropy-string",
+      [798]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

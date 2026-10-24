@@ -1,0 +1,93 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-gcr2-9v8m-gq45",
+  "cve_id": "CVE-2026-68921",
+  "ecosystem": "npm",
+  "packages": [
+   "@dicebear/core",
+   "@dicebear/initials"
+  ],
+  "published_at": "2026-09-02T22:44:25Z",
+  "advisory_cwes": [79, 184],
+  "html_url": "https://github.com/advisories/GHSA-gcr2-9v8m-gq45",
+  "label_cwes": [79],
+  "repo": "dicebear/dicebear",
+  "fix_sha": "922946d738c4e77ab6c412e27ede75941fec4b59",
+  "parent_sha": "efe62f2700e9e45b60e40b0e92a22e93d07e237d",
+  "path_vulnerable": "packages/@dicebear/initials/src/index.ts",
+  "path_patched": "packages/@dicebear/initials/src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [38, 38]
+  ],
+  "patched_lines": [
+   [38, 38]
+  ],
+  "commit_url": "https://github.com/dicebear/dicebear/commit/922946d738c4e77ab6c412e27ede75941fec4b59",
+  "case_id": "281-GHSA-gcr2-9v8m-gq45",
+  "content": {
+   "vulnerable": {
+    "sha256": "c7975ce23b6b9de461bc55d60537b8ce60911b9299233f58fcc5e5b4547ef1a7",
+    "bytes": 1692
+   },
+   "patched": {
+    "sha256": "7eadebc64c87b7a0bf00c3e9c0195b9e421738673c1950449ad32bb202280c62",
+    "bytes": 1724
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

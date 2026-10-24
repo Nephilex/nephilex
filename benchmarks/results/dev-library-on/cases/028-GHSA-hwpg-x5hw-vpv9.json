@@ -1,0 +1,212 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hwpg-x5hw-vpv9",
+  "cve_id": "CVE-2025-52558",
+  "ecosystem": "pip",
+  "packages": [
+   "changedetection.io"
+  ],
+  "published_at": "2025-06-23T21:21:41Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-hwpg-x5hw-vpv9",
+  "label_cwes": [79],
+  "repo": "dgtlmoon/changedetection.io",
+  "fix_sha": "3d5a544ea674cfce517adcd498877a8d760d0931",
+  "parent_sha": "4f362385e169831bd6518c7f3171ecbfc8c1de4a",
+  "path_vulnerable": "changedetectionio/model/Watch.py",
+  "path_patched": "changedetectionio/model/Watch.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [10, 11],
+   [694, 694],
+   [696, 696],
+   [698, 698]
+  ],
+  "patched_lines": [
+   [11, 11],
+   [695, 695],
+   [697, 697],
+   [699, 699]
+  ],
+  "commit_url": "https://github.com/dgtlmoon/changedetection.io/commit/3d5a544ea674cfce517adcd498877a8d760d0931",
+  "case_id": "028-GHSA-hwpg-x5hw-vpv9",
+  "content": {
+   "vulnerable": {
+    "sha256": "c39bb21f7ef03bf4d6937fc36bb0612ca1547ef976909e6c76eb702a491d0aef",
+    "bytes": 26047
+   },
+   "patched": {
+    "sha256": "6a37ab1596979a914ed9bb241133193fd53df38d68b510f2ef549d17f5455329",
+    "bytes": 26158
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      339,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      616,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      633,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      340,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      617,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      634,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      92,
+      "B704",
+      [79]
+     ],
+     [
+      684,
+      "B704",
+      [79]
+     ],
+     [
+      686,
+      "B704",
+      [79]
+     ],
+     [
+      688,
+      "B704",
+      [79]
+     ],
+     [
+      691,
+      "B704",
+      [79]
+     ],
+     [
+      696,
+      "B704",
+      [79]
+     ],
+     [
+      698,
+      "B704",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      93,
+      "B704",
+      [79]
+     ],
+     [
+      685,
+      "B704",
+      [79]
+     ],
+     [
+      687,
+      "B704",
+      [79]
+     ],
+     [
+      689,
+      "B704",
+      [79]
+     ],
+     [
+      692,
+      "B704",
+      [79]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}
