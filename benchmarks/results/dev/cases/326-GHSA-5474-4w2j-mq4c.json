@@ -43,7 +43,18 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
+    "vulnerable": [
+     [
+      76,
+      "ast-js.ast-path-prefix-check",
+      [22]
+     ],
+     [
+      144,
+      "ast-js.ast-path-prefix-check",
+      [22]
+     ]
+    ],
     "patched": []
    }
   },
@@ -63,15 +74,15 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

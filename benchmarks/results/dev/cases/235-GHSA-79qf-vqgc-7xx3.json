@@ -47,8 +47,20 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      157,
+      "ast-js.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      183,
+      "ast-js.ast-path-traversal",
+      [22]
+     ]
+    ]
    }
   },
   "bandit": {

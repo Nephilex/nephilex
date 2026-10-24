@@ -48,7 +48,28 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
+    "vulnerable": [
+     [
+      66,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      71,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      76,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      80,
+      "ast-js.ast-command-injection",
+      [78]
+     ]
+    ],
     "patched": []
    }
   },
@@ -68,7 +89,7 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
@@ -76,7 +97,7 @@
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

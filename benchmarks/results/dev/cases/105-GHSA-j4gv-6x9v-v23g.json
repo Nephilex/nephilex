@@ -58,8 +58,25 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      668,
+      "ast-js.ast-xss",
+      [79]
+     ],
+     [
+      923,
+      "ast-js.ast-code-injection",
+      [95]
+     ]
+    ],
+    "patched": [
+     [
+      676,
+      "ast-js.ast-xss",
+      [79]
+     ]
+    ]
    }
   },
   "bandit": {
@@ -86,7 +103,7 @@
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

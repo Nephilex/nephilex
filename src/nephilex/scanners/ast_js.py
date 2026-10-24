@@ -3,18 +3,23 @@
 The regex tier's JS rules (``.innerHTML =``, SQL-ish concatenation) fire on the
 *shape* of the code and can't tell tainted input from safe values, the classic
 source of false positives on real Node/TS apps. This scanner parses JS/TS/TSX
-with tree-sitter and tracks untrusted input through variable assignments into
-sinks, so it flags an issue only when tainted data actually reaches it.
+with tree-sitter and tracks untrusted input through assignments, destructuring,
+template literals, closures and calls to functions defined in the same file into
+sinks, so it flags an issue only when tainted data actually reaches one. The
+engine is :mod:`nephilex.scanners._jsflow`.
 
 Precision decisions that matter on real code:
 
 * **Parameterized queries are safe.** For SQL sinks only the *first* argument (the
   query text) is checked. ``db.query('... WHERE id = ?', [userId])`` is NOT
   flagged, the taint is in the bound-parameters array, not the query string.
-* **Sanitizers clear taint**, ``DOMPurify.sanitize``, ``encodeURIComponent``,
-  ``Number()``/``parseInt`` (numeric coercion), ``escape``, ``validator.*``.
+* **Sanitizers clear only what they protect against.** HTML escaping clears
+  XSS but not SQL; ``path.basename`` clears path traversal; ``shell-quote``
+  clears command injection; numeric coercion clears everything.
+* **Guards count.** A block that returns or throws when an allowlist, regex or
+  containment check fails clears the checked value after it.
 * **Per-function scope** so a tainted variable in one handler doesn't leak into
-  another.
+  another, while nested functions see their enclosing scope.
 
 Optional via ``pip install "nephilex[ast]"``. Without tree-sitter the scanner
 reports not-applicable and Nephilex falls back to the regex tier.
@@ -26,7 +31,7 @@ import re
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from nephilex.core.models import (
     Confidence,
@@ -37,11 +42,11 @@ from nephilex.core.models import (
     Severity,
 )
 from nephilex.core.plugin import Scanner, ScannerContext, scanner
+from nephilex.scanners._jsflow import KIND_CWE, JsFlow, Report
 from nephilex.scanners.ast_python import (
     analysis_skipped_finding,
     language_context,
     make_parser,
-    marker,
     node_location,
     run_with_context,
 )
@@ -89,20 +94,9 @@ def _lang_for(suffix: str) -> str | None:
     return None
 
 
-# Untrusted-input sources (Express/Koa/browser). A member expression or call
-# mentioning one of these taints the value.
-_SOURCE_RE = re.compile(
-    r"\breq(uest)?\.(query|body|params|headers|cookies|get)\b"
-    r"|\bctx\.(query|request|params|headers)\b"
-    r"|\blocation\.(search|hash|href|pathname)\b"
-    r"|\bdocument\.(URL|documentURI|referrer|cookie)\b"
-    r"|\bwindow\.name\b"
-    r"|\bprocess\.(argv|env)\b"
-)
-# Function-name last components that neutralize taint. NB: toString() is *not*
-# a sanitizer -- `userInput.toString()` still yields attacker-controlled text and
-# does nothing against XSS/injection, so listing it here would clear taint that
-# is still live.
+# Function-name last components that neutralize taint for HTML sinks (kept for
+# reference; the engine applies them per sink kind). NB: toString() is *not* a
+# sanitizer -- `userInput.toString()` still yields attacker-controlled text.
 _SANITIZERS = {
     "parseInt",
     "parseFloat",
@@ -138,12 +132,13 @@ class Sink:
     references: list[str] = field(default_factory=list)
 
 
+_INJECTION = ["A03:2021-Injection"]
 CALL_SINKS: list[Sink] = [
     Sink(
         id="ast-sql-injection",
         fn=re.compile(r"(^|\.)(query|execute|executeQuery|raw|unsafe)$"),
         cwe=["CWE-89"],
-        owasp=["A03:2021-Injection"],
+        owasp=_INJECTION,
         severity=Severity.HIGH,
         title="SQL injection (tainted value concatenated into a query)",
         why="Untrusted input is built into the SQL query string, so it can change "
@@ -153,36 +148,37 @@ CALL_SINKS: list[Sink] = [
         impact="Unauthorized data access or modification, up to full DB compromise.",
         fix="Use parameterized queries / bound placeholders (e.g. "
         "query('... WHERE id = ?', [id])) instead of string concatenation.",
-        args="first",  # only the query text; params array is the safe path
     ),
     Sink(
         id="ast-command-injection",
-        fn=re.compile(r"(^|\.)(execSync|spawnSync)$"),
+        fn=re.compile(r"(^|\.)(exec|execSync|spawn|spawnSync|execFile|execFileSync)$"),
         cwe=["CWE-78"],
-        owasp=["A03:2021-Injection"],
+        owasp=_INJECTION,
         severity=Severity.HIGH,
         title="OS command injection (tainted value reaches a shell command)",
-        why="Untrusted input reaches child_process exec, which runs it via the shell.",
+        why="Untrusted input reaches a command that child_process runs through a "
+        "shell (exec/execSync, spawn with shell: true, or sh -c / cmd /c).",
         attack="Inject `; rm -rf` or `$(...)` through the tainted parameter.",
         impact="Remote code execution on the host.",
-        fix="Use execFile/spawn with an argument array (no shell) and validate input.",
+        fix="Use execFile/spawn with an argument array and no shell, and validate the "
+        "value against an allowlist or a strict pattern.",
     ),
     Sink(
         id="ast-path-traversal",
-        fn=re.compile(
-            r"(^|\.)(readFile|readFileSync|createReadStream|sendFile|"
-            r"writeFile|writeFileSync)$"
-        ),
+        fn=re.compile(r"(^|\.)(readFile|readFileSync|createReadStream|sendFile|writeFile)$"),
         cwe=["CWE-22"],
         owasp=["A01:2021-Broken Access Control"],
         severity=Severity.MEDIUM,
         title="Path traversal (tainted value reaches a file operation)",
-        why="A filesystem path built from untrusted input reaches a file API without "
-        "normalization, so `../` can escape the intended directory.",
-        attack="Request a path such as `../../etc/passwd`.",
+        why="A filesystem path built from untrusted input reaches a file API without a "
+        "containment check, so `../` or an absolute path can escape the intended "
+        "directory.",
+        attack="Request a path such as `../../etc/passwd`, or an archive entry named "
+        "`../../.ssh/authorized_keys`.",
         impact="Disclosure of sensitive files, or writing outside the intended area.",
-        fix="Resolve the path and confirm it stays within an allowed base directory "
-        "(path.resolve + prefix check), or use a vetted sanitizer.",
+        fix="Resolve the path and confirm it stays within the base directory "
+        "(path.resolve(base, p).startsWith(base + path.sep)), or keep only "
+        "path.basename(p).",
     ),
     Sink(
         id="ast-code-injection",
@@ -191,36 +187,127 @@ CALL_SINKS: list[Sink] = [
         # names merely ending in the word -- retrieval, myFunction, medieval.
         fn=re.compile(r"(^|\.)(eval|Function)$"),
         cwe=["CWE-95"],
-        owasp=["A03:2021-Injection"],
+        owasp=_INJECTION,
         severity=Severity.HIGH,
-        title="Code injection (tainted value reaches eval/Function)",
-        why="Untrusted input flows into eval or the Function constructor, which "
-        "execute it as code.",
+        title="Code injection (tainted value reaches eval/Function/vm)",
+        why="Untrusted input flows into eval, the Function constructor or a vm.run* "
+        "call, which execute it as code.",
         attack="Provide a JavaScript expression in the tainted value.",
         impact="Remote code execution in the JS runtime.",
-        fix="Never eval untrusted input; use JSON.parse or an explicit dispatch.",
+        fix="Never evaluate untrusted input; use JSON.parse or an explicit dispatch "
+        "table. vm is not a security boundary.",
     ),
     Sink(
         id="ast-xss",
         fn=re.compile(r"(^|\.)(write|insertAdjacentHTML)$"),
         cwe=["CWE-79"],
-        owasp=["A03:2021-Injection"],
+        owasp=_INJECTION,
         severity=Severity.MEDIUM,
         title="Cross-site scripting (tainted value written as HTML)",
-        why="Untrusted input is written to the document as HTML, so an attacker's "
-        "markup/script executes in the victim's browser.",
+        why="Untrusted input is written to the document or the HTTP response as HTML, "
+        "so an attacker's markup or script executes in the victim's browser.",
         attack="Get the app to render an attacker-controlled string containing "
         "`<script>` or an event handler.",
         impact="Session theft and actions performed as the victim.",
-        fix="Use textContent, a framework-escaped binding, or sanitize with a vetted "
-        "library (DOMPurify) before inserting HTML.",
+        fix="Use textContent, a framework-escaped binding, or escape/sanitize the value "
+        "(an HTML escaper, DOMPurify) before it is written as HTML.",
         args="rest",  # insertAdjacentHTML(position, html): the payload is not first
     ),
+    Sink(
+        id="ast-ssrf",
+        fn=re.compile(r"^(fetch|axios|got)$"),
+        cwe=["CWE-918"],
+        owasp=["A10:2021-Server-Side Request Forgery"],
+        severity=Severity.MEDIUM,
+        title="Server-side request forgery (tainted value is the request URL)",
+        why="The server sends an HTTP request to a URL or host taken from untrusted "
+        "input, so an attacker chooses where it connects.",
+        attack="Point the URL at http://169.254.169.254/ or an internal service.",
+        impact="Access to internal services and cloud metadata credentials.",
+        fix="Build the URL from a fixed origin and only put encoded values in its path, "
+        "or check the parsed hostname against an allowlist before the request.",
+    ),
+    Sink(
+        id="ast-open-redirect",
+        fn=re.compile(r"(^|\.)redirect$"),
+        cwe=["CWE-601"],
+        owasp=["A01:2021-Broken Access Control"],
+        severity=Severity.MEDIUM,
+        title="Open redirect (tainted value is the redirect target)",
+        why="The response redirects to a location taken from untrusted input.",
+        attack="Send victims a trusted link that bounces to a phishing page, or use "
+        "`javascript:` in a client-side redirect.",
+        impact="Phishing and token leakage through redirect chains.",
+        fix="Redirect only to relative paths (starting with `/` but not `//`) or to "
+        "hosts on an allowlist.",
+    ),
+    Sink(
+        id="ast-template-injection",
+        fn=re.compile(r"(^|\.)(render|compile|template|renderString)$"),
+        cwe=["CWE-1336"],
+        owasp=_INJECTION,
+        severity=Severity.HIGH,
+        title="Server-side template injection (tainted template source)",
+        why="Untrusted input is compiled as a template, and template engines such as "
+        "EJS, Pug, Handlebars, Nunjucks and lodash.template compile to JavaScript.",
+        attack="Submit a template expression that reaches process or require.",
+        impact="Remote code execution on the server.",
+        fix="Pass user input as template data, never as the template text.",
+    ),
 ]
-
-# XSS via assignment to a DOM HTML property (el.innerHTML = tainted).
-_HTML_SINK_PROPS = {"innerHTML", "outerHTML"}
-_XSS_CWES = frozenset(("CWE-79",))
+_BY_ID = {s.id: s for s in CALL_SINKS}
+_KIND_SINK = {
+    "sql": "ast-sql-injection",
+    "shell": "ast-command-injection",
+    "file": "ast-path-traversal",
+    "code": "ast-code-injection",
+    "html": "ast-xss",
+    "ssrf": "ast-ssrf",
+    "redirect": "ast-open-redirect",
+    "template": "ast-template-injection",
+}
+_PREFIX_CHECK = Sink(
+    id="ast-path-prefix-check",
+    fn=re.compile(""),
+    cwe=["CWE-22"],
+    owasp=["A01:2021-Broken Access Control"],
+    severity=Severity.MEDIUM,
+    title="Incomplete path containment check (startsWith without a separator)",
+    why="A resolved path is checked with startsWith(baseDir) where baseDir has no "
+    "trailing separator, so a sibling such as `/srv/data-evil` passes a check for "
+    "`/srv/data`.",
+    attack="Use a path that resolves into a sibling directory whose name starts with "
+    "the base directory's name.",
+    impact="Reading or writing files outside the intended directory.",
+    fix="Compare against base + path.sep (and allow p === base), or use "
+    "path.relative(base, p) and reject results starting with `..` or absolute ones.",
+)
+_AUTOESCAPE_OFF = Sink(
+    id="ast-template-autoescape-off",
+    fn=re.compile(""),
+    cwe=["CWE-79"],
+    owasp=_INJECTION,
+    severity=Severity.MEDIUM,
+    title="Template engine configured without HTML escaping",
+    why="The template engine is set up with escaping turned off (Nunjucks "
+    "`autoescape: false`, Handlebars `noEscape: true`), so every interpolated value is "
+    "written as raw HTML and any user-controlled value in a template is XSS.",
+    attack="Get a value containing `<script>` into any variable a template renders.",
+    impact="Stored or reflected cross-site scripting across every page the engine renders.",
+    fix="Keep autoescaping on and mark the few trusted HTML values safe one by one.",
+)
+_RULE_SPECS = {
+    "ast-path-prefix-check": _PREFIX_CHECK,
+    "ast-template-autoescape-off": _AUTOESCAPE_OFF,
+}
+_FLAVOR_NOTE = {
+    "request": "",
+    "dom": "",
+    "archive": "",
+    "env": " (an environment value or command-line argument, which the operator controls)",
+    "param": " (a function parameter built into the command or code string; whoever "
+    "calls this function with user input gets the injection)",
+}
 
 
 @scanner
@@ -230,8 +317,8 @@ class ASTJsScanner(Scanner):
     file_local = True
     description = (
         "Data-flow (taint) analysis for JavaScript/TypeScript via "
-        "tree-sitter; multi-hop injection/XSS the regex tier misses. "
-        "Needs the [ast] extra."
+        "tree-sitter; multi-hop injection, XSS, SSRF and path traversal the regex "
+        "tier misses. Needs the [ast] extra."
     )
 
     def applies_to(self, project) -> bool:
@@ -276,17 +363,9 @@ class ASTJsScanner(Scanner):
             yield from findings
 
 
-_FUNCTION_NODES = {
-    "function_declaration",
-    "function_expression",
-    "arrow_function",
-    "method_definition",
-    "generator_function",
-    "generator_function_declaration",
-}
-
-
 class _JsAnalyzer:
+    """Runs the engine on one file and turns its reports into findings."""
+
     def __init__(
         self,
         src: bytes,
@@ -298,213 +377,64 @@ class _JsAnalyzer:
         self._src = src
         self._path = path
         self._in_test = in_test
-        self._seen: set[tuple[str, int]] = set()
-        self._lines: list[bytes] | None = None
-        # Project context (trusted config only); see ast_python._Analyzer.
         self._ctx = context
-        self._ctx_cwes: tuple[str, ...] = tuple(sorted(context.cwes)) if context else ()
+        self._lines: list[bytes] | None = None
 
     def run(self, root) -> Iterable[Finding]:
-        yield from self._walk(root, set())
-
-    def _walk(self, root, tainted: set[str]) -> Iterable[Finding]:
-        # Explicit stack instead of recursion (deeply nested input would raise
-        # RecursionError); children are pushed in reverse to keep the pre-order
-        # the taint updates depend on.
-        stack: list[tuple[Any, set[str]]] = [(root, tainted)]
-        while stack:
-            node, scope = stack.pop()
-            t = node.type
-            if t in _FUNCTION_NODES:
-                body = node.child_by_field_name("body")
-                if body is not None:
-                    stack.append((body, set()))  # fresh per-function scope
-                continue
-            if t == "variable_declarator":
-                self._handle_decl(node, scope)
-                value = node.child_by_field_name("value")
-                if value is not None:
-                    stack.append((value, scope))
-                continue
-            if t == "assignment_expression":
-                finding = self._handle_assignment(node, scope)
-                if finding is not None:
-                    yield finding
-                right = node.child_by_field_name("right")
-                if right is not None:
-                    stack.append((right, scope))
-                continue
-            if t == "call_expression":
-                finding = self._check_call_sink(node, scope)
-                if finding is not None:
-                    yield finding
-            stack.extend((child, scope) for child in reversed(node.children))
-
-    # --- taint propagation --------------------------------------------------
-    def _handle_decl(self, node, tainted: set[str]) -> None:
-        name = node.child_by_field_name("name")
-        value = node.child_by_field_name("value")
-        if name is None or value is None or name.type != "identifier":
-            return
-        self._assign(self._text(name), value, tainted)
-
-    def _handle_assignment(self, node, tainted: set[str]) -> Finding | None:
-        left = node.child_by_field_name("left")
-        right = node.child_by_field_name("right")
-        if left is None or right is None:
-            return None
-        # XSS: el.innerHTML = <tainted>
-        if left.type == "member_expression":
-            prop = left.child_by_field_name("property")
-            if (
-                prop is not None
-                and self._text(prop) in _HTML_SINK_PROPS
-                and self._tainted(right, tainted, _XSS_CWES)
-            ):
-                return self._html_assignment_finding(node)
-        # Taint update for a plain identifier target.
-        if left.type == "identifier":
-            self._assign(self._text(left), right, tainted)
-        return None
-
-    def _assign(self, ident: str, value, tainted: set[str]) -> None:
-        """Update ``ident``'s taint (and per-CWE sanitized markers) from ``value``."""
-        if self._tainted(value, tainted):
-            # Computed before the scope changes: `x = x + y` reads x's markers.
-            clean_for = [
-                c for c in self._ctx_cwes if not self._tainted(value, tainted, frozenset((c,)))
-            ]
-            tainted.difference_update(marker(ident, c) for c in self._ctx_cwes)
-            tainted.add(ident)
-            tainted.update(marker(ident, c) for c in clean_for)
-        else:
-            tainted.discard(ident)
-            tainted.difference_update(marker(ident, c) for c in self._ctx_cwes)
-
-    def _ident_tainted(self, name: str, tainted: set[str], cwes: frozenset[str] | None) -> bool:
-        if name not in tainted:
-            return False
-        return not (cwes and any(marker(name, c) in tainted for c in cwes))
-
-    def _source(self, text: str) -> bool:
-        if self._ctx is not None:
-            text = self._ctx.mask_trusted(text)
-        return bool(_SOURCE_RE.search(text))
-
-    def _tainted(self, node, tainted: set[str], cwes: frozenset[str] | None = None) -> bool:
-        """Whether ``node`` carries taint into a sink of ``cwes`` (None: any sink)."""
-        if node.type == "call_expression" and self._is_sanitizer(node, cwes):
-            return False
-        text = self._text(node)
-        if self._source(text):
-            return True
-        if node.type == "identifier":
-            return self._ident_tainted(text, tainted, cwes)
-        # Below the root only tainted identifiers can still match (a
-        # descendant's text is a token-aligned slice of the text just checked),
-        # so walk for those alone; see ast_python._Analyzer._tainted.
-        stack = list(node.children)
-        while stack:
-            child = stack.pop()
-            if child.type == "call_expression" and self._is_sanitizer(child, cwes):
-                continue
-            if child.type == "identifier" and self._ident_tainted(self._text(child), tainted, cwes):
-                return True
-            stack.extend(child.children)
-        return False
-
-    # --- sinks --------------------------------------------------------------
-    def _check_call_sink(self, call, tainted: set[str]) -> Finding | None:
-        fn = call.child_by_field_name("function")
-        if fn is None:
-            return None
-        fn_text = self._text(fn)
-        sink = next((s for s in CALL_SINKS if s.fn.search(fn_text)), None)
-        if sink is None:
-            # child_process.exec, not RegExp.prototype.exec
-            if fn.type == "member_expression" and self._text(fn).endswith(".exec"):
-                obj = fn.child_by_field_name("object")
-                obj_text = self._text(obj) if obj else ""
-                if obj is not None and obj.type == "regex":
-                    return None
-                if "child_process" not in obj_text and obj_text not in ("cp", "childProcess"):
-                    return None
-                sink = next(s for s in CALL_SINKS if s.id == "ast-command-injection")
-            else:
-                return None
-        args = call.child_by_field_name("arguments")
-        if args is None:
-            return None
-        payload = list(args.named_children)
-        if sink.args == "first":
-            payload = payload[:1]
-        elif sink.args == "rest":
-            payload = payload[1:]
-        cwes = frozenset(sink.cwe)
-        if not any(self._tainted(a, tainted, cwes) for a in payload):
-            return None
-        return self._finding(sink, call.start_point[0] + 1, call)
-
-    def _html_assignment_finding(self, node) -> Finding | None:
-        line = node.start_point[0] + 1
-        sink = Sink(
-            id="ast-xss",
-            fn=re.compile(""),
-            cwe=["CWE-79"],
-            owasp=["A03:2021-Injection"],
-            severity=Severity.MEDIUM,
-            title="Cross-site scripting (tainted value assigned to innerHTML)",
-            why="Untrusted input is assigned to an element's HTML, so attacker "
-            "markup/script executes in the victim's browser.",
-            attack="Render an attacker-controlled string containing `<script>` or an "
-            "event-handler attribute.",
-            impact="Session theft and actions performed as the victim.",
-            fix="Use textContent or sanitize with a vetted library (DOMPurify) before "
-            "assigning HTML.",
-        )
-        return self._finding(sink, line, node)
-
-    # --- helpers ------------------------------------------------------------
-    def _is_sanitizer(self, call, cwes: frozenset[str] | None = None) -> bool:
-        fn = call.child_by_field_name("function")
-        if fn is None:
-            return False
-        fn_text = self._text(fn)
-        if fn_text.rsplit(".", 1)[-1] in _SANITIZERS:
-            return True
-        return self._ctx is not None and self._ctx.clears(fn_text, cwes)
-
-    def _text(self, node) -> str:
-        return self._src[node.start_byte : node.end_byte].decode("utf-8", "ignore")
+        for report in JsFlow(self._src, root, context=self._ctx).run():
+            yield self._finding(report)
 
     def _location(self, node) -> Location:
         if self._lines is None:  # split once per file, not once per finding
             self._lines = self._src.splitlines()
         return node_location(self._path, self._src, node, self._lines)
 
-    def _finding(self, sink: Sink, line: int, node) -> Finding | None:
-        key = (sink.id, line)
-        if key in self._seen:
-            return None
-        self._seen.add(key)
+    def _finding(self, report: Report) -> Finding:
+        sink = _RULE_SPECS[report.rule] if report.rule else _BY_ID[_KIND_SINK[report.kind]]
+        line = report.node.start_point[0] + 1
+        t = report.taint
         severity = sink.severity
-        confidence = Confidence.HIGH
+        confidence = (
+            Confidence.HIGH if t.flavor in ("request", "dom", "archive") else Confidence.MEDIUM
+        )
         tags = ["sast", "ast", "taint"]
         if self._in_test:
             severity = Severity(max(Severity.INFO, sink.severity - 1))
             confidence = Confidence.LOW
             tags.append("test-context")
+        if report.rule:
+            description = sink.why
+            metadata: dict[str, object] = {"analysis": "configuration", "check": report.label}
+        else:
+            via = (
+                f" through a helper call (sink on line {report.sink_line})"
+                if report.sink_line != line
+                else ""
+            )
+            description = (
+                f"{t.origin[:1].upper()}{t.origin[1:]} (line {t.line}){_FLAVOR_NOTE[t.flavor]} "
+                f"reaches {report.label}{via}. {sink.why}"
+            )
+            metadata = {
+                "analysis": "taint-dataflow",
+                "source": t.origin,
+                "source_line": t.line,
+                "source_kind": t.flavor,
+                "sink": report.label,
+                "sink_line": report.sink_line,
+            }
+        cwe = list(sink.cwe) if report.rule else [KIND_CWE[report.kind]]
         return Finding(
             id=f"{ASTJsScanner.name}:{sink.id}:{self._path}:{line}",
             rule_id=f"{ASTJsScanner.name}.{sink.id}",
             scanner=ASTJsScanner.name,
             title=sink.title,
-            description=sink.why,
-            location=self._location(node),
+            description=description,
+            location=self._location(report.node),
             severity=severity,
             confidence=confidence,
-            likelihood=Likelihood.LIKELY,
-            cwe=sink.cwe,
+            likelihood=Likelihood.LIKELY if t.flavor in ("request", "dom") else Likelihood.POSSIBLE,
+            cwe=cwe,
             owasp=sink.owasp,
             why_vulnerable=sink.why,
             attacker_perspective=sink.attack,
@@ -513,8 +443,8 @@ class _JsAnalyzer:
                 summary=sink.fix,
                 guidance=sink.fix,
                 references=sink.references
-                or [f"https://cwe.mitre.org/data/definitions/{sink.cwe[0].split('-')[1]}.html"],
+                or [f"https://cwe.mitre.org/data/definitions/{cwe[0].split('-')[1]}.html"],
             ),
             tags=tags,
-            metadata={"analysis": "taint-dataflow"},
+            metadata=metadata,
         )

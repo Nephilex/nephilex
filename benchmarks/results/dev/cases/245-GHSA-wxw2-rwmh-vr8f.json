@@ -135,12 +135,12 @@
     "vulnerable": [
      [
       130,
-      "patterns.js-child-process-exec",
+      "ast-js.ast-command-injection",
       [78]
      ],
      [
       136,
-      "patterns.js-child-process-exec",
+      "ast-js.ast-command-injection",
       [78]
      ],
      [
