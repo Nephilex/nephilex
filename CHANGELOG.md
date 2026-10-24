@@ -63,6 +63,10 @@ include breaking changes, noted explicitly).
   host is not reported.
 - A condition that joins path containment checks with `or` is no longer
   dropped by the Python flow engine.
+- Instruction files: telling the assistant to decode something and run it in
+  a shell is reported even when the payload does not decode, rules that "take
+  priority over" the user count as an override, and British spellings such as
+  "summarise" are matched.
 
 ## [0.11.0] - 2026-10-23
 

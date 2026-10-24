@@ -529,7 +529,7 @@ _I = re.IGNORECASE
 # Negation in the clause before a match turns guidance ("never pass
 # --no-verify") into a prohibition, which is not a directive.
 _NEGATION = re.compile(
-    r"\b(?:never|not|no|avoid|don'?t|doesn'?t|won'?t|cannot|can'?t|refuse|forbid(?:den)?|"
+    r"\b(?:never|not|no|nothing|avoid|don'?t|doesn'?t|won'?t|cannot|can'?t|refuse|forbid(?:den)?|"
     r"prohibit(?:ed)?|disallow(?:ed)?|instead\s+of|rather\s+than)\b|\bn't\b",
     _I,
 )
@@ -549,11 +549,21 @@ _P_OVERRIDE = [
         r"override|supersede)\s+(?:over\s+)?(?:any|all|the)\s+(?:user|system|previous)\b",
         _I,
     ),
+    re.compile(
+        r"\b(?:take|takes|taking|have|has|get|gets)\s+(?:priority|precedence)\s+over\s+"
+        r"(?:anything|everything|whatever|what|any|all)?\s*(?:the\s+)?users?\b",
+        _I,
+    ),
+    re.compile(
+        r"\bignore\s+(?:that|this|the|their|such|any\s+such)\s+(?:requests?|instructions?|"
+        r"objections?|refusals?)\b[^.\n]{0,30}?\b(?:proceed|continue|carry\s+on|go\s+ahead)\b",
+        _I,
+    ),
 ]
 _P_CONCEAL = [
     re.compile(
         r"\b(?:do\s+not|don'?t|never|without)\s+(?:tell(?:ing)?|mention(?:ing)?|inform(?:ing)?|"
-        r"reveal(?:ing)?|disclos(?:e|ing)|notify(?:ing)?|alert(?:ing)?|summariz(?:e|ing))\b"
+        r"reveal(?:ing)?|disclos(?:e|ing)|notify(?:ing)?|alert(?:ing)?|summari[sz](?:e|ing))\b"
         r"(?!\s+(?:the\s+)?users?\s+to\b)[^.\n]{0,60}?\b(?:the\s+user|users?|anyone|reviewers?|"
         r"maintainers?|commit\s+messages?|(?:pr|pull\s+request)\s+descriptions?|this|that|it|"
         r"them|these|those)\b",
@@ -669,6 +679,21 @@ _P_SHADOW = [
     re.compile(
         r"\binstead\s+of\s+(?:the\s+)?(?:user'?s?|requested|intended|given)\s+(?:recipient|"
         r"address|email|value|path|url|account)\b",
+        _I,
+    ),
+]
+#: Prose that tells the assistant to decode something and run it in a shell. It
+#: counts as execution on its own, so a payload that does not decode (broken or
+#: split hex) is still reported.
+_P_DECODE_EXEC = [
+    re.compile(
+        r"\bdecode\b[^.\n]{0,60}?\b(?:run|execute|eval(?:uate)?)\b[^.\n]{0,60}?"
+        r"\b(?:shell|terminal|bash|zsh|powershell|cmd)\b",
+        _I,
+    ),
+    re.compile(
+        r"\bdecode\b[^.\n]{0,40}?\b(?:shell|bash|terminal|command)\b[^.\n]{0,30}?"
+        r"\b(?:run|execute|eval(?:uate)?)\b",
         _I,
     ),
 ]
@@ -884,6 +909,7 @@ _PROSE_KINDS = (
     (PUSH, _P_PUSH),
     (SHADOW, _P_SHADOW),
     (ENCODED, _P_ENCODED),
+    (EXEC, _P_DECODE_EXEC),
 )
 
 
