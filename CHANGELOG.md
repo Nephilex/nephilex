@@ -65,6 +65,9 @@ include breaking changes, noted explicitly).
   dropped by the Python flow engine.
 - Dashboard: a report that cannot be stored now gets a generic error from
   `/upload` and `/api/scans`; the exception text goes to the server log only.
+- Dashboard: table rows link with a real `<a href>` in their first cell, and
+  the row click handler follows that link instead of turning a `data-href`
+  attribute into a navigation target.
 
 ## [0.11.0] - 2026-10-23
 

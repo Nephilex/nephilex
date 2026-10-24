@@ -106,6 +106,7 @@ h2 { font-size: 15px; margin: 0; font-weight: 600; }
 .table td { padding: 11px 12px; border-top: 1px solid var(--border); }
 .table tbody tr { cursor: pointer; }
 .table tbody tr:hover { background: var(--surface-2); }
+.row-link a { color: inherit; }
 .col-bar { width: 160px; }
 
 /* risk number */

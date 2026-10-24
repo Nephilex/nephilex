@@ -38,8 +38,8 @@
     </thead>
     <tbody>
       {% for s in scans %}
-      <tr class="row-link" data-href="/scans/{{ s.id }}" tabindex="0">
-        <td class="strong">{{ s.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      <tr class="row-link">
+        <td class="strong"><a href="/scans/{{ s.id }}">{{ s.created_at.strftime('%Y-%m-%d %H:%M') }}</a></td>
         <td><span class="risk risk-{{ risk_band(s.risk_score)|lower }}">{{ s.risk_score }}</span></td>
         <td class="col-bar">
           <span class="minibar">
