@@ -1017,6 +1017,36 @@ CASES: list[Case] = [
         "  ctx.body = `<h1>Hello ${escapeHtml(ctx.query.name)}</h1>`;\n"
         "});\n",
     ),
+    Case(
+        "taint-js-static-server-traversal",
+        "taint",
+        "static.js",
+        True,
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "const root = path.join(path.resolve('public'), '/');\n"
+        "module.exports = (req, res) => {\n"
+        "  const file = path.normalize(path.join(root, decodeURIComponent(req.url)));\n"
+        "  const gz = `${file}.gz`;\n"
+        "  fs.createReadStream(fs.existsSync(gz) ? gz : file).pipe(res);\n"
+        "};\n",
+    ),
+    Case(
+        "taint-js-static-server-slice-check-safe",
+        "taint",
+        "static.js",
+        False,
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "const root = path.join(path.resolve('public'), '/');\n"
+        "module.exports = (req, res) => {\n"
+        "  const file = path.normalize(path.join(root, decodeURIComponent(req.url)));\n"
+        "  const gz = `${file}.gz`;\n"
+        "  if (file.slice(0, root.length) !== root) {\n"
+        "    res.statusCode = 403;\n"
+        "    return res.end();\n"
+        "  }\n"
+        "  fs.createReadStream(fs.existsSync(gz) ? gz : file).pipe(res);\n"
+        "};\n",
+    ),
     # --- regex tier with data-flow grading and new checks -------------------
     Case(
         "sast-weak-random-token",

@@ -63,6 +63,10 @@ include breaking changes, noted explicitly).
   host is not reported.
 - A condition that joins path containment checks with `or` is no longer
   dropped by the Python flow engine.
+- JS/TS path traversal: `p.slice(0, base.length) === base` is recognized as a
+  containment check when the base ends with a separator (including
+  `path.join(dir, '/')`), and the check also covers a path built from the
+  checked one with a plain suffix such as `.gz`.
 
 ## [0.11.0] - 2026-10-23
 

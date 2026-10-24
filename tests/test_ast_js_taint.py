@@ -485,6 +485,45 @@ CASES = [
         "CWE-22",
     ),
     (
+        # http-server style: a slice of the resolved path compared with a root that
+        # path.join(dir, '/') ends with a separator
+        "path-slice-prefix-check",
+        "static.js",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "const root = path.join(path.resolve(dir), '/');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(root, req.query.name));\n"
+        "  fs.createReadStream(file).pipe(res);\n"
+        "});\n",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "const root = path.join(path.resolve(dir), '/');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(root, req.query.name));\n"
+        "  if (file.slice(0, root.length) !== root) return res.sendStatus(403);\n"
+        "  fs.createReadStream(file).pipe(res);\n"
+        "});\n",
+        "CWE-22",
+    ),
+    (
+        # the compressed variant is named before the check and read after it
+        "path-suffix-before-check",
+        "static.js",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(ROOT, req.query.name));\n"
+        "  const gz = `${file}.gz`;\n"
+        "  fs.createReadStream(gz).pipe(res);\n"
+        "});\n",
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(ROOT, req.query.name));\n"
+        "  const gz = `${file}.gz`;\n"
+        "  if (!file.startsWith(ROOT + path.sep)) return res.sendStatus(403);\n"
+        "  fs.createReadStream(gz).pipe(res);\n"
+        "});\n",
+        "CWE-22",
+    ),
+    (
         "express-static-root",
         "app.js",
         "const express = require('express');\n"
@@ -663,6 +702,74 @@ def test_weak_prefix_check_is_reported_and_separator_form_is_not():
     fixed = weak.replace("startsWith(rootDir)", "startsWith(rootDir + path.sep)")
     assert [f.rule_id for f in _scan("a.js", weak)] == ["ast-js.ast-path-prefix-check"]
     assert not _scan("a.js", fixed)
+
+
+def test_slice_prefix_check_needs_a_separator():
+    # Without a trailing separator /srv/www-evil passes a check for /srv/www, so
+    # the slice form does not clear the value (and is not reported on its own).
+    code = (
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "const root = path.resolve(dir);\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(root, req.query.name));\n"
+        "  if (file.slice(0, root.length) !== root) return res.sendStatus(403);\n"
+        "  fs.createReadStream(file).pipe(res);\n"
+        "});\n"
+    )
+    assert [f.rule_id for f in _scan("a.js", code)] == ["ast-js.ast-path-traversal"]
+    fixed = code.replace("path.resolve(dir)", "path.resolve(dir) + path.sep")
+    assert not _scan("a.js", fixed)
+    # substring and substr with the same arguments are the same test
+    for method in ("substring", "substr"):
+        assert not _scan("a.js", fixed.replace(".slice(", f".{method}("))
+
+
+def test_slice_prefix_check_against_attacker_value_proves_nothing():
+    code = (
+        "const fs = require('fs');\n"
+        "app.use((req, res) => {\n"
+        "  const file = req.query.name;\n"
+        "  const base = req.query.base;\n"
+        "  if (file.slice(0, base.length) !== base) return res.sendStatus(403);\n"
+        "  fs.createReadStream(file).pipe(res);\n"
+        "});\n"
+    )
+    assert "CWE-22" in _cwes("a.js", code)
+
+
+@pytest.mark.parametrize(
+    "suffix",
+    [
+        "'/../../etc/passwd'",  # a separator in the suffix can leave the directory
+        "'..'",  # root/ + '..' climbs out
+        "'\\\\..\\\\..\\\\x'",  # escape sequences could spell a separator
+    ],
+)
+def test_suffix_with_separator_or_dots_is_not_covered_by_the_check(suffix):
+    code = (
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(ROOT, req.query.name));\n"
+        f"  const other = file + {suffix};\n"
+        "  if (!file.startsWith(ROOT + path.sep)) return res.sendStatus(403);\n"
+        "  fs.createReadStream(other).pipe(res);\n"
+        "});\n"
+    )
+    assert "CWE-22" in _cwes("a.js", code)
+
+
+def test_suffix_derivation_is_dropped_when_the_variable_is_reassigned():
+    code = (
+        "const fs = require('fs');\nconst path = require('path');\n"
+        "app.use((req, res) => {\n"
+        "  const file = path.normalize(path.join(ROOT, req.query.name));\n"
+        "  let gz = `${file}.gz`;\n"
+        "  gz = req.query.other;\n"
+        "  if (!file.startsWith(ROOT + path.sep)) return res.sendStatus(403);\n"
+        "  fs.createReadStream(gz).pipe(res);\n"
+        "});\n"
+    )
+    assert "CWE-22" in _cwes("a.js", code)
 
 
 def test_search_params_append_does_not_make_a_redirect_open():
