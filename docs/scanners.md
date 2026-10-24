@@ -179,8 +179,130 @@ state/PKCE, tokens in URLs, and cookies set without security flags:
 `authz.cookie-missing-httponly` (CWE-1004). The call is read across lines; an
 explicit `False` is high confidence, a missing flag medium.
 
+**Global authentication.** Before reporting `authz.missing-authentication`, the
+scanner looks for authentication registered once for the whole application:
+
+- FastAPI and Starlette: an `@app.middleware("http")` function; a class passed to
+  `app.add_middleware(...)` or `FastAPI(middleware=[Middleware(...)])` whose
+  `dispatch` or `__call__` does the check; `FastAPI(dependencies=[...])`; and
+  `include_router(router, dependencies=[...])`, which covers only the routes of
+  that router's module. `APIRouter(dependencies=[...])` already covered the
+  routes in its own file.
+- Flask: `@app.before_request` (or `app.before_request(func)`) for the whole app,
+  `@blueprint.before_request` for that blueprint's routes, and
+  `before_app_request`.
+- Django: `LoginRequiredMiddleware` or a project middleware in `MIDDLEWARE`
+  whose `__call__`, `process_request` or `process_view` does the check. A route
+  marked `@login_not_required` stays reported. `@login_required` and the
+  `LoginRequiredMixin`, `PermissionRequiredMixin` and `UserPassesTestMixin`
+  classes count as route-level auth.
+
+A middleware or hook counts only if it reads a credential (an `Authorization`,
+API-key or token header, a cookie, the session, `request.user`, or a call such
+as `verify_token()` or `compare_digest()`) and, when that check fails, returns
+or raises 401 or 403 (`abort(401)`, `HTTPException(status_code=401)`,
+`HttpResponseForbidden`, `PermissionDenied`). A middleware that only logs, adds
+headers, applies CORS or rate-limits is not authentication. Dependencies count
+when their callable is named like authentication (`get_current_user`,
+`verify_api_key`) or is a function that does the check; `Depends(get_db)` does
+not.
+
+Path exemptions are read from the guard: `if request.url.path == "/health"`,
+`in PUBLIC_PATHS` (a literal or a module constant), `.startswith(...)`, and
+Flask `request.endpoint in (...)`. A route the guard skips is reported as
+before.
+
+Method conditions are read the same way. A guard such as
+`if request.method != "GET" and not key: return 401`, or a check nested under
+`if request.method in ("POST", "PUT"):`, covers only the methods it checks, so
+a `GET` route under a writes-only guard stays High while a `PUT` route is
+covered. `==`, `!=`, `in` and `not in` against literal methods, tuples or
+constants are read on `request.method`, `scope["method"]` and
+`scope.get("method")`. The route's method comes from the decorator
+(`@router.put`) or Flask's `methods=[...]` (default `GET`); implicit `HEAD` and
+`OPTIONS` are not counted, so a CORS preflight bypass still covers the route.
+A method test that also requires the credential
+(`if request.method == "GET" and token_ok: ...`) is part of the check, not a
+skip.
+
+If a path or method condition cannot be read (for example a function call), the
+guard covers nothing. With more than one FastAPI or Flask application in the
+project, an app-wide guard covers only the routes in its own file.
+
+A covered route is not dropped. It is reported at Info as "Sensitive route
+relies on global authentication", naming the guard in `metadata.global_auth`,
+so the assumption that the route is mounted behind that guard stays visible
+without failing a gate.
+
+A guard that fails open still counts, but the note says so. If the guard, or a
+helper its check calls, lets every request through when the expected
+credential is not configured (`if not API_TOKEN: return await call_next(...)`,
+`if not settings.token: return True`) or when an auth switch is set
+(`os.environ.get("AUTH_DISABLED")`), the description says the guard allows all
+requests when the credential is not configured, and
+`metadata.global_auth.fails_open` is `true`.
+
 **Does not.** Judge a flag set from configuration (`secure=app.config[...]`), or
-know whether a cookie is a session cookie.
+know whether a cookie is a session cookie. Follow which application a router is
+finally mounted on when there are several, or treat a redirect to a login page
+as a rejection (only 401 and 403 are).
+
+## Malicious code (malware)
+
+**Detects.** Shapes that point at a backdoor or a compromised repository:
+decode-then-exec payloads, `__import__` indirection to a shell, reverse shells,
+PHP webshells, cryptominers, remote scripts piped to a shell, encoded
+PowerShell, suspicious package lifecycle scripts, and credential or environment
+exfiltration.
+
+`malware.data-exfil-env` needs evidence that data leaves the host. A `curl` or
+`wget` command is read word by word and reported when one of these holds:
+
+- a data or upload flag (`-d`, `--data*`, `--json`, `-F`, `--form`, `-T`,
+  `--upload-file`, wget `--post-data`, `--post-file`, `--body-data`,
+  `--body-file`) carries a secret-named variable (`$NPM_TOKEN`,
+  `${AWS_SECRET_ACCESS_KEY}`, `%DB_PASSWORD%`, `process.env.API_KEY`), the
+  whole environment (`$(env)`, `printenv`, `/proc/*/environ`) or a credential
+  file (`~/.aws`, `~/.ssh`, `.env`, `id_rsa`, `/etc/shadow`);
+- `env` or `printenv` is piped into the command, a credential file is piped or
+  redirected into it, or a secret is piped in and read with `@-`;
+- a secret-named variable or the environment appears in the URL, a header
+  (`-H`, `--header`), `-u`/`--user` or `--cookie`, except for the
+  authenticated API call described below.
+
+A command continued over several lines with a trailing `\` is read as one
+command.
+
+A variable counts as a secret when its name contains a word such as `TOKEN`,
+`SECRET`, `PASSWORD`, `PASS`, `KEY`, `AUTH`, `SESSION` or `COOKIE`, and does not
+end in `URL`, `HOST`, `PORT`, `NAME` or similar. The Python form still reports
+`requests`, `httpx` or `urllib` calls on a literal URL with `os.environ`,
+`getenv` or `process.env` in the arguments.
+
+**Does not.** Report a request that sends nothing: a readiness loop such as
+`curl --fail --max-time 15 "$url" >/dev/null`, `wget --spider "$READY_URL"` or a
+download to `-o "$OUT_DIR/file"` is not exfiltration however many variables it
+uses.
+
+It also does not report an authenticated API call: a secret in a credential
+header (`Authorization`, `Cookie`, `PRIVATE-TOKEN`, or a name containing
+`token`, `api-key`, `auth`, `secret` or `session`), in `-u`/`--user`, or in
+`--oauth2-bearer`, when every destination is an `https://` URL whose host is
+written literally, for example:
+
+```sh
+curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user
+```
+
+Variables later in the path or query are fine.
+The same header is reported when the destination comes from a variable, uses
+plain `http://`, has an IP-literal host, or when the request also has a data
+or upload flag carrying a secret or the environment.
+
+**Limits.** A command assembled in a variable or through a function, or a
+secret copied into a neutrally named variable first, is not followed. A
+credential header sent to a literal `https://` host the attacker controls is
+not reported; the scanner cannot tell the intended service from another host.
 
 ## Agent config
 
