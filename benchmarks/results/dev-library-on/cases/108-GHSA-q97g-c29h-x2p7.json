@@ -1,0 +1,276 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-q97g-c29h-x2p7",
+  "cve_id": "CVE-2024-22203",
+  "ecosystem": "pip",
+  "packages": [
+   "whoogle-search"
+  ],
+  "published_at": "2024-03-14T20:37:57Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-q97g-c29h-x2p7",
+  "label_cwes": [918],
+  "repo": "benbusby/whoogle-search",
+  "fix_sha": "3a2e0b262e4a076a20416b45e6b6f23fd265aeda",
+  "parent_sha": "8830615abcf17e0cd3991fbf963debfb161784cd",
+  "path_vulnerable": "app/routes.py",
+  "path_patched": "app/routes.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [6, 9],
+   [426, 429],
+   [447, 447],
+   [465, 466],
+   [477, 478],
+   [488, 489],
+   [506, 507]
+  ],
+  "patched_lines": [
+   [7, 7],
+   [10, 10],
+   [425, 431],
+   [435, 436],
+   [454, 454],
+   [473, 474],
+   [487, 491],
+   [501, 502],
+   [519, 525]
+  ],
+  "commit_url": "https://github.com/benbusby/whoogle-search/commit/3a2e0b262e4a076a20416b45e6b6f23fd265aeda",
+  "case_id": "108-GHSA-q97g-c29h-x2p7",
+  "content": {
+   "vulnerable": {
+    "sha256": "261925d13a023e76fd2decd5a6bbc0c62b09544e14bcae7bb35a175cb260f08a",
+    "bytes": 22694
+   },
+   "patched": {
+    "sha256": "9277e9855b7813b7041cde6364c1348685ac4a612aadee00a8a3504371d7f666",
+    "bytes": 23263
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      104,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      105,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      430,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      430,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      445,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      449,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      450,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      459,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      484,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      106,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      107,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      437,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      437,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      452,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      456,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      457,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      466,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      498,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      6,
+      "B403",
+      [502]
+     ],
+     [
+      104,
+      "B301",
+      [502]
+     ],
+     [
+      105,
+      "B301",
+      [502]
+     ],
+     [
+      109,
+      "B110",
+      [703]
+     ],
+     [
+      430,
+      "B301",
+      [502]
+     ]
+    ],
+    "patched": [
+     [
+      6,
+      "B403",
+      [502]
+     ],
+     [
+      106,
+      "B301",
+      [502]
+     ],
+     [
+      107,
+      "B301",
+      [502]
+     ],
+     [
+      111,
+      "B110",
+      [703]
+     ],
+     [
+      437,
+      "B301",
+      [502]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      445,
+      "python.flask.security.injection.path-traversal-open.path-traversal-open",
+      [22]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

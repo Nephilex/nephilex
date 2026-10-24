@@ -25,7 +25,7 @@ from nephilex.cli._common import cli_severity
 from nephilex.cli._console import console, err_console
 from nephilex.cli.output import print_scanner_failure, write_stdout
 from nephilex.core.config import Config, ConfigError, load_project_config
-from nephilex.core.models import ScanResult, Severity
+from nephilex.core.models import ScanResult, Severity, counts_toward_gate
 from nephilex.core.project import Project
 
 _FORMATS = ("text", "json", "hook")
@@ -157,7 +157,7 @@ def check(
     if result.errors and cfg.errors_fail_gate(True):
         print_scanner_failure(result)
         raise typer.Exit(1)
-    if any(f.severity >= threshold for f in result.findings):
+    if any(f.severity >= threshold and counts_toward_gate(f) for f in result.findings):
         raise typer.Exit(1)
 
 
@@ -215,7 +215,7 @@ def _print_text(result: ScanResult, file_count: int, threshold: Severity) -> Non
     counts = ", ".join(
         f"{n} {label.lower()}" for label, n in result.counts_by_severity().items() if n
     )
-    gated = sum(1 for f in findings if f.severity >= threshold)
+    gated = sum(1 for f in findings if f.severity >= threshold and counts_toward_gate(f))
     console.print(
         f"{len(findings)} finding(s) in {file_count} {noun} ({counts}); "
         f"{gated} at or above {severity_name(threshold)}."

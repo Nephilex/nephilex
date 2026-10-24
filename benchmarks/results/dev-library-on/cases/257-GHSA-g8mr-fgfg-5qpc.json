@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g8mr-fgfg-5qpc",
+  "cve_id": "CVE-2025-62595",
+  "ecosystem": "npm",
+  "packages": [
+   "koa"
+  ],
+  "published_at": "2025-10-21T15:09:06Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-g8mr-fgfg-5qpc",
+  "label_cwes": [601],
+  "repo": "koajs/koa",
+  "fix_sha": "769fd75cc6b30d72493b370b5a3ae2332ca03c5b",
+  "parent_sha": "433b20c9e5954113e8d7a23a25e9d5bb750c3034",
+  "path_vulnerable": "lib/response.js",
+  "path_patched": "lib/response.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [325, 330]
+  ],
+  "patched_lines": [
+   [324, 325]
+  ],
+  "commit_url": "https://github.com/koajs/koa/commit/769fd75cc6b30d72493b370b5a3ae2332ca03c5b",
+  "case_id": "257-GHSA-g8mr-fgfg-5qpc",
+  "content": {
+   "vulnerable": {
+    "sha256": "cfb1e1ec24cb7a4dcbc9c088eccde427db0c2c63709df957b66aa65eb988f0b0",
+    "bytes": 13407
+   },
+   "patched": {
+    "sha256": "c86dfe3c0c72dd7c6ff5e89d2684ef5ac2b875466dfab64cf5747b7c286b5b45",
+    "bytes": 13276
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

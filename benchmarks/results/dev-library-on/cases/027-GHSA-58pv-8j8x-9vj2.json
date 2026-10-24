@@ -1,0 +1,169 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-58pv-8j8x-9vj2",
+  "cve_id": "CVE-2026-23949",
+  "ecosystem": "pip",
+  "packages": [
+   "jaraco.context"
+  ],
+  "published_at": "2026-01-13T21:48:17Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-58pv-8j8x-9vj2",
+  "label_cwes": [22],
+  "repo": "jaraco/jaraco.context",
+  "fix_sha": "7b26a42b525735e4085d2e994e13802ea339d5f9",
+  "parent_sha": "1fe5de1e450556cc68d1d33198f8c7b8791af42d",
+  "path_vulnerable": "jaraco/context/__init__.py",
+  "path_patched": "jaraco/context/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [80, 80],
+   [93, 94]
+  ],
+  "patched_lines": [
+   [80, 80],
+   [86, 92],
+   [101, 103]
+  ],
+  "commit_url": "https://github.com/jaraco/jaraco.context/commit/7b26a42b525735e4085d2e994e13802ea339d5f9",
+  "case_id": "027-GHSA-58pv-8j8x-9vj2",
+  "content": {
+   "vulnerable": {
+    "sha256": "0a8c8cbe2ea9b4bad4eb85aa4924a6293fea785ef41d5cfe03a023ead66318cc",
+    "bytes": 9512
+   },
+   "patched": {
+    "sha256": "6ebd727581a8d57aff3eed5a9ee11d77e42b8d48b3fc46392ffe44e02d372f8c",
+    "bytes": 9809
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      11,
+      "B404",
+      [78]
+     ],
+     [
+      78,
+      "B310",
+      [22]
+     ],
+     [
+      80,
+      "B202",
+      [22]
+     ],
+     [
+      196,
+      "B603",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      11,
+      "B404",
+      [78]
+     ],
+     [
+      78,
+      "B310",
+      [22]
+     ],
+     [
+      80,
+      "B202",
+      [22]
+     ],
+     [
+      206,
+      "B603",
+      [78]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      137,
+      "python.lang.security.audit.insecure-file-permissions.insecure-file-permissions",
+      [276]
+     ]
+    ],
+    "patched": [
+     [
+      147,
+      "python.lang.security.audit.insecure-file-permissions.insecure-file-permissions",
+      [276]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2xgg-r2wc-c5r2",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@budibase/server"
+  ],
+  "published_at": "2026-07-24T21:26:19Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-2xgg-r2wc-c5r2",
+  "label_cwes": [89],
+  "repo": "Budibase/budibase",
+  "fix_sha": "2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "parent_sha": "d0afbb99b68ac008575d9560f6d5acfe5df3f722",
+  "path_vulnerable": "packages/server/src/integrations/utils/index.ts",
+  "path_patched": "packages/server/src/integrations/utils/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 2]
+  ],
+  "patched_lines": [
+   [2, 2]
+  ],
+  "commit_url": "https://github.com/Budibase/budibase/commit/2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "case_id": "291-GHSA-2xgg-r2wc-c5r2",
+  "content": {
+   "vulnerable": {
+    "sha256": "1f84838ace274ce6383599f8216d839bba95562a76597d63ff8c8215fd36c981",
+    "bytes": 24
+   },
+   "patched": {
+    "sha256": "3fb679cc754c52f471914f6aaf82f8acee463cbb7d6395bf18a5560c4c2dc7c3",
+    "bytes": 57
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

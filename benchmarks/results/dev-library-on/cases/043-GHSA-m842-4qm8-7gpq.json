@@ -1,0 +1,258 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m842-4qm8-7gpq",
+  "cve_id": "CVE-2024-1728",
+  "ecosystem": "pip",
+  "packages": [
+   "gradio"
+  ],
+  "published_at": "2024-09-25T21:48:24Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m842-4qm8-7gpq",
+  "label_cwes": [22],
+  "repo": "gradio-app/gradio",
+  "fix_sha": "16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "parent_sha": "ba3ec1300e81e64be7389d759b89284c66473158",
+  "path_vulnerable": "gradio/blocks.py",
+  "path_patched": "gradio/blocks.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [12, 12],
+   [72, 73],
+   [122, 127],
+   [1112, 1113],
+   [1302, 1302],
+   [1329, 1329],
+   [1525, 1526],
+   [1538, 1539],
+   [1550, 1551],
+   [1577, 1578],
+   [1606, 1606]
+  ],
+  "patched_lines": [
+   [11, 12],
+   [72, 72],
+   [122, 122],
+   [1108, 1108],
+   [1298, 1302],
+   [1329, 1332],
+   [1528, 1535],
+   [1548, 1548],
+   [1561, 1562],
+   [1590, 1590],
+   [1619, 1624]
+  ],
+  "commit_url": "https://github.com/gradio-app/gradio/commit/16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "case_id": "043-GHSA-m842-4qm8-7gpq",
+  "content": {
+   "vulnerable": {
+    "sha256": "bd30ab9065b939fdc0d68927dd97baf10415960a1dfa1985430cb79c3e00d205",
+    "bytes": 105349
+   },
+   "patched": {
+    "sha256": "8d7a1bb213dfe0ec393152dfdb1a0134387e64f2c1d34c3ef3757b71268a4e73",
+    "bytes": 106042
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      302,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      422,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      423,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      424,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      425,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      426,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1027,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1028,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1029,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      297,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      417,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      418,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      419,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      420,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      421,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1022,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1023,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1024,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      302,
+      "B324",
+      [327]
+     ],
+     [
+      588,
+      "B311",
+      [330]
+     ]
+    ],
+    "patched": [
+     [
+      297,
+      "B324",
+      [327]
+     ],
+     [
+      583,
+      "B311",
+      [330]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      302,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      297,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,106 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-mwr6-3gp8-9jmj",
+  "cve_id": "CVE-2026-22785",
+  "ecosystem": "npm",
+  "packages": [
+   "@orval/mcp"
+  ],
+  "published_at": "2026-01-13T19:12:22Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-mwr6-3gp8-9jmj",
+  "label_cwes": [77],
+  "repo": "orval-labs/orval",
+  "fix_sha": "80b5fe73b94f120a3a5561952d6d4b0f8d7e928d",
+  "parent_sha": "b8189efe3858a8d6e4bae1e41d3fb6b14c1bd55d",
+  "path_vulnerable": "packages/mcp/src/index.ts",
+  "path_patched": "packages/mcp/src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [14, 15],
+   [187, 187],
+   [189, 189],
+   [193, 193],
+   [197, 197],
+   [199, 200],
+   [202, 202],
+   [208, 210]
+  ],
+  "patched_lines": [
+   [15, 15],
+   [188, 188],
+   [190, 190],
+   [194, 194],
+   [198, 198],
+   [200, 201],
+   [203, 203],
+   [209, 211]
+  ],
+  "commit_url": "https://github.com/orval-labs/orval/commit/80b5fe73b94f120a3a5561952d6d4b0f8d7e928d",
+  "case_id": "205-GHSA-mwr6-3gp8-9jmj",
+  "content": {
+   "vulnerable": {
+    "sha256": "cebff3dd50318ca8475ef8350ee81c71dd35b8e519b12013aeae82da002bbeb4",
+    "bytes": 11611
+   },
+   "patched": {
+    "sha256": "2d07db53ce1c455a5af04620662e8cdff06b20f580a354c1e99f234c487e592e",
+    "bytes": 11677
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

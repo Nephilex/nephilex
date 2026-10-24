@@ -74,6 +74,8 @@ CWE_LDAP = "CWE-90"
 CWE_XPATH = "CWE-643"
 CWE_TRUST = "CWE-501"
 CWE_WEAKRAND = "CWE-330"
+CWE_SSRF = "CWE-918"
+CWE_TEMPLATE = "CWE-1336"
 
 #: Sink id -> the CWEs a sanitizer must clear for the value to be safe there.
 SINK_CWES: dict[str, frozenset[str]] = {
@@ -81,10 +83,14 @@ SINK_CWES: dict[str, frozenset[str]] = {
     "ast-sql-string-building": frozenset({CWE_SQL}),
     "ast-command-injection": frozenset({CWE_CMD}),
     "ast-path-traversal": frozenset({CWE_PATH}),
+    "ast-archive-extraction": frozenset({CWE_PATH}),
     "ast-code-injection": frozenset({CWE_CODE}),
+    "ast-template-injection": frozenset({CWE_TEMPLATE}),
     "ast-unsafe-deserialization": frozenset({CWE_DESER}),
     "ast-xss": frozenset({CWE_XSS}),
+    "ast-jinja-autoescape-off": frozenset({CWE_XSS}),
     "ast-open-redirect": frozenset({CWE_REDIRECT}),
+    "ast-ssrf": frozenset({CWE_SSRF}),
     "ast-xxe": frozenset({CWE_XXE}),
     "ast-ldap-injection": frozenset({CWE_LDAP}),
     "ast-xpath-injection": frozenset({CWE_XPATH}),
@@ -92,10 +98,47 @@ SINK_CWES: dict[str, frozenset[str]] = {
     "ast-weak-random": frozenset({CWE_WEAKRAND}),
 }
 #: Sinks that do not depend on a tainted source (excluded from summaries).
-NON_TAINT_SINKS = frozenset({"ast-sql-string-building", "ast-weak-random"})
+NON_TAINT_SINKS = frozenset(
+    {"ast-sql-string-building", "ast-weak-random", "ast-jinja-autoescape-off"}
+)
 TAINT_CWES: frozenset[str] = frozenset(
     c for sid, cwes in SINK_CWES.items() if sid not in NON_TAINT_SINKS for c in cwes
 ) | frozenset({"CWE-80", "CWE-94"})
+
+#: Where tainted data came from. A value can carry several origins.
+ORIGIN_REQUEST = "request"  # HTTP request data, CLI input, environment
+ORIGIN_API = "public-api"  # a parameter of a public library function (library mode)
+ORIGIN_ARCHIVE = "archive-entry"  # a member name read from a zip or tar archive
+#: The command line, the environment or interactive input: controlled by
+#: whoever runs the program, so it matters when another program passes
+#: untrusted data through them. Reported at low confidence.
+ORIGIN_OPERATOR = "operator"
+_REQUEST_ORIGIN = frozenset({ORIGIN_REQUEST})
+#: Sinks where an operator-controlled value is configuration, not an attack:
+#: which server to call (OLLAMA_HOST, --api-url) or where to redirect.
+_CONFIGURATION_SINKS = frozenset({"ast-ssrf", "ast-open-redirect"})
+
+#: Library mode: what a value that comes only from a public API parameter must
+#: look like before a sink reports it. A public function that hands its own
+#: argument to ``open()`` or ``eval()`` usually does so by design (that is the
+#: API); the injection the advisories describe is the library placing the
+#: caller's value inside a path, command, query, page or expression it builds
+#: itself ("embed"), or treating a field of caller-supplied data as code
+#: ("part"). Sinks not listed here never report public-API-only flows (HTTP
+#: clients, redirects, sessions and XML parsers are expected to receive the
+#: caller's URL, target or document).
+LIBRARY_SINK_SHAPES: dict[str, frozenset[str]] = {
+    "ast-path-traversal": frozenset({"embed"}),
+    "ast-xss": frozenset({"embed"}),
+    "ast-command-injection": frozenset({"embed"}),
+    "ast-sql-injection": frozenset({"embed"}),
+    "ast-ldap-injection": frozenset({"embed"}),
+    "ast-xpath-injection": frozenset({"embed"}),
+    "ast-code-injection": frozenset({"embed", "part"}),
+    "ast-template-injection": frozenset({"embed", "part"}),
+    "ast-unsafe-deserialization": frozenset({"part"}),
+    "ast-archive-extraction": frozenset({"whole", "embed", "part"}),
+}
 
 # Untrusted-input sources: an attribute chain or call target matching one of
 # these is tainted. ``request.path`` and friends are attacker-controlled too.
@@ -107,6 +150,14 @@ SOURCE_RE = re.compile(
     r"|\bsys\.argv\b"
     r"|\bflask\.request\b"
     r"|\bos\.environ\b"
+)
+#: The operator-controlled part of SOURCE_RE (ORIGIN_OPERATOR).
+OPERATOR_SOURCE_RE = re.compile(r"\binput\s*\(|^input$|\bsys\.argv\b|\bos\.environ\b")
+#: The request part of SOURCE_RE.
+REQUEST_SOURCE_RE = re.compile(
+    r"\brequest\.(?:args|form|values|json|data|files|cookies|headers|query_params|GET|POST|"
+    r"path|full_path|url|base_url|query_string|stream|get_json|get_data|referrer|environ|"
+    r"body|path_params|match_info|COOKIES|FILES|META|remote_user)\b|\bflask\.request\b"
 )
 
 # Function-name last components that neutralize taint for every sink (numeric
@@ -306,6 +357,7 @@ CMD_FN = re.compile(
 # one); pathlib objects are handled through PATH_METHODS.
 PATH_FN = re.compile(
     r"^(?:open|io\.open|codecs\.open|os\.open|gzip\.open|bz2\.open|lzma\.open|tarfile\.open)$"
+    r"|^aiofiles\.open$|(?:^|\.)FileResponse$"
     r"|(?:^|\.)send_file$|(?:^|\.)send_from_directory$"
     r"|^os\.(?:remove|unlink|rmdir|removedirs|mkdir|makedirs|listdir|scandir|stat|lstat|"
     r"chmod|chown|rename|renames|replace|truncate|utime|access)$"
@@ -322,6 +374,16 @@ DESER_FN = re.compile(
 )
 YAML_LOAD_FN = re.compile(r"^yaml\.(?:load|load_all)$")
 SHELL_CMD_FN = re.compile(r"^subprocess\.(?:call|run|Popen|check_output|check_call)$")
+#: Command functions that always run their argument through a shell.
+_SHELL_FUNCTIONS = frozenset(
+    {"os.system", "os.popen", "subprocess.getoutput", "subprocess.getstatusoutput"}
+    | {"commands.getoutput"}
+)
+#: Options after which an interpreter or shell takes code to run.
+_CODE_OPTIONS = frozenset(
+    {"-c", "-e", "--eval", "--exec", "/c", "/C", "/k", "/K"}
+    | {"-Command", "-command", "-EncodedCommand", "--command"}
+)
 PATH_METHODS = frozenset(
     {
         "exists",
@@ -348,6 +410,9 @@ PATH_METHODS = frozenset(
     }
 )
 PATH_CTORS = frozenset({"Path", "PurePath", "PosixPath", "WindowsPath", "PurePosixPath"})
+#: pathlib-only methods: a receiver they are called on is a path object.
+PATHLIB_IO = frozenset({"read_text", "read_bytes", "write_text", "write_bytes"})
+_PATH_JOINS = frozenset({"os.path.join", "posixpath.join", "ntpath.join", "path.join"})
 NORMALIZERS = frozenset(
     {"os.path.realpath", "os.path.abspath", "os.path.normpath", "posixpath.realpath"}
 )
@@ -391,6 +456,127 @@ WEAK_RANDOM_FUNCS = frozenset(
         "binomialvariate",
     }
 )
+#: Module-level HTTP client functions whose first argument is the URL
+#: (``requests.request`` / ``httpx.request`` take the method first).
+HTTP_FN = re.compile(
+    r"^(?:requests|httpx)\.(?:get|post|put|patch|delete|head|options|request|stream)$"
+    r"|^(?:urllib\.request\.)?urlopen$|^urllib3\.request$|^aiohttp\.request$"
+)
+#: Constructors of HTTP client objects; their request methods take the URL.
+HTTP_CLIENT_CTORS = frozenset(
+    {
+        "requests.Session",
+        "requests.session",
+        "httpx.Client",
+        "httpx.AsyncClient",
+        "aiohttp.ClientSession",
+        "ClientSession",
+        "AsyncClient",
+        "urllib3.PoolManager",
+        "urllib3.ProxyManager",
+        "PoolManager",
+        "urllib.request.build_opener",
+        "build_opener",
+    }
+)
+HTTP_CLIENT_METHODS = frozenset(
+    {"get", "post", "put", "patch", "delete", "head", "options", "request", "stream"}
+    | {"urlopen", "open", "ws_connect"}
+)
+#: Client methods whose URL is the second argument (the method comes first).
+_HTTP_METHOD_FIRST = frozenset({"request", "urlopen", "stream"})
+TAR_CTORS = frozenset({"tarfile.open", "tarfile.TarFile", "TarFile", "tarfile.TarFile.open"})
+TAR_CTORS = TAR_CTORS | {"TarFile.open", "tarfile.TarFile.gzopen", "tarfile.TarFile.taropen"}
+ZIP_CTORS = frozenset({"zipfile.ZipFile", "ZipFile"})
+#: Explicit ``filter=`` values that leave a tar extraction unrestricted.
+_UNSAFE_TAR_FILTERS = frozenset(
+    {"'fully_trusted'", '"fully_trusted"', "tarfile.fully_trusted_filter", "fully_trusted_filter"}
+)
+JINJA_ENVS = frozenset({"Environment", "NativeEnvironment"})
+JINJA_SANDBOXES = frozenset({"SandboxedEnvironment", "ImmutableSandboxedEnvironment"})
+#: FastAPI parameter markers: a parameter with one of these defaults is read
+#: from the request (query string, path, body, form, upload, header, cookie).
+FASTAPI_PARAMS = frozenset({"Query", "Path", "Body", "Form", "File", "Header", "Cookie"})
+#: Annotations that make a parameter the framework's request object.
+_REQUEST_TYPES = re.compile(
+    r"^(?:(?:fastapi|starlette\.requests|aiohttp\.web|web|django\.http)\.)?"
+    r"(?:Request|HttpRequest|WebSocket|HTTPConnection|BaseRequest)$"
+)
+#: Request-object attributes (and methods) that hold client-controlled data.
+REQUEST_ATTRS = frozenset(
+    {
+        "query_params",
+        "path_params",
+        "headers",
+        "cookies",
+        "url",
+        "form",
+        "json",
+        "body",
+        "stream",
+        "query",
+        "rel_url",
+        "match_info",
+        "post",
+        "content",
+        "text",
+        "read",
+        "GET",
+        "POST",
+        "FILES",
+        "COOKIES",
+        "META",
+        "data",
+        "path",
+        "path_info",
+        "get_full_path",
+        "query_string",
+    }
+)
+#: Annotations of values a framework has already parsed into a number, a
+#: boolean, a UUID or a date: they cannot carry injected text.
+_SAFE_ANNOTATION = re.compile(
+    r"^(?:Optional\[)?\s*(?:int|float|bool|complex|Decimal|UUID|uuid\.UUID|datetime|date"
+    r"|datetime\.datetime|datetime\.date|timedelta)\s*\]?\s*(?:\|\s*None)?$"
+)
+_FRAMEWORK_NON_INPUT = re.compile(r"(?:^|\.)(?:Response|BackgroundTasks|Session|AsyncSession)$")
+#: Flask/Werkzeug route converters that parse the segment into a number or UUID.
+_SAFE_CONVERTERS = frozenset({"int", "float", "uuid", "any"})
+_ROUTE_PARAM = re.compile(r"<(?:([A-Za-z_]\w*)(?:\([^)>]*\))?:)?([A-Za-z_]\w*)>")
+#: IP address classifications an SSRF guard checks before letting a URL through.
+_IP_CLASSIFIERS = re.compile(
+    rb"\.is_(?:private|loopback|link_local|reserved|global|multicast|unspecified|site_local)\b"
+)
+_HTML_TAG = re.compile(r"<(?:[A-Za-z][A-Za-z0-9-]*[\s>/]|/[A-Za-z]|!)")
+_URL_PARSERS = frozenset({"urlparse", "urlsplit", "URL", "parse_url"})
+_AUTOESCAPED_RENDERERS = frozenset(
+    {"jsonify", "render_template", "render_template_string", "TemplateResponse"}
+)
+#: Stored-record lookups: the result is what the database holds for a key, not
+#: the key's text (Django managers, Flask-SQLAlchemy and SQLAlchemy getters,
+#: and repository methods named get_..._by_id / find_by_... by convention).
+_RECORD_GETTERS = frozenset(
+    {"get_object_or_404", "get_list_or_404", "get_or_404", "first_or_404", "one_or_404"}
+)
+_RECORD_LOOKUP_NAME = re.compile(
+    r"^(?:get|find|fetch|load|lookup|read|query|select)_(?:\w+_)?by_\w+$"
+    r"|^\w+_by_(?:id|pk|uuid|key|slug|name|email|ids)$"
+)
+_ORM_QUERY_METHODS = frozenset(
+    {"get", "filter", "filter_by", "exclude", "first", "one", "one_or_none", "all", "last"}
+    | {"get_or_create", "values", "values_list", "only", "order_by", "scalar"}
+)
+_NUMBER_TYPES = frozenset(
+    {"int", "float", "bool", "complex", "Decimal", "decimal.Decimal", "numbers.Number"}
+)
+#: Methods that read one item out of a container or mapping.
+_ITEM_GETTERS = frozenset({"get", "pop", "getlist", "get_all", "getall", "getone"})
+_IMPORTS_JINJA_TEMPLATE = re.compile(
+    rb"(?m)^\s*from\s+(?:jinja2|mako\.template)\s+import\s+[^\n]*\bTemplate\b"
+)
+_IMPORTS_JINJA_ENV = re.compile(
+    rb"(?m)^\s*from\s+jinja2(?:\.nativetypes)?\s+import\s+[^\n]*\b(?:Native)?Environment\b"
+)
 SESSION_RE = re.compile(r"(?:^|\.)session$")
 #: Names that mark a value as a security token, credential or session secret.
 SENSITIVE_RE = re.compile(
@@ -422,25 +608,50 @@ class Val:
     flags: frozenset[str] = frozenset()
     elems: tuple[tuple[Any, Val], ...] | None = None
     seq: tuple[Val, ...] | None = None
+    #: Origins of the taint (ORIGIN_*); empty on a tainted value means request.
+    src: frozenset[str] = frozenset()
+    #: The tainted text sits after content the program supplied itself (a base
+    #: directory, a command, an HTML tag, a query): ``base + "/" + name``.
+    embed: bool = False
+    #: The value is a field or item of a tainted object, not the object itself.
+    part: bool = False
 
     def tainted_for(self, cwes: frozenset[str]) -> bool:
         return self.taint and not (cwes & self.clean)
+
+    @property
+    def origins(self) -> frozenset[str]:
+        if not self.taint:
+            return frozenset()
+        return self.src or _REQUEST_ORIGIN
+
+    @property
+    def api_only(self) -> bool:
+        """Tainted only by a public API parameter (library mode)."""
+        return self.taint and self.src == {ORIGIN_API}
 
 
 UNKNOWN = Val()
 LIT = Val(lit=True)
 TAINT = Val(taint=True)
+API_TAINT = Val(taint=True, param=True, src=frozenset({ORIGIN_API}))
+ARCHIVE_TAINT = Val(taint=True, src=frozenset({ORIGIN_ARCHIVE}))
+OPERATOR_TAINT = Val(taint=True, src=frozenset({ORIGIN_OPERATOR}))
 
 
 def combine(vals: Iterable[Val]) -> Val:
     """A value computed from all of ``vals`` (taint if any, literal if all)."""
-    taint = weak = param = False
+    taint = weak = param = embed = part = False
     lit = True
     clean: frozenset[str] | None = None
+    src: frozenset[str] = frozenset()
     for v in vals:
         if v.taint:
             taint = True
             clean = v.clean if clean is None else clean & v.clean
+            src = src | v.origins
+            embed = embed or v.embed
+            part = part or v.part
         weak = weak or v.weak
         param = param or v.param
         lit = lit and v.lit
@@ -450,13 +661,43 @@ def combine(vals: Iterable[Val]) -> Val:
         lit=lit,
         weak=weak,
         param=param,
+        src=src,
+        embed=embed,
+        part=part,
     )
 
 
 def derived(v: Val, **changes: Any) -> Val:
     """A new value computed from ``v`` alone: same taint, origin and literalness."""
-    out = Val(taint=v.taint, clean=v.clean, lit=v.lit, weak=v.weak, param=v.param)
+    out = Val(
+        taint=v.taint,
+        clean=v.clean,
+        lit=v.lit,
+        weak=v.weak,
+        param=v.param,
+        src=v.src,
+        embed=v.embed,
+        part=v.part,
+    )
     return replace(out, **changes) if changes else out
+
+
+def _ordered_embed(vals: Iterable[Val]) -> bool:
+    """Whether ``vals`` (in order) place tainted text inside a larger string or path.
+
+    True when a tainted value follows untainted content (``base + name``), or
+    when a field of tainted data follows any other content
+    (``root / f"{item.name}.txt"``: the item's name becomes a component).
+    """
+    seen_trusted = seen_any = False
+    for v in vals:
+        if v.taint:
+            if seen_trusted or v.embed or (seen_any and v.part):
+                return True
+            seen_any = True
+        elif not (v.const == "" or v.const is None):
+            seen_trusted = seen_any = True
+    return False
 
 
 def summary(v: Val) -> Val:
@@ -468,6 +709,8 @@ def summary(v: Val) -> Val:
 
 def elem_of(v: Val) -> Val:
     """The value of one element when iterating over ``v``."""
+    if "archlist" in v.flags or "tar" in v.flags:
+        return Val(flags=frozenset({"archmember"}))  # ZipInfo / TarInfo
     if v.seq is not None:
         return combine(v.seq) if v.seq else Val(lit=True)
     if v.elems is not None:
@@ -517,6 +760,9 @@ def join(a: Val, b: Val) -> Val:
         flags=a.flags | b.flags,
         elems=elems,
         seq=seq,
+        src=a.origins | b.origins,
+        embed=(a.taint and a.embed) or (b.taint and b.embed),
+        part=(a.taint and a.part) or (b.taint and b.part),
     )
 
 
@@ -655,10 +901,72 @@ class _FnCtx:
     sensitive: bool
     static_path: bool = False
     returns: list[Val] = field(default_factory=list)
+    #: Library mode: qualified name of the public function whose parameters
+    #: are sources here (inherited by nested functions), else None.
+    api_owner: str | None = None
+    #: Summary runs only: (returned value, returned expression, state) at
+    #: every normal exit of the body.
+    exits: list[tuple[Val | None, Any, State]] | None = None
 
 
-#: ``emit(sink_id, node)``: report a finding for ``sink_id`` at ``node``.
-Emit = Callable[[str, Any], None]
+@dataclass(frozen=True)
+class LibraryScope:
+    """Library mode for one file: public functions' parameters are sources.
+
+    ``module_public`` is False for a module that is not part of the public
+    API (a path component starting with an underscore, or a test file).
+    """
+
+    module_public: bool = True
+
+
+@dataclass(frozen=True)
+class _RetSummary:
+    """What a same-file helper returns when its parameters are tainted."""
+
+    taint: bool
+    clean: frozenset[str]
+    embed: bool
+    part: bool
+    lit: bool
+    flags: frozenset[str]
+
+
+@dataclass(frozen=True)
+class _Guard:
+    """CWEs a same-file validator clears for one parameter.
+
+    ``after``: when the call returns normally (it raises on bad input).
+    ``true`` / ``false``: when its result is truthy / falsy.
+    """
+
+    after: frozenset[str]
+    true: frozenset[str]
+    false: frozenset[str]
+
+
+@dataclass
+class _Shared:
+    """Per-file index of helpers, shared by a flow and its summary runs."""
+
+    functions: dict[str, Any]
+    methods: dict[str, Any]
+    returns: dict[str, _RetSummary | None] = field(default_factory=dict)
+    guards: dict[tuple[str, str], _Guard | None] = field(default_factory=dict)
+
+
+#: Flags a helper's return value passes on to its callers.
+#: ("html" is not passed on: returned HTML is judged where it is built.)
+_RETURN_FLAGS = frozenset({"path", "normalized", "http", "tar", "zip", "jinja", "jinja-sandbox"})
+#: Statement visits allowed for summarizing one helper.
+SUMMARY_STEPS = 40_000
+#: Helper summaries nested inside helper summaries, at most.
+MAX_SUMMARY_DEPTH = 2
+
+#: ``emit(sink_id, node, origin=..., owner=...)``: report a finding for
+#: ``sink_id`` at ``node``. ``origin`` is ORIGIN_REQUEST, ORIGIN_API or
+#: ORIGIN_ARCHIVE; ``owner`` names the public function for ORIGIN_API.
+Emit = Callable[..., None]
 
 
 class Flow:
@@ -672,6 +980,8 @@ class Flow:
         context: LanguageContext | None = None,
         source_methods: frozenset[str] = frozenset(),
         source_functions: frozenset[str] = frozenset(),
+        library: LibraryScope | None = None,
+        shared: _Shared | None = None,
     ) -> None:
         self._src = src
         self._emit_cb = emit
@@ -679,10 +989,18 @@ class Flow:
         self._cwes: frozenset[str] = TAINT_CWES | (context.cwes if context else frozenset())
         self.source_methods = source_methods
         self.source_functions = source_functions
+        self._library = library
+        self._exported: frozenset[str] | None = None
         self._fn_stack: list[_FnCtx] = []
+        self._class_stack: list[str] = []
         self._loop_stack: list[list[tuple[str, State]]] = []
         self._quiet = 0
         self._steps = 0
+        self._step_limit = MAX_STEPS
+        self._summary_depth = 0
+        #: The file's helper index and summaries. A caller that runs several
+        #: flows over one file with the same settings passes it on (``shared``).
+        self._shared: _Shared | None = shared
         self._module_consts: dict[str, Val] = {}
         #: (kind, line) -> "tainted" | "literal" | "unknown", for the regex tier.
         self.verdicts: dict[tuple[str, int], str] = {}
@@ -690,6 +1008,8 @@ class Flow:
         self._json_framework = bool(_IMPORTS_JSON_FRAMEWORK.search(src))
         self._ldap = bool(_IMPORTS_LDAP.search(src))
         self._xml = bool(_IMPORTS_XML.search(src))
+        self._jinja_template = bool(_IMPORTS_JINJA_TEMPLATE.search(src))
+        self._jinja_env = bool(_IMPORTS_JINJA_ENV.search(src))
         self._random_names: set[str] = set()
         for m in _FROM_RANDOM.finditer(src):
             for part in m.group(1).decode("utf-8", "ignore").replace("(", " ").split(","):
@@ -735,18 +1055,53 @@ class Flow:
 
     # --- entry points -------------------------------------------------------
     def run(self, root) -> None:
+        self._ensure_shared(root)
         self._module_consts = self._module_constants(root)
+        if self._library is not None:
+            self._exported = self._module_exports(root)
         self._exec_block(root, State(), 0)
+
+    def _ensure_shared(self, node) -> None:
+        """Index the file's helper functions (once), from any node in it."""
+        if self._shared is not None:
+            return
+        root = node
+        while root.parent is not None:
+            root = root.parent
+        functions: dict[str, Any] = {}
+        methods: dict[str, Any] = {}
+        dups: set[tuple[bool, str]] = set()
+        for fn, is_method in iter_functions(root):
+            name_node = fn.child_by_field_name("name")
+            if name_node is None:
+                continue
+            name = self.text(name_node)
+            table = methods if is_method else functions
+            if name in table or (is_method, name) in dups:
+                dups.add((is_method, name))
+                table.pop(name, None)
+                continue
+            table[name] = fn
+        self._shared = _Shared(functions, methods)
 
     def _module_constants(self, root) -> dict[str, Val]:
         """Module-level names bound once to an immutable literal (``CMD = "ls"``).
 
         Functions see these as literal values. A name assigned more than once at
-        module level, or declared ``global`` anywhere, is left out.
+        module level, or declared ``global`` anywhere, is left out. A name bound
+        once to a client or template environment (``env = Environment()``,
+        ``http = requests.Session()``) is kept as that kind of object, without
+        any taint, so its uses inside functions are recognized.
         """
         counts: dict[str, int] = {}
         found: dict[str, Val] = {}
-        for stmt in root.named_children:
+        stmts = list(root.named_children)
+        for stmt in list(stmts):
+            if stmt.type == "try_statement":  # try: import x; env = X() except ...
+                body = stmt.child_by_field_name("body")
+                if body is not None:
+                    stmts.extend(body.named_children)
+        for stmt in stmts:
             if stmt.type != "expression_statement":
                 continue
             for ch in stmt.named_children:
@@ -758,6 +1113,11 @@ class Flow:
                     continue
                 name = self.text(left)
                 counts[name] = counts.get(name, 0) + 1
+                if ch.type == "assignment" and right is not None and right.type == "call":
+                    v = self._ev_quiet(right, State())
+                    kinds = v.flags & _RETURN_FLAGS - {"path", "normalized", "html"}
+                    if kinds and not v.taint:
+                        found[name] = Val(flags=kinds)
                 if (
                     ch.type == "assignment"
                     and right is not None
@@ -777,7 +1137,13 @@ class Flow:
             stack.extend(n.children)
         return {n: v for n, v in found.items() if counts[n] == 1 and n not in declared_global}
 
+    @property
+    def shared(self) -> _Shared | None:
+        """The file's helper index and summaries, once built."""
+        return self._shared
+
     def run_body(self, body, seeds: Iterable[str]) -> None:
+        self._ensure_shared(body)
         self._exec_block(body, State({n: TAINT for n in seeds}), 0)
 
     def function_returns_taint(self, fn_node) -> bool:
@@ -785,6 +1151,7 @@ class Flow:
         body = fn_node.child_by_field_name("body")
         if body is None:
             return False
+        self._ensure_shared(fn_node)
         ctx = _FnCtx(name="", route=False, sensitive=False)
         self._fn_stack.append(ctx)
         try:
@@ -820,9 +1187,57 @@ class Flow:
             text = self._ctx.mask_trusted(text)
         return bool(SOURCE_RE.search(text))
 
-    def _emit(self, sink_id: str, node) -> None:
-        if self._emit_cb is not None and not self._quiet:
-            self._emit_cb(sink_id, node)
+    def _source_val(self, text: str) -> Val:
+        """The taint of a matched source: operator-controlled when only argv/env/input match."""
+        if self._ctx is not None:
+            text = self._ctx.mask_trusted(text)
+        if OPERATOR_SOURCE_RE.search(text) and not REQUEST_SOURCE_RE.search(text):
+            return OPERATOR_TAINT
+        return TAINT
+
+    def _emit(
+        self, sink_id: str, node, origin: str = ORIGIN_REQUEST, detail: str | None = None
+    ) -> None:
+        if self._emit_cb is None or self._quiet:
+            return
+        extra: dict[str, Any] = {"detail": detail} if detail else {}
+        if origin == ORIGIN_REQUEST:
+            self._emit_cb(sink_id, node, **extra)
+            return
+        owner = self._fn_stack[-1].api_owner if self._fn_stack else None
+        self._emit_cb(sink_id, node, origin=origin, owner=owner, **extra)
+
+    def _report(
+        self, sink_id: str, node, vals: Iterable[Val | None], detail: str | None = None
+    ) -> bool:
+        """Emit ``sink_id`` if any of ``vals`` is tainted for it; True if it did.
+
+        The origin reported is the strongest one present: request data, then
+        an archive member name, then operator input (command line,
+        environment). A flow that comes only from a public API parameter
+        (library mode) is reported when its shape is one
+        :data:`LIBRARY_SINK_SHAPES` lists for the sink.
+        """
+        cwes = SINK_CWES[sink_id]
+        hits = [v for v in vals if v is not None and v.tainted_for(cwes)]
+        if not hits:
+            return False
+        origins: frozenset[str] = frozenset().union(*(v.origins for v in hits))
+        if origins == {ORIGIN_OPERATOR} and sink_id in _CONFIGURATION_SINKS:
+            # A server URL or redirect target taken from the environment or the
+            # command line is the operator configuring the program.
+            return False
+        for origin in (ORIGIN_REQUEST, ORIGIN_ARCHIVE, ORIGIN_OPERATOR):
+            if origin in origins:
+                self._emit(sink_id, node, origin, detail)
+                return True
+        shapes = LIBRARY_SINK_SHAPES.get(sink_id, frozenset())
+        for v in hits:
+            shape = {name for name, on in (("embed", v.embed), ("part", v.part)) if on}
+            if (shape or {"whole"}) & shapes:
+                self._emit(sink_id, node, ORIGIN_API, detail)
+                return True
+        return False
 
     def _ev_quiet(self, node, st: State) -> Val:
         """Evaluate ``node`` again (for a guard) without reporting sinks twice."""
@@ -869,8 +1284,8 @@ class Flow:
 
     def _exec_stmt(self, node, st: State, depth: int) -> State:
         self._steps += 1
-        if self._steps > MAX_STEPS:
-            raise AnalysisBudgetExceeded(f"more than {MAX_STEPS} statement visits")
+        if self._steps > self._step_limit:
+            raise AnalysisBudgetExceeded(f"more than {self._step_limit} statement visits")
         t = node.type
         if depth > MAX_STMT_DEPTH:
             self._flat(node, st)
@@ -878,6 +1293,7 @@ class Flow:
         if t == "expression_statement":
             for ch in node.named_children:
                 self._exec_expr_stmt(ch, st)
+                self._apply_guard_statement(ch, st)
             return st
         if t == "if_statement":
             return self._exec_if(node, st, depth)
@@ -892,18 +1308,23 @@ class Flow:
         if t == "match_statement":
             return self._exec_match(node, st, depth)
         if t == "function_definition":
-            self._exec_function(node, [], depth)
+            self._exec_function(node, [], depth, st)
             return st
         if t == "class_definition":
             body = node.child_by_field_name("body")
+            name_node = node.child_by_field_name("name")
             if body is not None:
-                self._exec_block(body, State(), depth + 1)
+                self._class_stack.append(self.text(name_node) if name_node is not None else "")
+                try:
+                    self._exec_block(body, State(), depth + 1)
+                finally:
+                    self._class_stack.pop()
             return st
         if t == "decorated_definition":
             decorators = [self.text(c) for c in node.named_children if c.type == "decorator"]
             defn = node.child_by_field_name("definition")
             if defn is not None and defn.type == "function_definition":
-                self._exec_function(defn, decorators, depth)
+                self._exec_function(defn, decorators, depth, st)
             elif defn is not None:
                 self._exec_stmt(defn, st, depth)
             return st
@@ -1001,18 +1422,14 @@ class Flow:
                 return
             idx = self.ev(idx_node, st, 0) if idx_node is not None else UNKNOWN
             base_text = self._compact(base)
-            if SESSION_RE.search(base_text) and (
-                val.tainted_for(SINK_CWES["ast-trust-boundary"])
-                or idx.tainted_for(SINK_CWES["ast-trust-boundary"])
-            ):
-                self._emit("ast-trust-boundary", target)
+            if SESSION_RE.search(base_text):
+                self._report("ast-trust-boundary", target, [val, idx])
             if (
                 base_text.endswith("headers")
                 and isinstance(idx.const, str)
                 and idx.const.lower() == "location"
-                and val.tainted_for(SINK_CWES["ast-open-redirect"])
             ):
-                self._emit("ast-open-redirect", target)  # resp.headers["Location"] = url
+                self._report("ast-open-redirect", target, [val])  # resp.headers["Location"] = url
             if val.weak and (
                 SENSITIVE_RE.search(base_text)
                 or (isinstance(idx.const, str) and SENSITIVE_RE.search(idx.const))
@@ -1358,29 +1775,92 @@ class Flow:
             stack.extend(n.named_children)
         return out
 
-    def _exec_function(self, node, decorators: list[str], depth: int) -> None:
+    def _exec_function(
+        self, node, decorators: list[str], depth: int, outer: State | None = None
+    ) -> None:
         body = node.child_by_field_name("body")
         name_node = node.child_by_field_name("name")
         if body is None:
             return
         name = self.text(name_node) if name_node is not None else ""
-        route = any(ROUTE_DECORATOR.search(d) for d in decorators) or (
+        flask_route = any(ROUTE_DECORATOR.search(d) for d in decorators) or (
             self._flask
             and not self._json_framework
             and any(METHOD_DECORATOR.search(d) for d in decorators)
         )
+        # FastAPI / Starlette path operations: @app.get(...), @router.post(...).
+        api_route = self._json_framework and any(
+            METHOD_DECORATOR.search(d) or ".api_route(" in d or ".websocket(" in d
+            for d in decorators
+        )
+        html_route = api_route and any("HTMLResponse" in d for d in decorators)
+        route = flask_route or html_route
+        nested = bool(self._fn_stack)
+        owner: str | None = None
+        if nested:
+            owner = self._fn_stack[-1].api_owner
+        elif self._is_public(name):
+            owner = ".".join([*self._class_stack, name])
         ctx = _FnCtx(
             name=name,
             route=route,
             sensitive=bool(SENSITIVE_RE.search(name)),
-            static_path=route and self._static_routes(decorators),
+            static_path=flask_route and self._static_routes(decorators),
+            api_owner=owner,
         )
         self._fn_stack.append(ctx)
         try:
-            scope = {**self._module_consts, **self._param_vals(node)}
+            scope: dict[str, Val] = dict(self._module_consts)
+            if nested and outer is not None:
+                # A closure sees the enclosing function's variables as they are
+                # where it is defined (callbacks, generators, inner helpers).
+                scope.update(outer.vars)
+            params = self._param_vals(
+                node,
+                route_rules=decorators if flask_route else None,
+                api_route=api_route,
+                public=owner is not None and not nested,
+            )
+            scope.update(params)
             self._exec_block(body, State(scope), depth + 1)
         finally:
             self._fn_stack.pop()
+
+    def _is_public(self, name: str) -> bool:
+        """Library mode: a function or method that callers of the package can reach."""
+        if self._library is None or not self._library.module_public:
+            return False
+
+        def public(n: str) -> bool:
+            return not n.startswith("_") or (n.startswith("__") and n.endswith("__"))
+
+        outermost = self._class_stack[0] if self._class_stack else name
+        if self._exported is not None and outermost not in self._exported:
+            return False
+        return public(name) and all(public(c) and not c.startswith("__") for c in self._class_stack)
+
+    def _module_exports(self, root) -> frozenset[str] | None:
+        """The names in a literal module-level ``__all__``, or None without one."""
+        names: set[str] = set()
+        found = False
+        for stmt in root.named_children:
+            if stmt.type != "expression_statement":
+                continue
+            for ch in stmt.named_children:
+                if ch.type not in ("assignment", "augmented_assignment"):
+                    continue
+                left = ch.child_by_field_name("left")
+                right = ch.child_by_field_name("right")
+                if left is None or self.text(left) != "__all__" or right is None:
+                    continue
+                if right.type not in ("list", "tuple"):
+                    return None  # computed: do not guess
+                found = True
+                for item in right.named_children:
+                    value = self._literal(item) if item.type == "string" else NOCONST
+                    if isinstance(value, str):
+                        names.add(value)
+        return frozenset(names) if found else None
 
     @staticmethod
     def _static_routes(decorators: list[str]) -> bool:
@@ -1399,21 +1879,103 @@ class Flow:
                 return False
         return True
 
-    def _param_vals(self, fn_node) -> dict[str, Val]:
-        """Each parameter (except ``self``/``cls``) as a value of caller origin."""
+    def _param_vals(
+        self,
+        fn_node,
+        *,
+        route_rules: list[str] | None = None,
+        api_route: bool = False,
+        public: bool = False,
+    ) -> dict[str, Val]:
+        """Each parameter (except ``self``/``cls``) as a value of caller origin.
+
+        Parameters the web framework fills from the request are sources: Flask
+        route converters (``<path:name>``, except int/float/uuid/any), FastAPI
+        parameters (``Query()``, ``Form()``, ``File()``... defaults, and every
+        non-dependency parameter of a path operation), ``UploadFile`` uploads.
+        A parameter annotated as the framework's request object is marked so
+        its client-controlled attributes are sources. In library mode the
+        parameters of a public function are sources of origin ORIGIN_API.
+        """
         params = fn_node.child_by_field_name("parameters")
         out: dict[str, Val] = {}
         if params is None:
             return out
+        converters = self._route_converters(route_rules) if route_rules else {}
         for p in params.named_children:
-            name = p if p.type == "identifier" else p.child_by_field_name("name")
-            if name is None:
-                name = next((c for c in p.named_children if c.type == "identifier"), None)
-            if name is None:
+            name, annotation, default = self._param_parts(p)
+            if name is None or name in ("self", "cls"):
                 continue
-            text = self.text(name)
-            if text not in ("self", "cls"):
-                out[text] = Val(param=True)
+            out[name] = self._param_source(name, annotation, default, converters, api_route, public)
+        return out
+
+    def _param_parts(self, p) -> tuple[str | None, str, Any]:
+        """(name, annotation text, default node) of one parameter node."""
+        t = p.type
+        if t == "identifier":
+            return self.text(p), "", None
+        name_node = p.child_by_field_name("name")
+        if name_node is None:
+            inner = next((c for c in p.named_children if c.type != "comment"), None)
+            if inner is not None and inner.type in (
+                "list_splat_pattern",
+                "dictionary_splat_pattern",
+            ):
+                inner = next((c for c in inner.named_children if c.type == "identifier"), None)
+            name_node = inner if inner is not None and inner.type == "identifier" else None
+        if name_node is None:
+            return None, "", None
+        ann = p.child_by_field_name("type")
+        return (
+            self.text(name_node),
+            self._compact(ann) if ann is not None else "",
+            p.child_by_field_name("value"),
+        )
+
+    def _param_source(
+        self,
+        name: str,
+        annotation: str,
+        default,
+        converters: dict[str, str],
+        api_route: bool,
+        public: bool,
+    ) -> Val:
+        marker = ""
+        if default is not None and default.type == "call":
+            fn = default.child_by_field_name("function")
+            marker = self._compact(fn).rsplit(".", 1)[-1] if fn is not None else ""
+        if marker in ("Depends", "Security") or "Depends(" in annotation:
+            return Val(param=True)
+        core = re.sub(r"^Optional\[(.*)\]$|\|None$", r"\1", annotation)
+        if core and _REQUEST_TYPES.match(core):
+            return Val(param=True, flags=frozenset({"httpreq"}))
+        safe = bool(_SAFE_ANNOTATION.match(annotation))
+        fastapi_marker = marker in FASTAPI_PARAMS or bool(
+            re.search(r"\b(?:Query|Path|Body|Form|File|Header|Cookie)\(", annotation)
+        )
+        if fastapi_marker or "UploadFile" in annotation:
+            return LIT if safe else TAINT
+        if name in converters:
+            return LIT if converters[name] in _SAFE_CONVERTERS else TAINT
+        if api_route and not _FRAMEWORK_NON_INPUT.search(annotation):
+            return LIT if safe else TAINT
+        if public:
+            return Val(lit=True, param=True) if safe else API_TAINT
+        return Val(param=True)
+
+    @staticmethod
+    def _route_converters(decorators: list[str]) -> dict[str, str]:
+        """Route parameter name -> converter (``string`` when none is given)."""
+        out: dict[str, str] = {}
+        for d in decorators:
+            if not (ROUTE_DECORATOR.search(d) or METHOD_DECORATOR.search(d)):
+                continue
+            m = _ROUTE_RULE.search(d)
+            if m is None:
+                continue
+            for conv, pname in _ROUTE_PARAM.findall(m.group(2)):
+                out[pname] = conv or "string"
         return out
 
     def _exec_return(self, node, st: State) -> None:
@@ -1423,8 +1985,13 @@ class Flow:
             return
         ctx = self._fn_stack[-1]
         ctx.returns.append(v)
+        if ctx.exits is not None:
+            ctx.exits.append((v, named[0] if named else None, st.copy()))
         if ctx.route and v.tainted_for(SINK_CWES["ast-xss"]):
             self._emit("ast-xss", node)
+        elif ctx.api_owner is not None and v.api_only and "html" in v.flags:
+            # A public function that returns HTML built around its caller's text.
+            self._report("ast-xss", node, [v])
         if ctx.sensitive and v.weak:
             self._emit("ast-weak-random", node)
 
@@ -1450,7 +2017,9 @@ class Flow:
                     sub = cond.child_by_field_name(side)
                     if sub is not None:
                         self._atoms(sub, truth, out, depth + 1)
-            return
+                return
+            # An "or" that holds (or an "and" that fails) implies no single side;
+            # it is passed on whole (``p.startswith(base + os.sep) or p == base``).
         out.append((cond, truth))
 
     def _refine(self, cond, st: State, truth: bool) -> None:
@@ -1463,6 +2032,8 @@ class Flow:
         self._atoms(cond, truth, atoms)
         for node, holds in atoms:
             contained = self._path_contained(node, st, 0) if holds else None
+            if contained is None and node.type == "comparison_operator":
+                contained = self._commonpath_contained(node, st, holds)
             if contained is not None:
                 self._clean(st, contained, frozenset({CWE_PATH}))
             if node.type == "comparison_operator":
@@ -1520,8 +2091,44 @@ class Flow:
                 return p
         return None
 
+    def _commonpath_contained(self, node, st: State, holds: bool) -> str | None:
+        """``os.path.commonpath([base, p]) == base`` (or ``!=`` on the false side).
+
+        ``commonpath`` compares whole path components, so a resolved ``p``
+        whose common path with ``base`` is ``base`` lies inside ``base``. Like
+        the other containment checks, ``p`` must have been normalized first
+        (``realpath`` / ``abspath`` / ``resolve()``), or ``..`` would pass.
+        """
+        operands = [c for c in node.named_children if c.type != "comment"]
+        ops = [
+            c.type
+            for i, c in enumerate(node.children)
+            if node.field_name_for_child(i) == "operators"
+        ]
+        if len(operands) != 2 or ops not in (["=="], ["!="]) or (ops == ["=="]) != holds:
+            return None
+        for call, other in (operands, operands[::-1]):
+            if call.type != "call":
+                continue
+            fn = call.child_by_field_name("function")
+            args = call.child_by_field_name("arguments")
+            if fn is None or self._compact(fn).rsplit(".", 1)[-1] != "commonpath" or args is None:
+                continue
+            items = [a for a in args.named_children if a.type != "comment"]
+            if len(items) != 1 or items[0].type not in ("list", "tuple"):
+                continue
+            elems = [e for e in items[0].named_children if e.type != "comment"]
+            base = self._compact(other)
+            if len(elems) != 2 or base not in (self._compact(e) for e in elems):
+                continue
+            cand = elems[1] if self._compact(elems[0]) == base else elems[0]
+            p = self._path(self._unwrap(cand))
+            if p is not None and "normalized" in st.get(p).flags:
+                return p
+        return None
+
     def _unwrap(self, node):
-        """``x`` from ``str(x)`` / ``os.fspath(x)`` / ``(x)``, else ``node``."""
+        """``x`` from ``str(x)`` / ``os.fspath(x)`` / ``Path(x)`` / ``(x)``, else ``node``."""
         for _ in range(4):
             if node.type == "parenthesized_expression" and node.named_children:
                 node = node.named_children[0]
@@ -1531,7 +2138,8 @@ class Flow:
                 args = node.child_by_field_name("arguments")
                 if (
                     fn is not None
-                    and self._compact(fn) in ("str", "os.fspath", "bytes")
+                    and self._compact(fn)
+                    in ("str", "os.fspath", "bytes", "Path", "pathlib.Path", "PurePath")
                     and args is not None
                     and len(args.named_children) == 1
                 ):
@@ -1574,30 +2182,45 @@ class Flow:
                     self._clean_url_host(x, st)
 
     def _clean_url_host(self, node, st: State) -> None:
-        """``u.netloc`` / ``u.hostname`` known to be an allowed value."""
+        """``u.netloc`` / ``u.hostname`` known to be an allowed value.
+
+        The URL ``u`` was parsed from then cannot send a redirect or a
+        server-side request anywhere but the allowed hosts.
+        """
+        cleared = frozenset({CWE_REDIRECT, CWE_SSRF})
         if node.type != "attribute":
             return
         attr = node.child_by_field_name("attribute")
         obj = node.child_by_field_name("object")
-        if attr is None or obj is None or self.text(attr) not in ("netloc", "hostname"):
+        if attr is None or obj is None or self.text(attr) not in ("netloc", "hostname", "host"):
             return
         if obj.type == "call":  # urlparse(target).netloc in ALLOWED
             fn = obj.child_by_field_name("function")
             args = obj.child_by_field_name("arguments")
-            if fn is not None and self._compact(fn).rsplit(".", 1)[-1] in ("urlparse", "urlsplit"):
+            if fn is not None and self._compact(fn).rsplit(".", 1)[-1] in _URL_PARSERS:
                 first = next(
                     (a for a in (args.named_children if args else []) if a.type != "comment"), None
                 )
                 target = self._path(first) if first is not None else None
                 if target is not None:
-                    self._clean(st, target, frozenset({CWE_REDIRECT}))
+                    self._clean(st, target, cleared)
             return
         path = self._path(obj)
         if path is None:
             return
         for flag in st.get(path).flags:
             if flag.startswith("urlof:"):
-                self._clean(st, flag[6:], frozenset({CWE_REDIRECT}))
+                self._clean(st, flag[6:], cleared)
+
+    def _host_suffix_check(self, recv, arg_nodes: list[Any], st: State) -> None:
+        """``urlparse(u).hostname.endswith(".example.com")``: a host allowlist."""
+        if len(arg_nodes) != 1:
+            return
+        arg = arg_nodes[0]
+        options = arg.named_children if arg.type in ("tuple", "parenthesized_expression") else [arg]
+        values = [self._literal(o) if o.type == "string" else NOCONST for o in options]
+        if values and all(isinstance(v, str) and "." in v.strip(".") for v in values):
+            self._clean_url_host(recv, st)
 
     def _refine_call(
         self,
@@ -1614,8 +2237,18 @@ class Flow:
         arg_nodes = (
             [c for c in args.named_children if c.type != "comment"] if args is not None else []
         )
+        for path, guard in self._guarded_args(node, st):
+            self._clean(st, path, guard.true if holds else guard.false)
         if not holds:
             return
+        if recv is None and last == "isinstance" and len(arg_nodes) == 2:
+            # isinstance(x, (int, float)): on this branch x is a number, not text.
+            p = self._path(arg_nodes[0])
+            kinds = [k for k in self._compact(arg_nodes[1]).strip("()").split(",") if k]
+            if p is not None and kinds and all(k in _NUMBER_TYPES for k in kinds):
+                st.vars[p] = Val(lit=True, weak=st.get(p).weak)
+        if recv is not None and last == "endswith":
+            self._host_suffix_check(recv, arg_nodes, st)
         if recv is not None:
             rpath = self._path(self._unwrap(recv))
             if rpath is None:
@@ -1636,6 +2269,260 @@ class Flow:
         v = st.vars.get(path)
         if v is not None and v.taint:
             st.vars[path] = replace(v, clean=v.clean | cwes)
+
+    # --- same-file helpers ----------------------------------------------------
+    # A call to a function defined once in this file (``helper(x)``, or
+    # ``self.helper(x)`` for a method) is analyzed through a summary of the
+    # helper's body instead of assuming its result carries every argument's
+    # taint: what it returns when its parameters are tainted (a sanitizing
+    # helper returns a cleaned value; one that ignores its argument returns
+    # clean data), and which CWEs it validates a parameter for (a helper that
+    # raises, or returns False, unless the value passed an allowlist or a
+    # resolved-path containment check). Summaries are computed on demand,
+    # bounded in depth and steps, and memoized per file.
+    def _local_helper(self, fn) -> tuple[str, bool] | None:
+        """(name, is_method) when the call target ``fn`` is a helper defined in this file."""
+        if self._shared is None or fn is None:
+            return None
+        if fn.type == "identifier":
+            name = self.text(fn)
+            return (name, False) if name in self._shared.functions else None
+        if fn.type == "attribute":
+            obj = fn.child_by_field_name("object")
+            attr = fn.child_by_field_name("attribute")
+            if (
+                obj is not None
+                and attr is not None
+                and obj.type == "identifier"
+                and self.text(obj) in ("self", "cls")
+            ):
+                name = self.text(attr)
+                return (name, True) if name in self._shared.methods else None
+        return None
+
+    def _helper_node(self, name: str, method: bool):
+        assert self._shared is not None
+        return (self._shared.methods if method else self._shared.functions).get(name)
+
+    def _helper_params(self, fn_node) -> list[tuple[str, bool]]:
+        """(name, is_splat) for each parameter except ``self``/``cls``."""
+        params = fn_node.child_by_field_name("parameters")
+        out: list[tuple[str, bool]] = []
+        if params is None:
+            return out
+        for p in params.named_children:
+            name, _, _ = self._param_parts(p)
+            if name is None or name in ("self", "cls"):
+                continue
+            splat = p.type in ("list_splat_pattern", "dictionary_splat_pattern") or any(
+                c.type in ("list_splat_pattern", "dictionary_splat_pattern")
+                for c in p.named_children
+            )
+            out.append((name, splat))
+        return out
+
+    def _call_arg_map(self, call, fn_node) -> list[tuple[str, Any]]:
+        """(parameter name, argument node) pairs for a call to ``fn_node``."""
+        args = call.child_by_field_name("arguments")
+        if args is None or args.type == "generator_expression":
+            return []
+        params = self._helper_params(fn_node)
+        positional: list[str] = []
+        for name, splat in params:
+            if splat:
+                break
+            positional.append(name)
+        names = {n for n, splat in params if not splat}
+        out: list[tuple[str, Any]] = []
+        index = 0
+        for a in args.named_children:
+            if a.type == "keyword_argument":
+                key = a.child_by_field_name("name")
+                value = a.child_by_field_name("value")
+                if key is not None and value is not None and self.text(key) in names:
+                    out.append((self.text(key), value))
+            elif a.type in ("list_splat", "dictionary_splat"):
+                break
+            elif a.type != "comment":
+                if index < len(positional):
+                    out.append((positional[index], a))
+                index += 1
+        return out
+
+    def _run_summary(self, fn_node, seeds: dict[str, Val]) -> tuple[Flow, _FnCtx] | None:
+        """Run a helper's body once with ``seeds``; its exits are in the context."""
+        body = fn_node.child_by_field_name("body")
+        if body is None or self._summary_depth >= MAX_SUMMARY_DEPTH:
+            return None
+        sub = Flow(
+            self._src,
+            None,
+            context=self._ctx,
+            source_methods=self.source_methods,
+            source_functions=self.source_functions,
+        )
+        sub._shared = self._shared
+        sub._module_consts = self._module_consts
+        sub._summary_depth = self._summary_depth + 1
+        sub._step_limit = SUMMARY_STEPS
+        name_node = fn_node.child_by_field_name("name")
+        ctx = _FnCtx(
+            name=self.text(name_node) if name_node is not None else "",
+            route=False,
+            sensitive=False,
+            exits=[],
+        )
+        scope = dict(self._module_consts)
+        for pname, _ in self._helper_params(fn_node):
+            scope[pname] = Val(param=True)
+        scope.update(seeds)
+        sub._fn_stack.append(ctx)
+        try:
+            end = sub._exec_block(body, State(scope), 1)
+        except (AnalysisBudgetExceeded, RecursionError):
+            return None
+        assert ctx.exits is not None
+        if end.live:
+            ctx.exits.append((None, None, end))
+        return sub, ctx
+
+    def _return_summary(self, name: str, method: bool) -> _RetSummary | None:
+        assert self._shared is not None
+        key = ("m:" if method else "f:") + name
+        if key in self._shared.returns:
+            return self._shared.returns[key]
+        if self._summary_depth >= MAX_SUMMARY_DEPTH:
+            return None  # too deep here; do not memoize the gap
+        self._shared.returns[key] = None  # recursion guard
+        node = self._helper_node(name, method)
+        if node is None or _is_generator(node):
+            return None
+        run = self._run_summary(node, {p: TAINT for p, _ in self._helper_params(node)})
+        if run is None:
+            return None
+        _, ctx = run
+        assert ctx.exits is not None
+        vals = [v if v is not None else Val(lit=True, const=None) for v, _, _ in ctx.exits]
+        if not vals:
+            return None  # always raises: keep the default
+        joined = vals[0]
+        for v in vals[1:]:
+            joined = join(joined, v)
+        summ = _RetSummary(
+            taint=joined.taint,
+            clean=joined.clean if joined.taint else frozenset(),
+            embed=joined.embed,
+            part=joined.part,
+            lit=joined.lit,
+            flags=joined.flags & _RETURN_FLAGS,
+        )
+        self._shared.returns[key] = summ
+        return summ
+
+    def _guard_summary(self, name: str, method: bool, pname: str) -> _Guard | None:
+        assert self._shared is not None
+        key = (("m:" if method else "f:") + name, pname)
+        if key in self._shared.guards:
+            return self._shared.guards[key]
+        if self._summary_depth >= MAX_SUMMARY_DEPTH:
+            return None
+        self._shared.guards[key] = None
+        node = self._helper_node(name, method)
+        if node is None or not _has_rejection(node):
+            return None
+        run = self._run_summary(node, {pname: TAINT})
+        if run is None:
+            return None
+        sub, ctx = run
+        assert ctx.exits is not None
+        after: frozenset[str] | None = None
+        true: frozenset[str] | None = None
+        false: frozenset[str] | None = None
+        for v, expr, state in ctx.exits:
+            base = _cleared(state.get(pname))
+            after = base if after is None else after & base
+            truth = False if v is None else truthy(v.const)
+            for side, keep in ((True, truth is not False), (False, truth is not True)):
+                if not keep:
+                    continue
+                got = base
+                if expr is not None and truth is None:
+                    refined = state.copy()
+                    sub._quiet += 1
+                    try:
+                        sub._refine(expr, refined, side)
+                    finally:
+                        sub._quiet -= 1
+                    got = _cleared(refined.get(pname))
+                if side:
+                    true = got if true is None else true & got
+                else:
+                    false = got if false is None else false & got
+        extra = frozenset({CWE_SSRF}) if self._is_ssrf_guard(node) else frozenset()
+        guard = _Guard(
+            after=(after or frozenset()) | extra,
+            true=(true or frozenset()) | extra,
+            false=(false or frozenset()) | extra,
+        )
+        result = guard if (guard.after or guard.true or guard.false) else None
+        self._shared.guards[key] = result
+        return result
+
+    def _is_ssrf_guard(self, fn_node) -> bool:
+        """A helper that rejects URLs by the class of the address they resolve to.
+
+        Its body (or a same-file helper it calls) tests ``is_private``,
+        ``is_loopback``, ``is_link_local``, ``is_reserved``, ``is_global`` and
+        similar properties of an ``ipaddress`` / ``netaddr`` address, the
+        standard way to keep a server-side request off internal networks.
+        """
+        text = self._src[fn_node.start_byte : fn_node.end_byte]
+        if _IP_CLASSIFIERS.search(text):
+            return True
+        stack = [fn_node.child_by_field_name("body")]
+        while stack:
+            n = stack.pop()
+            if n is None:
+                continue
+            if n.type == "call":
+                helper = self._local_helper(n.child_by_field_name("function"))
+                other = self._helper_node(*helper) if helper is not None else None
+                if (
+                    other is not None
+                    and other is not fn_node
+                    and _IP_CLASSIFIERS.search(self._src[other.start_byte : other.end_byte])
+                ):
+                    return True
+            stack.extend(n.children)
+        return False
+
+    def _guarded_args(self, call, st: State) -> list[tuple[str, _Guard]]:
+        """Tainted variables a call to a same-file validator vouches for."""
+        fn = call.child_by_field_name("function")
+        helper = self._local_helper(fn)
+        if helper is None:
+            return []
+        node = self._helper_node(*helper)
+        if node is None:
+            return []
+        out: list[tuple[str, _Guard]] = []
+        for pname, arg in self._call_arg_map(call, node):
+            path = self._path(arg)
+            if path is None or not st.get(path).taint:
+                continue
+            guard = self._guard_summary(helper[0], helper[1], pname)
+            if guard is not None:
+                out.append((path, guard))
+        return out
+
+    def _apply_guard_statement(self, node, st: State) -> None:
+        """``validate(x)`` on its own line: past it, ``x`` passed the validation."""
+        if node.type == "await" and node.named_children:
+            node = node.named_children[0]
+        if node.type != "call" or not st.live:
+            return
+        for path, guard in self._guarded_args(node, st):
+            self._clean(st, path, guard.after)
 
     # --- expressions --------------------------------------------------------
     def ev(self, node, st: State, depth: int) -> Val:
@@ -1659,9 +2546,12 @@ class Flow:
         text = self._compact(node)
         if text in _REQUEST_PATH and self._fn_stack and self._fn_stack[-1].static_path:
             return LIT
-        if self._is_source(text):
-            return TAINT
         path = self._path(node)
+        # Only a plain dotted name (``request.args``) is matched as text: in
+        # ``client.get(request.args["u"]).text`` the call must be evaluated, or
+        # the sink inside it is never seen.
+        if path is not None and self._is_source(text):
+            return self._source_val(text)
         if path is not None:
             if path in st.vars:
                 return st.vars[path]
@@ -1670,8 +2560,15 @@ class Flow:
         obj = self.ev(node.child_by_field_name("object"), st, depth)
         flags = obj.flags & {"reqobj"}
         attr = node.child_by_field_name("attribute")
-        if attr is not None and self.text(attr) == "parent" and "path" in obj.flags:
+        name = self.text(attr) if attr is not None else ""
+        if "httpreq" in obj.flags and name in REQUEST_ATTRS:
+            return TAINT  # req.query_params, request.headers, ...
+        if "archmember" in obj.flags and name in ("filename", "name", "linkname", "path"):
+            return ARCHIVE_TAINT  # the member name stored in the archive
+        if name == "parent" and "path" in obj.flags:
             flags = flags | {"path"}
+        if obj.taint and obj.src == {ORIGIN_API}:
+            return derived(obj, flags=flags, part=True)  # a field of the caller's object
         return derived(obj, flags=flags)
 
     def _ev_string(self, node, st: State, depth: int) -> Val:
@@ -1680,23 +2577,35 @@ class Flow:
             self.text(start).lower() if start is not None and start.type == "string_start" else ""
         )
         interps = [c for c in node.named_children if c.type == "interpolation"]
+        html = any(
+            c.type == "string_content" and _HTML_TAG.search(self.text(c)) for c in node.children
+        )
+        tag = frozenset({"html"}) if html else frozenset()
         if "f" in prefix:
             if not interps:
-                return LIT
+                return Val(lit=True, flags=tag)
             vals: list[Val] = []
-            for ip in interps:
-                expr = ip.child_by_field_name("expression")
+            ordered: list[Val] = []  # literal text and values, in source order
+            for ch in node.children:
+                if ch.type == "string_content" and self.text(ch):
+                    ordered.append(Val(lit=True, const=self.text(ch)))
+                if ch.type != "interpolation":
+                    continue
+                expr = ch.child_by_field_name("expression")
                 if expr is not None:
-                    vals.append(self.ev(expr, st, depth))
-                for sub in ip.named_children:
+                    ev = self.ev(expr, st, depth)
+                    vals.append(ev)
+                    ordered.append(ev)
+                for sub in ch.named_children:
                     if sub.type == "format_specifier":
                         for fe in sub.named_children:
                             e = fe.child_by_field_name("expression")
                             if e is not None:
                                 vals.append(self.ev(e, st, depth))
             v = combine(vals)
-            return replace(v, flags=frozenset() if v.lit else frozenset({"dyn"}))
-        return Val(lit=True, const=self._literal(node))
+            flags = (frozenset() if v.lit else frozenset({"dyn"})) | tag
+            return replace(v, flags=flags, embed=v.taint and _ordered_embed(ordered))
+        return Val(lit=True, const=self._literal(node), flags=tag)
 
     def _ev_concat(self, node, st: State, depth: int) -> Val:
         parts = [self.ev(c, st, depth) for c in node.named_children]
@@ -1710,7 +2619,9 @@ class Flow:
         if isinstance(const, (str, bytes)) and len(const) > MAX_STR:
             const = NOCONST
         flags = frozenset() if v.lit else frozenset({"dyn"})
-        return replace(v, const=const, flags=flags)
+        if any("html" in p.flags for p in parts):
+            flags = flags | {"html"}
+        return replace(v, const=const, flags=flags, embed=v.taint and _ordered_embed(parts))
 
     def _ev_number(self, node, st: State, depth: int) -> Val:
         text = self.text(node)
@@ -1725,13 +2636,24 @@ class Flow:
     def _binop(self, op: str, a: Val, b: Val) -> Val:
         v = combine([a, b])
         flags: set[str] = set()
-        if op == "/" and "path" in a.flags:
+        embed = v.embed
+        if op == "/" and (
+            "path" in a.flags or isinstance(b.const, str) or ("dyn" in b.flags and not b.lit)
+        ):
+            # pathlib's ``base / name``: nothing else divides by a string.
             flags.add("path")
+            embed = embed or (v.taint and _ordered_embed([a, b]))
         if op in ("%", "+") and not v.lit:
             flags.add("dyn")
+        if op in ("%", "+"):
+            embed = embed or (v.taint and _ordered_embed([a, b]))
+            if "html" in a.flags or "html" in b.flags:
+                flags.add("html")
         if op == "+" and a.seq is not None and b.seq is not None:
             return self._seq_val([*a.seq, *b.seq])
-        return replace(v, const=_fold_binary(op, a.const, b.const), flags=frozenset(flags))
+        return replace(
+            v, const=_fold_binary(op, a.const, b.const), flags=frozenset(flags), embed=embed
+        )
 
     def _ev_binary(self, node, st: State, depth: int) -> Val:
         a = self.ev(node.child_by_field_name("left"), st, depth)
@@ -1802,6 +2724,12 @@ class Flow:
         return join(self.ev(a, st, depth), self.ev(b, st, depth))
 
     def _ev_subscript(self, node, st: State, depth: int) -> Val:
+        v = self._ev_subscript_value(node, st, depth)
+        if v.taint and v.src == {ORIGIN_API} and not v.part:
+            return replace(v, part=True)  # an item of the caller's container
+        return v
+
+    def _ev_subscript_value(self, node, st: State, depth: int) -> Val:
         value = node.child_by_field_name("value")
         subs = [
             c for i, c in enumerate(node.children) if node.field_name_for_child(i) == "subscript"
@@ -1964,7 +2892,7 @@ class Flow:
                         pos.append(self.ev(a, st, depth))
                         pos_nodes.append(a)
         call = _Call(node, fn_text, last, recv, recv_node, pos, pos_nodes, kw, kw_nodes, extra)
-        self._check_sinks(call)
+        self._check_sinks(call, st)
         result = self._call_result(call, st)
         self._call_effects(call, st)
         return result
@@ -1983,6 +2911,8 @@ class Flow:
             out |= _XSS_CLEAN
         if c.last in ("quoteattr", "strip_tags", "sanitize_html"):
             out |= _XSS_CLEAN
+        if c.last in ("format_html", "format_html_join"):
+            out |= _XSS_CLEAN  # Django: escapes every argument it formats in
         if c.last in _SQL_ESCAPES:
             out.add(CWE_SQL)
         if c.last in _LDAP_ESCAPES:
@@ -2003,13 +2933,13 @@ class Flow:
         # receiver that is itself an expression was evaluated on its own above.
         dotted = c.recv_node is None or self._path(c.recv_node) is not None
         if dotted and (c.fn == "input" or self._is_source(c.fn)) and not static_recv:
-            return TAINT
+            return self._source_val(c.fn)
         if c.recv is not None and c.last in self.source_methods and "reqobj" in c.recv.flags:
             return TAINT
         if c.last in self.source_functions and (
             c.recv_node is None or (self._path(c.recv_node) or "") not in st.vars
         ):
-            return TAINT
+            return self._helper_source_taint(c.last)
         if self._is_weak_random(c):
             return Val(weak=True)
         if c.fn.endswith("random.Random") or (
@@ -2022,6 +2952,42 @@ class Flow:
             numeric = c.last in NUMERIC_SANITIZERS
             return Val(lit=numeric or all(a.lit for a in args), weak=any(a.weak for a in args))
         recv = c.recv
+        if recv is not None and "httpreq" in recv.flags and c.last in REQUEST_ATTRS:
+            return TAINT  # await request.json(), request.form(), request.body()
+        if recv is not None and recv.flags & {"zip", "tar"}:
+            if c.last in ("namelist", "getnames"):
+                return ARCHIVE_TAINT
+            if c.last in ("infolist", "getmembers"):
+                return Val(flags=frozenset({"archlist"}))
+            if c.last in ("getinfo", "getmember", "next"):
+                return Val(flags=frozenset({"archmember"}))
+        if c.fn == "compile" and c.recv_node is None:
+            # compile(source, filename, mode): only the source becomes code.
+            src = c.arg(0, "source")
+            return summary(src) if src is not None else UNKNOWN
+        if c.fn in TAR_CTORS:
+            # An archive object; it carries the taint of where it was read from.
+            return replace(summary(combine(args)), flags=frozenset({"tar"}))
+        helper = self._local_helper(c.node.child_by_field_name("function"))
+        if helper is not None and any(a.taint for a in args):
+            summ = self._return_summary(*helper)
+            if summ is not None:
+                if not summ.taint:
+                    return Val(lit=summ.lit, flags=summ.flags)
+                base = combine([a for a in args if a.taint])
+                return Val(
+                    taint=True,
+                    clean=base.clean | summ.clean,
+                    src=base.src,
+                    embed=base.embed or summ.embed,
+                    part=base.part or summ.part,
+                    param=base.param,
+                    flags=summ.flags,
+                )
+        if self._is_record_lookup(c):
+            # A row looked up by a key from the request holds stored data, not
+            # the key's text.
+            return UNKNOWN
         if not args and c.last in _DICT_CTORS:
             return Val(lit=True, elems=())
         if not args and c.last in _LIST_CTORS:
@@ -2059,7 +3025,10 @@ class Flow:
         if recv is not None and c.last == "keys" and recv.elems is not None:
             return Val(lit=True)
         extra_clean = self._specific_clean(c)
-        if c.last == "jsonify" or c.last == "render_template":
+        # Flask's render_template(_string), Starlette's Jinja2Templates and
+        # Django's TemplateResponse / render render with autoescaping on (the
+        # template source of render_template_string is a template-injection sink).
+        if c.last in _AUTOESCAPED_RENDERERS or (c.last == "render" and c.fn == "render"):
             v = combine(args)
             return replace(v, clean=v.clean | _XSS_CLEAN) if v.taint else v
         if c.last in ("make_response", "Response") and c.pos:
@@ -2088,10 +3057,20 @@ class Flow:
                 flags.add("normalized")
         if c.fn in NORMALIZERS:
             flags.add("normalized")
-        if c.last in ("urlparse", "urlsplit") and c.pos_nodes:
+        if c.last in _URL_PARSERS and c.pos_nodes:
             p = self._path(c.pos_nodes[0])
             if p is not None:
                 flags.add("urlof:" + p)
+        if c.fn in HTTP_CLIENT_CTORS:
+            flags.add("http")
+        if c.fn in ZIP_CTORS:
+            flags.add("zip")
+        if c.last in JINJA_SANDBOXES:
+            flags.add("jinja-sandbox")
+        elif c.last in JINJA_ENVS and (
+            c.fn.startswith("jinja2.") or (c.recv_node is None and self._jinja_env)
+        ):
+            flags.add("jinja")
         if any(n.type == "identifier" and self.text(n) == "request" for n in c.pos_nodes) or any(
             n is not None and n.type == "identifier" and self.text(n) == "request"
             for n in c.kw_nodes.values()
@@ -2120,6 +3099,8 @@ class Flow:
         lit = pure and recv_lit and all(a.lit for a in args)
         if c.last == "format" and recv is not None and not v.lit:
             flags.add("dyn")
+        if c.last in ("format", "join") and recv is not None and "html" in recv.flags:
+            flags.add("html")
         const: Any = NOCONST
         if (
             c.fn == "str"
@@ -2128,6 +3109,23 @@ class Flow:
         ):
             const = str(c.pos[0].const)
         clean = v.clean | extra_clean if v.taint else frozenset()
+        embed = v.embed
+        if v.taint and not embed:
+            # The tainted value is placed after content the program chose.
+            if c.fn in _PATH_JOINS or (c.last in PATH_CTORS and len(c.pos) + len(c.extra) > 1):
+                embed = _ordered_embed([*c.pos, *c.extra])
+            elif c.last in ("joinpath", "format") and recv is not None:
+                embed = _ordered_embed([recv, *args])
+            elif c.last == "join" and recv is not None and len(c.pos) == 1:
+                items = c.pos[0]
+                embed = _ordered_embed(list(items.seq)) if items.seq is not None else items.embed
+        part = v.part or (
+            v.taint
+            and (
+                (recv is not None and recv.api_only and c.last in _ITEM_GETTERS)
+                or (c.fn == "getattr" and bool(c.pos) and c.pos[0].api_only)
+            )
+        )
         return Val(
             taint=v.taint,
             clean=clean,
@@ -2136,6 +3134,47 @@ class Flow:
             param=v.param,
             flags=frozenset(flags),
             const=const,
+            src=v.src,
+            embed=embed,
+            part=part,
+        )
+
+    def _helper_source_taint(self, name: str) -> Val:
+        """Taint returned by a same-file function that reads a source.
+
+        Operator-controlled (ORIGIN_OPERATOR) when its body reads only
+        ``sys.argv``, ``os.environ`` or ``input()``; request taint otherwise,
+        including for helpers defined in another file.
+        """
+        node = self._shared.functions.get(name) if self._shared is not None else None
+        if node is not None:
+            text = self._src[node.start_byte : node.end_byte].decode("utf-8", "ignore")
+            if OPERATOR_SOURCE_RE.search(text) and not REQUEST_SOURCE_RE.search(text):
+                return OPERATOR_TAINT
+        return TAINT
+
+    def _is_record_lookup(self, c: _Call) -> bool:
+        """A database lookup by key: Django managers, (Flask-)SQLAlchemy queries,
+        ``get_object_or_404`` and repository methods named ``get_..._by_id``.
+
+        Taint is not carried from the key to the record: the record's fields are
+        what the application stored. (Stored data that users wrote can still be
+        dangerous; this engine does not model stored, second-order flows.)
+        """
+        if c.recv is not None and c.recv.taint:
+            return False
+        if c.last in _RECORD_GETTERS or _RECORD_LOOKUP_NAME.match(c.last):
+            return True
+        if c.recv_node is None or c.last not in _ORM_QUERY_METHODS:
+            return False
+        chain = self._compact(c.recv_node)
+        if ".objects" in chain or re.search(r"\.query(?:\(|\.|$)", chain):
+            return True  # Model.objects.get(...), Model.query.get(...), session.query(M).get(...)
+        # SQLAlchemy Session.get(Model, key)
+        return (
+            c.last == "get"
+            and len(c.pos) >= 2
+            and re.search(r"(?:^|\.)session$", chain) is not None
         )
 
     def _result_is_not_input(self, c: _Call) -> bool:
@@ -2239,90 +3278,213 @@ class Flow:
         return replace(merged, flags=cur.flags)
 
     # --- sinks --------------------------------------------------------------
-    def _check_sinks(self, c: _Call) -> None:
+    def _check_sinks(self, c: _Call, st: State | None = None) -> None:
         fn, last = c.fn, c.last
         if SQL_FN.search(fn):
             q = c.arg(0, "sql", "query", "operation", "statement")
-            if q is not None:
-                if q.tainted_for(SINK_CWES["ast-sql-injection"]):
-                    self._emit("ast-sql-injection", c.node)
-                elif q.param and not q.lit and "dyn" in q.flags:
-                    self._emit("ast-sql-string-building", c.node)
-        if CMD_FN.search(fn):
-            if fn.startswith(("os.exec", "os.spawn")):
-                vals = [*c.pos, *c.extra]
-            else:
-                first = c.arg(0, "args", "cmd", "command")
-                vals = ([first] if first is not None else []) + c.extra
-            if any(v.tainted_for(SINK_CWES["ast-command-injection"]) for v in vals):
-                self._emit("ast-command-injection", c.node)
-            if fn in ("os.system", "os.popen") or (
-                SHELL_CMD_FN.search(fn) and self._kw_text(c, "shell") not in (None, "False")
+            if (
+                q is not None
+                and not self._report("ast-sql-injection", c.node, [q])
+                and q.param
+                and not q.lit
+                and "dyn" in q.flags
             ):
-                self._verdict("shell", c.node, vals[0] if vals else None)
+                self._emit("ast-sql-string-building", c.node)
+        if CMD_FN.search(fn):
+            self._check_command(c, st)
+            # The regex tier's shell=True / os.system grading.
+            shell_kw = self._kw_text(c, "shell") not in (None, "False")
+            if fn in ("os.system", "os.popen") or (SHELL_CMD_FN.search(fn) and shell_kw):
+                first = c.arg(0, "args", "cmd", "command")
+                self._verdict("shell", c.node, first if first is not None else None)
         if PATH_FN.search(fn):
             if TWO_PATH_FN.search(fn):
                 vals = c.pos[:2]
             elif last == "send_from_directory":
-                vals = c.pos[1:2]  # the directory is the app's; the file name is the risk
+                # Flask joins the file name onto the directory with
+                # werkzeug.security.safe_join, which refuses to leave it; only
+                # a directory taken from input is a traversal risk here.
+                vals = c.pos[:1] + [c.kw[k] for k in ("directory",) if k in c.kw]
             else:
                 vals = c.pos[:1]
-            vals = vals + [
-                c.kw[k]
-                for k in ("file", "filename", "path", "path_or_file", "name", "src", "dst")
-                if k in c.kw
-            ]
-            if any(v.tainted_for(SINK_CWES["ast-path-traversal"]) for v in vals):
-                self._emit("ast-path-traversal", c.node)
-        if (
-            c.recv is not None
-            and "path" in c.recv.flags
-            and last in PATH_METHODS
-            and c.recv.tainted_for(SINK_CWES["ast-path-traversal"])
+            if last != "send_from_directory":
+                vals = vals + [
+                    c.kw[k]
+                    for k in ("file", "filename", "path", "path_or_file", "name", "src", "dst")
+                    if k in c.kw
+                ]
+            self._report("ast-path-traversal", c.node, vals)
+        if c.recv is not None and (
+            ("path" in c.recv.flags and last in PATH_METHODS) or last in PATHLIB_IO
         ):
-            self._emit("ast-path-traversal", c.node)
+            self._report("ast-path-traversal", c.node, [c.recv])
+        self._check_archive(c)
         if CODE_FN.search(fn):
-            v = c.arg(0, "source", "object")
-            if v is not None and v.tainted_for(SINK_CWES["ast-code-injection"]):
-                self._emit("ast-code-injection", c.node)
+            self._report("ast-code-injection", c.node, [c.arg(0, "source", "object")])
+        self._check_template(c)
         if DESER_FN.search(fn) or (YAML_LOAD_FN.search(fn) and self._yaml_unsafe(c)):
             v = c.arg(0, "data", "stream", "file", "s")
             self._verdict("deser", c.node, v)
-            if v is not None and v.tainted_for(SINK_CWES["ast-unsafe-deserialization"]):
-                self._emit("ast-unsafe-deserialization", c.node)
+            self._report("ast-unsafe-deserialization", c.node, [v])
         self._check_ldap(c)
         self._check_xpath(c)
+        self._check_ssrf(c)
         if last in XML_PARSE and c.pos:
             data = c.pos[0]
             others = c.pos[1:] + list(c.kw.values())
             enabled = any("xxe" in o.flags for o in others) or (
                 c.recv is not None and "xxe" in c.recv.flags
             )
-            if enabled and data.tainted_for(SINK_CWES["ast-xxe"]):
-                self._emit("ast-xxe", c.node)
+            if enabled:
+                self._report("ast-xxe", c.node, [data])
         if last in REDIRECT_FNS:
-            v = c.arg(0, "location", "url", "redirect_to", "to")
-            if v is not None and v.tainted_for(SINK_CWES["ast-open-redirect"]):
-                self._emit("ast-open-redirect", c.node)
-        if last in MARKUP_FNS and c.pos and c.pos[0].tainted_for(SINK_CWES["ast-xss"]):
-            self._emit("ast-xss", c.node)
-        if last in DJANGO_RESPONSES and c.pos and c.pos[0].tainted_for(SINK_CWES["ast-xss"]):
+            self._report(
+                "ast-open-redirect", c.node, [c.arg(0, "location", "url", "redirect_to", "to")]
+            )
+        if last in MARKUP_FNS and c.pos:
+            self._report("ast-xss", c.node, [c.pos[0]])
+        if last in DJANGO_RESPONSES and c.pos:
             ctype = self._kw_text(c, "content_type")
             if ctype is None or "html" in ctype:
-                self._emit("ast-xss", c.node)
+                self._report("ast-xss", c.node, [c.pos[0]])
+        if last == "HTMLResponse":  # Starlette / FastAPI
+            self._report("ast-xss", c.node, [c.arg(0, "content")])
+        jinja_ctor = last in JINJA_ENVS | JINJA_SANDBOXES or (
+            last == "Template" and self._is_jinja_template(c)
+        )
+        if jinja_ctor and self._kw_text(c, "autoescape") == "False":
+            self._emit("ast-jinja-autoescape-off", c.node)
         if (
             last in ("update", "setdefault")
             and c.recv_node is not None
             and SESSION_RE.search(self._compact(c.recv_node))
-            and any(v.tainted_for(SINK_CWES["ast-trust-boundary"]) for v in c.every_arg())
         ):
-            self._emit("ast-trust-boundary", c.node)
+            self._report("ast-trust-boundary", c.node, c.every_arg())
         if any(v.weak for v in c.every_arg()) and (
             last == "set_cookie"
             or SENSITIVE_RE.search(last)
             or any(SENSITIVE_RE.search(k) and v.weak for k, v in c.kw.items())
         ):
             self._emit("ast-weak-random", c.node)
+
+    def _check_command(self, c: _Call, st: State | None) -> None:
+        """OS command injection, told apart by whether a shell parses the command.
+
+        With a shell (``shell=True``, ``os.system``, ``os.popen``,
+        ``subprocess.getoutput``) any tainted part of the command string can
+        add commands. Without one (an argv list, ``os.exec*``, ``os.spawn*``,
+        ``pty.spawn``) there are no metacharacters to inject: a tainted value
+        matters only as the program to run (argv[0]) or as the code an
+        interpreter or shell runs (the value after ``-c``, ``-e``, ``/c``,
+        ``-Command``...). Other argv elements are arguments to a program the
+        code chose and are not reported (option injection, CWE-88, is out of
+        scope). An argv list whose elements cannot be told apart is reported
+        as before, as a possible program choice.
+        """
+        fn = c.fn
+        if fn.startswith(("os.exec", "os.spawn")):
+            # os.execv(path, args) / os.execl(path, arg0, ...): the first is the program.
+            self._report("ast-command-injection", c.node, c.pos[:1] + c.extra, "argv")
+            return
+        first = c.arg(0, "args", "cmd", "command")
+        shell = fn in _SHELL_FUNCTIONS or self._kw_text(c, "shell") not in (None, "False")
+        if shell:
+            self._report("ast-command-injection", c.node, [first, *c.extra])
+            return
+        if first is None:
+            self._report("ast-command-injection", c.node, c.extra, "argv")
+            return
+        elements = self._argv_elements(c, st, first)
+        if elements is None:  # a string (the program itself) or an unknown list
+            self._report("ast-command-injection", c.node, [first, *c.extra], "argv")
+            return
+        risky: list[Val] = []
+        previous: Any = None
+        for i, v in enumerate(elements):
+            if i == 0 or (isinstance(previous, str) and previous in _CODE_OPTIONS):
+                risky.append(v)
+            previous = v.const
+        self._report("ast-command-injection", c.node, risky + c.extra, "argv")
+
+    def _argv_elements(self, c: _Call, st: State | None, first: Val) -> list[Val] | None:
+        """The elements of an argv list argument, in order, or None when unknown.
+
+        A list or tuple literal is read element by element (a ``*splat`` keeps
+        its place as one tainted element); a variable is read from its tracked
+        sequence.
+        """
+        node = c.pos_nodes[0] if c.pos_nodes else c.kw_nodes.get("args")
+        if node is not None and node.type in ("list", "tuple") and st is not None:
+            out: list[Val] = []
+            for ch in node.named_children:
+                if ch.type == "comment":
+                    continue
+                inner = (
+                    ch.named_children[0] if ch.type == "list_splat" and ch.named_children else ch
+                )
+                out.append(self._ev_quiet(inner, st))
+            return out
+        if first.seq is not None:
+            return list(first.seq)
+        return None
+
+    def _check_ssrf(self, c: _Call) -> None:
+        """An outbound HTTP request to a URL taken from input."""
+        url: Val | None = None
+        local = c.recv_node is None and self._shared is not None and c.fn in self._shared.functions
+        if HTTP_FN.search(c.fn) and not local:
+            method_first = c.last == "request" or c.fn in ("urllib3.request", "aiohttp.request")
+            url = c.arg(1, "url") if method_first else c.arg(0, "url", "fullurl")
+        elif c.recv is not None and "http" in c.recv.flags and c.last in HTTP_CLIENT_METHODS:
+            if c.last in _HTTP_METHOD_FIRST:
+                url = c.arg(1, "url")
+            else:
+                url = c.arg(0, "url", "fullurl", "str_or_url")
+        if url is not None:
+            self._report("ast-ssrf", c.node, [url])
+
+    def _check_archive(self, c: _Call) -> None:
+        """A tar archive extracted without a member filter (CWE-22 "tar slip").
+
+        ``TarFile.extractall()`` / ``extract()`` before Python 3.14 writes members
+        wherever their names point (``../``, absolute paths, links) unless a
+        ``filter=`` other than ``fully_trusted`` (``"data"``, ``"tar"``,
+        ``tarfile.data_filter`` or the caller's own filter) or an explicit
+        ``members=`` selection is passed. ``shutil.unpack_archive`` takes the same
+        ``filter=``. Reported when the archive comes from input.
+        """
+        flt = self._kw_text(c, "filter")
+        if flt is not None and flt not in _UNSAFE_TAR_FILTERS:
+            return
+        if c.recv is not None and "tar" in c.recv.flags and c.last in ("extractall", "extract"):
+            if c.last == "extractall" and ("members" in c.kw or len(c.pos) > 1):
+                return
+            self._report("ast-archive-extraction", c.node, [c.recv])
+        elif c.fn == "shutil.unpack_archive":
+            self._report("ast-archive-extraction", c.node, [c.arg(0, "filename")])
+
+    def _is_jinja_template(self, c: _Call) -> bool:
+        if c.fn in ("jinja2.Template", "mako.template.Template", "jinja2.environment.Template"):
+            return True
+        return c.recv_node is None and c.fn == "Template" and self._jinja_template
+
+    def _check_template(self, c: _Call) -> None:
+        """A template whose source text comes from input (server-side template injection).
+
+        Rendering attacker-written Jinja2 or Mako source runs expressions with
+        access to Python objects, which leads to code execution. Jinja2's
+        ``SandboxedEnvironment`` / ``ImmutableSandboxedEnvironment`` restrict
+        that, so their ``from_string()`` is not reported.
+        """
+        src: Val | None = None
+        if c.last == "render_template_string":
+            src = c.arg(0, "source")
+        elif c.last == "Template" and self._is_jinja_template(c):
+            src = c.arg(0, "source", "text")
+        elif c.last == "from_string" and c.recv is not None and "jinja" in c.recv.flags:
+            src = c.arg(0, "source")
+        if src is not None:
+            self._report("ast-template-injection", c.node, [src])
 
     def _check_xpath(self, c: _Call) -> None:
         last, fn = c.last, c.fn
@@ -2338,8 +3500,7 @@ class Flow:
             and self.text(c.recv_node) not in ("re", "regex")
         ):
             v = c.arg(0, "path")
-        if v is not None and v.tainted_for(SINK_CWES["ast-xpath-injection"]):
-            self._emit("ast-xpath-injection", c.node)
+        self._report("ast-xpath-injection", c.node, [v])
 
     def _check_ldap(self, c: _Call) -> None:
         """ldap3 ``conn.search(base, filter)`` / python-ldap ``search_s(base, scope, filter)``."""
@@ -2352,8 +3513,7 @@ class Flow:
         else:
             vals = [c.pos[i] for i in (0, 2) if i < len(c.pos)]
             vals += [c.kw[k] for k in ("base", "filterstr") if k in c.kw]
-        if any(v.tainted_for(SINK_CWES["ast-ldap-injection"]) for v in vals):
-            self._emit("ast-ldap-injection", c.node)
+        self._report("ast-ldap-injection", c.node, vals)
 
     def _yaml_unsafe(self, c: _Call) -> bool:
         loader = self._kw_text(c, "Loader")
@@ -2371,16 +3531,22 @@ class Flow:
         variable anywhere in the subtree taints the whole of it.
         """
         taint = self._is_source(self.text(node))
+        api = False
         stack = [node]
         while stack:
             n = stack.pop()
             if n.type == "identifier":
                 v = st.vars.get(self.text(n))
                 if v is not None and v.taint:
-                    taint = True
+                    if v.api_only:
+                        api = True
+                    else:
+                        taint = True
             elif n.type == "call":
                 self._flat_call(n, st)
             stack.extend(n.children)
+        if not taint and api:
+            return Val(taint=True, src=frozenset({ORIGIN_API}))
         return Val(taint=taint)
 
     def _flat_call(self, node, st: State) -> None:
@@ -2415,10 +3581,47 @@ class Flow:
             n = stack.pop()
             if n.type == "identifier":
                 v = st.vars.get(self.text(n))
-                if v is not None and v.taint:
+                if v is not None and v.taint and not v.api_only:
                     return True
             stack.extend(n.children)
         return False
+
+
+#: Every CWE a value can be cleared for.
+ALL_CWES: frozenset[str] = TAINT_CWES | frozenset(c for cwes in SINK_CWES.values() for c in cwes)
+
+
+def _cleared(v: Val) -> frozenset[str]:
+    """CWEs ``v`` is safe for: all of them when it no longer carries taint."""
+    return v.clean if v.taint else ALL_CWES
+
+
+def _walk_body(fn_node) -> Iterable[Any]:
+    """Nodes of a function's body, not descending into nested functions or lambdas."""
+    body = fn_node.child_by_field_name("body")
+    stack = [body] if body is not None else []
+    while stack:
+        n = stack.pop()
+        yield n
+        for ch in n.children:
+            if ch.type not in ("function_definition", "lambda", "class_definition"):
+                stack.append(ch)
+
+
+def _is_generator(fn_node) -> bool:
+    return any(n.type == "yield" for n in _walk_body(fn_node))
+
+
+def _has_rejection(fn_node) -> bool:
+    """Whether a function can reject its input: it raises or returns a boolean."""
+    for n in _walk_body(fn_node):
+        if n.type == "raise_statement":
+            return True
+        if n.type == "return_statement":
+            named = [c for c in n.named_children if c.type != "comment"]
+            if len(named) == 1 and named[0].type in ("true", "false"):
+                return True
+    return False
 
 
 def iter_functions(root) -> Iterable[tuple[Any, bool]]:

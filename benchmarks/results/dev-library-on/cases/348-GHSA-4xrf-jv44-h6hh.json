@@ -1,0 +1,110 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-4xrf-jv44-h6hh",
+  "cve_id": "CVE-2026-69198",
+  "ecosystem": "npm",
+  "packages": [
+   "ip-address"
+  ],
+  "published_at": "2026-08-03T19:59:33Z",
+  "advisory_cwes": [20, 918],
+  "html_url": "https://github.com/advisories/GHSA-4xrf-jv44-h6hh",
+  "label_cwes": [918],
+  "repo": "beaugunderson/ip-address",
+  "fix_sha": "488fe9bc7c35363b4b090494fc38c266d217740d",
+  "parent_sha": "e86ab3e19588761ce18caf4820b26f01ac25043b",
+  "path_vulnerable": "src/ipv6.ts",
+  "path_patched": "src/ipv6.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [570, 570],
+   [1097, 1097],
+   [1184, 1185],
+   [1209, 1209],
+   [1254, 1254],
+   [1275, 1275],
+   [1287, 1287],
+   [1295, 1295],
+   [1316, 1316],
+   [1390, 1390]
+  ],
+  "patched_lines": [
+   [570, 570],
+   [1097, 1097],
+   [1185, 1192],
+   [1217, 1217],
+   [1262, 1262],
+   [1283, 1283],
+   [1295, 1295],
+   [1303, 1303],
+   [1324, 1324],
+   [1398, 1398]
+  ],
+  "commit_url": "https://github.com/beaugunderson/ip-address/commit/488fe9bc7c35363b4b090494fc38c266d217740d",
+  "case_id": "348-GHSA-4xrf-jv44-h6hh",
+  "content": {
+   "vulnerable": {
+    "sha256": "8d58a433997a7a480cfb2011c264d3942b3fd597ae56db183a5e63a651c9a5b4",
+    "bytes": 47179
+   },
+   "patched": {
+    "sha256": "416f66d8698196a26e11d47657686bfec76c82a84f15125814ba78f5add6bd36",
+    "bytes": 47456
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

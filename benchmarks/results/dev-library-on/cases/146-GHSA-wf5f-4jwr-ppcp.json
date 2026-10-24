@@ -1,0 +1,201 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wf5f-4jwr-ppcp",
+  "cve_id": "CVE-2025-64512",
+  "ecosystem": "pip",
+  "packages": [
+   "pdfminer.six"
+  ],
+  "published_at": "2025-11-07T20:52:24Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-wf5f-4jwr-ppcp",
+  "label_cwes": [502],
+  "repo": "pdfminer/pdfminer.six",
+  "fix_sha": "b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+  "parent_sha": "51683b2528e2aa685dd8b9e61f6ccf9f76a59a62",
+  "path_vulnerable": "pdfminer/cmapdb.py",
+  "path_patched": "pdfminer/cmapdb.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [243, 244]
+  ],
+  "patched_lines": [
+   [243, 250]
+  ],
+  "commit_url": "https://github.com/pdfminer/pdfminer.six/commit/b808ee05dd7f0c8ea8ec34bdf394d40e63501086",
+  "case_id": "146-GHSA-wf5f-4jwr-ppcp",
+  "content": {
+   "vulnerable": {
+    "sha256": "53d6a3029a62d01bb156d2b2b934c65ed3fce1f8ff80f8dd6f4d492d6fb2bf63",
+    "bytes": 15358
+   },
+   "patched": {
+    "sha256": "8bcd2f08d6c724a795fab2db39aa93e31b918df5a3bd21b8cfb64a62c75854b1",
+    "bytes": 15716
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      244,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      246,
+      "patterns.python-pickle-loads",
+      [502]
+     ]
+    ],
+    "patched": [
+     [
+      252,
+      "patterns.python-pickle-loads",
+      [502]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      16,
+      "B403",
+      [502]
+     ],
+     [
+      82,
+      "B101",
+      [703]
+     ],
+     [
+      170,
+      "B101",
+      [703]
+     ],
+     [
+      188,
+      "B101",
+      [703]
+     ],
+     [
+      191,
+      "B101",
+      [703]
+     ],
+     [
+      246,
+      "B301",
+      [502]
+     ],
+     [
+      431,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      16,
+      "B403",
+      [502]
+     ],
+     [
+      82,
+      "B101",
+      [703]
+     ],
+     [
+      170,
+      "B101",
+      [703]
+     ],
+     [
+      188,
+      "B101",
+      [703]
+     ],
+     [
+      191,
+      "B101",
+      [703]
+     ],
+     [
+      252,
+      "B301",
+      [502]
+     ],
+     [
+      437,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

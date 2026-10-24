@@ -1,0 +1,178 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5jc6-h9w7-jm3p",
+  "cve_id": "CVE-2024-53999",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2024-12-03T18:45:22Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-5jc6-h9w7-jm3p",
+  "label_cwes": [79],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "27d165872847f5ae7417caf09f37edeeba741e1e",
+  "parent_sha": "0d3b1ec3b9f61ee68d349c1cc10d53ee96eef3f2",
+  "path_vulnerable": "mobsf/MobSF/init.py",
+  "path_patched": "mobsf/MobSF/init.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [21, 21]
+  ],
+  "patched_lines": [
+   [21, 21]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/27d165872847f5ae7417caf09f37edeeba741e1e",
+  "case_id": "030-GHSA-5jc6-h9w7-jm3p",
+  "content": {
+   "vulnerable": {
+    "sha256": "90e42252cacee23e9ab68c9d15e6df63e3c81b74e2de624eb5b03071164e2493",
+    "bytes": 6967
+   },
+   "patched": {
+    "sha256": "55e5c21bbca0d8351630ebe64476949a05f7196beb7b76478c27734685314aeb",
+    "bytes": 6967
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      178,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      179,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      178,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      179,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      5,
+      "B404",
+      [78]
+     ],
+     [
+      92,
+      "B603",
+      [78]
+     ],
+     [
+      155,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      5,
+      "B404",
+      [78]
+     ],
+     [
+      92,
+      "B603",
+      [78]
+     ],
+     [
+      155,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      181,
+      "python.lang.security.audit.logging.logger-credential-leak.python-logger-credential-disclosure",
+      [532]
+     ]
+    ],
+    "patched": [
+     [
+      181,
+      "python.lang.security.audit.logging.logger-credential-leak.python-logger-credential-disclosure",
+      [532]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

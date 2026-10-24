@@ -1,0 +1,118 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vr7h-p6mm-wpmh",
+  "cve_id": "CVE-2025-71370",
+  "ecosystem": "pip",
+  "packages": [
+   "picklescan"
+  ],
+  "published_at": "2025-08-22T16:58:06Z",
+  "advisory_cwes": [345, 502],
+  "html_url": "https://github.com/advisories/GHSA-vr7h-p6mm-wpmh",
+  "label_cwes": [502],
+  "repo": "mmaitre314/picklescan",
+  "fix_sha": "7f994d62084fe43f1cffdef2f9bae6923344ef53",
+  "parent_sha": "58983e1c20973ac42f2df7ff15d7c8cd32f9b688",
+  "path_vulnerable": "src/picklescan/cli.py",
+  "path_patched": "src/picklescan/cli.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [31, 33],
+   [35, 40],
+   [47, 49],
+   [78, 80]
+  ],
+  "patched_lines": [
+   [31, 31],
+   [33, 34],
+   [41, 41],
+   [70, 70]
+  ],
+  "commit_url": "https://github.com/mmaitre314/picklescan/commit/7f994d62084fe43f1cffdef2f9bae6923344ef53",
+  "case_id": "087-GHSA-vr7h-p6mm-wpmh",
+  "content": {
+   "vulnerable": {
+    "sha256": "22b067be541b1993072a90563f5915995485702005f047ec4eea5243ac06b8a3",
+    "bytes": 2879
+   },
+   "patched": {
+    "sha256": "2cd629b091b3e22c94409f6727370fc24a7133731562b1312411166a0bd9e3aa",
+    "bytes": 2793
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

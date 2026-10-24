@@ -1,0 +1,116 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6437-gxhq-pqv8",
+  "cve_id": "CVE-2026-71864",
+  "ecosystem": "npm",
+  "packages": [
+   "orval"
+  ],
+  "published_at": "2026-09-03T18:08:31Z",
+  "advisory_cwes": [94, 95, 116],
+  "html_url": "https://github.com/advisories/GHSA-6437-gxhq-pqv8",
+  "label_cwes": [94, 95],
+  "repo": "orval-labs/orval",
+  "fix_sha": "8ef1bfdf3f9bcaf9dabfbe2e42887f1c0e159ab6",
+  "parent_sha": "c082bb4aff4f9aaee196a1ca948492f0e28d6e79",
+  "path_vulnerable": "packages/core/src/getters/route.ts",
+  "path_patched": "packages/core/src/getters/route.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [36, 36],
+   [47, 47],
+   [50, 51],
+   [63, 63],
+   [95, 95],
+   [115, 115],
+   [167, 167],
+   [169, 169],
+   [171, 171],
+   [174, 175]
+  ],
+  "patched_lines": [
+   [1, 2],
+   [36, 37],
+   [39, 52],
+   [54, 54],
+   [65, 65],
+   [68, 69],
+   [72, 76],
+   [86, 86],
+   [91, 98],
+   [126, 127],
+   [147, 147],
+   [199, 199],
+   [201, 202],
+   [204, 204],
+   [207, 208]
+  ],
+  "commit_url": "https://github.com/orval-labs/orval/commit/8ef1bfdf3f9bcaf9dabfbe2e42887f1c0e159ab6",
+  "case_id": "298-GHSA-6437-gxhq-pqv8",
+  "content": {
+   "vulnerable": {
+    "sha256": "2f5ec88b5c3385d91782bf43192eb2b396d4facde5b88d8d1fa85b17852c78ac",
+    "bytes": 5416
+   },
+   "patched": {
+    "sha256": "1f639f0e8fe8615dcd7c7a303424b89e18b6a9a44cc889bac7a122a1028783b4",
+    "bytes": 6914
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

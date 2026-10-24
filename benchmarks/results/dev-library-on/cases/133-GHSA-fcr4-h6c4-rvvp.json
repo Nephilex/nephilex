@@ -1,0 +1,164 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-fcr4-h6c4-rvvp",
+  "cve_id": "CVE-2025-22237",
+  "ecosystem": "pip",
+  "packages": [
+   "salt"
+  ],
+  "published_at": "2025-06-13T09:30:33Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-fcr4-h6c4-rvvp",
+  "label_cwes": [77],
+  "repo": "saltstack/salt",
+  "fix_sha": "9445f496fed61b15dc4364818007e5b765b0746f",
+  "parent_sha": "884324da7f570890e4bb28fd96ce0e058e8f0663",
+  "path_vulnerable": "salt/utils/gitfs.py",
+  "path_patched": "salt/utils/gitfs.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2627, 2627]
+  ],
+  "patched_lines": [
+   [2627, 2631]
+  ],
+  "commit_url": "https://github.com/saltstack/salt/commit/9445f496fed61b15dc4364818007e5b765b0746f",
+  "case_id": "133-GHSA-fcr4-h6c4-rvvp",
+  "content": {
+   "vulnerable": {
+    "sha256": "26fb6e7a7fc33da8ff2427d8bccd358267b97ad3e9998a2130c180f63cd9f49d",
+    "bytes": 143911
+   },
+   "patched": {
+    "sha256": "1eb4b8d170ae516a63a993d480aac6243b54463366b07b2574817401798dc267",
+    "bytes": 144092
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      20,
+      "B404",
+      [78]
+     ],
+     [
+      715,
+      "B603",
+      [78]
+     ],
+     [
+      1442,
+      "B112",
+      [703]
+     ],
+     [
+      1478,
+      "B112",
+      [703]
+     ],
+     [
+      3322,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      20,
+      "B404",
+      [78]
+     ],
+     [
+      715,
+      "B603",
+      [78]
+     ],
+     [
+      1442,
+      "B112",
+      [703]
+     ],
+     [
+      1478,
+      "B112",
+      [703]
+     ],
+     [
+      3326,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

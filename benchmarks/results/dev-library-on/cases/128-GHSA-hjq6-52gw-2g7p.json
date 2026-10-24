@@ -1,0 +1,404 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hjq6-52gw-2g7p",
+  "cve_id": "CVE-2024-22423",
+  "ecosystem": "pip",
+  "packages": [
+   "yt-dlp"
+  ],
+  "published_at": "2024-04-10T17:07:09Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-hjq6-52gw-2g7p",
+  "label_cwes": [78],
+  "repo": "yt-dlp/yt-dlp",
+  "fix_sha": "de015e930747165dbb8fcd360f8775fd973b7d6e",
+  "parent_sha": "61bdf15fc7400601c3da1aa7a43917310a5bf391",
+  "path_vulnerable": "yt_dlp/utils/_utils.py",
+  "path_patched": "yt_dlp/utils/_utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [828, 828],
+   [838, 838]
+  ],
+  "patched_lines": [
+   [828, 828],
+   [838, 852]
+  ],
+  "commit_url": "https://github.com/yt-dlp/yt-dlp/commit/de015e930747165dbb8fcd360f8775fd973b7d6e",
+  "case_id": "128-GHSA-hjq6-52gw-2g7p",
+  "content": {
+   "vulnerable": {
+    "sha256": "925853f13a99a99bdd3ab7ba8e7c1119753f59e9469e9bb6ff6528bd6194a0f7",
+    "bytes": 184378
+   },
+   "patched": {
+    "sha256": "0c35c90a57216c0e90f9b635bbb8b0e3973c5559e645fd528fb67869fe30aed0",
+    "bytes": 185028
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      35,
+      "B404",
+      [78]
+     ],
+     [
+      45,
+      "B405",
+      [20]
+     ],
+     [
+      220,
+      "B101",
+      [703]
+     ],
+     [
+      564,
+      "B101",
+      [703]
+     ],
+     [
+      778,
+      "B101",
+      [703]
+     ],
+     [
+      1405,
+      "B101",
+      [703]
+     ],
+     [
+      1517,
+      "B101",
+      [703]
+     ],
+     [
+      1855,
+      "B101",
+      [703]
+     ],
+     [
+      2091,
+      "B101",
+      [703]
+     ],
+     [
+      2106,
+      "B101",
+      [703]
+     ],
+     [
+      2243,
+      "B101",
+      [703]
+     ],
+     [
+      2336,
+      "B101",
+      [703]
+     ],
+     [
+      2510,
+      "B101",
+      [703]
+     ],
+     [
+      2561,
+      "B311",
+      [330]
+     ],
+     [
+      2981,
+      "B101",
+      [703]
+     ],
+     [
+      3414,
+      "B314",
+      [20]
+     ],
+     [
+      3487,
+      "B101",
+      [703]
+     ],
+     [
+      3503,
+      "B101",
+      [703]
+     ],
+     [
+      3505,
+      "B101",
+      [703]
+     ],
+     [
+      4254,
+      "B311",
+      [330]
+     ],
+     [
+      4336,
+      "B311",
+      [330]
+     ],
+     [
+      4420,
+      "B101",
+      [703]
+     ],
+     [
+      4421,
+      "B101",
+      [703]
+     ],
+     [
+      4470,
+      "B311",
+      [330]
+     ],
+     [
+      4606,
+      "B311",
+      [330]
+     ],
+     [
+      4812,
+      "B101",
+      [703]
+     ],
+     [
+      5126,
+      "B101",
+      [703]
+     ],
+     [
+      5133,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      35,
+      "B404",
+      [78]
+     ],
+     [
+      45,
+      "B405",
+      [20]
+     ],
+     [
+      220,
+      "B101",
+      [703]
+     ],
+     [
+      564,
+      "B101",
+      [703]
+     ],
+     [
+      778,
+      "B101",
+      [703]
+     ],
+     [
+      845,
+      "B604",
+      [78]
+     ],
+     [
+      1419,
+      "B101",
+      [703]
+     ],
+     [
+      1531,
+      "B101",
+      [703]
+     ],
+     [
+      1869,
+      "B101",
+      [703]
+     ],
+     [
+      2105,
+      "B101",
+      [703]
+     ],
+     [
+      2120,
+      "B101",
+      [703]
+     ],
+     [
+      2257,
+      "B101",
+      [703]
+     ],
+     [
+      2350,
+      "B101",
+      [703]
+     ],
+     [
+      2524,
+      "B101",
+      [703]
+     ],
+     [
+      2575,
+      "B311",
+      [330]
+     ],
+     [
+      2995,
+      "B101",
+      [703]
+     ],
+     [
+      3428,
+      "B314",
+      [20]
+     ],
+     [
+      3501,
+      "B101",
+      [703]
+     ],
+     [
+      3517,
+      "B101",
+      [703]
+     ],
+     [
+      3519,
+      "B101",
+      [703]
+     ],
+     [
+      4268,
+      "B311",
+      [330]
+     ],
+     [
+      4350,
+      "B311",
+      [330]
+     ],
+     [
+      4434,
+      "B101",
+      [703]
+     ],
+     [
+      4435,
+      "B101",
+      [703]
+     ],
+     [
+      4484,
+      "B311",
+      [330]
+     ],
+     [
+      4620,
+      "B311",
+      [330]
+     ],
+     [
+      4826,
+      "B101",
+      [703]
+     ],
+     [
+      5140,
+      "B101",
+      [703]
+     ],
+     [
+      5147,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched",
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

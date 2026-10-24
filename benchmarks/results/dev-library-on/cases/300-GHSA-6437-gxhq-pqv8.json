@@ -1,0 +1,113 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6437-gxhq-pqv8",
+  "cve_id": "CVE-2026-71864",
+  "ecosystem": "npm",
+  "packages": [
+   "orval"
+  ],
+  "published_at": "2026-09-03T18:08:31Z",
+  "advisory_cwes": [94, 95, 116],
+  "html_url": "https://github.com/advisories/GHSA-6437-gxhq-pqv8",
+  "label_cwes": [94, 95],
+  "repo": "orval-labs/orval",
+  "fix_sha": "8ef1bfdf3f9bcaf9dabfbe2e42887f1c0e159ab6",
+  "parent_sha": "c082bb4aff4f9aaee196a1ca948492f0e28d6e79",
+  "path_vulnerable": "packages/zod/src/index.ts",
+  "path_patched": "packages/zod/src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [39, 40],
+   [167, 168],
+   [820, 820],
+   [827, 827],
+   [836, 836],
+   [842, 846],
+   [1519, 1519],
+   [1521, 1521],
+   [1870, 1870],
+   [2054, 2054],
+   [2056, 2056]
+  ],
+  "patched_lines": [
+   [40, 40],
+   [169, 185],
+   [837, 837],
+   [839, 839],
+   [846, 846],
+   [855, 855],
+   [861, 861],
+   [1534, 1534],
+   [1536, 1536],
+   [1885, 1885],
+   [2069, 2069],
+   [2071, 2071]
+  ],
+  "commit_url": "https://github.com/orval-labs/orval/commit/8ef1bfdf3f9bcaf9dabfbe2e42887f1c0e159ab6",
+  "case_id": "300-GHSA-6437-gxhq-pqv8",
+  "content": {
+   "vulnerable": {
+    "sha256": "d9a923a0c4dd9d6b32a9ca6d551eb7fab99da61a56320e5b935373b88bf769b2",
+    "bytes": 109028
+   },
+   "patched": {
+    "sha256": "a8c81867a4790e3bf5115d09482901bcb481690ff4bfeeb1440f289fee126c9f",
+    "bytes": 109542
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

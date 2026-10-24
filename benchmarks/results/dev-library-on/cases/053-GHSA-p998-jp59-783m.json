@@ -1,0 +1,406 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-p998-jp59-783m",
+  "cve_id": "CVE-2026-34515",
+  "ecosystem": "pip",
+  "packages": [
+   "aiohttp"
+  ],
+  "published_at": "2026-04-01T21:26:36Z",
+  "advisory_cwes": [36, 918],
+  "html_url": "https://github.com/advisories/GHSA-p998-jp59-783m",
+  "label_cwes": [36, 918],
+  "repo": "aio-libs/aiohttp",
+  "fix_sha": "0ae2aa076c84573df83fc1fdc39eec0f5862fe3d",
+  "parent_sha": "7438e8d4eaf94c95615695f527cc029e3e7987b0",
+  "path_vulnerable": "aiohttp/web_urldispatcher.py",
+  "path_patched": "aiohttp/web_urldispatcher.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [678, 679]
+  ],
+  "patched_lines": [
+   [679, 682]
+  ],
+  "commit_url": "https://github.com/aio-libs/aiohttp/commit/0ae2aa076c84573df83fc1fdc39eec0f5862fe3d",
+  "case_id": "053-GHSA-p998-jp59-783m",
+  "content": {
+   "vulnerable": {
+    "sha256": "24cf9396b88a08d6d32cd2f8dd16bdb1d674cc287166620461033a6696f28c8e",
+    "bytes": 44290
+   },
+   "patched": {
+    "sha256": "f6927a6f72eeba3b59b80511358874b5d8600899f6645ada91e13248dc0daa15",
+    "bytes": 44512
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      621,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      624,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      621,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      624,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      185,
+      "B101",
+      [703]
+     ],
+     [
+      193,
+      "B101",
+      [703]
+     ],
+     [
+      200,
+      "B101",
+      [703]
+     ],
+     [
+      217,
+      "B101",
+      [703]
+     ],
+     [
+      301,
+      "B101",
+      [703]
+     ],
+     [
+      382,
+      "B101",
+      [703]
+     ],
+     [
+      413,
+      "B101",
+      [703]
+     ],
+     [
+      425,
+      "B101",
+      [703]
+     ],
+     [
+      426,
+      "B101",
+      [703]
+     ],
+     [
+      427,
+      "B101",
+      [703]
+     ],
+     [
+      485,
+      "B101",
+      [703]
+     ],
+     [
+      486,
+      "B101",
+      [703]
+     ],
+     [
+      495,
+      "B101",
+      [703]
+     ],
+     [
+      496,
+      "B101",
+      [703]
+     ],
+     [
+      497,
+      "B101",
+      [703]
+     ],
+     [
+      528,
+      "B101",
+      [703]
+     ],
+     [
+      529,
+      "B101",
+      [703]
+     ],
+     [
+      539,
+      "B101",
+      [703]
+     ],
+     [
+      540,
+      "B101",
+      [703]
+     ],
+     [
+      541,
+      "B101",
+      [703]
+     ],
+     [
+      722,
+      "B101",
+      [703]
+     ],
+     [
+      840,
+      "B101",
+      [703]
+     ],
+     [
+      933,
+      "B101",
+      [703]
+     ],
+     [
+      937,
+      "B101",
+      [703]
+     ],
+     [
+      980,
+      "B101",
+      [703]
+     ],
+     [
+      1096,
+      "B101",
+      [703]
+     ],
+     [
+      1204,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      185,
+      "B101",
+      [703]
+     ],
+     [
+      193,
+      "B101",
+      [703]
+     ],
+     [
+      200,
+      "B101",
+      [703]
+     ],
+     [
+      217,
+      "B101",
+      [703]
+     ],
+     [
+      301,
+      "B101",
+      [703]
+     ],
+     [
+      382,
+      "B101",
+      [703]
+     ],
+     [
+      413,
+      "B101",
+      [703]
+     ],
+     [
+      425,
+      "B101",
+      [703]
+     ],
+     [
+      426,
+      "B101",
+      [703]
+     ],
+     [
+      427,
+      "B101",
+      [703]
+     ],
+     [
+      485,
+      "B101",
+      [703]
+     ],
+     [
+      486,
+      "B101",
+      [703]
+     ],
+     [
+      495,
+      "B101",
+      [703]
+     ],
+     [
+      496,
+      "B101",
+      [703]
+     ],
+     [
+      497,
+      "B101",
+      [703]
+     ],
+     [
+      528,
+      "B101",
+      [703]
+     ],
+     [
+      529,
+      "B101",
+      [703]
+     ],
+     [
+      539,
+      "B101",
+      [703]
+     ],
+     [
+      540,
+      "B101",
+      [703]
+     ],
+     [
+      541,
+      "B101",
+      [703]
+     ],
+     [
+      726,
+      "B101",
+      [703]
+     ],
+     [
+      844,
+      "B101",
+      [703]
+     ],
+     [
+      937,
+      "B101",
+      [703]
+     ],
+     [
+      941,
+      "B101",
+      [703]
+     ],
+     [
+      984,
+      "B101",
+      [703]
+     ],
+     [
+      1100,
+      "B101",
+      [703]
+     ],
+     [
+      1208,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

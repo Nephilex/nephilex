@@ -1,0 +1,105 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w7f9-wqc4-3wxr",
+  "cve_id": "CVE-2025-59049",
+  "ecosystem": "npm",
+  "packages": [
+   "@mockoon/cli",
+   "@mockoon/commons-server"
+  ],
+  "published_at": "2025-03-11T16:17:42Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-w7f9-wqc4-3wxr",
+  "label_cwes": [22, 73],
+  "repo": "mockoon/mockoon",
+  "fix_sha": "c7f6e23e87dc3b8cc44e5802af046200a797bd2e",
+  "parent_sha": "b36396cf4217d95618c492c2b51831147b791a2c",
+  "path_vulnerable": "packages/commons-server/src/libs/server/server.ts",
+  "path_patched": "packages/commons-server/src/libs/server/server.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [46, 46],
+   [99, 100],
+   [876, 894],
+   [903, 903],
+   [1431, 1445],
+   [1582, 1595],
+   [2435, 2436]
+  ],
+  "patched_lines": [
+   [46, 46],
+   [100, 100],
+   [877, 879],
+   [888, 897],
+   [1425, 1425],
+   [1562, 1564],
+   [2405, 2471]
+  ],
+  "commit_url": "https://github.com/mockoon/mockoon/commit/c7f6e23e87dc3b8cc44e5802af046200a797bd2e",
+  "case_id": "283-GHSA-w7f9-wqc4-3wxr",
+  "content": {
+   "vulnerable": {
+    "sha256": "e3a374bdbe0befc2fd806f1d76850ff035de26af4f6c0d6d96589e0b20eb33b8",
+    "bytes": 70924
+   },
+   "patched": {
+    "sha256": "730b801cd254d5e439c6d6488519eb6aa14331bf98e02965810b9d8096317b7e",
+    "bytes": 71785
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

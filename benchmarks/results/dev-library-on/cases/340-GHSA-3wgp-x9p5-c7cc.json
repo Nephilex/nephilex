@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3wgp-x9p5-c7cc",
+  "cve_id": "CVE-2026-58191",
+  "ecosystem": "npm",
+  "packages": [
+   "@appium/base-driver"
+  ],
+  "published_at": "2026-09-01T18:54:53Z",
+  "advisory_cwes": [79, 489],
+  "html_url": "https://github.com/advisories/GHSA-3wgp-x9p5-c7cc",
+  "label_cwes": [79, 489],
+  "repo": "appium/appium",
+  "fix_sha": "d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "parent_sha": "47638650ee0c3cb418fb6a4e1d66c0c3492722e0",
+  "path_vulnerable": "packages/base-driver/lib/index.js",
+  "path_patched": "packages/base-driver/lib/index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [17, 17]
+  ],
+  "patched_lines": [
+   [17, 18]
+  ],
+  "commit_url": "https://github.com/appium/appium/commit/d94a40af9f8040191ee7888571a1c9d5aec59f89",
+  "case_id": "340-GHSA-3wgp-x9p5-c7cc",
+  "content": {
+   "vulnerable": {
+    "sha256": "16cf8b9bafb4f066e62455747106ffa094c04cbe42a61236dca250e4f5799427",
+    "bytes": 1574
+   },
+   "patched": {
+    "sha256": "af00bec85a1f93d03fec92a3fc05110b8c8ecba08f6b8ffb7337929da6cf0479",
+    "bytes": 1683
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

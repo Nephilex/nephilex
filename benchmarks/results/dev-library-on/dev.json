@@ -1,0 +1,4089 @@
+{
+ "schema_version": 1,
+ "set": "dev",
+ "note": "Development data, not a claim: this set is studied to improve detection, so its numbers say nothing about code Nephilex was not developed on. Release numbers come from the time-split set.",
+ "generated_at": "2026-10-24T14:59:27+00:00",
+ "mode": "live",
+ "host": {
+  "os": "Windows",
+  "python": "3.11.9"
+ },
+ "nephilex_source": {
+  "commit": "261c48999c9ca36ee4c6992ddc0d792a816341ac",
+  "src_nephilex_modified": false
+ },
+ "manifest": {
+  "path": "benchmarks/heldout/sets/dev/manifest.json",
+  "sha256": "cf2c295c279b0ac69bbf4452624f302842d2aae84ccd32d9200daa4ae180fe20",
+  "selected_at": "2026-10-23T15:24:12+00:00",
+  "cases_selected": 351,
+  "cases_scored": 351,
+  "cases_excluded": {},
+  "advisories_scored": 193,
+  "languages": {
+   "javascript": 51,
+   "python": 193,
+   "typescript": 107
+  },
+  "ecosystems": {
+   "npm": 150,
+   "pip": 201
+  }
+ },
+ "scoring": {
+  "window": 3,
+  "sensitivity_windows": [0, 10],
+  "modes": [
+   "mapped",
+   "strict",
+   "any"
+  ],
+  "applies": {
+   "nephilex": [
+    "javascript",
+    "python",
+    "typescript"
+   ],
+   "bandit": [
+    "python"
+   ],
+   "semgrep": [
+    "javascript",
+    "python",
+    "typescript"
+   ]
+  },
+  "mapping": {
+   "equivalence_groups": {
+    "path-traversal": [22, 23, 36, 73, 99],
+    "os-command-injection": [77, 78, 88],
+    "code-injection": [94, 95],
+    "sql-injection": [89, 564],
+    "xss": [79, 80],
+    "weak-hash": [327, 328, 916],
+    "weak-random": [330, 331, 338],
+    "xml-entities": [611, 776],
+    "tls-validation": [295, 297],
+    "hard-coded-credentials": [259, 321, 798]
+   },
+   "rule_overrides": [
+    {
+     "tool": "bandit",
+     "rule_id": "B102",
+     "adds_cwes": [95],
+     "reason": "exec() use is code injection; Bandit reports CWE-78 (OS command injection)"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B307",
+     "adds_cwes": [95],
+     "reason": "eval() use is code injection; Bandit reports CWE-78 (OS command injection)"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B313",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B314",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B315",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B316",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B317",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B318",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B319",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B320",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B405",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B406",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B407",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B408",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B409",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B410",
+     "adds_cwes": [611],
+     "reason": "Bandit XML blacklist, documented as XML attacks (XXE, entity expansion); Bandit reports CWE-20"
+    },
+    {
+     "tool": "bandit",
+     "rule_id": "B506",
+     "adds_cwes": [502],
+     "reason": "yaml.load without a safe loader is unsafe deserialization; Bandit reports CWE-20"
+    },
+    {
+     "tool": "semgrep",
+     "rule_id": "python.flask.security.injection.tainted-sql-string.tainted-sql-string",
+     "adds_cwes": [89],
+     "reason": "tainted SQL string rule; its registry metadata says CWE-704 (type conversion)"
+    }
+   ]
+  }
+ },
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "run": {
+    "tool": "nephilex",
+    "started_at": "2026-10-24T14:30:12+00:00",
+    "version": "0.11.0",
+    "command": [
+     "nephilex",
+     "scan",
+     "<case>/<version>",
+     "--no-ai",
+     "--no-cache",
+     "--quiet",
+     "-f",
+     "json",
+     "-o",
+     "<raw_output>",
+     "-c",
+     "<config>"
+    ],
+    "runs": 702,
+    "seconds": 1752.8,
+    "scanners_failed": {},
+    "notes": "one run per case and version; offline heuristic provider (--no-ai); default scanners incl. the [ast] tier",
+    "config": "library_mode: \"on\"\n"
+   },
+   "applicable_cases": 351,
+   "metrics": {
+    "mapped": {
+     "overall": {
+      "cases": 351,
+      "detected": 23,
+      "missed": 328,
+      "flagged_after_fix": 4,
+      "still_flagged": 4,
+      "fix_aware_detected": 19,
+      "recall": 0.0655,
+      "fix_aware_recall": 0.0541,
+      "precision_proxy": 0.8519
+     },
+     "advisories": {
+      "detected": 20,
+      "missed": 173,
+      "flagged_after_fix": 3,
+      "still_flagged": 3,
+      "fix_aware_detected": 17,
+      "recall": 0.1036,
+      "fix_aware_recall": 0.0881,
+      "precision_proxy": 0.8696,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 4,
+       "missed": 36,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.1,
+       "fix_aware_recall": 0.1,
+       "precision_proxy": 1.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 1,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0625,
+       "fix_aware_recall": 0.0625,
+       "precision_proxy": 1.0
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 2,
+       "missed": 26,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0714,
+       "fix_aware_recall": 0.0714,
+       "precision_proxy": 1.0
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 1,
+       "missed": 59,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0167,
+       "fix_aware_recall": 0.0167,
+       "precision_proxy": 1.0
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 3,
+       "missed": 15,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0556,
+       "precision_proxy": 0.6
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 3,
+       "missed": 28,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0968,
+       "fix_aware_recall": 0.0968,
+       "precision_proxy": 1.0
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 4,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.5,
+       "fix_aware_recall": 0.5,
+       "precision_proxy": 1.0
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 2,
+       "missed": 11,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1538,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.6667
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 2,
+       "missed": 10,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0833,
+       "precision_proxy": 0.6667
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 0,
+       "missed": 17,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 1,
+       "missed": 63,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0156,
+       "fix_aware_recall": 0.0156,
+       "precision_proxy": 1.0
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 1,
+       "missed": 50,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0196,
+       "fix_aware_recall": 0.0196,
+       "precision_proxy": 1.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 21,
+       "missed": 172,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 17,
+       "recall": 0.1088,
+       "fix_aware_recall": 0.0881,
+       "precision_proxy": 0.84
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 1,
+       "missed": 106,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0093,
+       "fix_aware_recall": 0.0093,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 2,
+       "missed": 156,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0127,
+       "fix_aware_recall": 0.0127,
+       "precision_proxy": 1.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 21,
+       "missed": 172,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 17,
+       "recall": 0.1088,
+       "fix_aware_recall": 0.0881,
+       "precision_proxy": 0.84
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 2,
+       "missed": 148,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0133,
+       "fix_aware_recall": 0.0133,
+       "precision_proxy": 1.0
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 21,
+       "missed": 180,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 17,
+       "recall": 0.1045,
+       "fix_aware_recall": 0.0846,
+       "precision_proxy": 0.84
+      }
+     }
+    },
+    "strict": {
+     "overall": {
+      "cases": 351,
+      "detected": 19,
+      "missed": 332,
+      "flagged_after_fix": 4,
+      "still_flagged": 4,
+      "fix_aware_detected": 15,
+      "recall": 0.0541,
+      "fix_aware_recall": 0.0427,
+      "precision_proxy": 0.8261
+     },
+     "advisories": {
+      "detected": 16,
+      "missed": 177,
+      "flagged_after_fix": 3,
+      "still_flagged": 3,
+      "fix_aware_detected": 13,
+      "recall": 0.0829,
+      "fix_aware_recall": 0.0674,
+      "precision_proxy": 0.8421,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 4,
+       "missed": 36,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.1,
+       "fix_aware_recall": 0.1,
+       "precision_proxy": 1.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 0,
+       "missed": 16,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 2,
+       "missed": 26,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0714,
+       "fix_aware_recall": 0.0714,
+       "precision_proxy": 1.0
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 1,
+       "missed": 59,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0167,
+       "fix_aware_recall": 0.0167,
+       "precision_proxy": 1.0
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 3,
+       "missed": 15,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0556,
+       "precision_proxy": 0.6
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 0,
+       "missed": 31,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 4,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.5,
+       "fix_aware_recall": 0.5,
+       "precision_proxy": 1.0
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 2,
+       "missed": 11,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1538,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.6667
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 2,
+       "missed": 10,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0833,
+       "precision_proxy": 0.6667
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 0,
+       "missed": 17,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 1,
+       "missed": 63,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0156,
+       "fix_aware_recall": 0.0156,
+       "precision_proxy": 1.0
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 0,
+       "missed": 51,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "python": {
+       "cases": 193,
+       "detected": 18,
+       "missed": 175,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 14,
+       "recall": 0.0933,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.8182
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 1,
+       "missed": 106,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0093,
+       "fix_aware_recall": 0.0093,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 1,
+       "missed": 157,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0063,
+       "fix_aware_recall": 0.0063,
+       "precision_proxy": 1.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 18,
+       "missed": 175,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 14,
+       "recall": 0.0933,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.8182
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 1,
+       "missed": 149,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0067,
+       "fix_aware_recall": 0.0067,
+       "precision_proxy": 1.0
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 18,
+       "missed": 183,
+       "flagged_after_fix": 4,
+       "still_flagged": 4,
+       "fix_aware_detected": 14,
+       "recall": 0.0896,
+       "fix_aware_recall": 0.0697,
+       "precision_proxy": 0.8182
+      }
+     }
+    },
+    "any": {
+     "overall": {
+      "cases": 351,
+      "detected": 31,
+      "missed": 320,
+      "flagged_after_fix": 9,
+      "still_flagged": 9,
+      "fix_aware_detected": 22,
+      "recall": 0.0883,
+      "fix_aware_recall": 0.0627,
+      "precision_proxy": 0.775
+     },
+     "advisories": {
+      "detected": 26,
+      "missed": 167,
+      "flagged_after_fix": 8,
+      "still_flagged": 8,
+      "fix_aware_detected": 18,
+      "recall": 0.1347,
+      "fix_aware_recall": 0.0933,
+      "precision_proxy": 0.7647,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 4,
+       "missed": 36,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.1,
+       "fix_aware_recall": 0.1,
+       "precision_proxy": 1.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 2,
+       "missed": 14,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.125,
+       "fix_aware_recall": 0.0625,
+       "precision_proxy": 0.6667
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 3,
+       "missed": 25,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 2,
+       "recall": 0.1071,
+       "fix_aware_recall": 0.0714,
+       "precision_proxy": 0.75
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 2,
+       "missed": 58,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.0333,
+       "fix_aware_recall": 0.0167,
+       "precision_proxy": 0.6667
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 3,
+       "missed": 15,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0556,
+       "precision_proxy": 0.6
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 6,
+       "missed": 25,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 5,
+       "recall": 0.1935,
+       "fix_aware_recall": 0.1613,
+       "precision_proxy": 0.8571
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 4,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 0.5,
+       "fix_aware_recall": 0.5,
+       "precision_proxy": 1.0
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 2,
+       "missed": 11,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1538,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.6667
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 2,
+       "missed": 10,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1667,
+       "fix_aware_recall": 0.0833,
+       "precision_proxy": 0.6667
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 2,
+       "missed": 15,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.1176,
+       "fix_aware_recall": 0.0588,
+       "precision_proxy": 0.6667
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 2,
+       "missed": 62,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.0312,
+       "fix_aware_recall": 0.0156,
+       "precision_proxy": 0.6667
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 1,
+       "missed": 50,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0196,
+       "fix_aware_recall": 0.0196,
+       "precision_proxy": 1.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 27,
+       "missed": 166,
+       "flagged_after_fix": 8,
+       "still_flagged": 8,
+       "fix_aware_detected": 19,
+       "recall": 0.1399,
+       "fix_aware_recall": 0.0984,
+       "precision_proxy": 0.7714
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 3,
+       "missed": 104,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 2,
+       "recall": 0.028,
+       "fix_aware_recall": 0.0187,
+       "precision_proxy": 0.75
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 4,
+       "missed": 154,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 3,
+       "recall": 0.0253,
+       "fix_aware_recall": 0.019,
+       "precision_proxy": 0.8
+      },
+      "python": {
+       "cases": 193,
+       "detected": 27,
+       "missed": 166,
+       "flagged_after_fix": 8,
+       "still_flagged": 8,
+       "fix_aware_detected": 19,
+       "recall": 0.1399,
+       "fix_aware_recall": 0.0984,
+       "precision_proxy": 0.7714
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 5,
+       "missed": 145,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 3,
+       "recall": 0.0333,
+       "fix_aware_recall": 0.02,
+       "precision_proxy": 0.7143
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 26,
+       "missed": 175,
+       "flagged_after_fix": 7,
+       "still_flagged": 7,
+       "fix_aware_detected": 19,
+       "recall": 0.1294,
+       "fix_aware_recall": 0.0945,
+       "precision_proxy": 0.7879
+      }
+     }
+    }
+   },
+   "window_sensitivity": {
+    "0": {
+     "mapped": {
+      "cases": 351,
+      "detected": 15,
+      "missed": 336,
+      "flagged_after_fix": 1,
+      "still_flagged": 1,
+      "fix_aware_detected": 14,
+      "recall": 0.0427,
+      "fix_aware_recall": 0.0399,
+      "precision_proxy": 0.9375
+     },
+     "strict": {
+      "cases": 351,
+      "detected": 11,
+      "missed": 340,
+      "flagged_after_fix": 1,
+      "still_flagged": 1,
+      "fix_aware_detected": 10,
+      "recall": 0.0313,
+      "fix_aware_recall": 0.0285,
+      "precision_proxy": 0.9167
+     },
+     "any": {
+      "cases": 351,
+      "detected": 20,
+      "missed": 331,
+      "flagged_after_fix": 2,
+      "still_flagged": 2,
+      "fix_aware_detected": 18,
+      "recall": 0.057,
+      "fix_aware_recall": 0.0513,
+      "precision_proxy": 0.9091
+     }
+    },
+    "10": {
+     "mapped": {
+      "cases": 351,
+      "detected": 25,
+      "missed": 326,
+      "flagged_after_fix": 7,
+      "still_flagged": 6,
+      "fix_aware_detected": 19,
+      "recall": 0.0712,
+      "fix_aware_recall": 0.0541,
+      "precision_proxy": 0.7812
+     },
+     "strict": {
+      "cases": 351,
+      "detected": 20,
+      "missed": 331,
+      "flagged_after_fix": 6,
+      "still_flagged": 5,
+      "fix_aware_detected": 15,
+      "recall": 0.057,
+      "fix_aware_recall": 0.0427,
+      "precision_proxy": 0.7692
+     },
+     "any": {
+      "cases": 351,
+      "detected": 36,
+      "missed": 315,
+      "flagged_after_fix": 15,
+      "still_flagged": 14,
+      "fix_aware_detected": 22,
+      "recall": 0.1026,
+      "fix_aware_recall": 0.0627,
+      "precision_proxy": 0.7059
+     }
+    }
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "run": {
+    "tool": "bandit",
+    "started_at": "2026-10-23T15:45:58+00:00",
+    "raw_sha256": "e7b0341fb0f82c0e3db704d4868406b84fec3d09792edb54ab8dcf99772c89da",
+    "version": "bandit 1.9.4",
+    "command": [
+     "bandit",
+     "-r",
+     "<dataset_root>",
+     "-f",
+     "json",
+     "-o",
+     "<raw_output>",
+     "-q"
+    ],
+    "exit_code": 1,
+    "seconds": 51.0,
+    "notes": "default configuration (all plugins, all severities and confidences)",
+    "parse_errors": []
+   },
+   "applicable_cases": 193,
+   "metrics": {
+    "mapped": {
+     "overall": {
+      "cases": 193,
+      "detected": 23,
+      "missed": 170,
+      "flagged_after_fix": 11,
+      "still_flagged": 9,
+      "fix_aware_detected": 14,
+      "recall": 0.1192,
+      "fix_aware_recall": 0.0725,
+      "precision_proxy": 0.6765
+     },
+     "advisories": {
+      "detected": 20,
+      "missed": 90,
+      "flagged_after_fix": 9,
+      "still_flagged": 9,
+      "fix_aware_detected": 11,
+      "recall": 0.1818,
+      "fix_aware_recall": 0.1,
+      "precision_proxy": 0.6897,
+      "advisories": 110
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 23,
+       "detected": 2,
+       "missed": 21,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.087,
+       "fix_aware_recall": 0.0435,
+       "precision_proxy": 0.6667
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 15,
+       "detected": 6,
+       "missed": 9,
+       "flagged_after_fix": 5,
+       "still_flagged": 3,
+       "fix_aware_detected": 3,
+       "recall": 0.4,
+       "fix_aware_recall": 0.2,
+       "precision_proxy": 0.5455
+      },
+      "CWE-79": {
+       "cases": 22,
+       "detected": 2,
+       "missed": 20,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.0909,
+       "fix_aware_recall": 0.0455,
+       "precision_proxy": 0.6667
+      },
+      "CWE-88": {
+       "cases": 6,
+       "detected": 0,
+       "missed": 6,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 13,
+       "detected": 1,
+       "missed": 12,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 0,
+       "recall": 0.0769,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.5
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 15,
+       "detected": 7,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 7,
+       "recall": 0.4667,
+       "fix_aware_recall": 0.4667,
+       "precision_proxy": 1.0
+      },
+      "CWE-95": {
+       "cases": 4,
+       "detected": 4,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-295": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 4,
+       "missed": 9,
+       "flagged_after_fix": 3,
+       "still_flagged": 3,
+       "fix_aware_detected": 1,
+       "recall": 0.3077,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.5714
+      },
+      "CWE-601": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 35,
+       "detected": 0,
+       "missed": 35,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-1336": {
+       "cases": 8,
+       "detected": 1,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.125,
+       "fix_aware_recall": 0.125,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language": {
+      "python": {
+       "cases": 193,
+       "detected": 23,
+       "missed": 170,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 14,
+       "recall": 0.1192,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.6765
+      }
+     },
+     "by_language_family": {
+      "python": {
+       "cases": 193,
+       "detected": 23,
+       "missed": 170,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 14,
+       "recall": 0.1192,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.6765
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 4,
+       "detected": 2,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.5,
+       "fix_aware_recall": 0.5,
+       "precision_proxy": 1.0
+      },
+      "pip": {
+       "cases": 189,
+       "detected": 21,
+       "missed": 168,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 12,
+       "recall": 0.1111,
+       "fix_aware_recall": 0.0635,
+       "precision_proxy": 0.6562
+      }
+     }
+    },
+    "strict": {
+     "overall": {
+      "cases": 193,
+      "detected": 15,
+      "missed": 178,
+      "flagged_after_fix": 11,
+      "still_flagged": 9,
+      "fix_aware_detected": 6,
+      "recall": 0.0777,
+      "fix_aware_recall": 0.0311,
+      "precision_proxy": 0.5769
+     },
+     "advisories": {
+      "detected": 14,
+      "missed": 96,
+      "flagged_after_fix": 9,
+      "still_flagged": 9,
+      "fix_aware_detected": 5,
+      "recall": 0.1273,
+      "fix_aware_recall": 0.0455,
+      "precision_proxy": 0.6087,
+      "advisories": 110
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 23,
+       "detected": 2,
+       "missed": 21,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.087,
+       "fix_aware_recall": 0.0435,
+       "precision_proxy": 0.6667
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 15,
+       "detected": 6,
+       "missed": 9,
+       "flagged_after_fix": 5,
+       "still_flagged": 3,
+       "fix_aware_detected": 3,
+       "recall": 0.4,
+       "fix_aware_recall": 0.2,
+       "precision_proxy": 0.5455
+      },
+      "CWE-79": {
+       "cases": 22,
+       "detected": 2,
+       "missed": 20,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.0909,
+       "fix_aware_recall": 0.0455,
+       "precision_proxy": 0.6667
+      },
+      "CWE-88": {
+       "cases": 6,
+       "detected": 0,
+       "missed": 6,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 13,
+       "detected": 1,
+       "missed": 12,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 0,
+       "recall": 0.0769,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.5
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 15,
+       "detected": 3,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.2,
+       "fix_aware_recall": 0.2,
+       "precision_proxy": 1.0
+      },
+      "CWE-95": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-295": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 4,
+       "missed": 9,
+       "flagged_after_fix": 3,
+       "still_flagged": 3,
+       "fix_aware_detected": 1,
+       "recall": 0.3077,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.5714
+      },
+      "CWE-601": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 35,
+       "detected": 0,
+       "missed": 35,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-1336": {
+       "cases": 8,
+       "detected": 1,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.125,
+       "fix_aware_recall": 0.125,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language": {
+      "python": {
+       "cases": 193,
+       "detected": 15,
+       "missed": 178,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 6,
+       "recall": 0.0777,
+       "fix_aware_recall": 0.0311,
+       "precision_proxy": 0.5769
+      }
+     },
+     "by_language_family": {
+      "python": {
+       "cases": 193,
+       "detected": 15,
+       "missed": 178,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 6,
+       "recall": 0.0777,
+       "fix_aware_recall": 0.0311,
+       "precision_proxy": 0.5769
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 4,
+       "detected": 2,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.5,
+       "fix_aware_recall": 0.5,
+       "precision_proxy": 1.0
+      },
+      "pip": {
+       "cases": 189,
+       "detected": 13,
+       "missed": 176,
+       "flagged_after_fix": 11,
+       "still_flagged": 9,
+       "fix_aware_detected": 4,
+       "recall": 0.0688,
+       "fix_aware_recall": 0.0212,
+       "precision_proxy": 0.5417
+      }
+     }
+    },
+    "any": {
+     "overall": {
+      "cases": 193,
+      "detected": 34,
+      "missed": 159,
+      "flagged_after_fix": 25,
+      "still_flagged": 20,
+      "fix_aware_detected": 14,
+      "recall": 0.1762,
+      "fix_aware_recall": 0.0725,
+      "precision_proxy": 0.5763
+     },
+     "advisories": {
+      "detected": 28,
+      "missed": 82,
+      "flagged_after_fix": 19,
+      "still_flagged": 18,
+      "fix_aware_detected": 10,
+      "recall": 0.2545,
+      "fix_aware_recall": 0.0909,
+      "precision_proxy": 0.5957,
+      "advisories": 110
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 23,
+       "detected": 3,
+       "missed": 20,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 1,
+       "recall": 0.1304,
+       "fix_aware_recall": 0.0435,
+       "precision_proxy": 0.6
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 5,
+       "detected": 2,
+       "missed": 3,
+       "flagged_after_fix": 2,
+       "still_flagged": 2,
+       "fix_aware_detected": 0,
+       "recall": 0.4,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.5
+      },
+      "CWE-77": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 15,
+       "detected": 6,
+       "missed": 9,
+       "flagged_after_fix": 9,
+       "still_flagged": 5,
+       "fix_aware_detected": 1,
+       "recall": 0.4,
+       "fix_aware_recall": 0.0667,
+       "precision_proxy": 0.4
+      },
+      "CWE-79": {
+       "cases": 22,
+       "detected": 2,
+       "missed": 20,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 1,
+       "recall": 0.0909,
+       "fix_aware_recall": 0.0455,
+       "precision_proxy": 0.6667
+      },
+      "CWE-88": {
+       "cases": 6,
+       "detected": 0,
+       "missed": 6,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 13,
+       "detected": 1,
+       "missed": 12,
+       "flagged_after_fix": 1,
+       "still_flagged": 1,
+       "fix_aware_detected": 0,
+       "recall": 0.0769,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.5
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 15,
+       "detected": 9,
+       "missed": 6,
+       "flagged_after_fix": 6,
+       "still_flagged": 4,
+       "fix_aware_detected": 5,
+       "recall": 0.6,
+       "fix_aware_recall": 0.3333,
+       "precision_proxy": 0.6
+      },
+      "CWE-95": {
+       "cases": 4,
+       "detected": 4,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 4,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-295": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 5,
+       "detected": 2,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.4,
+       "fix_aware_recall": 0.4,
+       "precision_proxy": 1.0
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-347": {
+       "cases": 9,
+       "detected": 0,
+       "missed": 9,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 4,
+       "missed": 9,
+       "flagged_after_fix": 3,
+       "still_flagged": 3,
+       "fix_aware_detected": 1,
+       "recall": 0.3077,
+       "fix_aware_recall": 0.0769,
+       "precision_proxy": 0.5714
+      },
+      "CWE-601": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 35,
+       "detected": 4,
+       "missed": 31,
+       "flagged_after_fix": 5,
+       "still_flagged": 4,
+       "fix_aware_detected": 0,
+       "recall": 0.1143,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.4444
+      },
+      "CWE-1336": {
+       "cases": 8,
+       "detected": 1,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.125,
+       "fix_aware_recall": 0.125,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language": {
+      "python": {
+       "cases": 193,
+       "detected": 34,
+       "missed": 159,
+       "flagged_after_fix": 25,
+       "still_flagged": 20,
+       "fix_aware_detected": 14,
+       "recall": 0.1762,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.5763
+      }
+     },
+     "by_language_family": {
+      "python": {
+       "cases": 193,
+       "detected": 34,
+       "missed": 159,
+       "flagged_after_fix": 25,
+       "still_flagged": 20,
+       "fix_aware_detected": 14,
+       "recall": 0.1762,
+       "fix_aware_recall": 0.0725,
+       "precision_proxy": 0.5763
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 4,
+       "detected": 2,
+       "missed": 2,
+       "flagged_after_fix": 4,
+       "still_flagged": 2,
+       "fix_aware_detected": 0,
+       "recall": 0.5,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.3333
+      },
+      "pip": {
+       "cases": 189,
+       "detected": 32,
+       "missed": 157,
+       "flagged_after_fix": 21,
+       "still_flagged": 18,
+       "fix_aware_detected": 14,
+       "recall": 0.1693,
+       "fix_aware_recall": 0.0741,
+       "precision_proxy": 0.6038
+      }
+     }
+    }
+   },
+   "window_sensitivity": {
+    "0": {
+     "mapped": {
+      "cases": 193,
+      "detected": 20,
+      "missed": 173,
+      "flagged_after_fix": 6,
+      "still_flagged": 4,
+      "fix_aware_detected": 16,
+      "recall": 0.1036,
+      "fix_aware_recall": 0.0829,
+      "precision_proxy": 0.7692
+     },
+     "strict": {
+      "cases": 193,
+      "detected": 12,
+      "missed": 181,
+      "flagged_after_fix": 6,
+      "still_flagged": 4,
+      "fix_aware_detected": 8,
+      "recall": 0.0622,
+      "fix_aware_recall": 0.0415,
+      "precision_proxy": 0.6667
+     },
+     "any": {
+      "cases": 193,
+      "detected": 28,
+      "missed": 165,
+      "flagged_after_fix": 13,
+      "still_flagged": 9,
+      "fix_aware_detected": 19,
+      "recall": 0.1451,
+      "fix_aware_recall": 0.0984,
+      "precision_proxy": 0.6829
+     }
+    },
+    "10": {
+     "mapped": {
+      "cases": 193,
+      "detected": 29,
+      "missed": 164,
+      "flagged_after_fix": 17,
+      "still_flagged": 16,
+      "fix_aware_detected": 13,
+      "recall": 0.1503,
+      "fix_aware_recall": 0.0674,
+      "precision_proxy": 0.6304
+     },
+     "strict": {
+      "cases": 193,
+      "detected": 20,
+      "missed": 173,
+      "flagged_after_fix": 16,
+      "still_flagged": 15,
+      "fix_aware_detected": 5,
+      "recall": 0.1036,
+      "fix_aware_recall": 0.0259,
+      "precision_proxy": 0.5556
+     },
+     "any": {
+      "cases": 193,
+      "detected": 48,
+      "missed": 145,
+      "flagged_after_fix": 37,
+      "still_flagged": 35,
+      "fix_aware_detected": 13,
+      "recall": 0.2487,
+      "fix_aware_recall": 0.0674,
+      "precision_proxy": 0.5647
+     }
+    }
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "run": {
+    "tool": "semgrep",
+    "started_at": "2026-10-23T15:46:51+00:00",
+    "raw_sha256": "eaa416b4ab016e007d7e367cf66ac49c6e86ae050ac299d407c798c84cbc6256",
+    "version": "1.182.1",
+    "command": [
+     "semgrep",
+     "scan",
+     "--config",
+     "p/python",
+     "--config",
+     "p/javascript",
+     "--metrics=off",
+     "--disable-version-check",
+     "--no-git-ignore",
+     "--json",
+     "-o",
+     "<raw_output>",
+     "--quiet",
+     "<dataset_root>"
+    ],
+    "exit_code": 0,
+    "seconds": 375.3,
+    "rulesets": [
+     {
+      "ruleset": "p/python",
+      "ruleset_sha256": "de5bc79d074c3b4146338a0bf95830406f169bd91ac590a2f1ef111f162e23f5",
+      "ruleset_rules": 151,
+      "ruleset_fetched_at": "2026-10-23T15:46:50+00:00"
+     },
+     {
+      "ruleset": "p/javascript",
+      "ruleset_sha256": "1bcb61b57b5c9ee521d5e1db2d80062fe90b64fc788650564dc1f1c5243419c2",
+      "ruleset_rules": 74,
+      "ruleset_fetched_at": "2026-10-23T15:46:51+00:00"
+     }
+    ],
+    "semgrep_errors": 59,
+    "parse_errors": [
+     "023-GHSA-5gfj-64gh-mgmw/patched",
+     "023-GHSA-5gfj-64gh-mgmw/vulnerable",
+     "038-GHSA-8359-h9fx-j6v9/patched",
+     "049-GHSA-jmh7-g254-2cq9/patched",
+     "049-GHSA-jmh7-g254-2cq9/vulnerable",
+     "051-GHSA-jmh7-g254-2cq9/vulnerable",
+     "064-GHSA-6wvf-77m9-58rm/patched",
+     "064-GHSA-6wvf-77m9-58rm/vulnerable",
+     "125-GHSA-5j8p-5rrj-8wjg/vulnerable",
+     "128-GHSA-hjq6-52gw-2g7p/patched",
+     "128-GHSA-hjq6-52gw-2g7p/vulnerable",
+     "129-GHSA-hjq6-52gw-2g7p/patched",
+     "129-GHSA-hjq6-52gw-2g7p/vulnerable",
+     "131-GHSA-fcr4-h6c4-rvvp/patched",
+     "131-GHSA-fcr4-h6c4-rvvp/vulnerable",
+     "136-GHSA-c35q-vxrp-ph26/patched",
+     "136-GHSA-c35q-vxrp-ph26/vulnerable",
+     "157-GHSA-9rwj-6rc7-p77c/vulnerable",
+     "166-GHSA-8hf7-h89p-3pqj/patched",
+     "166-GHSA-8hf7-h89p-3pqj/vulnerable",
+     "185-GHSA-6v4j-43gg-vj32/patched",
+     "185-GHSA-6v4j-43gg-vj32/vulnerable",
+     "186-GHSA-6v4j-43gg-vj32/patched",
+     "186-GHSA-6v4j-43gg-vj32/vulnerable",
+     "187-GHSA-6v4j-43gg-vj32/patched",
+     "187-GHSA-6v4j-43gg-vj32/vulnerable",
+     "194-GHSA-hx8v-g79f-8w5f/patched",
+     "196-GHSA-hx8v-g79f-8w5f/patched",
+     "196-GHSA-hx8v-g79f-8w5f/vulnerable",
+     "246-GHSA-8h25-q488-4hxw/patched",
+     "246-GHSA-8h25-q488-4hxw/vulnerable"
+    ],
+    "notes": "registry rulesets cached locally; Semgrep CE engine; default settings"
+   },
+   "applicable_cases": 351,
+   "metrics": {
+    "mapped": {
+     "overall": {
+      "cases": 351,
+      "detected": 3,
+      "missed": 348,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0085,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.75
+     },
+     "advisories": {
+      "detected": 3,
+      "missed": 190,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0155,
+      "fix_aware_recall": 0.0155,
+      "precision_proxy": 0.75,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 0,
+       "missed": 40,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 0,
+       "missed": 16,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 2,
+       "missed": 26,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0714,
+       "fix_aware_recall": 0.0714,
+       "precision_proxy": 1.0
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 0,
+       "missed": 60,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 0,
+       "missed": 18,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 0,
+       "missed": 31,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 1,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 0,
+       "missed": 13,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 0,
+       "missed": 17,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 0,
+       "missed": 64,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 0,
+       "missed": 51,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 3,
+       "missed": 190,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0155,
+       "fix_aware_recall": 0.0155,
+       "precision_proxy": 1.0
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 0,
+       "missed": 107,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 0,
+       "missed": 158,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 3,
+       "missed": 190,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0155,
+       "fix_aware_recall": 0.0155,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 0,
+       "missed": 150,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 3,
+       "missed": 198,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0149,
+       "fix_aware_recall": 0.0149,
+       "precision_proxy": 1.0
+      }
+     }
+    },
+    "strict": {
+     "overall": {
+      "cases": 351,
+      "detected": 3,
+      "missed": 348,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0085,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.75
+     },
+     "advisories": {
+      "detected": 3,
+      "missed": 190,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0155,
+      "fix_aware_recall": 0.0155,
+      "precision_proxy": 0.75,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 0,
+       "missed": 40,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 0,
+       "missed": 16,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 2,
+       "missed": 26,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 2,
+       "recall": 0.0714,
+       "fix_aware_recall": 0.0714,
+       "precision_proxy": 1.0
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 0,
+       "missed": 60,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 0,
+       "missed": 18,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 0,
+       "missed": 31,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 1,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 0,
+       "missed": 13,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 0,
+       "missed": 17,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 0,
+       "missed": 64,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 0,
+       "missed": 51,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 3,
+       "missed": 190,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0155,
+       "fix_aware_recall": 0.0155,
+       "precision_proxy": 1.0
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 0,
+       "missed": 107,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 0,
+       "missed": 158,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 3,
+       "missed": 190,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0155,
+       "fix_aware_recall": 0.0155,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 0,
+       "missed": 150,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 3,
+       "missed": 198,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.0149,
+       "fix_aware_recall": 0.0149,
+       "precision_proxy": 1.0
+      }
+     }
+    },
+    "any": {
+     "overall": {
+      "cases": 351,
+      "detected": 8,
+      "missed": 343,
+      "flagged_after_fix": 5,
+      "still_flagged": 2,
+      "fix_aware_detected": 6,
+      "recall": 0.0228,
+      "fix_aware_recall": 0.0171,
+      "precision_proxy": 0.6154
+     },
+     "advisories": {
+      "detected": 8,
+      "missed": 185,
+      "flagged_after_fix": 5,
+      "still_flagged": 2,
+      "fix_aware_detected": 6,
+      "recall": 0.0415,
+      "fix_aware_recall": 0.0311,
+      "precision_proxy": 0.6154,
+      "advisories": 193
+     },
+     "by_cwe": {
+      "CWE-22": {
+       "cases": 40,
+       "detected": 0,
+       "missed": 40,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "CWE-36": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-73": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-74": {
+       "cases": 10,
+       "detected": 0,
+       "missed": 10,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-77": {
+       "cases": 16,
+       "detected": 0,
+       "missed": 16,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-78": {
+       "cases": 28,
+       "detected": 3,
+       "missed": 25,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 3,
+       "recall": 0.1071,
+       "fix_aware_recall": 0.1071,
+       "precision_proxy": 0.75
+      },
+      "CWE-79": {
+       "cases": 60,
+       "detected": 0,
+       "missed": 60,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-80": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-88": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-89": {
+       "cases": 18,
+       "detected": 0,
+       "missed": 18,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-90": {
+       "cases": 1,
+       "detected": 1,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-94": {
+       "cases": 31,
+       "detected": 1,
+       "missed": 30,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0323,
+       "fix_aware_recall": 0.0323,
+       "precision_proxy": 0.5
+      },
+      "CWE-95": {
+       "cases": 8,
+       "detected": 0,
+       "missed": 8,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-295": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-297": {
+       "cases": 2,
+       "detected": 0,
+       "missed": 2,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-306": {
+       "cases": 7,
+       "detected": 0,
+       "missed": 7,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-328": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-330": {
+       "cases": 1,
+       "detected": 1,
+       "missed": 0,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 1.0,
+       "fix_aware_recall": 1.0,
+       "precision_proxy": 1.0
+      },
+      "CWE-347": {
+       "cases": 15,
+       "detected": 0,
+       "missed": 15,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-352": {
+       "cases": 5,
+       "detected": 0,
+       "missed": 5,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-489": {
+       "cases": 4,
+       "detected": 0,
+       "missed": 4,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-502": {
+       "cases": 13,
+       "detected": 0,
+       "missed": 13,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-601": {
+       "cases": 12,
+       "detected": 0,
+       "missed": 12,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-611": {
+       "cases": 3,
+       "detected": 0,
+       "missed": 3,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-639": {
+       "cases": 17,
+       "detected": 0,
+       "missed": 17,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-643": {
+       "cases": 1,
+       "detected": 0,
+       "missed": 1,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      },
+      "CWE-918": {
+       "cases": 64,
+       "detected": 3,
+       "missed": 61,
+       "flagged_after_fix": 3,
+       "still_flagged": 2,
+       "fix_aware_detected": 1,
+       "recall": 0.0469,
+       "fix_aware_recall": 0.0156,
+       "precision_proxy": 0.5
+      },
+      "CWE-1336": {
+       "cases": 12,
+       "detected": 1,
+       "missed": 11,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 1,
+       "recall": 0.0833,
+       "fix_aware_recall": 0.0833,
+       "precision_proxy": 1.0
+      }
+     },
+     "by_language": {
+      "javascript": {
+       "cases": 51,
+       "detected": 0,
+       "missed": 51,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 8,
+       "missed": 185,
+       "flagged_after_fix": 4,
+       "still_flagged": 2,
+       "fix_aware_detected": 6,
+       "recall": 0.0415,
+       "fix_aware_recall": 0.0311,
+       "precision_proxy": 0.6667
+      },
+      "typescript": {
+       "cases": 107,
+       "detected": 0,
+       "missed": 107,
+       "flagged_after_fix": 0,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": null
+      }
+     },
+     "by_language_family": {
+      "javascript/typescript": {
+       "cases": 158,
+       "detected": 0,
+       "missed": 158,
+       "flagged_after_fix": 1,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "python": {
+       "cases": 193,
+       "detected": 8,
+       "missed": 185,
+       "flagged_after_fix": 4,
+       "still_flagged": 2,
+       "fix_aware_detected": 6,
+       "recall": 0.0415,
+       "fix_aware_recall": 0.0311,
+       "precision_proxy": 0.6667
+      }
+     },
+     "by_ecosystem": {
+      "npm": {
+       "cases": 150,
+       "detected": 0,
+       "missed": 150,
+       "flagged_after_fix": 2,
+       "still_flagged": 0,
+       "fix_aware_detected": 0,
+       "recall": 0.0,
+       "fix_aware_recall": 0.0,
+       "precision_proxy": 0.0
+      },
+      "pip": {
+       "cases": 201,
+       "detected": 8,
+       "missed": 193,
+       "flagged_after_fix": 3,
+       "still_flagged": 2,
+       "fix_aware_detected": 6,
+       "recall": 0.0398,
+       "fix_aware_recall": 0.0299,
+       "precision_proxy": 0.7273
+      }
+     }
+    }
+   },
+   "window_sensitivity": {
+    "0": {
+     "mapped": {
+      "cases": 351,
+      "detected": 3,
+      "missed": 348,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0085,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.75
+     },
+     "strict": {
+      "cases": 351,
+      "detected": 3,
+      "missed": 348,
+      "flagged_after_fix": 1,
+      "still_flagged": 0,
+      "fix_aware_detected": 3,
+      "recall": 0.0085,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.75
+     },
+     "any": {
+      "cases": 351,
+      "detected": 5,
+      "missed": 346,
+      "flagged_after_fix": 3,
+      "still_flagged": 0,
+      "fix_aware_detected": 5,
+      "recall": 0.0142,
+      "fix_aware_recall": 0.0142,
+      "precision_proxy": 0.625
+     }
+    },
+    "10": {
+     "mapped": {
+      "cases": 351,
+      "detected": 6,
+      "missed": 345,
+      "flagged_after_fix": 3,
+      "still_flagged": 3,
+      "fix_aware_detected": 3,
+      "recall": 0.0171,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.6667
+     },
+     "strict": {
+      "cases": 351,
+      "detected": 6,
+      "missed": 345,
+      "flagged_after_fix": 3,
+      "still_flagged": 3,
+      "fix_aware_detected": 3,
+      "recall": 0.0171,
+      "fix_aware_recall": 0.0085,
+      "precision_proxy": 0.6667
+     },
+     "any": {
+      "cases": 351,
+      "detected": 12,
+      "missed": 339,
+      "flagged_after_fix": 8,
+      "still_flagged": 6,
+      "fix_aware_detected": 6,
+      "recall": 0.0342,
+      "fix_aware_recall": 0.0171,
+      "precision_proxy": 0.6
+     }
+    }
+   }
+  }
+ }
+}

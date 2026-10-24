@@ -1,0 +1,122 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-fqvv-jvhr-g5jc",
+  "cve_id": "CVE-2026-42864",
+  "ecosystem": "pip",
+  "packages": [
+   "firefighter-incident"
+  ],
+  "published_at": "2026-05-05T18:21:17Z",
+  "advisory_cwes": [306, 918],
+  "html_url": "https://github.com/advisories/GHSA-fqvv-jvhr-g5jc",
+  "label_cwes": [306, 918],
+  "repo": "ManoManoTech/firefighter-incident",
+  "fix_sha": "2586679e6f32c12d223668b73e98f4c4de7b771f",
+  "parent_sha": "59680ef1299b0169c18c81463db4a1ae7034b9b7",
+  "path_vulnerable": "src/firefighter/raid/serializers.py",
+  "path_patched": "src/firefighter/raid/serializers.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2, 5],
+   [58, 59],
+   [188, 189],
+   [213, 214],
+   [254, 264]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [5, 5],
+   [7, 7],
+   [62, 113],
+   [244, 245],
+   [271, 279],
+   [320, 321]
+  ],
+  "commit_url": "https://github.com/ManoManoTech/firefighter-incident/commit/2586679e6f32c12d223668b73e98f4c4de7b771f",
+  "case_id": "114-GHSA-fqvv-jvhr-g5jc",
+  "content": {
+   "vulnerable": {
+    "sha256": "4f7ca5ef4e9c3fb3eb5cec92da6addd6d54f101428ffb4f303c9edc08e5da508",
+    "bytes": 23237
+   },
+   "patched": {
+    "sha256": "6b115d6fc15eba50d976d41bc84efe6f27bd756a208b9d6e98b0645221368127",
+    "bytes": 25553
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

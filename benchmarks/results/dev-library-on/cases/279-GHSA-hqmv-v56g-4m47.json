@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hqmv-v56g-4m47",
+  "cve_id": "CVE-2026-39964",
+  "ecosystem": "npm",
+  "packages": [
+   "@typebot.io/js"
+  ],
+  "published_at": "2026-05-26T18:00:24Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-hqmv-v56g-4m47",
+  "label_cwes": [79],
+  "repo": "baptisteArno/typebot.io",
+  "fix_sha": "2c3fc7267a5e1529ba4b1a2ab4f1edb3e3b8990b",
+  "parent_sha": "b9530a089b43bfa6e79e3ff9cbfab921ce832f45",
+  "path_vulnerable": "packages/embeds/js/src/features/blocks/bubbles/textBubble/components/plate/PlateBlock.tsx",
+  "path_patched": "packages/embeds/js/src/features/blocks/bubbles/textBubble/components/plate/PlateBlock.tsx",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [5, 6],
+   [32, 32]
+  ],
+  "patched_lines": [
+   [6, 6],
+   [33, 33]
+  ],
+  "commit_url": "https://github.com/baptisteArno/typebot.io/commit/2c3fc7267a5e1529ba4b1a2ab4f1edb3e3b8990b",
+  "case_id": "279-GHSA-hqmv-v56g-4m47",
+  "content": {
+   "vulnerable": {
+    "sha256": "671a38da9a4eab4650845a8a896a26d1d2cadbf2352596c193be76ba16e3e9aa",
+    "bytes": 2894
+   },
+   "patched": {
+    "sha256": "0a405b61985c8464275c29cc41b2dbcc2dfec22e0fd89675f1428d4272c72a99",
+    "bytes": 2972
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

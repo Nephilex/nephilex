@@ -1,0 +1,104 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w284-33mx-6g9v",
+  "cve_id": "CVE-2026-54666",
+  "ecosystem": "npm",
+  "packages": [
+   "swagger-typescript-api"
+  ],
+  "published_at": "2026-07-29T14:35:02Z",
+  "advisory_cwes": [74, 94, 1336],
+  "html_url": "https://github.com/advisories/GHSA-w284-33mx-6g9v",
+  "label_cwes": [74, 94, 1336],
+  "repo": "acacode/swagger-typescript-api",
+  "fix_sha": "306d59acb8ffbb00f953f807b97234b21f51d9de",
+  "parent_sha": "de76b586072c1723c6749b177d648e11363ef19a",
+  "path_vulnerable": "src/resolved-swagger-schema.ts",
+  "path_patched": "src/resolved-swagger-schema.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [9, 10],
+   [81, 81],
+   [83, 88],
+   [374, 376],
+   [378, 378],
+   [440, 440],
+   [924, 932]
+  ],
+  "patched_lines": [
+   [10, 14],
+   [86, 104],
+   [106, 106],
+   [392, 402],
+   [404, 404],
+   [466, 472],
+   [956, 956]
+  ],
+  "commit_url": "https://github.com/acacode/swagger-typescript-api/commit/306d59acb8ffbb00f953f807b97234b21f51d9de",
+  "case_id": "219-GHSA-w284-33mx-6g9v",
+  "content": {
+   "vulnerable": {
+    "sha256": "71be0888282dc2d6c14f70b689a920d786c76a03bcb046e5a540f75fbb0250b2",
+    "bytes": 25377
+   },
+   "patched": {
+    "sha256": "f7166421bb4f41c18256b48bb6289e5b755ab8938debc7763f479d5c5750291c",
+    "bytes": 26047
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

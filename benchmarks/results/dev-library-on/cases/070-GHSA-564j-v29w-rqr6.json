@@ -1,0 +1,161 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-564j-v29w-rqr6",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "khoj-assistant"
+  ],
+  "published_at": "2024-07-08T14:57:43Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-564j-v29w-rqr6",
+  "label_cwes": [601],
+  "repo": "khoj-ai/khoj",
+  "fix_sha": "4daf16e5f916641304e11d56a6071ad365c21a18",
+  "parent_sha": "86a3505d894553d1ef7f8af1fe52ec3ba3f646d7",
+  "path_vulnerable": "src/khoj/routers/web_client.py",
+  "path_patched": "src/khoj/routers/web_client.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [23, 24],
+   [121, 121]
+  ],
+  "patched_lines": [
+   [24, 24],
+   [122, 122]
+  ],
+  "commit_url": "https://github.com/khoj-ai/khoj/commit/4daf16e5f916641304e11d56a6071ad365c21a18",
+  "case_id": "070-GHSA-564j-v29w-rqr6",
+  "content": {
+   "vulnerable": {
+    "sha256": "51e6aa13a0ff1f62bdb89f6c397c6f03f11066607f657bda9774ccb1c305f0e2",
+    "bytes": 16768
+   },
+   "patched": {
+    "sha256": "6a04822e9b5c307bce1bf953b755fbaf395cf787d1b82c5c04b7808901f98b3b",
+    "bytes": 16798
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      123,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      216,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      282,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      323,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      351,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ],
+    "patched": [
+     [
+      217,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      283,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      324,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      352,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

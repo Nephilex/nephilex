@@ -1,0 +1,204 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8vcg-cfxj-p5m3",
+  "cve_id": "CVE-2025-68398",
+  "ecosystem": "pip",
+  "packages": [
+   "Weblate"
+  ],
+  "published_at": "2025-12-18T23:20:35Z",
+  "advisory_cwes": [20, 22],
+  "html_url": "https://github.com/advisories/GHSA-8vcg-cfxj-p5m3",
+  "label_cwes": [22],
+  "repo": "WeblateOrg/weblate",
+  "fix_sha": "4837a4154390f7c1d03c0e398aa6439dcfa361b4",
+  "parent_sha": "6af6532fafec0e33f6ef8daa2ec21b5e92f3b8a3",
+  "path_vulnerable": "weblate/trans/backups.py",
+  "path_patched": "weblate/trans/backups.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [553, 553]
+  ],
+  "patched_lines": [
+   [553, 553]
+  ],
+  "commit_url": "https://github.com/WeblateOrg/weblate/commit/4837a4154390f7c1d03c0e398aa6439dcfa361b4",
+  "case_id": "012-GHSA-8vcg-cfxj-p5m3",
+  "content": {
+   "vulnerable": {
+    "sha256": "5de5809b833f0db91d8b62674ff8363349f83b5bb1fa50ec976540120d923462",
+    "bytes": 38508
+   },
+   "patched": {
+    "sha256": "acea611ba8025d9275e3c255fff91ff746f7381533f1a6532aa81b7105951c3e",
+    "bytes": 38532
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      77,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      90,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      248,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      252,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      253,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      263,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      956,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      957,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      963,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      77,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      90,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      248,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      252,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      253,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      263,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      956,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      957,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      963,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

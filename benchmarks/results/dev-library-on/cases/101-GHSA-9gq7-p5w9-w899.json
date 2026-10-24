@@ -1,0 +1,218 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9gq7-p5w9-w899",
+  "cve_id": "CVE-2024-26020",
+  "ecosystem": "pip",
+  "packages": [
+   "anki"
+  ],
+  "published_at": "2024-07-22T15:32:41Z",
+  "advisory_cwes": [74],
+  "html_url": "https://github.com/advisories/GHSA-9gq7-p5w9-w899",
+  "label_cwes": [74],
+  "repo": "ankitects/anki",
+  "fix_sha": "8d2e8b1e4fa3757581f224b1a57057d0455352ce",
+  "parent_sha": "06f7aa393d21d7d5dd8039e15d543b73c3346932",
+  "path_vulnerable": "qt/aqt/sound.py",
+  "path_patched": "qt/aqt/sound.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [309, 309],
+   [481, 481]
+  ],
+  "patched_lines": [
+   [309, 309],
+   [481, 481]
+  ],
+  "commit_url": "https://github.com/ankitects/anki/commit/8d2e8b1e4fa3757581f224b1a57057d0455352ce",
+  "case_id": "101-GHSA-9gq7-p5w9-w899",
+  "content": {
+   "vulnerable": {
+    "sha256": "518bf18c13ece45b72d0d3b9dde13695ef19f9b6fb48fecd9db6506d8f7a531f",
+    "bytes": 26715
+   },
+   "patched": {
+    "sha256": "c1a5e355467df544bf2775cd259cf8505c17929b34124437d60d9b7fea7ddcb4",
+    "bytes": 26727
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      515,
+      "ast-python.ast-command-injection",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      515,
+      "ast-python.ast-command-injection",
+      [78]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      9,
+      "B404",
+      [78]
+     ],
+     [
+      307,
+      "B101",
+      [703]
+     ],
+     [
+      308,
+      "B603",
+      [78]
+     ],
+     [
+      426,
+      "B101",
+      [703]
+     ],
+     [
+      476,
+      "B101",
+      [703]
+     ],
+     [
+      480,
+      "B603",
+      [78]
+     ],
+     [
+      515,
+      "B603",
+      [78]
+     ],
+     [
+      658,
+      "B101",
+      [703]
+     ],
+     [
+      663,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      9,
+      "B404",
+      [78]
+     ],
+     [
+      307,
+      "B101",
+      [703]
+     ],
+     [
+      308,
+      "B603",
+      [78]
+     ],
+     [
+      426,
+      "B101",
+      [703]
+     ],
+     [
+      476,
+      "B101",
+      [703]
+     ],
+     [
+      480,
+      "B603",
+      [78]
+     ],
+     [
+      515,
+      "B603",
+      [78]
+     ],
+     [
+      658,
+      "B101",
+      [703]
+     ],
+     [
+      663,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

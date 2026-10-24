@@ -1,0 +1,152 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wwqv-p2pp-99h5",
+  "cve_id": "CVE-2025-64439",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph-checkpoint"
+  ],
+  "published_at": "2025-11-05T19:52:50Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-wwqv-p2pp-99h5",
+  "label_cwes": [502],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "c5744f583b11745cd406f3059903e17bbcdcc8ac",
+  "parent_sha": "d298b489b477b6b6d479faf80b20aeba89a96ba5",
+  "path_vulnerable": "libs/checkpoint-sqlite/langgraph/checkpoint/sqlite/aio.py",
+  "path_patched": "libs/checkpoint-sqlite/langgraph/checkpoint/sqlite/aio.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 4],
+   [380, 382],
+   [460, 462],
+   [506, 508]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [381, 381],
+   [459, 459],
+   [503, 505]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/c5744f583b11745cd406f3059903e17bbcdcc8ac",
+  "case_id": "077-GHSA-wwqv-p2pp-99h5",
+  "content": {
+   "vulnerable": {
+    "sha256": "7638a99003e5bc1b7218a959397e82662d45a633993cf8dfc31cac52c799c670",
+    "bytes": 24419
+   },
+   "patched": {
+    "sha256": "053e71ffcb5dbf7a46e23ffc61985e186045bfbd1565ac4c486d9bd54f07b228",
+    "bytes": 24340
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      433,
+      "ast-python.ast-sql-injection",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      432,
+      "ast-python.ast-sql-injection",
+      [89]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      425,
+      "B608",
+      [89]
+     ],
+     [
+      612,
+      "B311",
+      [330]
+     ]
+    ],
+    "patched": [
+     [
+      424,
+      "B608",
+      [89]
+     ],
+     [
+      609,
+      "B311",
+      [330]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

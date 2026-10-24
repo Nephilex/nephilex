@@ -1,0 +1,135 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pxrr-hq57-q35p",
+  "cve_id": "CVE-2026-33154",
+  "ecosystem": "pip",
+  "packages": [
+   "dynaconf"
+  ],
+  "published_at": "2026-03-18T20:08:06Z",
+  "advisory_cwes": [78, 94, 1336],
+  "html_url": "https://github.com/advisories/GHSA-pxrr-hq57-q35p",
+  "label_cwes": [78, 94, 1336],
+  "repo": "dynaconf/dynaconf",
+  "fix_sha": "2fbb45ee36b8c0caa5b924fe19f3c1a5e8603fa7",
+  "parent_sha": "8547454cdf46dcc032a2fb46dad57fdb0235ec22",
+  "path_vulnerable": "dynaconf/utils/parse_conf.py",
+  "path_patched": "dynaconf/utils/parse_conf.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [5, 6],
+   [19, 19],
+   [21, 21],
+   [214, 214],
+   [219, 219],
+   [265, 265]
+  ],
+  "patched_lines": [
+   [6, 6],
+   [20, 21],
+   [23, 23],
+   [216, 216],
+   [221, 225],
+   [268, 293],
+   [297, 297]
+  ],
+  "commit_url": "https://github.com/dynaconf/dynaconf/commit/2fbb45ee36b8c0caa5b924fe19f3c1a5e8603fa7",
+  "case_id": "145-GHSA-pxrr-hq57-q35p",
+  "content": {
+   "vulnerable": {
+    "sha256": "fa2da6dbd341ccb260ae32fad83b8d02ba2e2f21f67b3fa6cff91548c7e1977d",
+    "bytes": 17670
+   },
+   "patched": {
+    "sha256": "7d64b049d43ce8ceaf4ff6e0379611b81e859ebc5d867b6c54bdb3b1f16c458f",
+    "bytes": 18841
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      21,
+      "B701",
+      [94]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      21,
+      "python.jinja2.security.audit.missing-autoescape-disabled.missing-autoescape-disabled",
+      [116]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

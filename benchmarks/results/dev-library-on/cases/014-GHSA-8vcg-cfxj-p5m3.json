@@ -1,0 +1,116 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8vcg-cfxj-p5m3",
+  "cve_id": "CVE-2025-68398",
+  "ecosystem": "pip",
+  "packages": [
+   "Weblate"
+  ],
+  "published_at": "2025-12-18T23:20:35Z",
+  "advisory_cwes": [20, 22],
+  "html_url": "https://github.com/advisories/GHSA-8vcg-cfxj-p5m3",
+  "label_cwes": [22],
+  "repo": "WeblateOrg/weblate",
+  "fix_sha": "4837a4154390f7c1d03c0e398aa6439dcfa361b4",
+  "parent_sha": "6af6532fafec0e33f6ef8daa2ec21b5e92f3b8a3",
+  "path_vulnerable": "weblate/utils/validators.py",
+  "path_patched": "weblate/utils/validators.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [35, 36],
+   [241, 241],
+   [256, 257]
+  ],
+  "patched_lines": [
+   [36, 36],
+   [242, 242],
+   [258, 259]
+  ],
+  "commit_url": "https://github.com/WeblateOrg/weblate/commit/4837a4154390f7c1d03c0e398aa6439dcfa361b4",
+  "case_id": "014-GHSA-8vcg-cfxj-p5m3",
+  "content": {
+   "vulnerable": {
+    "sha256": "85d74fce8709d7f64ed08fe7a3c3c7ae1c2d86f2f7dbc1e53f9d5b0d07d43db9",
+    "bytes": 14445
+   },
+   "patched": {
+    "sha256": "0c4dbbc67f68f35b20b3e8d78575b023432b1a183146d61356ba75b6df7c84c6",
+    "bytes": 14663
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,422 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hjq6-52gw-2g7p",
+  "cve_id": "CVE-2024-22423",
+  "ecosystem": "pip",
+  "packages": [
+   "yt-dlp"
+  ],
+  "published_at": "2024-04-10T17:07:09Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-hjq6-52gw-2g7p",
+  "label_cwes": [78],
+  "repo": "yt-dlp/yt-dlp",
+  "fix_sha": "ff07792676f404ffff6ee61b5638c9dc1a33a37a",
+  "parent_sha": "216f6a3cb57824e6a3c859649ce058c199b1b247",
+  "path_vulnerable": "yt_dlp/YoutubeDL.py",
+  "path_patched": "yt_dlp/YoutubeDL.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [28, 28],
+   [105, 105],
+   [143, 144],
+   [826, 826],
+   [1358, 1358]
+  ],
+  "patched_lines": [
+   [28, 28],
+   [104, 105],
+   [143, 143],
+   [826, 826],
+   [1358, 1358]
+  ],
+  "commit_url": "https://github.com/yt-dlp/yt-dlp/commit/ff07792676f404ffff6ee61b5638c9dc1a33a37a",
+  "case_id": "129-GHSA-hjq6-52gw-2g7p",
+  "content": {
+   "vulnerable": {
+    "sha256": "2aab7ccc3335af48a7a9af104eb4d1f69248946a69c2b47ed89378039262b3d9",
+    "bytes": 210992
+   },
+   "patched": {
+    "sha256": "2511345c774c9187f037d8be0643c4a76fae387422fff280d1ed2bbc6c391256",
+    "bytes": 210962
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      2500,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2502,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2526,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      3270,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      3293,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      2500,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2502,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2526,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      3270,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      3293,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      18,
+      "B404",
+      [78]
+     ],
+     [
+      655,
+      "B101",
+      [703]
+     ],
+     [
+      868,
+      "B101",
+      [703]
+     ],
+     [
+      891,
+      "B101",
+      [703]
+     ],
+     [
+      892,
+      "B101",
+      [703]
+     ],
+     [
+      930,
+      "B101",
+      [703]
+     ],
+     [
+      1126,
+      "B101",
+      [703]
+     ],
+     [
+      1139,
+      "B311",
+      [330]
+     ],
+     [
+      1249,
+      "B101",
+      [703]
+     ],
+     [
+      1404,
+      "B101",
+      [703]
+     ],
+     [
+      1436,
+      "B101",
+      [703]
+     ],
+     [
+      1457,
+      "B101",
+      [703]
+     ],
+     [
+      1655,
+      "B311",
+      [330]
+     ],
+     [
+      1950,
+      "B101",
+      [703]
+     ],
+     [
+      2497,
+      "B311",
+      [330]
+     ],
+     [
+      2683,
+      "B101",
+      [703]
+     ],
+     [
+      2994,
+      "B101",
+      [703]
+     ],
+     [
+      3184,
+      "B101",
+      [703]
+     ],
+     [
+      3478,
+      "B101",
+      [703]
+     ],
+     [
+      3538,
+      "B101",
+      [703]
+     ],
+     [
+      3746,
+      "B101",
+      [703]
+     ],
+     [
+      3855,
+      "B101",
+      [703]
+     ],
+     [
+      4119,
+      "B101",
+      [703]
+     ],
+     [
+      4200,
+      "B105",
+      [259]
+     ]
+    ],
+    "patched": [
+     [
+      18,
+      "B404",
+      [78]
+     ],
+     [
+      655,
+      "B101",
+      [703]
+     ],
+     [
+      868,
+      "B101",
+      [703]
+     ],
+     [
+      891,
+      "B101",
+      [703]
+     ],
+     [
+      892,
+      "B101",
+      [703]
+     ],
+     [
+      930,
+      "B101",
+      [703]
+     ],
+     [
+      1126,
+      "B101",
+      [703]
+     ],
+     [
+      1139,
+      "B311",
+      [330]
+     ],
+     [
+      1249,
+      "B101",
+      [703]
+     ],
+     [
+      1358,
+      "B604",
+      [78]
+     ],
+     [
+      1404,
+      "B101",
+      [703]
+     ],
+     [
+      1436,
+      "B101",
+      [703]
+     ],
+     [
+      1457,
+      "B101",
+      [703]
+     ],
+     [
+      1655,
+      "B311",
+      [330]
+     ],
+     [
+      1950,
+      "B101",
+      [703]
+     ],
+     [
+      2497,
+      "B311",
+      [330]
+     ],
+     [
+      2683,
+      "B101",
+      [703]
+     ],
+     [
+      2994,
+      "B101",
+      [703]
+     ],
+     [
+      3184,
+      "B101",
+      [703]
+     ],
+     [
+      3478,
+      "B101",
+      [703]
+     ],
+     [
+      3538,
+      "B101",
+      [703]
+     ],
+     [
+      3746,
+      "B101",
+      [703]
+     ],
+     [
+      3855,
+      "B101",
+      [703]
+     ],
+     [
+      4119,
+      "B101",
+      [703]
+     ],
+     [
+      4200,
+      "B105",
+      [259]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched",
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

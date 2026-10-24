@@ -1,0 +1,112 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g74q-6g2f-874x",
+  "cve_id": "CVE-2026-63506",
+  "ecosystem": "npm",
+  "packages": [
+   "@tinacms/auth",
+   "next-tinacms-azure"
+  ],
+  "published_at": "2026-09-17T14:59:00Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-g74q-6g2f-874x",
+  "label_cwes": [639],
+  "repo": "tinacms/tinacms",
+  "fix_sha": "0a927a4f8d228dd05ee7ca4be32899bc190e73af",
+  "parent_sha": "c2c03c677f67b6fd3a2155d5227b9bf785b43288",
+  "path_vulnerable": "packages/@tinacms/auth/src/index.ts",
+  "path_patched": "packages/@tinacms/auth/src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [53, 53],
+   [68, 68],
+   [72, 72],
+   [74, 74],
+   [76, 77],
+   [79, 83],
+   [87, 87],
+   [98, 98],
+   [113, 113],
+   [118, 118],
+   [121, 121]
+  ],
+  "patched_lines": [
+   [53, 53],
+   [68, 71],
+   [75, 76],
+   [79, 87],
+   [89, 89],
+   [93, 95],
+   [106, 106],
+   [121, 124],
+   [129, 131],
+   [134, 134]
+  ],
+  "commit_url": "https://github.com/tinacms/tinacms/commit/0a927a4f8d228dd05ee7ca4be32899bc190e73af",
+  "case_id": "292-GHSA-g74q-6g2f-874x",
+  "content": {
+   "vulnerable": {
+    "sha256": "a63f2b424d0f4f4f9a9588fabd54838031cb17582c95d2c78a480f643e421aa6",
+    "bytes": 3791
+   },
+   "patched": {
+    "sha256": "2167641fbd69f54ebb25a354b78c1e32f0f9e5fb5c11378ed65553319bee7f9f",
+    "bytes": 4527
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

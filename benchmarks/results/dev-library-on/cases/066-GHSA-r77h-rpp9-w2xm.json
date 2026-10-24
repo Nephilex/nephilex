@@ -1,0 +1,238 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r77h-rpp9-w2xm",
+  "cve_id": "CVE-2025-66040",
+  "ecosystem": "pip",
+  "packages": [
+   "spotipy"
+  ],
+  "published_at": "2025-12-01T19:07:26Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-r77h-rpp9-w2xm",
+  "label_cwes": [79],
+  "repo": "spotipy-dev/spotipy",
+  "fix_sha": "880b92d7243dcf2b83bf31dc365a858d8b5e6767",
+  "parent_sha": "a91d9feb516a4360503dca9cfe63a35927b9befa",
+  "path_vulnerable": "spotipy/oauth2.py",
+  "path_patched": "spotipy/oauth2.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [10, 11],
+   [1255, 1255]
+  ],
+  "patched_lines": [
+   [11, 11],
+   [1256, 1256]
+  ],
+  "commit_url": "https://github.com/spotipy-dev/spotipy/commit/880b92d7243dcf2b83bf31dc365a858d8b5e6767",
+  "case_id": "066-GHSA-r77h-rpp9-w2xm",
+  "content": {
+   "vulnerable": {
+    "sha256": "6698e61c994fdccff48b55fb66e988c103378d21607fd2edcfec2425f0db72f3",
+    "bytes": 53322
+   },
+   "patched": {
+    "sha256": "b5849380f0e758769c438a3353ffb4a6ba83e851f4beb929dce279ffe518d7f8",
+    "bytes": 53352
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      252,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      618,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      709,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      1008,
+      "secrets.high-entropy-string",
+      [798]
+     ]
+    ],
+    "patched": [
+     [
+      253,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      619,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      710,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      1009,
+      "secrets.high-entropy-string",
+      [798]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      131,
+      "B105",
+      [259]
+     ],
+     [
+      176,
+      "B101",
+      [703]
+     ],
+     [
+      253,
+      "B105",
+      [259]
+     ],
+     [
+      322,
+      "B101",
+      [703]
+     ],
+     [
+      619,
+      "B105",
+      [259]
+     ],
+     [
+      679,
+      "B101",
+      [703]
+     ],
+     [
+      705,
+      "B311",
+      [330]
+     ],
+     [
+      1066,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      132,
+      "B105",
+      [259]
+     ],
+     [
+      177,
+      "B101",
+      [703]
+     ],
+     [
+      254,
+      "B105",
+      [259]
+     ],
+     [
+      323,
+      "B101",
+      [703]
+     ],
+     [
+      620,
+      "B105",
+      [259]
+     ],
+     [
+      680,
+      "B101",
+      [703]
+     ],
+     [
+      706,
+      "B311",
+      [330]
+     ],
+     [
+      1067,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,119 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-277h-px4m-62q8",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@saltcorn/server"
+  ],
+  "published_at": "2024-10-03T19:46:12Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-277h-px4m-62q8",
+  "label_cwes": [22],
+  "repo": "saltcorn/saltcorn",
+  "fix_sha": "024f19a7e079913f62f4a2335ab04116ddb68192",
+  "parent_sha": "14546a32cfe3ca82542e040e400403238cddf0eb",
+  "path_vulnerable": "packages/server/routes/admin.js",
+  "path_patched": "packages/server/routes/admin.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [676, 676]
+  ],
+  "patched_lines": [
+   [676, 679]
+  ],
+  "commit_url": "https://github.com/saltcorn/saltcorn/commit/024f19a7e079913f62f4a2335ab04116ddb68192",
+  "case_id": "210-GHSA-277h-px4m-62q8",
+  "content": {
+   "vulnerable": {
+    "sha256": "6a760d03246652dac0e4d513313a0a3a4f94482679a7f8303d4de440ce08521b",
+    "bytes": 116814
+   },
+   "patched": {
+    "sha256": "c6f06ff2c0ed28d214ac62ae41321175db142543b90e9152bff3f472157c4569",
+    "bytes": 116852
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      594,
+      "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      [79]
+     ],
+     [
+      682,
+      "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      594,
+      "javascript.express.security.audit.xss.direct-response-write.direct-response-write",
+      [79]
+     ],
+     [
+      677,
+      "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+      [22]
+     ],
+     [
+      685,
+      "javascript.express.security.audit.express-path-join-resolve-traversal.express-path-join-resolve-traversal",
+      [22]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": true
+   }
+  }
+ }
+}

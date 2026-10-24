@@ -85,7 +85,7 @@ def focused_scan(
                 console.print("[green]No findings.[/green]")
 
         fail_on_scanner_errors(result, cfg, gating=threshold is not None)
-        if threshold is not None and result.highest_severity() >= threshold:
+        if threshold is not None and result.gating_severity() >= threshold:
             raise typer.Exit(1)
     finally:
         resolved.cleanup()

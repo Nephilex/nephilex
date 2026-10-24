@@ -1,0 +1,249 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hx8v-g79f-8w5f",
+  "cve_id": "CVE-2026-59823",
+  "ecosystem": "pip",
+  "packages": [
+   "litellm"
+  ],
+  "published_at": "2026-09-17T14:51:21Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-hx8v-g79f-8w5f",
+  "label_cwes": [918],
+  "repo": "BerriAI/litellm",
+  "fix_sha": "47214be317f45a2d2ac08258362e0481411eb427",
+  "parent_sha": "93faf321df159b1ef65a98cc29a70958a96d184a",
+  "path_vulnerable": "litellm/utils.py",
+  "path_patched": "litellm/utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [53, 54],
+   [216, 218],
+   [784, 786],
+   [1692, 1694],
+   [1741, 1743],
+   [1795, 1795],
+   [3777, 3780],
+   [3909, 3911],
+   [3916, 3918],
+   [4899, 4901],
+   [5881, 5882],
+   [7560, 7562]
+  ],
+  "patched_lines": [
+   [54, 54],
+   [217, 221],
+   [787, 789],
+   [1695, 1697],
+   [1744, 1746],
+   [1798, 1799],
+   [3781, 3784],
+   [3913, 3915],
+   [3920, 3922],
+   [4903, 4903],
+   [5883, 5888],
+   [7566, 7568]
+  ],
+  "commit_url": "https://github.com/BerriAI/litellm/commit/47214be317f45a2d2ac08258362e0481411eb427",
+  "case_id": "196-GHSA-hx8v-g79f-8w5f",
+  "content": {
+   "vulnerable": {
+    "sha256": "6bea2834509bab720e5b5ba5341f97336dc669b01c021e9a1665be58afc17523",
+    "bytes": 375227
+   },
+   "patched": {
+    "sha256": "30dcff5a5361cb5b48181910ffffcb30a6deb880f3b16a9a6b6462ab746db788",
+    "bytes": 375429
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      21,
+      "B404",
+      [78]
+     ],
+     [
+      486,
+      "B110",
+      [703]
+     ],
+     [
+      999,
+      "B110",
+      [703]
+     ],
+     [
+      1481,
+      "B101",
+      [703]
+     ],
+     [
+      1804,
+      "B101",
+      [703]
+     ],
+     [
+      2050,
+      "B110",
+      [703]
+     ],
+     [
+      2084,
+      "B110",
+      [703]
+     ],
+     [
+      6092,
+      "B110",
+      [703]
+     ],
+     [
+      6764,
+      "B311",
+      [330]
+     ],
+     [
+      6830,
+      "B110",
+      [703]
+     ],
+     [
+      7512,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      21,
+      "B404",
+      [78]
+     ],
+     [
+      489,
+      "B110",
+      [703]
+     ],
+     [
+      1002,
+      "B110",
+      [703]
+     ],
+     [
+      1484,
+      "B101",
+      [703]
+     ],
+     [
+      1808,
+      "B101",
+      [703]
+     ],
+     [
+      2054,
+      "B110",
+      [703]
+     ],
+     [
+      2088,
+      "B110",
+      [703]
+     ],
+     [
+      6098,
+      "B110",
+      [703]
+     ],
+     [
+      6770,
+      "B311",
+      [330]
+     ],
+     [
+      6836,
+      "B110",
+      [703]
+     ],
+     [
+      7518,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched",
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

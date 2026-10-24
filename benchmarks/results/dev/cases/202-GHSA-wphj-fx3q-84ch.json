@@ -374,8 +374,20 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      429,
+      "ast-js.ast-command-injection",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      488,
+      "ast-js.ast-command-injection",
+      [78]
+     ]
+    ]
    }
   },
   "bandit": {
@@ -394,16 +406,16 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    },
    "strict": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    },
    "any": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    }
   },
   "semgrep": {

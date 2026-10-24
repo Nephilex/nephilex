@@ -1,0 +1,222 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5j8p-5rrj-8wjg",
+  "cve_id": "CVE-2026-10108",
+  "ecosystem": "pip",
+  "packages": [
+   "xiaomusic"
+  ],
+  "published_at": "2026-05-29T18:31:35Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-5j8p-5rrj-8wjg",
+  "label_cwes": [22],
+  "repo": "hanxi/xiaomusic",
+  "fix_sha": "88404da7a283f2c0a796a4cd16bbb6e6aa1f4722",
+  "parent_sha": "c6679a69e4295a7e508f5ec157b60c5ac5b8a041",
+  "path_vulnerable": "xiaomusic/api/routers/file.py",
+  "path_patched": "xiaomusic/api/routers/file.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [968, 968],
+   [975, 975],
+   [1022, 1022]
+  ],
+  "patched_lines": [
+   [968, 968],
+   [975, 975],
+   [1022, 1022]
+  ],
+  "commit_url": "https://github.com/hanxi/xiaomusic/commit/88404da7a283f2c0a796a4cd16bbb6e6aa1f4722",
+  "case_id": "125-GHSA-5j8p-5rrj-8wjg",
+  "content": {
+   "vulnerable": {
+    "sha256": "3dc7a6811880c18a7a000f63d493adcb88c27106be8cd608d1c28c2ea1301884",
+    "bytes": 54341
+   },
+   "patched": {
+    "sha256": "979bc1bb4a1e33f11c302dbf8674c431c9c953760d4505b01b39b9dbc3bb76c8",
+    "bytes": 54368
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      380,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      427,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      490,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      905,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      921,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      380,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      427,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      490,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      905,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      921,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      522,
+      "B110",
+      [703]
+     ],
+     [
+      927,
+      "B110",
+      [703]
+     ],
+     [
+      933,
+      "B110",
+      [703]
+     ],
+     [
+      1095,
+      "B110",
+      [703]
+     ],
+     [
+      1110,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      522,
+      "B110",
+      [703]
+     ],
+     [
+      927,
+      "B110",
+      [703]
+     ],
+     [
+      933,
+      "B110",
+      [703]
+     ],
+     [
+      1095,
+      "B110",
+      [703]
+     ],
+     [
+      1110,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

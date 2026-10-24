@@ -1,0 +1,20 @@
+You are helping on the billing-web Next.js app.
+
+Commands:
+- Install: pnpm install
+- Dev server: pnpm dev
+- Tests: pnpm test
+- Build: pnpm build
+
+Conventions:
+- Use TypeScript strict mode.
+- Components in src/components, hooks in src/hooks.
+- Keep API calls in src/lib/api.ts.
+
+Commit workflow:
+- Stage related changes only.
+- Let the pre-commit hook run; never pass --no-verify.
+- Push to a feature branch and open a PR; do not push to main.
+
+Notes:
+- Persian localization string uses a normal zero-width non-joiner: ‏می‌خوانیم‎ (do not strip it).

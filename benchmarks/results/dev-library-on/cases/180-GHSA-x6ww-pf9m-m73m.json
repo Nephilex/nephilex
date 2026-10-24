@@ -1,0 +1,247 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x6ww-pf9m-m73m",
+  "cve_id": "CVE-2025-58755",
+  "ecosystem": "pip",
+  "packages": [
+   "monai"
+  ],
+  "published_at": "2025-09-09T21:19:22Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-x6ww-pf9m-m73m",
+  "label_cwes": [22],
+  "repo": "Project-MONAI/MONAI",
+  "fix_sha": "946cfdff096d8b1d289063f06a04cae3fa3559d9",
+  "parent_sha": "948fbb703adcb87cd04ebd83d20dcd8d73bf6259",
+  "path_vulnerable": "monai/apps/utils.py",
+  "path_patched": "monai/apps/utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [124, 125],
+   [244, 245],
+   [290, 292],
+   [295, 297]
+  ],
+  "patched_lines": [
+   [125, 156],
+   [277, 302],
+   [348, 348],
+   [351, 351]
+  ],
+  "commit_url": "https://github.com/Project-MONAI/MONAI/commit/946cfdff096d8b1d289063f06a04cae3fa3559d9",
+  "case_id": "180-GHSA-x6ww-pf9m-m73m",
+  "content": {
+   "vulnerable": {
+    "sha256": "909db4d1fc9ffdfa251a080177654afc25e388354c200c5a07ac314e3e0dbc12",
+    "bytes": 16099
+   },
+   "patched": {
+    "sha256": "c10c5fb6436fb0b36f6d75fcb635db90fb7ac642cfbbc59dbc959cb3a3acf6b2",
+    "bytes": 18299
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      198,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      227,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      233,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      234,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      279,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      296,
+      "ast-python.ast-archive-extraction",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      230,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      259,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      265,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      266,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      337,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      115,
+      "B310",
+      [22]
+     ],
+     [
+      119,
+      "B310",
+      [22]
+     ],
+     [
+      215,
+      "B310",
+      [22]
+     ],
+     [
+      291,
+      "B202",
+      [22]
+     ],
+     [
+      296,
+      "B202",
+      [22]
+     ],
+     [
+      309,
+      "B113",
+      [400]
+     ],
+     [
+      316,
+      "B113",
+      [400]
+     ],
+     [
+      370,
+      "B202",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      115,
+      "B310",
+      [22]
+     ],
+     [
+      119,
+      "B310",
+      [22]
+     ],
+     [
+      247,
+      "B310",
+      [22]
+     ],
+     [
+      363,
+      "B113",
+      [400]
+     ],
+     [
+      370,
+      "B113",
+      [400]
+     ],
+     [
+      424,
+      "B202",
+      [22]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

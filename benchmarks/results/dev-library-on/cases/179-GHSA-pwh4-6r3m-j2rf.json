@@ -1,0 +1,150 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pwh4-6r3m-j2rf",
+  "cve_id": "CVE-2025-55156",
+  "ecosystem": "pip",
+  "packages": [
+   "pyload-ng"
+  ],
+  "published_at": "2025-08-12T00:13:46Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-pwh4-6r3m-j2rf",
+  "label_cwes": [89],
+  "repo": "pyload/pyload",
+  "fix_sha": "134edcdf6e2a10c393743c254da3d9d90b74258f",
+  "parent_sha": "a123accec0618798db77f9f5bc66838b741d9f58",
+  "path_vulnerable": "src/pyload/core/database/file_database.py",
+  "path_patched": "src/pyload/core/database/file_database.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [269, 273]
+  ],
+  "patched_lines": [
+   [269, 273]
+  ],
+  "commit_url": "https://github.com/pyload/pyload/commit/134edcdf6e2a10c393743c254da3d9d90b74258f",
+  "case_id": "179-GHSA-pwh4-6r3m-j2rf",
+  "content": {
+   "vulnerable": {
+    "sha256": "ab8f3ed7344ab99ff324da4c6d558b6c5fbba490c10abaff42da3994fbb4a3d3",
+    "bytes": 14019
+   },
+   "patched": {
+    "sha256": "2b47a1947a2ebcef611a72f649482dbbe45cafc3333118d5b873582c07ba4a83",
+    "bytes": 14116
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      271,
+      "ast-python.ast-sql-injection",
+      [89]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      271,
+      "B608",
+      [89]
+     ],
+     [
+      370,
+      "B608",
+      [89]
+     ],
+     [
+      388,
+      "B608",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      271,
+      "B608",
+      [89]
+     ],
+     [
+      370,
+      "B608",
+      [89]
+     ],
+     [
+      388,
+      "B608",
+      [89]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

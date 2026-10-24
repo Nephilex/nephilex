@@ -1,0 +1,117 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-fcr4-h6c4-rvvp",
+  "cve_id": "CVE-2025-22237",
+  "ecosystem": "pip",
+  "packages": [
+   "salt"
+  ],
+  "published_at": "2025-06-13T09:30:33Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-fcr4-h6c4-rvvp",
+  "label_cwes": [77],
+  "repo": "saltstack/salt",
+  "fix_sha": "9445f496fed61b15dc4364818007e5b765b0746f",
+  "parent_sha": "884324da7f570890e4bb28fd96ce0e058e8f0663",
+  "path_vulnerable": "salt/pillar/__init__.py",
+  "path_patched": "salt/pillar/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [612, 612],
+   [626, 627],
+   [637, 638]
+  ],
+  "patched_lines": [
+   [612, 616],
+   [620, 620],
+   [632, 632],
+   [644, 644]
+  ],
+  "commit_url": "https://github.com/saltstack/salt/commit/9445f496fed61b15dc4364818007e5b765b0746f",
+  "case_id": "132-GHSA-fcr4-h6c4-rvvp",
+  "content": {
+   "vulnerable": {
+    "sha256": "4704bce888919fa0170c445336134764d97fe4af518a563831dc9cd0fbab2904",
+    "bytes": 52540
+   },
+   "patched": {
+    "sha256": "7a4bf7dc65354c3d2bed33a7c473fc35567f9dfa94d1c89137eb9cc222fb51cc",
+    "bytes": 52795
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x2mw-7j39-93xq",
+  "cve_id": "CVE-2026-27498",
+  "ecosystem": "npm",
+  "packages": [
+   "n8n"
+  ],
+  "published_at": "2026-02-25T21:54:19Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-x2mw-7j39-93xq",
+  "label_cwes": [94],
+  "repo": "n8n-io/n8n",
+  "fix_sha": "97365caf253978ba8e46d7bc53fa7ac3b6f67b32",
+  "parent_sha": "1b5ccd8dee5840dd61b80ccff586aab38f5f3db6",
+  "path_vulnerable": "packages/@n8n/config/src/configs/security.config.ts",
+  "path_patched": "packages/@n8n/config/src/configs/security.config.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [21, 22]
+  ],
+  "patched_lines": [
+   [22, 29]
+  ],
+  "commit_url": "https://github.com/n8n-io/n8n/commit/97365caf253978ba8e46d7bc53fa7ac3b6f67b32",
+  "case_id": "261-GHSA-x2mw-7j39-93xq",
+  "content": {
+   "vulnerable": {
+    "sha256": "0f4c2ea7d34a63d709be7110366836cb0b18ee064ea890ca63d13ba59e22d4d9",
+    "bytes": 2423
+   },
+   "patched": {
+    "sha256": "c9b6f5aa44abfa1c4346ccd1466a5cf890b1ef84da545053a79312f341de851b",
+    "bytes": 2778
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -45,8 +45,40 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      150,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      189,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      203,
+      "ast-js.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      163,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      202,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      216,
+      "ast-js.ast-open-redirect",
+      [601]
+     ]
+    ]
    }
   },
   "bandit": {

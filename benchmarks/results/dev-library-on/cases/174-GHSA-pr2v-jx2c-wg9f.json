@@ -1,0 +1,448 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pr2v-jx2c-wg9f",
+  "cve_id": "CVE-2025-67724",
+  "ecosystem": "pip",
+  "packages": [
+   "tornado"
+  ],
+  "published_at": "2026-07-20T18:55:11Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-pr2v-jx2c-wg9f",
+  "label_cwes": [79],
+  "repo": "tornadoweb/tornado",
+  "fix_sha": "9c163aebeaad9e6e7d28bac1f33580eb00b0e421",
+  "parent_sha": "771472cfdaeebc0d89a9cc46e249f8891a6b29cd",
+  "path_vulnerable": "tornado/web.py",
+  "path_patched": "tornado/web.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [362, 363],
+   [371, 372],
+   [1348, 1348],
+   [1376, 1376],
+   [2523, 2523],
+   [2525, 2525]
+  ],
+  "patched_lines": [
+   [362, 365],
+   [374, 381],
+   [1358, 1359],
+   [1387, 1387],
+   [2534, 2535],
+   [2537, 2538]
+  ],
+  "commit_url": "https://github.com/tornadoweb/tornado/commit/9c163aebeaad9e6e7d28bac1f33580eb00b0e421",
+  "case_id": "174-GHSA-pr2v-jx2c-wg9f",
+  "content": {
+   "vulnerable": {
+    "sha256": "74b855253b0c68bedd7fb6cfe397e4e22219f66a02dbb42852fdb2c5b276e49b",
+    "bytes": 145698
+   },
+   "patched": {
+    "sha256": "b767b65d2f3b65453ea2aee96d503c16f36a351f56c7b41a8171a8f831eec175",
+    "bytes": 146544
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1083,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1117,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1740,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      2022,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2050,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2972,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      1093,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1127,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1751,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      2033,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2061,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2985,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      237,
+      "B101",
+      [703]
+     ],
+     [
+      479,
+      "B101",
+      [703]
+     ],
+     [
+      942,
+      "B101",
+      [703]
+     ],
+     [
+      1132,
+      "B101",
+      [703]
+     ],
+     [
+      1199,
+      "B101",
+      [703]
+     ],
+     [
+      1205,
+      "B101",
+      [703]
+     ],
+     [
+      1273,
+      "B101",
+      [703]
+     ],
+     [
+      1281,
+      "B101",
+      [703]
+     ],
+     [
+      1397,
+      "B101",
+      [703]
+     ],
+     [
+      1584,
+      "B101",
+      [703]
+     ],
+     [
+      1585,
+      "B101",
+      [703]
+     ],
+     [
+      1740,
+      "B324",
+      [327]
+     ],
+     [
+      2072,
+      "B101",
+      [703]
+     ],
+     [
+      2321,
+      "B101",
+      [703]
+     ],
+     [
+      2837,
+      "B101",
+      [703]
+     ],
+     [
+      2848,
+      "B101",
+      [703]
+     ],
+     [
+      2899,
+      "B101",
+      [703]
+     ],
+     [
+      3017,
+      "B101",
+      [703]
+     ],
+     [
+      3039,
+      "B101",
+      [703]
+     ],
+     [
+      3089,
+      "B101",
+      [703]
+     ],
+     [
+      3369,
+      "B101",
+      [703]
+     ],
+     [
+      3563,
+      "B101",
+      [703]
+     ],
+     [
+      3597,
+      "B101",
+      [703]
+     ],
+     [
+      3600,
+      "B101",
+      [703]
+     ],
+     [
+      3660,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      237,
+      "B101",
+      [703]
+     ],
+     [
+      489,
+      "B101",
+      [703]
+     ],
+     [
+      952,
+      "B101",
+      [703]
+     ],
+     [
+      1142,
+      "B101",
+      [703]
+     ],
+     [
+      1209,
+      "B101",
+      [703]
+     ],
+     [
+      1215,
+      "B101",
+      [703]
+     ],
+     [
+      1283,
+      "B101",
+      [703]
+     ],
+     [
+      1291,
+      "B101",
+      [703]
+     ],
+     [
+      1408,
+      "B101",
+      [703]
+     ],
+     [
+      1595,
+      "B101",
+      [703]
+     ],
+     [
+      1596,
+      "B101",
+      [703]
+     ],
+     [
+      1751,
+      "B324",
+      [327]
+     ],
+     [
+      2083,
+      "B101",
+      [703]
+     ],
+     [
+      2332,
+      "B101",
+      [703]
+     ],
+     [
+      2850,
+      "B101",
+      [703]
+     ],
+     [
+      2861,
+      "B101",
+      [703]
+     ],
+     [
+      2912,
+      "B101",
+      [703]
+     ],
+     [
+      3030,
+      "B101",
+      [703]
+     ],
+     [
+      3052,
+      "B101",
+      [703]
+     ],
+     [
+      3102,
+      "B101",
+      [703]
+     ],
+     [
+      3382,
+      "B101",
+      [703]
+     ],
+     [
+      3576,
+      "B101",
+      [703]
+     ],
+     [
+      3610,
+      "B101",
+      [703]
+     ],
+     [
+      3613,
+      "B101",
+      [703]
+     ],
+     [
+      3673,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1740,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      1751,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

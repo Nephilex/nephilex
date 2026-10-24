@@ -50,7 +50,13 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
+    "vulnerable": [
+     [
+      254,
+      "ast-python.ast-ssrf",
+      [918]
+     ]
+    ],
     "patched": []
    }
   },
@@ -139,15 +145,15 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

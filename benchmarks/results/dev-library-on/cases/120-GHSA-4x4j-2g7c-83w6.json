@@ -1,0 +1,249 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-4x4j-2g7c-83w6",
+  "cve_id": "CVE-2026-55798",
+  "ecosystem": "pip",
+  "packages": [
+   "Pillow"
+  ],
+  "published_at": "2026-07-20T21:14:14Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-4x4j-2g7c-83w6",
+  "label_cwes": [78],
+  "repo": "python-pillow/Pillow",
+  "fix_sha": "8404ea5fe5df40fc34aa1e51403dd6fce0778b8a",
+  "parent_sha": "87e788339e8746e7ceb8e901df9b0c7fda55e975",
+  "path_vulnerable": "src/PIL/ImageShow.py",
+  "path_patched": "src/PIL/ImageShow.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [122, 123],
+   [146, 150],
+   [178, 189]
+  ],
+  "patched_lines": [
+   [123, 136],
+   [160, 162],
+   [190, 190]
+  ],
+  "commit_url": "https://github.com/python-pillow/Pillow/commit/8404ea5fe5df40fc34aa1e51403dd6fce0778b8a",
+  "case_id": "120-GHSA-4x4j-2g7c-83w6",
+  "content": {
+   "vulnerable": {
+    "sha256": "ebabdb02f4934010fe044377a24bbb9075f0f26a5962da352eea0e5352503739",
+    "bytes": 10120
+   },
+   "patched": {
+    "sha256": "06f2b97db5bdcad736c73a92637bfdbdbe4e1d3df6d304ad367f4c7b8101b690",
+    "bytes": 10152
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      19,
+      "B404",
+      [78]
+     ],
+     [
+      177,
+      "B603",
+      [78]
+     ],
+     [
+      177,
+      "B607",
+      [78]
+     ],
+     [
+      182,
+      "B603",
+      [78]
+     ],
+     [
+      225,
+      "B603",
+      [78]
+     ],
+     [
+      225,
+      "B607",
+      [78]
+     ],
+     [
+      255,
+      "B603",
+      [78]
+     ],
+     [
+      273,
+      "B603",
+      [78]
+     ],
+     [
+      273,
+      "B607",
+      [78]
+     ],
+     [
+      291,
+      "B603",
+      [78]
+     ],
+     [
+      291,
+      "B607",
+      [78]
+     ],
+     [
+      323,
+      "B603",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      19,
+      "B404",
+      [78]
+     ],
+     [
+      128,
+      "B603",
+      [78]
+     ],
+     [
+      161,
+      "B606",
+      [78]
+     ],
+     [
+      189,
+      "B603",
+      [78]
+     ],
+     [
+      189,
+      "B607",
+      [78]
+     ],
+     [
+      226,
+      "B603",
+      [78]
+     ],
+     [
+      226,
+      "B607",
+      [78]
+     ],
+     [
+      256,
+      "B603",
+      [78]
+     ],
+     [
+      274,
+      "B603",
+      [78]
+     ],
+     [
+      274,
+      "B607",
+      [78]
+     ],
+     [
+      292,
+      "B603",
+      [78]
+     ],
+     [
+      292,
+      "B607",
+      [78]
+     ],
+     [
+      324,
+      "B603",
+      [78]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      148,
+      "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+      [78]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

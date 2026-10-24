@@ -1,0 +1,123 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6x92-6vx4-5fwr",
+  "cve_id": "CVE-2026-63003",
+  "ecosystem": "pip",
+  "packages": [
+   "django-cms"
+  ],
+  "published_at": "2026-08-20T18:42:44Z",
+  "advisory_cwes": [639, 862],
+  "html_url": "https://github.com/advisories/GHSA-6x92-6vx4-5fwr",
+  "label_cwes": [639],
+  "repo": "django-cms/django-cms",
+  "fix_sha": "3e1ccf7573eb1a74ebbbfaaa812c1f5cadf14e6c",
+  "parent_sha": "3edf89a0a8bb06cdd54d2d22cba33ee7b72b5b82",
+  "path_vulnerable": "cms/admin/forms.py",
+  "path_patched": "cms/admin/forms.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [53, 56],
+   [284, 288],
+   [339, 340],
+   [520, 521],
+   [1298, 1299],
+   [1355, 1356]
+  ],
+  "patched_lines": [
+   [54, 54],
+   [57, 57],
+   [281, 284],
+   [341, 346],
+   [528, 543],
+   [1322, 1326],
+   [1384, 1410]
+  ],
+  "commit_url": "https://github.com/django-cms/django-cms/commit/3e1ccf7573eb1a74ebbbfaaa812c1f5cadf14e6c",
+  "case_id": "149-GHSA-6x92-6vx4-5fwr",
+  "content": {
+   "vulnerable": {
+    "sha256": "5c3332ec15a4417c919dd1410624b656c8833e2d46546199ede7ec55a37cc538",
+    "bytes": 56072
+   },
+   "patched": {
+    "sha256": "8fdf1283d6a4f22fc007b7d74dbfcc952cf9bbe1bdd18919050179b58c745289",
+    "bytes": 59145
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

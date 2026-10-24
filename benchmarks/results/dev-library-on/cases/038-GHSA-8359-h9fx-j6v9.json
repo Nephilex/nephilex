@@ -1,0 +1,250 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8359-h9fx-j6v9",
+  "cve_id": "CVE-2026-55389",
+  "ecosystem": "pip",
+  "packages": [
+   "datamodel-code-generator"
+  ],
+  "published_at": "2026-07-28T21:49:34Z",
+  "advisory_cwes": [22, 200, 610],
+  "html_url": "https://github.com/advisories/GHSA-8359-h9fx-j6v9",
+  "label_cwes": [22],
+  "repo": "datamodel-code-generator/datamodel-code-generator",
+  "fix_sha": "2ff4a72b4550a2b2069754c5b075b1655067e5fb",
+  "parent_sha": "2dbe5b5794472a4cad8e9286c942dffda7359816",
+  "path_vulnerable": "src/datamodel_code_generator/parser/jsonschema.py",
+  "path_patched": "src/datamodel_code_generator/parser/jsonschema.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [4815, 4815],
+   [4819, 4819],
+   [4825, 4825],
+   [4837, 4838],
+   [4881, 4881],
+   [4883, 4883],
+   [4893, 4893]
+  ],
+  "patched_lines": [
+   [4815, 4817],
+   [4821, 4821],
+   [4827, 4827],
+   [4840, 4865],
+   [4909, 4909],
+   [4911, 4911],
+   [4921, 4921]
+  ],
+  "commit_url": "https://github.com/datamodel-code-generator/datamodel-code-generator/commit/2ff4a72b4550a2b2069754c5b075b1655067e5fb",
+  "case_id": "038-GHSA-8359-h9fx-j6v9",
+  "content": {
+   "vulnerable": {
+    "sha256": "27c901e05071c494e1fcac98f2394b9415fc120a523105edad846ba908d779d4",
+    "bytes": 247902
+   },
+   "patched": {
+    "sha256": "73e85aad1784ce66d355035e0559d0e95a4ee3a76f0f130dfa55d7482349e2e6",
+    "bytes": 249465
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      3739,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3740,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3741,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3742,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3743,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3744,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      3739,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3740,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3741,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3742,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3743,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      3744,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1584,
+      "B110",
+      [703]
+     ],
+     [
+      2088,
+      "B110",
+      [703]
+     ],
+     [
+      2804,
+      "B112",
+      [703]
+     ],
+     [
+      2850,
+      "B112",
+      [703]
+     ],
+     [
+      3580,
+      "B101",
+      [703]
+     ],
+     [
+      4839,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      1584,
+      "B110",
+      [703]
+     ],
+     [
+      2088,
+      "B110",
+      [703]
+     ],
+     [
+      2804,
+      "B112",
+      [703]
+     ],
+     [
+      2850,
+      "B112",
+      [703]
+     ],
+     [
+      3580,
+      "B101",
+      [703]
+     ],
+     [
+      4867,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

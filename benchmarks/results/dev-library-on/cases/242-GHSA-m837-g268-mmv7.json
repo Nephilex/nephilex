@@ -1,0 +1,125 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m837-g268-mmv7",
+  "cve_id": "CVE-2025-54369",
+  "ecosystem": "npm",
+  "packages": [
+   "@node-saml/node-saml",
+   "node-saml"
+  ],
+  "published_at": "2025-07-25T14:08:50Z",
+  "advisory_cwes": [87, 287, 347],
+  "html_url": "https://github.com/advisories/GHSA-m837-g268-mmv7",
+  "label_cwes": [347],
+  "repo": "node-saml/node-saml",
+  "fix_sha": "31ead9411ebc3e2385086fa9149b6c17732bca10",
+  "parent_sha": "6c81160834cdeb8cb482893de0e2e1da8d199657",
+  "path_vulnerable": "src/saml.ts",
+  "path_patched": "src/saml.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [36, 37],
+   [285, 287],
+   [363, 366],
+   [407, 409],
+   [415, 417],
+   [430, 432],
+   [469, 474],
+   [548, 550],
+   [576, 578],
+   [683, 684],
+   [707, 708],
+   [732, 736],
+   [738, 743],
+   [759, 763],
+   [765, 770],
+   [984, 985],
+   [1326, 1330]
+  ],
+  "patched_lines": [
+   [37, 37],
+   [286, 286],
+   [362, 362],
+   [403, 403],
+   [409, 409],
+   [422, 422],
+   [459, 460],
+   [534, 534],
+   [557, 557],
+   [561, 561],
+   [667, 708],
+   [732, 738],
+   [762, 766],
+   [783, 791],
+   [797, 809],
+   [1019, 1020],
+   [1361, 1361]
+  ],
+  "commit_url": "https://github.com/node-saml/node-saml/commit/31ead9411ebc3e2385086fa9149b6c17732bca10",
+  "case_id": "242-GHSA-m837-g268-mmv7",
+  "content": {
+   "vulnerable": {
+    "sha256": "eb321b17939c96e92c0c8c91c4166e9c94da6182ee2c7dff368e924086bf9651",
+    "bytes": 47463
+   },
+   "patched": {
+    "sha256": "a3e47f1c1694c59fdde849d692369701fc921c5e3eca82b413afee77cb3d6f92",
+    "bytes": 49643
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

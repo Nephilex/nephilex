@@ -41,8 +41,20 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      36,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      36,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ]
    }
   },
   "bandit": {

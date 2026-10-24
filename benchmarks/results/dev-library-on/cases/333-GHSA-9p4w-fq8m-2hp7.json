@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9p4w-fq8m-2hp7",
+  "cve_id": "CVE-2026-25142",
+  "ecosystem": "npm",
+  "packages": [
+   "@nyariv/sandboxjs"
+  ],
+  "published_at": "2026-02-02T20:17:39Z",
+  "advisory_cwes": [94, 1321],
+  "html_url": "https://github.com/advisories/GHSA-9p4w-fq8m-2hp7",
+  "label_cwes": [94],
+  "repo": "nyariv/SandboxJS",
+  "fix_sha": "75c8009db32e6829b0ad92ca13bf458178442bd3",
+  "parent_sha": "4dc0f1f0effecdf6b216fbf3d1479774ffdc9894",
+  "path_vulnerable": "src/executor.ts",
+  "path_patched": "src/executor.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [380, 380]
+  ],
+  "patched_lines": [
+   [380, 382]
+  ],
+  "commit_url": "https://github.com/nyariv/SandboxJS/commit/75c8009db32e6829b0ad92ca13bf458178442bd3",
+  "case_id": "333-GHSA-9p4w-fq8m-2hp7",
+  "content": {
+   "vulnerable": {
+    "sha256": "fbef2730f5f09f51c579e08731a3e5513d44efa5c62dd99a79f67eb8dbbe3a06",
+    "bytes": 46143
+   },
+   "patched": {
+    "sha256": "b604545cea718de2cd2c03a4d55d45a2d067f06752574fe7679d335a49ff913b",
+    "bytes": 46147
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

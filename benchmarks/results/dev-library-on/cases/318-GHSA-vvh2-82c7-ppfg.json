@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vvh2-82c7-ppfg",
+  "cve_id": "CVE-2024-21488",
+  "ecosystem": "npm",
+  "packages": [
+   "network"
+  ],
+  "published_at": "2024-01-30T06:30:23Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-vvh2-82c7-ppfg",
+  "label_cwes": [77],
+  "repo": "tomas/network",
+  "fix_sha": "72c523265940fe279eb0050d441522628f8988e5",
+  "parent_sha": "6ec8713580938ab4666df2f2d0f3399891ed2ad7",
+  "path_vulnerable": "lib/win32.js",
+  "path_patched": "lib/win32.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [4, 4]
+  ],
+  "patched_lines": [
+   [3, 4]
+  ],
+  "commit_url": "https://github.com/tomas/network/commit/72c523265940fe279eb0050d441522628f8988e5",
+  "case_id": "318-GHSA-vvh2-82c7-ppfg",
+  "content": {
+   "vulnerable": {
+    "sha256": "9e4450bbddf7b260e026f663a498f4464b322f4094c33df22fa7cdbb4933741a",
+    "bytes": 2471
+   },
+   "patched": {
+    "sha256": "18c61dcdb61ce9db75c37af2fb52ef218d70618c3c97e786dc4745c55969d512",
+    "bytes": 2429
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

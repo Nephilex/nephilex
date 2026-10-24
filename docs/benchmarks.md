@@ -27,14 +27,14 @@ Current results:
 | --- | --- | --- | --- | --- | --- |
 | secrets | 100% | 100% | 1 | 1 | 0 |
 | sast | 100% | 100% | 6 | 7 | 0 |
-| taint | 100% | 100% | 11 | 11 | 0 |
+| taint | 100% | 100% | 16 | 16 | 0 |
 | iac | 100% | 100% | 1 | 1 | 0 |
 | llm | 100% | 100% | 17 | 17 | 0 |
 | mcp | 100% | 100% | 7 | 7 | 0 |
-| **overall** | **100%** | **100%** | **43** | **44** | **0** |
+| **overall** | **100%** | **100%** | **48** | **49** | **0** |
 
 !!! warning "Read this number honestly"
-    This is a **small sanity-and-regression corpus** (43 vulnerable, 44 safe cases),
+    This is a **small sanity-and-regression corpus** (48 vulnerable, 49 safe cases),
     not a claim of 100% real-world accuracy. 100% here means Nephilex classifies
     every case in this set correctly, and the run **exits non-zero if it does
     not**, so a regression fails CI. On independent public datasets the
@@ -731,7 +731,8 @@ python benchmarks/heldout/run.py select --set timesplit \
 the people improving detection read every miss, so after the first rule
 change its numbers no longer measure code Nephilex was not developed on. The
 numbers below are the starting point, before any rule was changed with this
-set visible.
+set visible. `benchmarks/results/dev/` now holds a later run; see "After the
+Python detection work" at the end of this section.
 
 **Rule.** The v1 rule unchanged (window 2024-01-01 to 2026-09-30, CWE list,
 fix-commit, file and 5-file rules), with three differences, all in
@@ -871,7 +872,152 @@ precision, and noisy advisory CWE labels.
 python benchmarks/heldout/run.py fetch --set dev
 python benchmarks/heldout/run.py scan --set dev --bandit /path/to/bandit --semgrep /path/to/semgrep
 python benchmarks/heldout/run.py score --set dev     # re-score the committed results
+# Nephilex only, keeping the recorded Bandit and Semgrep results; a config variant
+python benchmarks/heldout/run.py scan --set dev --only nephilex
+python benchmarks/heldout/run.py scan --set dev --only nephilex \
+    --nephilex-config library-on.yml --variant library-on
+python benchmarks/heldout/run.py score --set dev --variant library-on
 ```
+
+#### After the Python detection work
+
+**Development data, not a claim**, and no longer unseen: the Python rules
+for path traversal, XSS, SSRF and code injection, and library mode (see
+[Scanners](scanners.md#library-mode)), were written after reading every
+Python miss in this set. Nephilex was re-run on the same 351 cases with
+`scan --set dev --only nephilex`, which keeps the committed Bandit and
+Semgrep results; the Nephilex source is commit
+`26011609fa7e31854e0a55dae887054af3d6137d` (`src/nephilex` unmodified;
+`benchmarks/results/dev/` now holds the combined run below; the
+library-mode run records `261c48999c9ca36ee4c6992ddc0d792a816341ac`, a
+documentation commit with the same `src/nephilex`). The
+library-mode run used `--nephilex-config` with `library_mode: "on"` and
+`--variant library-on`; its results are in
+`benchmarks/results/dev-library-on/`. In the default configuration library
+mode stays off on these cases (`auto` needs a package manifest, and each
+case is a single file).
+
+Mapped CWE match, 3-line window, Python cases (193), detected / flagged
+after the fix:
+
+| Subset | Cases | 0.11.0 baseline | Default (auto) | Library mode on |
+| --- | --- | --- | --- | --- |
+| All Python | 193 | 10 / 4 | 12 / 4 | 21 / 4 |
+| CWE-22 group (22, 23, 36, 73, 99) | 26 | 0 / 0 | 1 / 0 | 4 / 0 |
+| CWE-79 group (79, 80) | 22 | 0 / 0 | 0 / 0 | 1 / 0 |
+| CWE-918 | 35 | 0 / 0 | 1 / 0 | 1 / 0 |
+| CWE-94 group (94, 95) | 19 | 2 / 0 | 2 / 0 | 7 / 0 |
+| CWE-1336 | 8 | 0 / 0 | 0 / 0 | 0 / 0 |
+| Other CWEs | 87 | 8 / 4 | 8 / 4 | 8 / 4 |
+
+Any finding in the changed lines (CWE-agnostic), Python: baseline 16 / 8,
+default 17 / 8, library mode 27 / 8.
+
+All languages, mapped: Nephilex 14 of 351 (4.0%), flagged after the fix 4,
+fix-aware 10, against 12 / 4 / 8 at 0.11.0; JavaScript and TypeScript are
+unchanged (2 of 158). By CWE over all languages, detected / cases:
+CWE-22 1/40 (was 0/40), CWE-79 0/60 (0/60), CWE-918 1/64 (0/64), CWE-94
+1/31 (1/31), CWE-95 1/8 (1/8). With library mode on: 23 of 351 (6.6%),
+flagged after the fix 4, fix-aware 19; CWE-22 4/40, CWE-79 1/60, CWE-918
+1/64, CWE-94 3/31, CWE-95 4/8.
+
+What changed and why the gain is small:
+
+- **New detections, default mode:** an SSRF through a FastAPI `Query()`
+  parameter into `aiohttp.ClientSession().get()` (rembg) and a path traversal
+  from a FastAPI `UploadFile.filename` into `open()` (libre-chat). Both fixes
+  are recognized (a URL validator that checks `is_private` and friends,
+  `werkzeug.utils.safe_join`), so neither is flagged after the fix.
+- **Library mode adds nine** vulnerable versions, none flagged after the
+  fix: `eval` of text a library builds from its caller's data (Amazon
+  Redshift driver vector parsing, OpenStack Vitrage query predicates, two
+  Agno files reading a type name from a caller's dict, a llama-index
+  streaming generator that evaluates server events), path traversal where a
+  library joins a caller's name under its own directory (AGiXT `safe_join`,
+  Banks prompt registry), a tar archive extracted without a filter (MONAI),
+  and Wagtail's `mark_safe` of an f-string in a template tag. Bandit's
+  sink-only `eval` rule finds all five of the code-injection cases, which is
+  where much of its lead on this set came from.
+- **Most target cases are out of reach of a single-file taint engine.** Of
+  the 106 Python cases labelled 22, 79, 918, 94, 95 or 1336, most change a
+  file that holds neither the source nor the sink: version bumps, settings,
+  a validator in a helper module, allowlist or authorization logic, IP
+  canonicalization or DNS-rebinding pinning on an existing check, or HTML
+  built from data (a parsed APK manifest, an exception, a traceback) that is
+  not modeled as untrusted. Others are logic fixes (Weblate and gradio path
+  handling, litellm request field checks) that no source-to-sink rule
+  describes. Rules keyed to those projects would not generalize, so none
+  were written.
+- **Findings outside the changed lines.** In the default run, Python
+  findings rose from 473 to 505 over both versions (path traversal 22 to 39
+  on vulnerable files, open redirect 13 to 14, one new SSRF; XSS fell from 19 to 15 after route
+  returns of `jsonify` and `TemplateResponse` stopped counting as HTML).
+  Reading them: a zip-slip extraction in Weblate's backup restore (member
+  names checked only with `normpath`) and a reflected XSS in a
+  changedetection.io Flask route (the very bug of that advisory, but outside
+  its changed lines) are real; a flow through an imported `safe_join_path`
+  helper (xiaomusic) is most likely a false positive, because a helper in
+  another file is not summarized; gradio's file route has its own allowlist
+  logic that is not modeled.
+- **Flagged after the fix** stays at the baseline's 4 cases: SQL built with
+  an f-string in two LangGraph SQLite checkpoint files, an open redirect in
+  a Khoj auth router, and `pickle.loads` in the pdfminer CMap loader. None is
+  in the CWE classes this work targeted, and the rules that report them did
+  not change. Library mode flags the same four.
+
+**False-positive check** (the projects and scanners of "False positives on
+code with no known vulnerabilities" above, findings at severity low or
+above, same Flask 3.0.3 sources; click 8.5.0, requests 2.34.2, jinja2 3.1.6,
+rich 15.0.0 and typer 0.27.3 installed on 2026-10-23):
+
+| Project | 0.11.0 | Now (auto) | Library mode on |
+| --- | --- | --- | --- |
+| Flask tutorial app (flaskr) | 0 | 0 | 0 (auto keeps it off: `Flask()` entry point) |
+| Flask JavaScript example | 0 | 0 | 0 (auto keeps it off) |
+| Flask 3.0.3 | 3 | 2 | 7 |
+| Werkzeug 3.0.3 | 7 | 7 | 9 |
+| click | 0 | 0 | 0 |
+| requests | 0 | 0 | 0 |
+| jinja2 | 1 | 1 | 6 |
+| rich | 1 | 1 | 1 |
+| typer | 0 | 0 | 0 |
+
+The installed packages have no manifest in their directories, so `auto`
+leaves library mode off on them; the last column forces it on. Flask loses
+`flask shell`'s exec of the `PYTHONSTARTUP` file, whose content was counted
+as tainted only because its file name was (`compile()` now takes taint from
+its source alone). Werkzeug's reloader and rich's `pty.spawn` demo stay, now
+at low confidence as operator input. The weak-hash findings that remain all
+sit in security code (session signing, the debugger PIN) and keep their
+severity. Library mode adds 12 low-confidence `public-api` findings, none
+counted by `--fail-on`: Flask's `open_resource`, `open_instance_resource`,
+`Config.from_pyfile` and `Config.from_file`, which join a caller's name
+under the app's root by design; two HTML fragments in Werkzeug's debugger
+`repr` that embed `repr()` text; and in jinja2 the file-system bytecode
+cache (names built from a bucket key), `PackageLoader.get_source` (whose
+`split_template_path` check is not modeled) and the traceback rewriter's
+`exec` of a code object. Reviewers of a library should expect findings of
+this kind.
+
+#### With all 0.12 detection work combined
+
+**Development data, not a claim.** Nephilex re-run on the same 351 cases at
+commit `1692d69164140f534ac2f87f76cc3010b386d3fa`, which combines the Python
+work above with the JavaScript/TypeScript taint engine, the authorization
+and malware precision fixes and the instruction-file rules (Bandit and
+Semgrep results kept, default configuration). The results are in
+`benchmarks/results/dev/`.
+
+| Subset | Cases | 0.11.0 | Combined |
+| --- | --- | --- | --- |
+| All languages | 351 | 12 / 4 | 24 / 5 |
+| Python | 193 | 10 / 4 | 12 / 4 |
+| JavaScript and TypeScript | 158 | 2 / 0 | 12 / 1 |
+
+Detected / flagged after the fix, mapped CWE match, 3-line window. Every
+case's result equals that of the separate Python and JavaScript/TypeScript
+runs, so the two kinds of work do not interact. The scan took 859 s against
+735 s for 0.11.0 on the same machine.
 
 ## Public reference apps (finding inventory)
 

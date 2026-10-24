@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rcm2-22f3-pqv3",
+  "cve_id": "CVE-2024-4128",
+  "ecosystem": "npm",
+  "packages": [
+   "firebase-tools"
+  ],
+  "published_at": "2024-05-02T15:30:35Z",
+  "advisory_cwes": [352],
+  "html_url": "https://github.com/advisories/GHSA-rcm2-22f3-pqv3",
+  "label_cwes": [352],
+  "repo": "firebase/firebase-tools",
+  "fix_sha": "068a2b08dc308c7ab4b569617f5fc8821237e3a0",
+  "parent_sha": "dbb8573c047ad249341d568e665efdba47403128",
+  "path_vulnerable": "src/emulator/hub.ts",
+  "path_patched": "src/emulator/hub.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [100, 101]
+  ],
+  "patched_lines": [
+   [101, 105]
+  ],
+  "commit_url": "https://github.com/firebase/firebase-tools/commit/068a2b08dc308c7ab4b569617f5fc8821237e3a0",
+  "case_id": "206-GHSA-rcm2-22f3-pqv3",
+  "content": {
+   "vulnerable": {
+    "sha256": "db1f35e066c4719a4b78cd3de977f466435aeb3782f26240826a1a6e9e873256",
+    "bytes": 6602
+   },
+   "patched": {
+    "sha256": "69cc32ecafe45cd948a3de29fff49e48ffa330192637bcce54625efd875e0a5a",
+    "bytes": 6755
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

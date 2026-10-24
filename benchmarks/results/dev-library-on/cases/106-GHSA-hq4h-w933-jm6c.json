@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hq4h-w933-jm6c",
+  "cve_id": "CVE-2024-52294",
+  "ecosystem": "pip",
+  "packages": [
+   "khoj"
+  ],
+  "published_at": "2024-12-30T16:12:40Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-hq4h-w933-jm6c",
+  "label_cwes": [639],
+  "repo": "khoj-ai/khoj",
+  "fix_sha": "47d3c8c23597900af708bdc60aced3ae5d2064c1",
+  "parent_sha": "d7027109a5f3894cc4f4f90cd571092a5b8b75d4",
+  "path_vulnerable": "src/interface/web/app/settings/page.tsx",
+  "path_patched": "src/interface/web/app/settings/page.tsx",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [597, 597]
+  ],
+  "patched_lines": [
+   [597, 597]
+  ],
+  "commit_url": "https://github.com/khoj-ai/khoj/commit/47d3c8c23597900af708bdc60aced3ae5d2064c1",
+  "case_id": "106-GHSA-hq4h-w933-jm6c",
+  "content": {
+   "vulnerable": {
+    "sha256": "59f9943ec50fd6bb2dd3a7aeccc7ade0c07b227040b55783155d945f7240e9ca",
+    "bytes": 78860
+   },
+   "patched": {
+    "sha256": "05e9647b4d255ab0b57ee8cea39c274ea843d28f65645ead167201c49827ad1d",
+    "bytes": 78830
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

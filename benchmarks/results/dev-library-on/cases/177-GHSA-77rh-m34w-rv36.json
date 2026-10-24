@@ -1,0 +1,209 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-77rh-m34w-rv36",
+  "cve_id": "CVE-2026-35002",
+  "ecosystem": "pip",
+  "packages": [
+   "agno"
+  ],
+  "published_at": "2026-04-02T15:31:43Z",
+  "advisory_cwes": [95],
+  "html_url": "https://github.com/advisories/GHSA-77rh-m34w-rv36",
+  "label_cwes": [95],
+  "repo": "agno-agi/agno",
+  "fix_sha": "cbf675521d4d2281925a051784a3b94172e56416",
+  "parent_sha": "ea35f13518be03ef38a41a64665fdc270b9d12d3",
+  "path_vulnerable": "libs/agno/agno/tools/function.py",
+  "path_patched": "libs/agno/agno/tools/function.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [59, 59]
+  ],
+  "patched_lines": [
+   [57, 64],
+   [67, 67]
+  ],
+  "commit_url": "https://github.com/agno-agi/agno/commit/cbf675521d4d2281925a051784a3b94172e56416",
+  "case_id": "177-GHSA-77rh-m34w-rv36",
+  "content": {
+   "vulnerable": {
+    "sha256": "8ba44875fbacbe58c441c30faf107bf57ad78b5a17df024c358328b90d10e5ea",
+    "bytes": 52909
+   },
+   "patched": {
+    "sha256": "c46a58a92cc425375b74e51547db2f34e7a8adff15c448d3526eab0c553f4aa0",
+    "bytes": 53239
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      59,
+      "ast-python.ast-code-injection",
+      [95]
+     ],
+     [
+      936,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      937,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      938,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1160,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1161,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1162,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      944,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      945,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      946,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1168,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1169,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1170,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      59,
+      "B307",
+      [78]
+     ],
+     [
+      581,
+      "B324",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      589,
+      "B324",
+      [327]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      581,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      589,
+      "python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

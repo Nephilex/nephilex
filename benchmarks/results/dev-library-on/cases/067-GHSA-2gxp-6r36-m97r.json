@@ -1,0 +1,218 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2gxp-6r36-m97r",
+  "cve_id": "CVE-2025-53528",
+  "ecosystem": "pip",
+  "packages": [
+   "cadwyn"
+  ],
+  "published_at": "2025-07-21T14:08:40Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-2gxp-6r36-m97r",
+  "label_cwes": [79],
+  "repo": "zmievsa/cadwyn",
+  "fix_sha": "b424ecd57cd8dabbc8fe39b8f8ccafea629c7728",
+  "parent_sha": "5a6e2b7f009f33d93ea26a50156523ba3e4c42ca",
+  "path_vulnerable": "cadwyn/applications.py",
+  "path_patched": "cadwyn/applications.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [7, 8],
+   [392, 392],
+   [410, 410]
+  ],
+  "patched_lines": [
+   [8, 8],
+   [393, 393],
+   [411, 411]
+  ],
+  "commit_url": "https://github.com/zmievsa/cadwyn/commit/b424ecd57cd8dabbc8fe39b8f8ccafea629c7728",
+  "case_id": "067-GHSA-2gxp-6r36-m97r",
+  "content": {
+   "vulnerable": {
+    "sha256": "a16b2cf97c7e419bb2c8c5cbbfe1175157764b5454e2b6b36fb1a462f5118f22",
+    "bytes": 21137
+   },
+   "patched": {
+    "sha256": "1402c3978bfff1d25676ba4712ebc6df80bfbdf9ca2a1d35ac03a2ca0e7055a9",
+    "bytes": 21200
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      15,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      93,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      159,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      318,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      322,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      326,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      393,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      394,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      395,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      399,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ],
+    "patched": [
+     [
+      16,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      94,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      160,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      319,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      323,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      327,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      394,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      395,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      396,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      400,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

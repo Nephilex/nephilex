@@ -1,0 +1,112 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2xgg-r2wc-c5r2",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@budibase/server"
+  ],
+  "published_at": "2026-07-24T21:26:19Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-2xgg-r2wc-c5r2",
+  "label_cwes": [89],
+  "repo": "Budibase/budibase",
+  "fix_sha": "2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "parent_sha": "d0afbb99b68ac008575d9560f6d5acfe5df3f722",
+  "path_vulnerable": "packages/server/src/integrations/microsoftSqlServer.ts",
+  "path_patched": "packages/server/src/integrations/microsoftSqlServer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [388, 389],
+   [391, 391],
+   [394, 395],
+   [399, 399],
+   [402, 402],
+   [405, 407],
+   [409, 409],
+   [413, 413],
+   [416, 417],
+   [448, 448],
+   [451, 451]
+  ],
+  "patched_lines": [
+   [388, 390],
+   [392, 394],
+   [397, 399],
+   [403, 404],
+   [407, 409],
+   [412, 415],
+   [417, 417],
+   [421, 423],
+   [426, 427],
+   [458, 460],
+   [463, 463]
+  ],
+  "commit_url": "https://github.com/Budibase/budibase/commit/2c61f389c9986c91ddd8ae161c2b5e8ec21c60ac",
+  "case_id": "288-GHSA-2xgg-r2wc-c5r2",
+  "content": {
+   "vulnerable": {
+    "sha256": "b10d1bbfac2a5e12892de1ee312779893e7aeb5e5a27ee319e419447639764a2",
+    "bytes": 16957
+   },
+   "patched": {
+    "sha256": "b9ec79753af354d150d7349e239c5393f73449113b59f0508d4da5f412bc6b8c",
+    "bytes": 17357
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

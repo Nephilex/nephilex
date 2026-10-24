@@ -1,0 +1,122 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x8wg-4xgc-vr54",
+  "cve_id": "CVE-2026-71492",
+  "ecosystem": "pip",
+  "packages": [
+   "banks"
+  ],
+  "published_at": "2026-09-02T14:38:24Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-x8wg-4xgc-vr54",
+  "label_cwes": [22],
+  "repo": "masci/banks",
+  "fix_sha": "a215f6d779966945c56e0af5abed1ae5916fd9d3",
+  "parent_sha": "3ab65baca00fd3917a12ca1fcfaab03176782bc4",
+  "path_vulnerable": "src/banks/registries/directory.py",
+  "path_patched": "src/banks/registries/directory.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [26, 27],
+   [44, 44],
+   [140, 141]
+  ],
+  "patched_lines": [
+   [27, 50],
+   [68, 69],
+   [165, 166]
+  ],
+  "commit_url": "https://github.com/masci/banks/commit/a215f6d779966945c56e0af5abed1ae5916fd9d3",
+  "case_id": "103-GHSA-x8wg-4xgc-vr54",
+  "content": {
+   "vulnerable": {
+    "sha256": "81114eedf97dc971edd8d275a43036c0f490b65391852c3518a5b1493c85cc4f",
+    "bytes": 6055
+   },
+   "patched": {
+    "sha256": "ba978ec4e129762ddbb3804ccca17f0dd2e75e76fecd43478229a97c02e357ea",
+    "bytes": 7146
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      45,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

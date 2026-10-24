@@ -25,6 +25,7 @@ not tuned against.
     python benchmarks/agent/run.py --details dev   # per-case results for dev
     python benchmarks/agent/run.py --only dev      # score the dev split alone
     python benchmarks/agent/run.py --json results/after.json
+    python benchmarks/agent/run.py --category tool-poisoning   # one category only
 """
 
 from __future__ import annotations
@@ -243,12 +244,25 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="scan and score one split only (rule work uses --only dev, so the "
         "held-out split stays unseen until the final run)",
     )
+    parser.add_argument(
+        "--category",
+        action="append",
+        default=[],
+        help="scan and score only scenarios of this category (repeatable)",
+    )
     args = parser.parse_args(argv)
 
     from nephilex.plugins import register_builtins
 
     register_builtins()
-    results = [scan_case(c) for c in load_cases() if args.only in (None, c.split)]
+    cases = [
+        c
+        for c in load_cases()
+        if args.only in (None, c.split) and (not args.category or c.category in args.category)
+    ]
+    if not cases:
+        parser.error("no cases match the selected split and categories")
+    results = [scan_case(c) for c in cases]
     report = summarize(results)
     print_summary(report)
     for split in args.details:

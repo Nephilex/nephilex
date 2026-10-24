@@ -1,0 +1,133 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8h25-q488-4hxw",
+  "cve_id": "CVE-2026-41900",
+  "ecosystem": "npm",
+  "packages": [
+   "openlearnx"
+  ],
+  "published_at": "2026-04-23T21:46:07Z",
+  "advisory_cwes": [78, 94, 250, 284, 693],
+  "html_url": "https://github.com/advisories/GHSA-8h25-q488-4hxw",
+  "label_cwes": [78, 94],
+  "repo": "th30d4y/OpenLearnX",
+  "fix_sha": "14765d7d1856d564747c55c5412e2f38feab079e",
+  "parent_sha": "d19c4e4d153f5c2b46f08b74053c48a5851e1db6",
+  "path_vulnerable": "frontend/app/admin/logs/page.tsx",
+  "path_patched": "frontend/app/admin/logs/page.tsx",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [25, 26],
+   [33, 36],
+   [91, 92],
+   [144, 145],
+   [215, 215],
+   [217, 217],
+   [233, 234],
+   [238, 239],
+   [295, 298],
+   [345, 345],
+   [349, 350],
+   [356, 357],
+   [464, 465]
+  ],
+  "patched_lines": [
+   [26, 43],
+   [52, 52],
+   [54, 54],
+   [56, 56],
+   [113, 118],
+   [172, 199],
+   [270, 270],
+   [272, 272],
+   [275, 300],
+   [315, 316],
+   [322, 322],
+   [380, 431],
+   [434, 434],
+   [478, 522],
+   [527, 529],
+   [533, 537],
+   [543, 547],
+   [655, 730]
+  ],
+  "commit_url": "https://github.com/th30d4y/OpenLearnX/commit/14765d7d1856d564747c55c5412e2f38feab079e",
+  "case_id": "250-GHSA-8h25-q488-4hxw",
+  "content": {
+   "vulnerable": {
+    "sha256": "038558999ac1ac79bcbcdbba3ecbcebcb5c088f154569dad1185659b0e17722a",
+    "bytes": 20209
+   },
+   "patched": {
+    "sha256": "321d9e0eae6f7d9d98805b71f499904fc04d625d9d31d6bbf7dd44b5dce1d046",
+    "bytes": 34226
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      107,
+      "typescript.react.security.react-insecure-request.react-insecure-request",
+      [319]
+     ]
+    ],
+    "patched": [
+     [
+      134,
+      "typescript.react.security.react-insecure-request.react-insecure-request",
+      [319]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

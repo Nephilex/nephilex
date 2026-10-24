@@ -1,0 +1,133 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-h47f-gmjp-m7rr",
+  "cve_id": "CVE-2026-52776",
+  "ecosystem": "pip",
+  "packages": [
+   "compliance-trestle"
+  ],
+  "published_at": "2026-08-12T15:21:17Z",
+  "advisory_cwes": [184, 918],
+  "html_url": "https://github.com/advisories/GHSA-h47f-gmjp-m7rr",
+  "label_cwes": [918],
+  "repo": "oscal-compass/compliance-trestle",
+  "fix_sha": "d107cd16efe8eb15d46be3c1d97f1ec73d32447c",
+  "parent_sha": "e92bde95d24ac9cec46618c031d7cb9c19b3e833",
+  "path_vulnerable": "trestle/core/remote/security.py",
+  "path_patched": "trestle/core/remote/security.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [53, 53],
+   [55, 55],
+   [121, 122],
+   [126, 127],
+   [143, 144],
+   [180, 180],
+   [182, 182],
+   [197, 197],
+   [199, 199],
+   [208, 208],
+   [210, 210]
+  ],
+  "patched_lines": [
+   [53, 53],
+   [55, 55],
+   [57, 58],
+   [124, 125],
+   [131, 148],
+   [165, 184],
+   [220, 231],
+   [233, 234],
+   [249, 259],
+   [261, 262],
+   [271, 281],
+   [283, 284]
+  ],
+  "commit_url": "https://github.com/oscal-compass/compliance-trestle/commit/d107cd16efe8eb15d46be3c1d97f1ec73d32447c",
+  "case_id": "199-GHSA-h47f-gmjp-m7rr",
+  "content": {
+   "vulnerable": {
+    "sha256": "36f2885a36f9f6fafb07c0be58d56f9aa712471d9b6b2e3e321df66c39b60f69",
+    "bytes": 19591
+   },
+   "patched": {
+    "sha256": "7bc7261e671a9a40562000aba64151285eac83a5c05357dac6b11120d1c1fd06",
+    "bytes": 23445
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

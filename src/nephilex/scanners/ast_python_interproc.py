@@ -44,8 +44,9 @@ from nephilex.core.models import (
     Severity,
 )
 from nephilex.core.plugin import Scanner, ScannerContext, scanner
-from nephilex.scanners._pyflow import source_callables
+from nephilex.scanners._pyflow import OPERATOR_SOURCE_RE, REQUEST_SOURCE_RE, source_callables
 from nephilex.scanners.ast_python import (
+    _ARGV_ATTACK,
     _SOURCE_RE,
     SINKS,
     _Analyzer,
@@ -67,6 +68,7 @@ class _DangerousParam:
     sink_id: str
     sink_line: int
     def_path: str
+    detail: str | None = None
 
 
 class _SourceIndex:
@@ -281,7 +283,10 @@ class ASTPythonInterprocScanner(Scanner):
                 sinks = analyzer.seeded_sinks(body, {pname})
                 if sinks:
                     sink_id, sink_line = sinks[0]
-                    yield _DangerousParam(func_name, index, pname, sink_id, sink_line, fp.path)
+                    detail = analyzer.seed_details.get((sink_id, sink_line))
+                    yield _DangerousParam(
+                        func_name, index, pname, sink_id, sink_line, fp.path, detail
+                    )
 
     @staticmethod
     def _iter_nodes(root, node_type: str):
@@ -348,7 +353,11 @@ class ASTPythonInterprocScanner(Scanner):
                 if key in seen:
                     continue
                 seen.add(key)
-                yield self._finding(fp, call, line, summary)
+                text = fp.text(arg)
+                operator = bool(OPERATOR_SOURCE_RE.search(text)) and not REQUEST_SOURCE_RE.search(
+                    text
+                )
+                yield self._finding(fp, call, line, summary, operator=operator)
 
     def _iter_calls(self, node):
         return self._iter_nodes(node, "call")
@@ -367,7 +376,15 @@ class ASTPythonInterprocScanner(Scanner):
         return positional, keyword
 
     # --- finding ------------------------------------------------------------
-    def _finding(self, fp: _FileParse, call, line: int, summary: _DangerousParam) -> Finding:
+    def _finding(
+        self,
+        fp: _FileParse,
+        call,
+        line: int,
+        summary: _DangerousParam,
+        *,
+        operator: bool = False,
+    ) -> Finding:
         sink = _SINK_BY_ID.get(summary.sink_id)
         title = sink.title if sink else "Tainted input reaches a dangerous sink"
         cwe = sink.cwe if sink else []
@@ -376,6 +393,10 @@ class ASTPythonInterprocScanner(Scanner):
         in_test = _is_test_file(fp.path)
         confidence = Confidence.MEDIUM  # cross-file inference, one hop
         tags = ["sast", "ast", "taint", "cross-file"]
+        if operator:
+            # sys.argv / os.environ / input(): controlled by whoever runs the program.
+            confidence = Confidence.LOW
+            tags.append("operator-input")
         if in_test:
             severity = Severity(max(Severity.INFO, severity - 1))
             confidence = Confidence.LOW
@@ -406,7 +427,11 @@ class ASTPythonInterprocScanner(Scanner):
                 "call hop away, so the intra-file scanners do not see it."
             ),
             attacker_perspective=(
-                sink.attack if sink else "Control the untrusted input to reach the sink."
+                _ARGV_ATTACK
+                if summary.detail == "argv"
+                else sink.attack
+                if sink
+                else "Control the untrusted input to reach the sink."
             ),
             business_impact=(
                 sink.impact if sink else "Depends on the sink; see the referenced weakness."

@@ -79,6 +79,17 @@ ask the data-flow engine what the payload is before reporting:
 finding's `metadata.dataflow` records the verdict. An unsafe YAML loader is
 always reported because it is wrong even when today's input is constant.
 
+**Weak hashes.** `weak-hash-md5-sha1` is not reported when the call passes
+`usedforsecurity=False` (Python 3.9+), even when the call spans several lines.
+A hash that is evidently a checksum, ETag or cache key (the assigned variable
+or the enclosing function is named `etag`, `checksum`, `fingerprint`,
+`cache...`, `digest`, `content_hash` and the like) and that names no password,
+secret, token, signature, salt, session or HMAC is reported at **low**
+severity and confidence with `metadata.hash_purpose: checksum`: a collision
+there lets two inputs share a key, it does not forge a credential. Everything
+else, password hashing included, keeps medium severity and the KDF guidance
+(bcrypt, scrypt or Argon2 for passwords, SHA-256 or better for integrity).
+
 **Does not.** Follow data across functions and files on its own (that is the
 taint tier below). Flag every dynamic call, on purpose, to stay low-noise.
 
@@ -104,17 +115,43 @@ source or the sink is in another file):
 | --- | --- | --- |
 | `ast-sql-injection` | 89 | `execute()`/`executemany()` query argument |
 | `ast-sql-string-building` | 89 | query built with `%`, `+`, `.format()` or an f-string from a function parameter (low confidence, no traced source) |
-| `ast-command-injection` | 78 | `os.system`, `os.popen`, `subprocess.*`, `os.exec*`/`os.spawn*` |
-| `ast-path-traversal` | 22 | `open`, `io.open`, `codecs.open`, `os`/`shutil` file operations, `send_file`, the file name of `send_from_directory`, and file methods on a `pathlib.Path` built from the value (`Path(x)`, `base / x`) |
-| `ast-code-injection` | 95 | `eval`, `exec`, `compile` |
+| `ast-command-injection` | 78 | with a shell (`shell=True`, `os.system`, `os.popen`, `subprocess.getoutput`): any tainted part of the command. Without one (an argv list, `os.exec*`, `os.spawn*`, `pty.spawn`): only a tainted program (argv[0]) or the code after an interpreter option such as `-c`, `-e`, `/c`, `-Command` |
+| `ast-path-traversal` | 22 | `open`, `io.open`, `codecs.open`, `aiofiles.open`, `os`/`shutil` file operations, `send_file`, Starlette/FastAPI `FileResponse`, the directory of `send_from_directory`, file methods on a `pathlib.Path` built from the value (`Path(x)`, `base / x`, `base / f"{x}.txt"`), and `read_text`/`write_text`/`read_bytes`/`write_bytes` on any tainted path |
+| `ast-archive-extraction` | 22 | `TarFile.extractall()`/`extract()` and `shutil.unpack_archive()` on an archive from input, without `filter=` (or with `filter="fully_trusted"`) and without `members=` |
+| `ast-code-injection` | 95 | `eval`, `exec`, `compile` (its source argument) |
+| `ast-template-injection` | 1336, 94 | template source from input: Flask `render_template_string`, `jinja2.Template`, Mako `Template`, `Environment().from_string()` (a `SandboxedEnvironment` / `ImmutableSandboxedEnvironment` is not reported) |
 | `ast-unsafe-deserialization` | 502 | `pickle`/`dill`/`marshal` loads, `yaml.load` without a safe loader, `yaml.unsafe_load` |
-| `ast-xss` | 79 | value returned from a Flask/Bottle view (`@app.route`, or `@app.get` in a Flask file), `Markup()`, `mark_safe()`, Django `HttpResponse` |
+| `ast-xss` | 79 | value returned from a Flask/Bottle view (`@app.route`, or `@app.get` in a Flask file) or a FastAPI route declared with `response_class=HTMLResponse`, `Markup()`, `mark_safe()`, Django `HttpResponse`, Starlette `HTMLResponse` |
+| `ast-jinja-autoescape-off` | 79 | a Jinja2 `Environment`/`SandboxedEnvironment`/`Template` created with `autoescape=False` (no source needed) |
+| `ast-ssrf` | 918 | URL of `requests.*`, `httpx.*`, `urllib.request.urlopen`, `urllib3.request`, `aiohttp.request`, and the request methods of `requests.Session`, `httpx.Client`/`AsyncClient`, `aiohttp.ClientSession`, `urllib3.PoolManager` and `build_opener()` objects |
 | `ast-open-redirect` | 601 | `redirect()`, `HttpResponseRedirect`, `RedirectResponse`, `headers["Location"] = ...` |
 | `ast-xxe` | 611 | XML parse of the value with a parser that has external entities enabled (`setFeature(feature_external_ges, True)`, lxml `resolve_entities=True`) |
 | `ast-ldap-injection` | 90 | ldap3 `search()` base/filter, python-ldap `search_s()` (only in files importing ldap/ldap3) |
 | `ast-xpath-injection` | 643 | lxml `xpath()`/`XPath()`, `elementpath.select()`, ElementTree `find*()` in XML files |
 | `ast-trust-boundary` | 501 | request data written into `session[...]` (key or value) |
 | `ast-weak-random` | 330, 338 | a `random` module value (not `SystemRandom`) stored as a token, password, salt, nonce, session or cookie value, or returned from a function named like one |
+
+**Sources.** Request data (`request.args`, `.form`, `.json`, `.files`,
+`.headers`, `.cookies`, `.GET`, `.POST`, `.match_info` and the rest of the
+Flask, Django, aiohttp and Starlette request attributes), and parameters the
+web framework fills from the request: Flask route converters (`<name>`,
+`<path:name>`; not `int`, `float`, `uuid` or `any`), FastAPI parameters with a
+`Query()`, `Path()`, `Body()`, `Form()`, `File()`, `Header()` or `Cookie()`
+default, every parameter of a FastAPI path operation (`@app.get(...)`) except
+`Depends()` dependencies and numeric, boolean, UUID and date annotations,
+`UploadFile` uploads (`f.filename`, `await f.read()`), and any parameter
+annotated as the request object (`Request`, `HttpRequest`, `WebSocket`), whose
+`query_params`, `headers`, `cookies`, `url`, `json()`, `form()` and `body()` are
+sources. Member names read from a zip or tar archive (`namelist()`,
+`getnames()`, `ZipInfo.filename`, `TarInfo.name`/`linkname`) are sources for
+path traversal ("zip slip"), reported at medium confidence with the tag
+`archive-entry`. `sys.argv`, `os.environ` and `input()` are controlled by
+whoever runs the program: a finding whose only source is one of them (directly
+or through a same-file helper that reads them) is reported at low confidence
+with the tag `operator-input` (it matters when another program passes
+untrusted data through the command line or the environment). For SSRF and
+open redirect such a value is not reported at all: a server URL taken from
+an environment variable or an option is the operator configuring the program.
 
 **How values are tracked.** The engine is flow-sensitive within a function:
 `if`/`elif`/`else`, `match`, loops and `try` are analyzed per branch and joined,
@@ -125,27 +162,189 @@ objects are tracked per key, so storing request data under one key does not
 taint a read of another. A method returns request data when it reads the
 request (`return self.request.form.get(name)`); calling it on an object built
 from the request (`Wrapper(request).get_form_parameter("q")`) is a source, in
-the same file (`ast-python`) or across files (`ast-python-xfile`).
+the same file (`ast-python`) or across files (`ast-python-xfile`). A nested
+function (a callback, a generator) sees the variables of the function it is
+defined in. A call to a helper defined once in the same file (`helper(x)`, or
+`self.helper(x)` for a method) is analyzed through a summary of the helper's
+body instead of assuming the result carries every argument's taint: what it
+returns when its parameters are tainted (a sanitizing helper returns a clean
+value; one that ignores its argument returns clean data), and which classes it
+validates a parameter for when it raises, or returns a boolean, unless the
+value passed a check. `validate(x)` on its own line, or `if not
+is_safe(x): return`, then clears `x` for those classes. Summaries are computed
+on demand, bounded in depth (two helpers deep) and in work, and generators are
+not summarized. A record looked up by a key (Django `Model.objects.get()` /
+`filter()`, `Model.query.get()`, SQLAlchemy `session.get(Model, key)` and
+`session.query(...)`, `get_object_or_404`, and methods named by the
+repository convention `get_..._by_id` / `find_by_...`) is stored data, not
+the key's text, so a request key does not taint it (stored, second-order
+flows are not modeled). Objects created by a known constructor at module level
+(`env = Environment()`, `http = requests.Session()`) are recognized inside
+functions.
 
 **Guards and sanitizers.** CWE-specific sanitizers clear a value only for their
-class: HTML escaping (`html.escape`, `markupsafe.escape`, any `*escape*`) for
-XSS, `escape_filter_chars` for LDAP. Numeric conversion, `secure_filename`,
-`basename`, `shlex.quote` and `url_for` clear every class. A block that returns
-or raises when a check fails refines the value after it, for checks that are
-complete mitigations: an allowlist membership test (`x not in (...)`) or
-`x.isdigit()` clears everything, `urlparse(u).netloc` against an allowlist
-clears open redirect, and a resolved path (`resolve()`, `os.path.realpath`)
-checked with `startswith`/`is_relative_to` clears path traversal. Blocklist
-checks (`'../' in p`, "contains no quote") are deliberately not trusted: an
-absolute path or another quoting style gets past them. `request.path` is not a
-source inside a view whose routes have no `<converters>`, because routing
-already fixed it.
+class: HTML escaping (`html.escape`, `markupsafe.escape`, any `*escape*`,
+Django `format_html`) for XSS, `escape_filter_chars` for LDAP. Numeric
+conversion, `secure_filename`, `basename`, `safe_join`, `shlex.quote`, `quote`
+and `url_for` clear every class. A block that returns or raises when a check
+fails refines the value after it, for checks that are complete mitigations: an
+allowlist membership test (`x not in (...)`), `x.isdigit()` or
+`isinstance(x, (int, float))` clears everything; a host allowlist on the parsed
+URL (`urlparse(u).hostname in ALLOWED`, `== "api.example.com"`,
+`.endswith(".example.com")`) clears open redirect and SSRF; a helper that
+rejects a URL by the class of address it resolves to (`ipaddress` /
+`netaddr` `is_private`, `is_loopback`, `is_link_local`, `is_reserved`,
+`is_global`) clears SSRF; and a resolved path (`resolve()`,
+`os.path.realpath`, `abspath`, `normpath`) checked with `startswith`,
+`is_relative_to`, `os.path.commonpath([base, p]) == base`, or an `or` of such
+checks, clears path traversal. `send_from_directory` is safe for its file
+name (Flask joins it with `werkzeug.security.safe_join`). A tar extraction
+with `filter="data"`, `"tar"`, `tarfile.data_filter`, a filter of the
+program's own, or an explicit `members=` list is not reported. Flask's
+`render_template` and `render_template_string`, Starlette's
+`TemplateResponse` and Django's `render()` autoescape their variables.
+Blocklist checks (`'../' in p`, "contains no quote") are deliberately not
+trusted: an absolute path or another quoting style gets past them.
+`request.path` is not a source inside a view whose routes have no
+`<converters>`, because routing already fixed it. A known gap: a
+`startswith(base)` check whose base does not end in a separator is accepted,
+though `/srv/data_evil` passes `startswith("/srv/data")`.
+
+### Library mode
+
+In an application the attacker's input arrives through a request, the command
+line or the environment. In a library it arrives as an argument of a public
+function, and many advisories are in libraries. In library mode the
+parameters of public functions and methods are sources:
+
+- **When.** `library_mode: auto` (the default) turns it on for a project with
+  a package manifest (`pyproject.toml`, `setup.py` or `setup.cfg` at the scan
+  root) and no web application entry point Nephilex recognizes: a call to
+  `Flask()`, `Quart()`, `FastAPI()`, `Starlette()`, `Sanic()`, `Bottle()`,
+  `Litestar()`, `FastMCP()`, aiohttp or tornado `Application()`,
+  `falcon.App()`, `uvicorn.run()`, `waitress.serve()`,
+  `get_wsgi_application()`, `get_asgi_application()` or
+  `execute_from_command_line()` outside test, documentation and example
+  directories (found with Python's own parser, so a name in a docstring does
+  not count). `on` and `off` override the detection; see
+  [Configuration](configuration.md). The decision and its reason are in the
+  JSON report under `project_summary.library_mode`.
+- **Which parameters.** Those of functions and methods that are not
+  underscore-prefixed (dunder methods such as `__init__` count), in classes
+  that are not underscore-prefixed, listed in `__all__` when the module defines
+  one, in modules outside underscore-prefixed packages and outside tests,
+  docs, examples, `setup.py` and `__main__.py`. Nested functions are not public
+  but see their enclosing function's parameters. Parameters annotated as
+  numbers, booleans, UUIDs or dates are not sources.
+- **What is reported.** A public function that hands its own argument to
+  `open()`, `eval()`, `subprocess.run()` or `Markup()` usually does so by design:
+  that is its API. The injection advisories describe the library placing the
+  caller's value inside a path, command, query, page or expression it builds
+  itself, or treating a field of caller data as code. So a flow whose only
+  source is a public parameter is reported when the value is embedded after
+  content the library chose (`os.path.join(ROOT, name)`, `"ping " + host`,
+  `f'<td class="{value}">'`, `"[" + data + "]"`, `root / f"{item.name}.txt"`)
+  for path traversal, command, SQL, LDAP, XPath and XSS sinks (including a
+  public function that returns HTML built around its argument), when it is
+  embedded or is a field of caller data (`eval(data["type"])`) for code and
+  template injection, when it is a field of caller data for deserialization,
+  and in any form for tar extraction without a filter. Argv-list commands
+  without a shell are not reported from public parameters. SSRF, open
+  redirect, session and XML parser sinks are never reported from public
+  parameters: fetching, redirecting to or parsing what the caller passes is
+  what such APIs are for.
+- **How it is reported.** Same rule ids and CWEs, confidence **low**, tags
+  `public-api` and `library-mode`, `metadata.source: public-api` and
+  `metadata.public_function` (for example `Field.from_dict`), and a
+  description saying the value comes from a caller of that public function.
+  A request-derived flow to the same sink takes precedence.
+- **Gate.** Library-mode findings do **not** count toward `--fail-on` /
+  `fail_on` (or the editor hook's blocking threshold); they are still reported
+  and still filtered by `min_severity`. Whether they are exploitable depends
+  on how code outside the project calls the API, which the scan cannot see,
+  and turning library mode on (or `auto` deciding it) must not start failing CI
+  for code nobody changed. Gate on them with a policy or review them as a
+  report.
+
+**JavaScript/TypeScript sinks and rule ids** (`ast-js.*`, for `.js`, `.jsx`,
+`.mjs`, `.cjs`, `.ts`, `.mts`, `.cts` and `.tsx`):
+
+| Rule | CWE | Sink |
+| --- | --- | --- |
+| `ast-command-injection` | 78 | `child_process` `exec`/`execSync`, `spawn`/`execFile` with `shell: true` or running `sh -c`/`cmd /c`/`powershell -Command`, shelljs `exec`, execa `execaCommand`; `promisify(exec)` and `require('child_process').exec` bindings are resolved |
+| `ast-code-injection` | 95 | `eval` (also `window.eval`, `window['eval']`), the `Function` constructor, `vm.runInThisContext`/`runInNewContext`/`runInContext`/`compileFunction`, `new vm.Script`, `setTimeout`/`setInterval` with a string |
+| `ast-path-traversal` | 22 | `fs`, `fs/promises` and `fs-extra` file operations (read, write, open, stream, mkdir, rm, rename, copy), `res.sendFile`/`res.download` without a `root` option, `express.static`/`serve-static` roots |
+| `ast-path-prefix-check` | 22 | a resolved path checked with `startsWith(baseDir)` where the base has no trailing separator, so a sibling directory passes (no traced source) |
+| `ast-ssrf` | 918 | `fetch`, `$fetch`, `node-fetch`, `undici`, `axios`/`got`/`superagent`/`needle`/`ky` calls and their `url`/`baseURL`/`host` options, `http(s).get`/`request` |
+| `ast-xss` | 79 | `innerHTML`/`outerHTML`/`srcdoc` assignment, `document.write`, `insertAdjacentHTML`, `createContextualFragment`, JSX `dangerouslySetInnerHTML`, jQuery `$(html)`/`.html()`, `setAttribute('on*')`, Angular `bypassSecurityTrust*`, Lit `unsafeHTML`, Handlebars `SafeString`; on the server Express `res.send` of a string, `res.end`/`res.write`/`reply.send` with markup or a `text/html` type, Koa `ctx.body`, Hono `c.html` |
+| `ast-template-autoescape-off` | 79 | Nunjucks `configure`/`Environment` with `autoescape: false`, Handlebars `compile` with `noEscape: true` (configuration, no traced source) |
+| `ast-open-redirect` | 601 | `.redirect()` on a response or context (Express, Koa, Fastify, `NextResponse`), `redirect()` from `next/navigation` or React Router, a `Location` header, `location.href`/`window.location` assignment, `location.assign`/`replace`, `window.open` |
+| `ast-template-injection` | 1336 | the template text of `ejs.render`/`compile`, `pug.render`/`compile`, `Handlebars.compile`, `nunjucks.renderString`, `_.template` |
+| `ast-sql-injection` | 89 | the query text of `.query()`, `.execute()`, `.raw()`, `$queryRawUnsafe`/`$executeRawUnsafe`, `prepare()` on a database object; bound parameters and `sql`-tagged templates are not flagged |
+
+**JS/TS sources.** Server request input: `req`/`request` `.query`, `.body`,
+`.params`, `.headers`, `.cookies`, `.url`, `.originalUrl`, `.path`, `.files`
+(not the upload fields the server generates, such as `path` and
+`tempFilePath`), `req.get()`/`req.header()`; Koa `ctx.query`, `ctx.params`,
+`ctx.request.*`, `ctx.get()`; Next.js `request.nextUrl.searchParams`, `await
+request.json()`/`formData()`/`text()` and the `searchParams` page prop; h3/Nuxt
+`getQuery`, `readBody`, `getRouterParam`, `getRequestURL`, `getHeader`; Hono
+`c.req.*`. Browser input (`location.*`, `document.URL`, `document.referrer`,
+`document.cookie`, `window.name`, `postMessage` event data, `useSearchParams`)
+is reported at HTML, redirect and code sinks only. Archive entry names
+(tar-stream, yauzl and unzipper `on('entry')`, adm-zip `getEntries()`) are
+reported at file sinks (zip slip). `process.env` and `process.argv` are
+reported at SQL sinks only.
+
+**JS/TS library parameters.** A function parameter that is concatenated or
+interpolated into a shell command or an `eval`/`vm` string together with
+literal text (`exec('ping ' + host)`) is reported at medium confidence, because
+whoever calls the function with user input gets the injection. Passing a
+parameter through unchanged (`exec(cmd)`), parameters named like a command or
+code (`cmd`, `command`, `script`, `code`), parameters typed `number` or
+`boolean`, and the `Function` constructor (how template engines compile) are
+not reported. When the command is built in one function and run by a helper
+defined in the same file, the finding is shown at the call into the helper.
+
+**How JS/TS values are tracked.** One walk per file in statement order:
+assignments, destructuring with defaults, template literals, `+` chains,
+`join`/`concat`/`replace`, `await`, optional chaining, TypeScript `as`/`!`/
+`satisfies`, `for...of`, array callbacks (`forEach`, `map`, `then`), closures
+(nested functions see their enclosing scope) and calls to functions and `this`
+methods defined once in the file (followed with the caller's argument taint).
+Object literals, spreads and `Object.assign`/`$.extend` keep a taint per field,
+so `{ label: 'x', target: req.query.t }.label` is clean. A file system, HTTP or
+`exec` call returns fresh data, not its argument.
+
+**JS/TS guards and sanitizers.** Sanitizers clear only their class: HTML
+escapers (`escape-html`, `he`, DOMPurify, `sanitize-html`, `xss`, any
+`*escape*`/`*sanitize*` name) for XSS, `shell-quote` and `*shellEscape*` names
+for commands, `path.basename` and `sanitize-filename` for paths, `jsesc`,
+`serialize-javascript`, `devalue` and `JSON.stringify` for code,
+`encodeURIComponent` for XSS, SSRF, redirects and commands, and numeric
+coercion for everything. `htmlSafe()` is not a sanitizer (it marks HTML as
+trusted). A block that returns or throws when a check fails clears the value
+after it: allowlist membership (`includes`, `has`, `in`, `Object.hasOwn`),
+equality with a literal, an anchored regex test, a predicate named like a
+validator (`isValid*`, `isAllowed*`, `isSafe*`, `isPathInside`) or a blocklist
+(`isPrivate*`, `isBlocked*`), a URL host compared with an allowlist or with the
+request's own host, a resolved path checked with `startsWith(base + path.sep)`
+or `path.relative(base, p)` against `..`, and a regex `replace` that removes
+everything outside a character class. A statement call such as
+`assertValidRegion(r)` or `validateName(n)` is taken to throw and clears its
+argument. `path.join(root, path.normalize('/' + p))` stays under `root`. Host
+pinned URLs (`` `https://api.example.com/${id}` ``) and relative URLs are not
+SSRF or open redirect. String blocklists (`p.includes('..')`) are not trusted.
+Express's `res.send` of a string is HTML unless the handler sets another
+content type.
 
 **Limits.** Strongest for Python and JS/TS. Interprocedural analysis is bounded
-(one call hop, plus request wrappers); extremely dynamic code can defeat static
-tracing. Guards are recognized only in the simple forms above. A file that needs
-more than a fixed amount of analysis work, or nests statements deeper than 60
-levels, falls back to a conservative flat scan or is reported as skipped.
+(one call hop across files, plus request wrappers and same-file helper
+summaries); extremely dynamic code can defeat static tracing. Guards are
+recognized only in the simple forms above. Option injection into an argv list
+(CWE-88) is not reported. A file that needs more than a fixed amount of
+analysis work, or nests statements deeper than 60 levels, falls back to a
+conservative flat scan or is reported as skipped.
 
 ## Infrastructure as Code
 
@@ -179,8 +378,130 @@ state/PKCE, tokens in URLs, and cookies set without security flags:
 `authz.cookie-missing-httponly` (CWE-1004). The call is read across lines; an
 explicit `False` is high confidence, a missing flag medium.
 
+**Global authentication.** Before reporting `authz.missing-authentication`, the
+scanner looks for authentication registered once for the whole application:
+
+- FastAPI and Starlette: an `@app.middleware("http")` function; a class passed to
+  `app.add_middleware(...)` or `FastAPI(middleware=[Middleware(...)])` whose
+  `dispatch` or `__call__` does the check; `FastAPI(dependencies=[...])`; and
+  `include_router(router, dependencies=[...])`, which covers only the routes of
+  that router's module. `APIRouter(dependencies=[...])` already covered the
+  routes in its own file.
+- Flask: `@app.before_request` (or `app.before_request(func)`) for the whole app,
+  `@blueprint.before_request` for that blueprint's routes, and
+  `before_app_request`.
+- Django: `LoginRequiredMiddleware` or a project middleware in `MIDDLEWARE`
+  whose `__call__`, `process_request` or `process_view` does the check. A route
+  marked `@login_not_required` stays reported. `@login_required` and the
+  `LoginRequiredMixin`, `PermissionRequiredMixin` and `UserPassesTestMixin`
+  classes count as route-level auth.
+
+A middleware or hook counts only if it reads a credential (an `Authorization`,
+API-key or token header, a cookie, the session, `request.user`, or a call such
+as `verify_token()` or `compare_digest()`) and, when that check fails, returns
+or raises 401 or 403 (`abort(401)`, `HTTPException(status_code=401)`,
+`HttpResponseForbidden`, `PermissionDenied`). A middleware that only logs, adds
+headers, applies CORS or rate-limits is not authentication. Dependencies count
+when their callable is named like authentication (`get_current_user`,
+`verify_api_key`) or is a function that does the check; `Depends(get_db)` does
+not.
+
+Path exemptions are read from the guard: `if request.url.path == "/health"`,
+`in PUBLIC_PATHS` (a literal or a module constant), `.startswith(...)`, and
+Flask `request.endpoint in (...)`. A route the guard skips is reported as
+before.
+
+Method conditions are read the same way. A guard such as
+`if request.method != "GET" and not key: return 401`, or a check nested under
+`if request.method in ("POST", "PUT"):`, covers only the methods it checks, so
+a `GET` route under a writes-only guard stays High while a `PUT` route is
+covered. `==`, `!=`, `in` and `not in` against literal methods, tuples or
+constants are read on `request.method`, `scope["method"]` and
+`scope.get("method")`. The route's method comes from the decorator
+(`@router.put`) or Flask's `methods=[...]` (default `GET`); implicit `HEAD` and
+`OPTIONS` are not counted, so a CORS preflight bypass still covers the route.
+A method test that also requires the credential
+(`if request.method == "GET" and token_ok: ...`) is part of the check, not a
+skip.
+
+If a path or method condition cannot be read (for example a function call), the
+guard covers nothing. With more than one FastAPI or Flask application in the
+project, an app-wide guard covers only the routes in its own file.
+
+A covered route is not dropped. It is reported at Info as "Sensitive route
+relies on global authentication", naming the guard in `metadata.global_auth`,
+so the assumption that the route is mounted behind that guard stays visible
+without failing a gate.
+
+A guard that fails open still counts, but the note says so. If the guard, or a
+helper its check calls, lets every request through when the expected
+credential is not configured (`if not API_TOKEN: return await call_next(...)`,
+`if not settings.token: return True`) or when an auth switch is set
+(`os.environ.get("AUTH_DISABLED")`), the description says the guard allows all
+requests when the credential is not configured, and
+`metadata.global_auth.fails_open` is `true`.
+
 **Does not.** Judge a flag set from configuration (`secure=app.config[...]`), or
-know whether a cookie is a session cookie.
+know whether a cookie is a session cookie. Follow which application a router is
+finally mounted on when there are several, or treat a redirect to a login page
+as a rejection (only 401 and 403 are).
+
+## Malicious code (malware)
+
+**Detects.** Shapes that point at a backdoor or a compromised repository:
+decode-then-exec payloads, `__import__` indirection to a shell, reverse shells,
+PHP webshells, cryptominers, remote scripts piped to a shell, encoded
+PowerShell, suspicious package lifecycle scripts, and credential or environment
+exfiltration.
+
+`malware.data-exfil-env` needs evidence that data leaves the host. A `curl` or
+`wget` command is read word by word and reported when one of these holds:
+
+- a data or upload flag (`-d`, `--data*`, `--json`, `-F`, `--form`, `-T`,
+  `--upload-file`, wget `--post-data`, `--post-file`, `--body-data`,
+  `--body-file`) carries a secret-named variable (`$NPM_TOKEN`,
+  `${AWS_SECRET_ACCESS_KEY}`, `%DB_PASSWORD%`, `process.env.API_KEY`), the
+  whole environment (`$(env)`, `printenv`, `/proc/*/environ`) or a credential
+  file (`~/.aws`, `~/.ssh`, `.env`, `id_rsa`, `/etc/shadow`);
+- `env` or `printenv` is piped into the command, a credential file is piped or
+  redirected into it, or a secret is piped in and read with `@-`;
+- a secret-named variable or the environment appears in the URL, a header
+  (`-H`, `--header`), `-u`/`--user` or `--cookie`, except for the
+  authenticated API call described below.
+
+A command continued over several lines with a trailing `\` is read as one
+command.
+
+A variable counts as a secret when its name contains a word such as `TOKEN`,
+`SECRET`, `PASSWORD`, `PASS`, `KEY`, `AUTH`, `SESSION` or `COOKIE`, and does not
+end in `URL`, `HOST`, `PORT`, `NAME` or similar. The Python form still reports
+`requests`, `httpx` or `urllib` calls on a literal URL with `os.environ`,
+`getenv` or `process.env` in the arguments.
+
+**Does not.** Report a request that sends nothing: a readiness loop such as
+`curl --fail --max-time 15 "$url" >/dev/null`, `wget --spider "$READY_URL"` or a
+download to `-o "$OUT_DIR/file"` is not exfiltration however many variables it
+uses.
+
+It also does not report an authenticated API call: a secret in a credential
+header (`Authorization`, `Cookie`, `PRIVATE-TOKEN`, or a name containing
+`token`, `api-key`, `auth`, `secret` or `session`), in `-u`/`--user`, or in
+`--oauth2-bearer`, when every destination is an `https://` URL whose host is
+written literally, for example:
+
+```sh
+curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user
+```
+
+Variables later in the path or query are fine.
+The same header is reported when the destination comes from a variable, uses
+plain `http://`, has an IP-literal host, or when the request also has a data
+or upload flag carrying a secret or the environment.
+
+**Limits.** A command assembled in a variable or through a function, or a
+secret copied into a neutrally named variable first, is not followed. A
+credential header sent to a literal `https://` host the attacker controls is
+not reported; the scanner cannot tell the intended service from another host.
 
 ## Agent config
 
