@@ -67,6 +67,9 @@ include breaking changes, noted explicitly).
   containment check when the base ends with a separator (including
   `path.join(dir, '/')`), and the check also covers a path built from the
   checked one with a plain suffix such as `.gz`.
+- JS/TS findings in example and demo code (`example/`, `samples/`, `demo/`)
+  are reported one severity step lower and at low confidence, as findings in
+  test code already were.
 
 ## [0.11.0] - 2026-10-23
 

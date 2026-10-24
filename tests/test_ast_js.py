@@ -14,6 +14,7 @@ pytest.importorskip("tree_sitter_javascript")
 pytest.importorskip("tree_sitter_typescript")
 
 from nephilex.core.config import Config  # noqa: E402
+from nephilex.core.models import Confidence, Severity  # noqa: E402
 from nephilex.core.plugin import ScannerContext, registry  # noqa: E402
 from nephilex.scanners import ast_js  # noqa: E402
 
@@ -181,3 +182,21 @@ def test_ast_suppresses_regex_false_positive_on_sanitized_html(tmp_path):
     )
     result = ScanEngine(Config(scanners=["patterns", "ast-js"])).scan(Project.from_path(tmp_path))
     assert not [f for f in result.findings if "CWE-79" in f.cwe]
+
+
+def test_example_code_is_reported_at_low_confidence(tmp_path):
+    """Example and demo code is still reported, one severity step down and at low
+    confidence, as test code is; the same code elsewhere keeps its rating."""
+    code = "app.post('/upload', (req, res) => {\n  res.send('Uploaded ' + req.files.f.name);\n});\n"
+    (tmp_path / "example").mkdir()
+    (tmp_path / "lib").mkdir()
+    (tmp_path / "example" / "server.js").write_text(code, encoding="utf-8")
+    (tmp_path / "lib" / "server.js").write_text(code, encoding="utf-8")
+    findings = _run(tmp_path, "unrelated.js", "const x = 1;\n")
+    by_path = {f.location.path: f for f in findings if "CWE-79" in f.cwe}
+    example, lib = by_path["example/server.js"], by_path["lib/server.js"]
+    assert example.confidence == Confidence.LOW
+    assert example.severity == Severity(lib.severity - 1)
+    assert "example-context" in example.tags
+    assert lib.confidence == Confidence.HIGH
+    assert "example-context" not in lib.tags
