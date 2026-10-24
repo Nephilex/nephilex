@@ -110,6 +110,26 @@ def test_bad_report_is_rejected(client):
     assert "error" in r.json()
 
 
+def test_rejected_report_details_stay_in_the_server_log(client, monkeypatch, caplog):
+    def boom(session, raw):
+        raise ValueError("internal detail /srv/secret-path line 42")
+
+    monkeypatch.setattr("nephilex.dashboard.app._ingest", boom)
+    with caplog.at_level("WARNING", logger="nephilex.dashboard"):
+        api = client.post("/api/scans", content="{}", headers=JSON)
+        form = client.post(
+            "/upload",
+            files={"file": ("report.json", b"{}", "application/json")},
+            data={"csrf_token": CSRF_TOKEN},
+        )
+    assert api.status_code == 400 and form.status_code == 400
+    for r in (api, form):
+        assert "Not a valid Nephilex JSON report" in r.text
+        assert "secret-path" not in r.text and "ValueError" not in r.text
+    logged = [r.exc_info[1] for r in caplog.records if r.exc_info]
+    assert [str(e) for e in logged] == ["internal detail /srv/secret-path line 42"] * 2
+
+
 def test_oversized_api_ingest_is_rejected(client, monkeypatch):
     monkeypatch.setattr("nephilex.dashboard.app._MAX_REPORT_BYTES", 64)
     r = client.post("/api/scans", content=b"{" + b"x" * 200 + b"}", headers=JSON)

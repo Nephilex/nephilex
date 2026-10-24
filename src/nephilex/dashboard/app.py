@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import contextlib
 import hmac
+import logging
 import os
 import secrets
 from dataclasses import dataclass
@@ -48,6 +49,8 @@ from starlette.datastructures import Headers
 from nephilex import __version__
 from nephilex.dashboard import charts, store
 from nephilex.dashboard.db import get_session
+
+log = logging.getLogger("nephilex.dashboard")
 
 _HERE = Path(__file__).parent
 #: Hard cap for uploaded / POSTed JSON reports (bytes). Large enough for real
@@ -368,6 +371,12 @@ async def _read_upload_limited(file: UploadFile) -> str:
     return buf.decode("utf-8", "replace")
 
 
+#: What the client is told when a report cannot be stored. The exception
+#: itself goes to the server log only: its text can include parts of the
+#: report, file paths or internal details.
+_BAD_REPORT = "Not a valid Nephilex JSON report; the dashboard log has the details"
+
+
 def _ingest(session: Session, raw: str):
     """Store a report and apply the retention cap (runs in a worker thread)."""
     scan = store.ingest_report(session, raw)
@@ -435,7 +444,8 @@ async def upload_submit(
     try:
         scan = await run_in_threadpool(_ingest, session, raw)
     except Exception as exc:  # bad/incomplete report
-        raise HTTPException(400, f"Not a valid Nephilex JSON report: {exc}") from exc
+        log.warning("Rejected an uploaded report", exc_info=True)
+        raise HTTPException(400, _BAD_REPORT) from exc
     return RedirectResponse(f"/scans/{scan.id}", status_code=303)
 
 
@@ -458,8 +468,9 @@ async def api_ingest(request: Request, session: Session = Depends(get_session)):
         raise
     try:
         scan = await run_in_threadpool(_ingest, session, raw)
-    except Exception as exc:
-        return JSONResponse({"error": f"invalid report: {exc}"}, status_code=400)
+    except Exception:
+        log.warning("Rejected a report posted to /api/scans", exc_info=True)
+        return JSONResponse({"error": _BAD_REPORT}, status_code=400)
     return {
         "scan_id": scan.id,
         "url": f"/scans/{scan.id}",
@@ -474,8 +485,6 @@ def serve(host: str = "127.0.0.1", port: int = 8000) -> None:
     Exits with an error for a non-loopback ``host`` unless
     ``NEPHILEX_DASHBOARD_TOKEN`` is set.
     """
-    import logging
-
     import uvicorn
 
     try:
@@ -483,7 +492,7 @@ def serve(host: str = "127.0.0.1", port: int = 8000) -> None:
     except DashboardConfigError as exc:
         raise SystemExit(f"Error: {exc}") from None
     if not _is_loopback_bind(host):
-        logging.getLogger("nephilex.dashboard").warning(
+        log.warning(
             "Dashboard bound to %s with token authentication. Serve it behind TLS: "
             "the token travels in every request.",
             host,

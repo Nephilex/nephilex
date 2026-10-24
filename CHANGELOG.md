@@ -63,6 +63,8 @@ include breaking changes, noted explicitly).
   host is not reported.
 - A condition that joins path containment checks with `or` is no longer
   dropped by the Python flow engine.
+- Dashboard: a report that cannot be stored now gets a generic error from
+  `/upload` and `/api/scans`; the exception text goes to the server log only.
 
 ## [0.11.0] - 2026-10-23
 
