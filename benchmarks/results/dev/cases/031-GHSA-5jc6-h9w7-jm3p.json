@@ -43,11 +43,6 @@
    "findings": {
     "vulnerable": [
      [
-      363,
-      "ast-python.ast-open-redirect",
-      [601]
-     ],
-     [
       468,
       "ast-python.ast-path-traversal",
       [22]
@@ -64,11 +59,6 @@
      ]
     ],
     "patched": [
-     [
-      363,
-      "ast-python.ast-open-redirect",
-      [601]
-     ],
      [
       468,
       "ast-python.ast-path-traversal",

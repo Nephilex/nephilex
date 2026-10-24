@@ -85,33 +85,7 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [
-     [
-      42,
-      "ast-python.ast-xss",
-      [79]
-     ],
-     [
-      44,
-      "ast-python.ast-xss",
-      [79]
-     ],
-     [
-      46,
-      "ast-python.ast-xss",
-      [79]
-     ],
-     [
-      48,
-      "ast-python.ast-xss",
-      [79]
-     ],
-     [
-      50,
-      "ast-python.ast-xss",
-      [79]
-     ]
-    ],
+    "vulnerable": [],
     "patched": [
      [
       143,
@@ -267,7 +241,7 @@
     "flagged_after_fix": false
    },
    "any": {
-    "detected": true,
+    "detected": false,
     "flagged_after_fix": true
    }
   },
