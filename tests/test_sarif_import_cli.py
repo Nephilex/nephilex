@@ -163,7 +163,10 @@ def test_import_warns_about_dropped_paths(tmp_path):
         app, ["import", *_files("edge-cases"), "--project", str(tmp_path), "--no-ai", "-f", "json"]
     )
     assert res.exit_code == 0, res.output
-    assert "dropped" in res.stderr and "escapes the project root" in res.stderr
+    # The console wraps at its width, and the fixture path in each warning is
+    # as long as the checkout path, so compare with whitespace collapsed.
+    err = " ".join(res.stderr.split())
+    assert "(EC001) dropped: path escapes the project root" in err
 
 
 def test_scan_import_sarif_merges_duplicates(vulnerable_project):
