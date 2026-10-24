@@ -63,6 +63,10 @@ include breaking changes, noted explicitly).
   host is not reported.
 - A condition that joins path containment checks with `or` is no longer
   dropped by the Python flow engine.
+- Python: a redirect to a URL whose literal start already fixes the host
+  (`f"/scans/{scan_id}"`, `"https://example.com/" + path`) is no longer
+  reported as an open redirect. `"/" + value`, `"//"` and an unclosed host
+  (`"https://example.com" + value`) still are.
 - Dashboard: a report that cannot be stored now gets a generic error from
   `/upload` and `/api/scans`; the exception text goes to the server log only.
 - Dashboard: table rows link with a real `<a href>` in their first cell, and
