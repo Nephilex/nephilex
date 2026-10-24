@@ -1,0 +1,97 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-52gm-qmg3-r4qp",
+  "cve_id": "CVE-2024-32077",
+  "ecosystem": "pip",
+  "packages": [
+   "apache-airflow"
+  ],
+  "published_at": "2024-05-14T18:31:00Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-52gm-qmg3-r4qp",
+  "label_cwes": [79],
+  "repo": "apache/airflow",
+  "fix_sha": "87acf61f574daf47ce9e03a986e352a2c727f4ce",
+  "parent_sha": "768e1169b1946fe536c02ee968a95594d43ebba2",
+  "path_vulnerable": "airflow/www/static/js/ti_log.js",
+  "path_patched": "airflow/www/static/js/ti_log.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [113, 114],
+   [197, 197],
+   [201, 201]
+  ],
+  "patched_lines": [
+   [114, 114],
+   [198, 200],
+   [203, 203],
+   [205, 205]
+  ],
+  "commit_url": "https://github.com/apache/airflow/commit/87acf61f574daf47ce9e03a986e352a2c727f4ce",
+  "case_id": "040-GHSA-52gm-qmg3-r4qp",
+  "content": {
+   "vulnerable": {
+    "sha256": "9546d788c6a8d04e75c42059088ceeaffd800c482dbd351ea2e9a9992bb939c5",
+    "bytes": 9043
+   },
+   "patched": {
+    "sha256": "012919f7b287ed5ba5964499caf386702814b3272601ddb6f6d686bd5e4a4ea9",
+    "bytes": 9108
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

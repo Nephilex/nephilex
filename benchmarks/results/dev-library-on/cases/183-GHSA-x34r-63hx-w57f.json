@@ -1,0 +1,114 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x34r-63hx-w57f",
+  "cve_id": "CVE-2026-25481",
+  "ecosystem": "pip",
+  "packages": [
+   "langroid"
+  ],
+  "published_at": "2026-02-02T20:42:28Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-x34r-63hx-w57f",
+  "label_cwes": [94],
+  "repo": "langroid/langroid",
+  "fix_sha": "30abbc1a854dee22fbd2f8b2f575dfdabdb603ea",
+  "parent_sha": "6815fb6814a37c47e1908f326a12aaf6e01c373a",
+  "path_vulnerable": "langroid/utils/pandas_utils.py",
+  "path_patched": "langroid/utils/pandas_utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [239, 240],
+   [255, 256]
+  ],
+  "patched_lines": [
+   [240, 249],
+   [266, 266]
+  ],
+  "commit_url": "https://github.com/langroid/langroid/commit/30abbc1a854dee22fbd2f8b2f575dfdabdb603ea",
+  "case_id": "183-GHSA-x34r-63hx-w57f",
+  "content": {
+   "vulnerable": {
+    "sha256": "21a12d772e0890887a7e373b5d7a5ccf08e1816a1da069895f9d0bc6861211e2",
+    "bytes": 7280
+   },
+   "patched": {
+    "sha256": "52677fad4ed8f84efe4b9310d647fb9853e4b08ae80e35894799c59c9a0992b6",
+    "bytes": 7970
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8cw6-53m5-4932",
+  "cve_id": "CVE-2026-24134",
+  "ecosystem": "npm",
+  "packages": [
+   "studiocms"
+  ],
+  "published_at": "2026-01-27T22:13:52Z",
+  "advisory_cwes": [639, 862],
+  "html_url": "https://github.com/advisories/GHSA-8cw6-53m5-4932",
+  "label_cwes": [639],
+  "repo": "withstudiocms/studiocms",
+  "fix_sha": "efc10bee20db090fdd75463622c30dda390c50ad",
+  "parent_sha": "c68668b0a83341dd6cbdc378e1673017afef1d73",
+  "path_vulnerable": "packages/studiocms/frontend/middleware/index.ts",
+  "path_patched": "packages/studiocms/frontend/middleware/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [21, 23],
+   [147, 148]
+  ],
+  "patched_lines": [
+   [22, 22],
+   [24, 24],
+   [150, 193]
+  ],
+  "commit_url": "https://github.com/withstudiocms/studiocms/commit/efc10bee20db090fdd75463622c30dda390c50ad",
+  "case_id": "351-GHSA-8cw6-53m5-4932",
+  "content": {
+   "vulnerable": {
+    "sha256": "15d4d99dc640df6ddee0a605d5fc6e7edcc37ae91bee6f6df89f196c08bc55ef",
+    "bytes": 6489
+   },
+   "patched": {
+    "sha256": "eb7ecd1068f6ffd89e42003c2301219221bc57de036ffece63f39cdbd6c522ea",
+    "bytes": 8107
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

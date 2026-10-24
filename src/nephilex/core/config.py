@@ -116,6 +116,21 @@ def _check_test_settings(autofix: dict[str, Any]) -> None:
         )
 
 
+def _library_mode(value: Any, default: str) -> str:
+    """``library_mode``: auto, on or off.
+
+    YAML 1.1 reads a bare ``on`` / ``off`` as a boolean, so true and false are
+    accepted as on and off.
+    """
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return "on" if value else "off"
+    if isinstance(value, str) and value.strip().lower() in ("auto", "on", "off"):
+        return value.strip().lower()
+    raise ConfigError(f"library_mode: expected auto, on or off, got {value!r}")
+
+
 def _severity(value: Any, key: str) -> Severity:
     try:
         return Severity.parse(value)
@@ -217,6 +232,12 @@ class Config:
     # comment); config files never change it.
     inline_ignores: bool = True
 
+    # Library mode for Python taint analysis: "auto" (on for a project with a
+    # package manifest and no recognized web application entry point), "on" or
+    # "off". In library mode the parameters of public functions are sources and
+    # their findings are tagged public-api; see nephilex.analysis.library.
+    library_mode: str = "auto"
+
     @classmethod
     def load(cls, path: str | Path | None = None, project_root: str | Path | None = None) -> Config:
         """Load config from an explicit path or by discovery in the project root."""
@@ -282,6 +303,7 @@ class Config:
         cfg.include_ignored = _bool(data, "include_ignored", cfg.include_ignored)
         if data.get("fail_on_error") is not None:
             cfg.fail_on_error = _bool(data, "fail_on_error", False)
+        cfg.library_mode = _library_mode(data.get("library_mode"), cfg.library_mode)
 
         options = _mapping(data, "scanner_options")
         for name, value in options.items():

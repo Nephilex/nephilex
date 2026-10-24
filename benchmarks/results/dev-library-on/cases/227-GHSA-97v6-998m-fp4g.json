@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-97v6-998m-fp4g",
+  "cve_id": "CVE-2026-33889",
+  "ecosystem": "npm",
+  "packages": [
+   "apostrophe"
+  ],
+  "published_at": "2026-04-16T20:42:37Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-97v6-998m-fp4g",
+  "label_cwes": [79],
+  "repo": "apostrophecms/apostrophe",
+  "fix_sha": "6a89bdb7acdb2e1e9bf1429961a6ba7f99410481",
+  "parent_sha": "7ca2d16237c72718ef7e5c7ae0458e6027ac4f64",
+  "path_vulnerable": "packages/apostrophe/modules/@apostrophecms/color-field/index.js",
+  "path_patched": "packages/apostrophe/modules/@apostrophecms/color-field/index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [36, 36]
+  ],
+  "patched_lines": [
+   [35, 35],
+   [37, 37],
+   [39, 43]
+  ],
+  "commit_url": "https://github.com/apostrophecms/apostrophe/commit/6a89bdb7acdb2e1e9bf1429961a6ba7f99410481",
+  "case_id": "227-GHSA-97v6-998m-fp4g",
+  "content": {
+   "vulnerable": {
+    "sha256": "1f6a65a2caafebe29db317b2d19d85439ccf563f214a3d4864b1d7bf35353d9d",
+    "bytes": 1505
+   },
+   "patched": {
+    "sha256": "dcd3df85e25af27ee741887b65c2ea4f8d40ac14956201620aca4d55a105c941",
+    "bytes": 1812
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

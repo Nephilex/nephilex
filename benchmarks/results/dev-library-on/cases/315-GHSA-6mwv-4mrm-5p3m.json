@@ -1,0 +1,102 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6mwv-4mrm-5p3m",
+  "cve_id": "CVE-2026-56678",
+  "ecosystem": "npm",
+  "packages": [
+   "9router"
+  ],
+  "published_at": "2026-09-23T18:12:30Z",
+  "advisory_cwes": [20, 918],
+  "html_url": "https://github.com/advisories/GHSA-6mwv-4mrm-5p3m",
+  "label_cwes": [918],
+  "repo": "decolua/9router",
+  "fix_sha": "126aa244c5b51b74ab8c7594e3418fcf4437bf6f",
+  "parent_sha": "f2a7ae20309b4af55023eb11d1c02f63be1b80d1",
+  "path_vulnerable": "src/lib/oauth/services/kiro.js",
+  "path_patched": "src/lib/oauth/services/kiro.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [1, 1],
+   [19, 20],
+   [52, 53],
+   [86, 87],
+   [179, 179],
+   [264, 265]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [20, 20],
+   [54, 54],
+   [89, 89],
+   [182, 184],
+   [270, 270]
+  ],
+  "commit_url": "https://github.com/decolua/9router/commit/126aa244c5b51b74ab8c7594e3418fcf4437bf6f",
+  "case_id": "315-GHSA-6mwv-4mrm-5p3m",
+  "content": {
+   "vulnerable": {
+    "sha256": "8b18a60a90707e588a83da2896cb222f784a7548f36190a5a08a699975ae973c",
+    "bytes": 11230
+   },
+   "patched": {
+    "sha256": "f8540a7c39c473ef542719aa2f367574ad061dcdd17eeb844cf5bffa9a005332",
+    "bytes": 11465
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

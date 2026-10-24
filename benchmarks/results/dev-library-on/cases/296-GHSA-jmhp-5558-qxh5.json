@@ -1,0 +1,107 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-jmhp-5558-qxh5",
+  "cve_id": "CVE-2026-27728",
+  "ecosystem": "npm",
+  "packages": [
+   "@oneuptime/common"
+  ],
+  "published_at": "2026-02-25T18:09:47Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-jmhp-5558-qxh5",
+  "label_cwes": [78],
+  "repo": "OneUptime/oneuptime",
+  "fix_sha": "f2cce35a04fac756cecc7a4c55e23758b99288c1",
+  "parent_sha": "93cead93fd2c4f2c1b9fe4c2ba53d5ad7526c236",
+  "path_vulnerable": "Probe/Utils/Monitors/MonitorTypes/NetworkPathMonitor.ts",
+  "path_patched": "Probe/Utils/Monitors/MonitorTypes/NetworkPathMonitor.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [13, 13],
+   [15, 17],
+   [85, 86],
+   [169, 169],
+   [171, 171],
+   [173, 173],
+   [176, 176],
+   [191, 191]
+  ],
+  "patched_lines": [
+   [13, 13],
+   [15, 18],
+   [87, 104],
+   [184, 190],
+   [195, 196],
+   [198, 205],
+   [207, 208],
+   [211, 212],
+   [227, 227]
+  ],
+  "commit_url": "https://github.com/OneUptime/oneuptime/commit/f2cce35a04fac756cecc7a4c55e23758b99288c1",
+  "case_id": "296-GHSA-jmhp-5558-qxh5",
+  "content": {
+   "vulnerable": {
+    "sha256": "590ec6906b05085ae63a5a5d1e20644ddfd91d30d414c71a2b7e701a6d631d42",
+    "bytes": 11791
+   },
+   "patched": {
+    "sha256": "864c19b76e20e60fdae822df58ef41fc91f5e9fb29402d71e33e812ecb1b4a06",
+    "bytes": 12814
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

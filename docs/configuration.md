@@ -60,6 +60,15 @@ parallel: true
 # See docs/audit-log.md.
 audit_log: true
 
+# Python library mode: auto | on | off (default auto). In library mode the
+# parameters of public functions are taint sources, and their findings are
+# reported at low confidence, tagged public-api, and do not count toward
+# fail_on. auto turns it on for a project with pyproject.toml, setup.py or
+# setup.cfg and no recognized web application entry point. Quote "on" and
+# "off" (bare on/off are YAML booleans, which are also accepted).
+# See docs/scanners.md, "Library mode".
+library_mode: auto
+
 ai:
   # heuristic (offline, default) | anthropic | openai | ollama (local)
   provider: heuristic
@@ -194,6 +203,21 @@ Nephilex scans source code with two complementary scanners:
   regex tier, nothing breaks. When both tiers run, findings for the same weakness
   are de-duplicated (the higher-confidence AST finding wins), so you never see one
   issue reported twice.
+
+### Library mode (`library_mode`)
+
+| Value | Effect |
+| --- | --- |
+| `auto` (default) | On when the scan root has `pyproject.toml`, `setup.py` or `setup.cfg` and no web application entry point is found (`Flask()`, `FastAPI()`, `Starlette()`, `get_wsgi_application()` and the others listed in [Scanners](scanners.md#library-mode)); off otherwise |
+| `on` | Always on, for example for a library whose repository also ships a demo app |
+| `off` | Never on |
+
+Any other value is a configuration error (exit 2), like the other keys. YAML
+reads a bare `on`/`off` as `true`/`false`; both forms are accepted. The JSON
+report records the decision under `project_summary.library_mode` (`setting`,
+`active`, `reason`). Library-mode findings carry the tag `public-api`, are low
+confidence and never fail `fail_on`; the reasoning is in
+[Scanners](scanners.md#library-mode).
 
 ## Common recipes
 

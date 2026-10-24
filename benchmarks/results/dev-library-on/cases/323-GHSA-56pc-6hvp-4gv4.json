@@ -1,0 +1,108 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-56pc-6hvp-4gv4",
+  "cve_id": "CVE-2026-32061",
+  "ecosystem": "npm",
+  "packages": [
+   "openclaw"
+  ],
+  "published_at": "2026-03-03T19:57:23Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-56pc-6hvp-4gv4",
+  "label_cwes": [22],
+  "repo": "openclaw/openclaw",
+  "fix_sha": "d1c00dbb7c64a39e205464dae7f2a068420e91c1",
+  "parent_sha": "b5f551d71698b96a6849f26cf280ab88bc24188c",
+  "path_vulnerable": "src/config/includes.ts",
+  "path_patched": "src/config/includes.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [15, 16],
+   [77, 78],
+   [81, 84],
+   [176, 177],
+   [179, 179],
+   [187, 187],
+   [189, 189],
+   [243, 243]
+  ],
+  "patched_lines": [
+   [16, 16],
+   [79, 80],
+   [85, 85],
+   [88, 89],
+   [182, 183],
+   [185, 185],
+   [193, 193],
+   [195, 195],
+   [249, 249],
+   [256, 263]
+  ],
+  "commit_url": "https://github.com/openclaw/openclaw/commit/d1c00dbb7c64a39e205464dae7f2a068420e91c1",
+  "case_id": "323-GHSA-56pc-6hvp-4gv4",
+  "content": {
+   "vulnerable": {
+    "sha256": "3c7b042adce0778bfd3d6083b6c3c41fe0d06e007bd110c943035d2bf9a52216",
+    "bytes": 8021
+   },
+   "patched": {
+    "sha256": "1798985fc53a8b132ad7c14ad6244bbaa6f01600288d1a89d8b968f9961231c7",
+    "bytes": 8460
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

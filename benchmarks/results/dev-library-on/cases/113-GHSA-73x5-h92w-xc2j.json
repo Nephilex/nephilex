@@ -1,0 +1,196 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-73x5-h92w-xc2j",
+  "cve_id": "CVE-2026-59215",
+  "ecosystem": "pip",
+  "packages": [
+   "open-webui"
+  ],
+  "published_at": "2026-07-24T17:04:31Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-73x5-h92w-xc2j",
+  "label_cwes": [639],
+  "repo": "open-webui/open-webui",
+  "fix_sha": "a66477b7104c5d141ce7bffaea424b43e7666ef1",
+  "parent_sha": "7b1aa749eb0590a387ab51a12ff126868f7216a0",
+  "path_vulnerable": "backend/open_webui/routers/channels.py",
+  "path_patched": "backend/open_webui/routers/channels.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [1131, 1132]
+  ],
+  "patched_lines": [
+   [1132, 1138]
+  ],
+  "commit_url": "https://github.com/open-webui/open-webui/commit/a66477b7104c5d141ce7bffaea424b43e7666ef1",
+  "case_id": "113-GHSA-73x5-h92w-xc2j",
+  "content": {
+   "vulnerable": {
+    "sha256": "38045d3a45d7fcfec8b5c68731d6331c5cd847ba475fc8b8c99a8e450829d621",
+    "bytes": 72609
+   },
+   "patched": {
+    "sha256": "f0852da3a37f2b81bdd2f44c7557f9a745af13cefab69ea1c4030b0baa472f3b",
+    "bytes": 73046
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      222,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      730,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      730,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1672,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      1672,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1890,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      1890,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ],
+    "patched": [
+     [
+      222,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      730,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      730,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1679,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      1679,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      1897,
+      "authz.idor-hint",
+      [639]
+     ],
+     [
+      1897,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1797,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      1804,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

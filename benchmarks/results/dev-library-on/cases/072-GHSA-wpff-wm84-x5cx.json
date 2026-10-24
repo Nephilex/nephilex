@@ -1,0 +1,254 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wpff-wm84-x5cx",
+  "cve_id": "CVE-2024-31215",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2024-04-04T14:39:03Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-wpff-wm84-x5cx",
+  "label_cwes": [918],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "43bb71d115d78c03faa82d75445dd908e9b32716",
+  "parent_sha": "6bce5a25b43d8297f24f761abd3b383a9301dcc5",
+  "path_vulnerable": "mobsf/StaticAnalyzer/views/common/shared_func.py",
+  "path_patched": "mobsf/StaticAnalyzer/views/common/shared_func.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [259, 259],
+   [269, 269],
+   [282, 286]
+  ],
+  "patched_lines": [
+   [258, 258],
+   [260, 260],
+   [263, 265],
+   [273, 274],
+   [287, 292]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/43bb71d115d78c03faa82d75445dd908e9b32716",
+  "case_id": "072-GHSA-wpff-wm84-x5cx",
+  "content": {
+   "vulnerable": {
+    "sha256": "d337bac337e8a0f848a7edd9838626969230cf9346d5c8a841ba97388ca33985",
+    "bytes": 13793
+   },
+   "patched": {
+    "sha256": "a789a7bff63ff43193592080730d23e3618c6a1b8f808f24d1856cbf3ddefa44",
+    "bytes": 14000
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      56,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      165,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      393,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      396,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      416,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      56,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      165,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      399,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      402,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      422,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      14,
+      "B404",
+      [78]
+     ],
+     [
+      56,
+      "B324",
+      [327]
+     ],
+     [
+      93,
+      "B603",
+      [78]
+     ],
+     [
+      95,
+      "B603",
+      [78]
+     ],
+     [
+      125,
+      "B603",
+      [78]
+     ],
+     [
+      142,
+      "B603",
+      [78]
+     ],
+     [
+      268,
+      "B113",
+      [400]
+     ]
+    ],
+    "patched": [
+     [
+      14,
+      "B404",
+      [78]
+     ],
+     [
+      56,
+      "B324",
+      [327]
+     ],
+     [
+      93,
+      "B603",
+      [78]
+     ],
+     [
+      95,
+      "B603",
+      [78]
+     ],
+     [
+      125,
+      "B603",
+      [78]
+     ],
+     [
+      142,
+      "B603",
+      [78]
+     ],
+     [
+      272,
+      "B113",
+      [400]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      56,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      56,
+      "python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

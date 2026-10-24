@@ -1,0 +1,128 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r3jc-3qmm-w3pw",
+  "cve_id": "CVE-2024-24811",
+  "ecosystem": "pip",
+  "packages": [
+   "Products.SQLAlchemyDA"
+  ],
+  "published_at": "2024-02-07T17:28:26Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-r3jc-3qmm-w3pw",
+  "label_cwes": [89],
+  "repo": "zopefoundation/Products.SQLAlchemyDA",
+  "fix_sha": "e682b99f8406f20bc3f0f2c77153ed7345fd215a",
+  "parent_sha": "39e2e98614c9c6b118fe34595db9e6186eeb15c9",
+  "path_vulnerable": "src/Products/SQLAlchemyDA/da.py",
+  "path_patched": "src/Products/SQLAlchemyDA/da.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [15, 16],
+   [297, 298],
+   [348, 349]
+  ],
+  "patched_lines": [
+   [16, 16],
+   [299, 299],
+   [351, 351]
+  ],
+  "commit_url": "https://github.com/zopefoundation/Products.SQLAlchemyDA/commit/e682b99f8406f20bc3f0f2c77153ed7345fd215a",
+  "case_id": "017-GHSA-r3jc-3qmm-w3pw",
+  "content": {
+   "vulnerable": {
+    "sha256": "37c49c49af7cdc387c4a6d75bdcdc30f3cac390ed4a8f48ab279637ab4ae45de",
+    "bytes": 18232
+   },
+   "patched": {
+    "sha256": "3f63abeb847520a11800c367808ba3dc8645892310d4786548465ec269ec5648",
+    "bytes": 18373
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      176,
+      "B311",
+      [330]
+     ]
+    ],
+    "patched": [
+     [
+      177,
+      "B311",
+      [330]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

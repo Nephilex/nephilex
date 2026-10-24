@@ -1,0 +1,119 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g4mf-96x5-5m2c",
+  "cve_id": "CVE-2025-12613",
+  "ecosystem": "npm",
+  "packages": [
+   "cloudinary"
+  ],
+  "published_at": "2025-11-10T06:30:26Z",
+  "advisory_cwes": [88],
+  "html_url": "https://github.com/advisories/GHSA-g4mf-96x5-5m2c",
+  "label_cwes": [88],
+  "repo": "cloudinary/cloudinary_npm",
+  "fix_sha": "ec4b65f2b3461365c569198ed6d2cfa61cca4050",
+  "parent_sha": "c7f784df4c5e7c0a0245db172e39ac65594177ff",
+  "path_vulnerable": "lib/utils/index.js",
+  "path_patched": "lib/utils/index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [547, 549],
+   [558, 560],
+   [637, 639],
+   [652, 653],
+   [748, 768],
+   [933, 935],
+   [1036, 1045],
+   [1115, 1121],
+   [1142, 1148],
+   [1167, 1167],
+   [1559, 1561],
+   [1571, 1575],
+   [1600, 1602],
+   [1744, 1745]
+  ],
+  "patched_lines": [
+   [547, 547],
+   [556, 556],
+   [633, 633],
+   [646, 646],
+   [741, 741],
+   [906, 906],
+   [1007, 1007],
+   [1077, 1112],
+   [1133, 1135],
+   [1153, 1154],
+   [1156, 1156],
+   [1548, 1548],
+   [1558, 1560],
+   [1585, 1585],
+   [1728, 1751]
+  ],
+  "commit_url": "https://github.com/cloudinary/cloudinary_npm/commit/ec4b65f2b3461365c569198ed6d2cfa61cca4050",
+  "case_id": "241-GHSA-g4mf-96x5-5m2c",
+  "content": {
+   "vulnerable": {
+    "sha256": "874e41f8b805ca7d68fc01db5f09f70ee47cc85a9597c0d78ad80b7142d6d35a",
+    "bytes": 59335
+   },
+   "patched": {
+    "sha256": "89e490a035302aabf39342e072e5c7954881a6c84e966a5350d65000fc48f4bf",
+    "bytes": 61293
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,164 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5jc6-h9w7-jm3p",
+  "cve_id": "CVE-2024-53999",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2024-12-03T18:45:22Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-5jc6-h9w7-jm3p",
+  "label_cwes": [79],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "27d165872847f5ae7417caf09f37edeeba741e1e",
+  "parent_sha": "0d3b1ec3b9f61ee68d349c1cc10d53ee96eef3f2",
+  "path_vulnerable": "mobsf/MobSF/views/home.py",
+  "path_patched": "mobsf/MobSF/views/home.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [166, 166]
+  ],
+  "patched_lines": [
+   [166, 166]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/27d165872847f5ae7417caf09f37edeeba741e1e",
+  "case_id": "031-GHSA-5jc6-h9w7-jm3p",
+  "content": {
+   "vulnerable": {
+    "sha256": "5314c6cf3220a2805a138c5b0f2fad769c216c6fa628af851039b35f7b56c4ea",
+    "bytes": 19507
+   },
+   "patched": {
+    "sha256": "698d7f17d8131875d01424eee9b8a11da4641541fb13ba508e2064cfbebea1fa",
+    "bytes": 19526
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      308,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      437,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      468,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      510,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      555,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      308,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      437,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      468,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      510,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      555,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

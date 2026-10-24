@@ -45,8 +45,60 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      380,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      427,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      490,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      905,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      921,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      380,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      427,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      490,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      905,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      921,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
    }
   },
   "bandit": {

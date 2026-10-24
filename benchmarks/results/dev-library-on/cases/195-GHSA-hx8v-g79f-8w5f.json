@@ -1,0 +1,128 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hx8v-g79f-8w5f",
+  "cve_id": "CVE-2026-59823",
+  "ecosystem": "pip",
+  "packages": [
+   "litellm"
+  ],
+  "published_at": "2026-09-17T14:51:21Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-hx8v-g79f-8w5f",
+  "label_cwes": [918],
+  "repo": "BerriAI/litellm",
+  "fix_sha": "47214be317f45a2d2ac08258362e0481411eb427",
+  "parent_sha": "93faf321df159b1ef65a98cc29a70958a96d184a",
+  "path_vulnerable": "litellm/responses/file_search/emulated_handler.py",
+  "path_patched": "litellm/responses/file_search/emulated_handler.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [18, 19],
+   [452, 460],
+   [569, 577]
+  ],
+  "patched_lines": [
+   [19, 19],
+   [453, 466],
+   [575, 587]
+  ],
+  "commit_url": "https://github.com/BerriAI/litellm/commit/47214be317f45a2d2ac08258362e0481411eb427",
+  "case_id": "195-GHSA-hx8v-g79f-8w5f",
+  "content": {
+   "vulnerable": {
+    "sha256": "4a1c47a9d55c5fac201a9ed8b25a52b317aea4c2070ca87e1ff37b9bed0d541c",
+    "bytes": 21796
+   },
+   "patched": {
+    "sha256": "aa0798df1851aaabb41b1dc3548d3651c726a167b009b5bfa290ddd6d2f70971",
+    "bytes": 22085
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      373,
+      "logic.state-transition",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      374,
+      "logic.state-transition",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

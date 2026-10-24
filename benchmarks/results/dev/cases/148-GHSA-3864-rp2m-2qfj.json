@@ -43,7 +43,18 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
+    "vulnerable": [
+     [
+      127,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      134,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
     "patched": []
    }
   },
@@ -68,15 +79,15 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

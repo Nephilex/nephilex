@@ -1,0 +1,148 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6x92-6vx4-5fwr",
+  "cve_id": "CVE-2026-63003",
+  "ecosystem": "pip",
+  "packages": [
+   "django-cms"
+  ],
+  "published_at": "2026-08-20T18:42:44Z",
+  "advisory_cwes": [639, 862],
+  "html_url": "https://github.com/advisories/GHSA-6x92-6vx4-5fwr",
+  "label_cwes": [639],
+  "repo": "django-cms/django-cms",
+  "fix_sha": "3e1ccf7573eb1a74ebbbfaaa812c1f5cadf14e6c",
+  "parent_sha": "3edf89a0a8bb06cdd54d2d22cba33ee7b72b5b82",
+  "path_vulnerable": "cms/forms/validators.py",
+  "path_patched": "cms/forms/validators.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 4],
+   [28, 29]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [30, 44]
+  ],
+  "commit_url": "https://github.com/django-cms/django-cms/commit/3e1ccf7573eb1a74ebbbfaaa812c1f5cadf14e6c",
+  "case_id": "150-GHSA-6x92-6vx4-5fwr",
+  "content": {
+   "vulnerable": {
+    "sha256": "cfe6944d6545834843041f85c7782eb8cb8f762934d0f07713b3cf095af954fb",
+    "bytes": 2987
+   },
+   "patched": {
+    "sha256": "400ab7f77790024bd86014190eaa1f37f2d7e95947e27c57dd5dae307a99d0dd",
+    "bytes": 3905
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      88,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      104,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      88,
+      "B308",
+      [79]
+     ],
+     [
+      88,
+      "B703",
+      [80]
+     ]
+    ],
+    "patched": [
+     [
+      104,
+      "B308",
+      [79]
+     ],
+     [
+      104,
+      "B703",
+      [80]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

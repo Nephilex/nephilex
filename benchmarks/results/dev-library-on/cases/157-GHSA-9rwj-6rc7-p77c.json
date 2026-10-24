@@ -1,0 +1,327 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9rwj-6rc7-p77c",
+  "cve_id": "CVE-2025-67644",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph-checkpoint-sqlite"
+  ],
+  "published_at": "2025-12-10T00:02:21Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-9rwj-6rc7-p77c",
+  "label_cwes": [89],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "297242913f8ad2143ee3e2f72e67db0911d48e2a",
+  "parent_sha": "02965fb5f5345d67c94af21e0663262e140e5e00",
+  "path_vulnerable": "libs/checkpoint-sqlite/langgraph/store/sqlite/base.py",
+  "path_patched": "libs/checkpoint-sqlite/langgraph/store/sqlite/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [109, 110],
+   [121, 121],
+   [407, 411],
+   [427, 427],
+   [639, 645],
+   [652, 652],
+   [658, 658],
+   [660, 665],
+   [670, 670],
+   [672, 677],
+   [682, 682],
+   [684, 689],
+   [694, 694],
+   [696, 701],
+   [706, 711],
+   [717, 717],
+   [795, 796],
+   [877, 883],
+   [890, 890],
+   [896, 896],
+   [898, 903],
+   [908, 908],
+   [910, 915],
+   [920, 920],
+   [922, 927],
+   [932, 932],
+   [934, 939],
+   [944, 949],
+   [955, 955]
+  ],
+  "patched_lines": [
+   [110, 112],
+   [124, 124],
+   [410, 410],
+   [412, 412],
+   [426, 426],
+   [428, 428],
+   [430, 430],
+   [641, 641],
+   [648, 650],
+   [656, 659],
+   [661, 661],
+   [666, 668],
+   [670, 670],
+   [675, 677],
+   [679, 679],
+   [684, 686],
+   [688, 688],
+   [693, 693],
+   [699, 700],
+   [778, 780],
+   [861, 861],
+   [868, 870],
+   [876, 879],
+   [881, 881],
+   [886, 888],
+   [890, 890],
+   [895, 897],
+   [899, 899],
+   [904, 906],
+   [908, 908],
+   [913, 913],
+   [919, 920]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/297242913f8ad2143ee3e2f72e67db0911d48e2a",
+  "case_id": "157-GHSA-9rwj-6rc7-p77c",
+  "content": {
+   "vulnerable": {
+    "sha256": "2708e4ad0954f4eb840822abeb712443eab36f7d838acfa4e87b11c5eb5e525d",
+    "bytes": 56306
+   },
+   "patched": {
+    "sha256": "b32cbae52fa411cd620a17e0d1f9c9fd39a50c2a500605917914a3abd02abd40",
+    "bytes": 55632
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      285,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      286,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      287,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1357,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1358,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1359,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      288,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      289,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      290,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1322,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1323,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1324,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      240,
+      "B608",
+      [89]
+     ],
+     [
+      257,
+      "B608",
+      [89]
+     ],
+     [
+      301,
+      "B608",
+      [89]
+     ],
+     [
+      472,
+      "B608",
+      [89]
+     ],
+     [
+      568,
+      "B608",
+      [89]
+     ],
+     [
+      619,
+      "B608",
+      [89]
+     ],
+     [
+      837,
+      "B608",
+      [89]
+     ],
+     [
+      854,
+      "B608",
+      [89]
+     ],
+     [
+      1366,
+      "B608",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      243,
+      "B608",
+      [89]
+     ],
+     [
+      260,
+      "B608",
+      [89]
+     ],
+     [
+      304,
+      "B608",
+      [89]
+     ],
+     [
+      474,
+      "B608",
+      [89]
+     ],
+     [
+      570,
+      "B608",
+      [89]
+     ],
+     [
+      621,
+      "B608",
+      [89]
+     ],
+     [
+      821,
+      "B608",
+      [89]
+     ],
+     [
+      838,
+      "B608",
+      [89]
+     ],
+     [
+      1331,
+      "B608",
+      [89]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

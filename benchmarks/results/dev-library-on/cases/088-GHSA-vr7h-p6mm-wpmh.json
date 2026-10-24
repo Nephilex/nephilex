@@ -1,0 +1,164 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vr7h-p6mm-wpmh",
+  "cve_id": "CVE-2025-71370",
+  "ecosystem": "pip",
+  "packages": [
+   "picklescan"
+  ],
+  "published_at": "2025-08-22T16:58:06Z",
+  "advisory_cwes": [345, 502],
+  "html_url": "https://github.com/advisories/GHSA-vr7h-p6mm-wpmh",
+  "label_cwes": [502],
+  "repo": "mmaitre314/picklescan",
+  "fix_sha": "7f994d62084fe43f1cffdef2f9bae6923344ef53",
+  "parent_sha": "58983e1c20973ac42f2df7ff15d7c8cd32f9b688",
+  "path_vulnerable": "src/picklescan/scanner.py",
+  "path_patched": "src/picklescan/scanner.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [142, 145],
+   [203, 205],
+   [274, 276],
+   [283, 285],
+   [315, 317],
+   [319, 321],
+   [323, 325],
+   [344, 346],
+   [360, 362],
+   [392, 394],
+   [399, 401],
+   [407, 409],
+   [494, 501],
+   [507, 511]
+  ],
+  "patched_lines": [
+   [143, 143],
+   [145, 146],
+   [148, 155],
+   [214, 214],
+   [283, 283],
+   [290, 290],
+   [320, 320],
+   [322, 322],
+   [324, 324],
+   [343, 343],
+   [357, 357],
+   [387, 387],
+   [392, 392],
+   [398, 398],
+   [483, 484],
+   [490, 490]
+  ],
+  "commit_url": "https://github.com/mmaitre314/picklescan/commit/7f994d62084fe43f1cffdef2f9bae6923344ef53",
+  "case_id": "088-GHSA-vr7h-p6mm-wpmh",
+  "content": {
+   "vulnerable": {
+    "sha256": "d84ed49baf6ee2db2168ee472eca39f464d4bfeecd1730b4f60638aa37724002",
+    "bytes": 18869
+   },
+   "patched": {
+    "sha256": "44173e468db7b07a5e4e0563bc3dfc076e0d32d111080d03f019f2a23bdbed65",
+    "bytes": 19116
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      160,
+      "llm.torch-load-pickle",
+      [502]
+     ]
+    ],
+    "patched": [
+     [
+      171,
+      "llm.torch-load-pickle",
+      [502]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      8,
+      "B403",
+      [502]
+     ]
+    ],
+    "patched": [
+     [
+      8,
+      "B403",
+      [502]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

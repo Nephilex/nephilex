@@ -1,0 +1,188 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g283-w6fp-c4fc",
+  "cve_id": "CVE-2026-46745",
+  "ecosystem": "pip",
+  "packages": [
+   "apache-airflow-providers-fab"
+  ],
+  "published_at": "2026-05-26T13:30:41Z",
+  "advisory_cwes": [90],
+  "html_url": "https://github.com/advisories/GHSA-g283-w6fp-c4fc",
+  "label_cwes": [90],
+  "repo": "apache/airflow",
+  "fix_sha": "3f7756bea71a7c7988511ec0557314ffb15fbe5e",
+  "parent_sha": "d3ea3ef0bccb23786e5b69a5534806ed6ed67c5e",
+  "path_vulnerable": "providers/fab/src/airflow/providers/fab/auth_manager/security_manager/override.py",
+  "path_patched": "providers/fab/src/airflow/providers/fab/auth_manager/security_manager/override.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [29, 29],
+   [414, 415],
+   [429, 429],
+   [1456, 1456],
+   [2386, 2386],
+   [2422, 2422],
+   [2424, 2424],
+   [2494, 2494]
+  ],
+  "patched_lines": [
+   [20, 20],
+   [25, 25],
+   [414, 415],
+   [428, 430],
+   [1457, 1457],
+   [2387, 2389],
+   [2424, 2425],
+   [2427, 2427],
+   [2429, 2429],
+   [2499, 2503]
+  ],
+  "commit_url": "https://github.com/apache/airflow/commit/3f7756bea71a7c7988511ec0557314ffb15fbe5e",
+  "case_id": "102-GHSA-g283-w6fp-c4fc",
+  "content": {
+   "vulnerable": {
+    "sha256": "00160cb39d32cbdff378a550febdda870adc641bc2dfcdd537bfc5202a91da57",
+    "bytes": 107045
+   },
+   "patched": {
+    "sha256": "787e02d591773b5a48c711a50e258d69946331337209444bdd9d5efcc1fe92a7",
+    "bytes": 107529
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      2241,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ],
+    "patched": [
+     [
+      2242,
+      "authz.missing-authentication",
+      [306]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1382,
+      "B107",
+      [259]
+     ],
+     [
+      1439,
+      "B107",
+      [259]
+     ],
+     [
+      2599,
+      "B704",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      1383,
+      "B107",
+      [259]
+     ],
+     [
+      1440,
+      "B107",
+      [259]
+     ],
+     [
+      2608,
+      "B704",
+      [79]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      414,
+      "python.jwt.security.unverified-jwt-decode.unverified-jwt-decode",
+      [287]
+     ],
+     [
+      1456,
+      "python.lang.security.insecure-uuid-version.insecure-uuid-version",
+      [330]
+     ],
+     [
+      2386,
+      "python.jwt.security.unverified-jwt-decode.unverified-jwt-decode",
+      [287]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

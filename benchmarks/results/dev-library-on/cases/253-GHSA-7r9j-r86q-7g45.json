@@ -1,0 +1,108 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7r9j-r86q-7g45",
+  "cve_id": "CVE-2026-31818",
+  "ecosystem": "npm",
+  "packages": [
+   "@budibase/backend-core"
+  ],
+  "published_at": "2026-04-03T21:34:44Z",
+  "advisory_cwes": [918, 1188],
+  "html_url": "https://github.com/advisories/GHSA-7r9j-r86q-7g45",
+  "label_cwes": [918],
+  "repo": "Budibase/budibase",
+  "fix_sha": "5b0fe83d4ece52696b62589cba89ef50cc009732",
+  "parent_sha": "34aa5295bcbf3d95fcbd589bdfac97dc6b5cedf9",
+  "path_vulnerable": "packages/backend-core/src/blacklist/blacklist.ts",
+  "path_patched": "packages/backend-core/src/blacklist/blacklist.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [6, 6],
+   [9, 15],
+   [24, 33],
+   [36, 36],
+   [40, 40],
+   [43, 46],
+   [49, 49],
+   [53, 53]
+  ],
+  "patched_lines": [
+   [6, 18],
+   [21, 28],
+   [30, 61],
+   [68, 97],
+   [99, 119],
+   [122, 123],
+   [127, 127],
+   [130, 130],
+   [133, 137],
+   [141, 141]
+  ],
+  "commit_url": "https://github.com/Budibase/budibase/commit/5b0fe83d4ece52696b62589cba89ef50cc009732",
+  "case_id": "253-GHSA-7r9j-r86q-7g45",
+  "content": {
+   "vulnerable": {
+    "sha256": "dfec77c92595b9182feaf03ad7cd790dae9de3ccb4553b645a62df2ea2631249",
+    "bytes": 1359
+   },
+   "patched": {
+    "sha256": "7fb9ae562e5792c504e44a95929f784fb6b5ecc49e3a4ecd28aeb527c74fa0ad",
+    "bytes": 3197
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

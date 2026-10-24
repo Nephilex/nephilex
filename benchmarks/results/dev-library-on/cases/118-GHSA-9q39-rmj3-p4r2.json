@@ -1,0 +1,117 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9q39-rmj3-p4r2",
+  "cve_id": "CVE-2024-43805",
+  "ecosystem": "pip",
+  "packages": [
+   "jupyterlab",
+   "notebook"
+  ],
+  "published_at": "2024-08-29T17:55:53Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-9q39-rmj3-p4r2",
+  "label_cwes": [79],
+  "repo": "jupyterlab/jupyterlab",
+  "fix_sha": "06ad9de836f155add7d3d651ef936cc4c5ea8093",
+  "parent_sha": "2ce23ac342377f71edd5cfd69c2f98d39e413703",
+  "path_vulnerable": "packages/apputils/src/sanitizer.ts",
+  "path_patched": "packages/apputils/src/sanitizer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [437, 438],
+   [461, 461],
+   [576, 576],
+   [593, 593],
+   [627, 627],
+   [658, 658],
+   [683, 683],
+   [704, 704],
+   [720, 720],
+   [726, 726],
+   [735, 735],
+   [775, 775],
+   [968, 968]
+  ],
+  "patched_lines": [
+   [438, 440],
+   [464, 474],
+   [589, 589],
+   [606, 606],
+   [640, 640],
+   [671, 671],
+   [696, 696],
+   [717, 717],
+   [733, 733],
+   [739, 739],
+   [748, 748],
+   [788, 788],
+   [981, 981]
+  ],
+  "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/06ad9de836f155add7d3d651ef936cc4c5ea8093",
+  "case_id": "118-GHSA-9q39-rmj3-p4r2",
+  "content": {
+   "vulnerable": {
+    "sha256": "5dfa2065e9a774cc8e1ef5759ebda389cf9bd1802159e4a1c715b118b46fa507",
+    "bytes": 40659
+   },
+   "patched": {
+    "sha256": "55fd1b3cc5e89f301a53b154192dc5f4f0d47b24f0e74c1c591a8fac8b40f668",
+    "bytes": 41474
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

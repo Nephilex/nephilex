@@ -1,0 +1,129 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rq9r-qvwg-829q",
+  "cve_id": "CVE-2024-57186",
+  "ecosystem": "npm",
+  "packages": [
+   "erxes"
+  ],
+  "published_at": "2025-06-10T18:32:27Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-rq9r-qvwg-829q",
+  "label_cwes": [22],
+  "repo": "erxes/erxes",
+  "fix_sha": "d626070a0fcd435ae29e689aca051ccfb440c2f3",
+  "parent_sha": "d53c361cd4f1d5b23001105d5cdcd782b523cb62",
+  "path_vulnerable": "packages/core/src/data/utils.ts",
+  "path_patched": "packages/core/src/data/utils.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [24, 25],
+   [480, 481],
+   [508, 508],
+   [544, 545],
+   [562, 562],
+   [591, 592],
+   [628, 628],
+   [665, 666],
+   [677, 680],
+   [772, 772],
+   [797, 798],
+   [808, 808],
+   [971, 972],
+   [1004, 1004],
+   [1020, 1020],
+   [1029, 1029],
+   [1056, 1056],
+   [1061, 1064],
+   [1066, 1067]
+  ],
+  "patched_lines": [
+   [25, 25],
+   [482, 483],
+   [511, 511],
+   [548, 549],
+   [567, 567],
+   [597, 598],
+   [635, 635],
+   [673, 674],
+   [686, 686],
+   [772, 773],
+   [780, 780],
+   [806, 807],
+   [818, 818],
+   [982, 982],
+   [1015, 1015],
+   [1031, 1031],
+   [1040, 1040],
+   [1067, 1067],
+   [1072, 1077],
+   [1079, 1081]
+  ],
+  "commit_url": "https://github.com/erxes/erxes/commit/d626070a0fcd435ae29e689aca051ccfb440c2f3",
+  "case_id": "343-GHSA-rq9r-qvwg-829q",
+  "content": {
+   "vulnerable": {
+    "sha256": "46f4e948e584e23d03a8072c6122c019233bf4bce1817e1c9736d635e278bc64",
+    "bytes": 34748
+   },
+   "patched": {
+    "sha256": "a932212cbe408b4effc9d4d549c13ee8ae9121514fc3f224f6b0443708b03b09",
+    "bytes": 35280
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

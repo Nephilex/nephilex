@@ -1,0 +1,728 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5gfj-64gh-mgmw",
+  "cve_id": "CVE-2026-39981",
+  "ecosystem": "pip",
+  "packages": [
+   "agixt"
+  ],
+  "published_at": "2026-04-08T20:02:01Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-5gfj-64gh-mgmw",
+  "label_cwes": [22],
+  "repo": "Josh-XT/AGiXT",
+  "fix_sha": "2079ea5a88fa671a921bf0b5eba887a5a1b73d5f",
+  "parent_sha": "872f519fcc75eb574d717ea10ca91fc089718ffe",
+  "path_vulnerable": "agixt/extensions/essential_abilities.py",
+  "path_patched": "agixt/extensions/essential_abilities.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [426, 426],
+   [436, 437]
+  ],
+  "patched_lines": [
+   [426, 427],
+   [434, 436],
+   [440, 443],
+   [445, 449]
+  ],
+  "commit_url": "https://github.com/Josh-XT/AGiXT/commit/2079ea5a88fa671a921bf0b5eba887a5a1b73d5f",
+  "case_id": "023-GHSA-5gfj-64gh-mgmw",
+  "content": {
+   "vulnerable": {
+    "sha256": "494ae4efa35cf7b67c2a99923c1a16e4283b070c21de3416617746444133bf74",
+    "bytes": 434571
+   },
+   "patched": {
+    "sha256": "218950e0dbd5fdd401cbc467daaba5c51899210a01d03fb5a9c1ff986e24e95b",
+    "bytes": 435178
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      440,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1216,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1919,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1930,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1969,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1980,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2023,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2032,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2101,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2112,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      3010,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      3382,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      5652,
+      "ast-python.ast-command-injection",
+      [78]
+     ],
+     [
+      8949,
+      "ast-python.ast-command-injection",
+      [78]
+     ],
+     [
+      9900,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      9901,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      9902,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      1227,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1930,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1941,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1980,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1991,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2034,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2043,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2112,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2123,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      3021,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      3393,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      5663,
+      "ast-python.ast-command-injection",
+      [78]
+     ],
+     [
+      8960,
+      "ast-python.ast-command-injection",
+      [78]
+     ],
+     [
+      9911,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      9912,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      9913,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      3,
+      "B404",
+      [78]
+     ],
+     [
+      931,
+      "B112",
+      [703]
+     ],
+     [
+      1120,
+      "B112",
+      [703]
+     ],
+     [
+      4574,
+      "B112",
+      [703]
+     ],
+     [
+      4777,
+      "B112",
+      [703]
+     ],
+     [
+      5044,
+      "B110",
+      [703]
+     ],
+     [
+      5388,
+      "B603",
+      [78]
+     ],
+     [
+      5388,
+      "B607",
+      [78]
+     ],
+     [
+      5398,
+      "B603",
+      [78]
+     ],
+     [
+      5398,
+      "B607",
+      [78]
+     ],
+     [
+      5493,
+      "B603",
+      [78]
+     ],
+     [
+      5493,
+      "B607",
+      [78]
+     ],
+     [
+      5504,
+      "B603",
+      [78]
+     ],
+     [
+      5504,
+      "B607",
+      [78]
+     ],
+     [
+      5515,
+      "B603",
+      [78]
+     ],
+     [
+      5515,
+      "B607",
+      [78]
+     ],
+     [
+      5525,
+      "B603",
+      [78]
+     ],
+     [
+      5525,
+      "B607",
+      [78]
+     ],
+     [
+      5541,
+      "B603",
+      [78]
+     ],
+     [
+      5541,
+      "B607",
+      [78]
+     ],
+     [
+      5591,
+      "B603",
+      [78]
+     ],
+     [
+      5652,
+      "B603",
+      [78]
+     ],
+     [
+      5879,
+      "B110",
+      [703]
+     ],
+     [
+      5895,
+      "B110",
+      [703]
+     ],
+     [
+      6050,
+      "B603",
+      [78]
+     ],
+     [
+      6050,
+      "B607",
+      [78]
+     ],
+     [
+      6592,
+      "B603",
+      [78]
+     ],
+     [
+      6651,
+      "B603",
+      [78]
+     ],
+     [
+      6708,
+      "B603",
+      [78]
+     ],
+     [
+      6777,
+      "B112",
+      [703]
+     ],
+     [
+      7224,
+      "B112",
+      [703]
+     ],
+     [
+      7342,
+      "B112",
+      [703]
+     ],
+     [
+      7787,
+      "B112",
+      [703]
+     ],
+     [
+      8318,
+      "B603",
+      [78]
+     ],
+     [
+      8363,
+      "B603",
+      [78]
+     ],
+     [
+      8409,
+      "B603",
+      [78]
+     ],
+     [
+      8451,
+      "B603",
+      [78]
+     ],
+     [
+      8491,
+      "B603",
+      [78]
+     ],
+     [
+      8648,
+      "B603",
+      [78]
+     ],
+     [
+      8949,
+      "B603",
+      [78]
+     ],
+     [
+      9735,
+      "B110",
+      [703]
+     ],
+     [
+      10660,
+      "B405",
+      [20]
+     ],
+     [
+      10694,
+      "B314",
+      [20]
+     ],
+     [
+      10999,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      3,
+      "B404",
+      [78]
+     ],
+     [
+      942,
+      "B112",
+      [703]
+     ],
+     [
+      1131,
+      "B112",
+      [703]
+     ],
+     [
+      4585,
+      "B112",
+      [703]
+     ],
+     [
+      4788,
+      "B112",
+      [703]
+     ],
+     [
+      5055,
+      "B110",
+      [703]
+     ],
+     [
+      5399,
+      "B603",
+      [78]
+     ],
+     [
+      5399,
+      "B607",
+      [78]
+     ],
+     [
+      5409,
+      "B603",
+      [78]
+     ],
+     [
+      5409,
+      "B607",
+      [78]
+     ],
+     [
+      5504,
+      "B603",
+      [78]
+     ],
+     [
+      5504,
+      "B607",
+      [78]
+     ],
+     [
+      5515,
+      "B603",
+      [78]
+     ],
+     [
+      5515,
+      "B607",
+      [78]
+     ],
+     [
+      5526,
+      "B603",
+      [78]
+     ],
+     [
+      5526,
+      "B607",
+      [78]
+     ],
+     [
+      5536,
+      "B603",
+      [78]
+     ],
+     [
+      5536,
+      "B607",
+      [78]
+     ],
+     [
+      5552,
+      "B603",
+      [78]
+     ],
+     [
+      5552,
+      "B607",
+      [78]
+     ],
+     [
+      5602,
+      "B603",
+      [78]
+     ],
+     [
+      5663,
+      "B603",
+      [78]
+     ],
+     [
+      5890,
+      "B110",
+      [703]
+     ],
+     [
+      5906,
+      "B110",
+      [703]
+     ],
+     [
+      6061,
+      "B603",
+      [78]
+     ],
+     [
+      6061,
+      "B607",
+      [78]
+     ],
+     [
+      6603,
+      "B603",
+      [78]
+     ],
+     [
+      6662,
+      "B603",
+      [78]
+     ],
+     [
+      6719,
+      "B603",
+      [78]
+     ],
+     [
+      6788,
+      "B112",
+      [703]
+     ],
+     [
+      7235,
+      "B112",
+      [703]
+     ],
+     [
+      7353,
+      "B112",
+      [703]
+     ],
+     [
+      7798,
+      "B112",
+      [703]
+     ],
+     [
+      8329,
+      "B603",
+      [78]
+     ],
+     [
+      8374,
+      "B603",
+      [78]
+     ],
+     [
+      8420,
+      "B603",
+      [78]
+     ],
+     [
+      8462,
+      "B603",
+      [78]
+     ],
+     [
+      8502,
+      "B603",
+      [78]
+     ],
+     [
+      8659,
+      "B603",
+      [78]
+     ],
+     [
+      8960,
+      "B603",
+      [78]
+     ],
+     [
+      9746,
+      "B110",
+      [703]
+     ],
+     [
+      10671,
+      "B405",
+      [20]
+     ],
+     [
+      10705,
+      "B314",
+      [20]
+     ],
+     [
+      11010,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched",
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

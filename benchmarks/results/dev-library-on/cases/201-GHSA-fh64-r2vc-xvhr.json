@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-fh64-r2vc-xvhr",
+  "cve_id": "CVE-2026-33865",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-04-07T15:30:50Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-fh64-r2vc-xvhr",
+  "label_cwes": [79],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "aca4dd0ec88a12f7655155c224371280e9b45dda",
+  "parent_sha": "b0f9766bc0042eea697ddfae6c60d471b418a075",
+  "path_vulnerable": "mlflow/server/js/src/experiment-tracking/components/experiment-logged-models/hooks/useValidateLoggedModelSignature.ts",
+  "path_patched": "mlflow/server/js/src/experiment-tracking/components/experiment-logged-models/hooks/useValidateLoggedModelSignature.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [17, 17]
+  ],
+  "patched_lines": [
+   [17, 17]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/aca4dd0ec88a12f7655155c224371280e9b45dda",
+  "case_id": "201-GHSA-fh64-r2vc-xvhr",
+  "content": {
+   "vulnerable": {
+    "sha256": "8ec30f425ceeeaee83859dfa2a2dad1060f6b42a1adb8808a879bfc33b4bdd0b",
+    "bytes": 921
+   },
+   "patched": {
+    "sha256": "9b4a8d4465cebd4459b9c4b30d2f947cceeef7fd1973d1c51f0a83ca70305dde",
+    "bytes": 925
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-943q-mwmv-hhvh",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "openclaw"
+  ],
+  "published_at": "2026-03-02T23:32:22Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-943q-mwmv-hhvh",
+  "label_cwes": [78],
+  "repo": "openclaw/openclaw",
+  "fix_sha": "153a7644eabc5f0214c9e51dd42cba5276e9bc3e",
+  "parent_sha": "eb4215d57062cbcdea75f3ab5a1b8c27cf5ba2c7",
+  "path_vulnerable": "src/acp/client.ts",
+  "path_patched": "src/acp/client.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [99, 100],
+   [103, 103]
+  ],
+  "patched_lines": [
+   [99, 106],
+   [109, 109]
+  ],
+  "commit_url": "https://github.com/openclaw/openclaw/commit/153a7644eabc5f0214c9e51dd42cba5276e9bc3e",
+  "case_id": "264-GHSA-943q-mwmv-hhvh",
+  "content": {
+   "vulnerable": {
+    "sha256": "13d2311f2cb97d0c5b5fcabdcf2e05979ddc5065fdf11ac2bacafbb82e8de55a",
+    "bytes": 11932
+   },
+   "patched": {
+    "sha256": "b0c1ba0d2f2a40272745e9490b6d430a593ed9d1842b940e73ec16e39ce3777d",
+    "bytes": 12132
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

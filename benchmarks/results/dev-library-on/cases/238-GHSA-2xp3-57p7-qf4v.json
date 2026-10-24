@@ -1,0 +1,141 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2xp3-57p7-qf4v",
+  "cve_id": "CVE-2024-32962",
+  "ecosystem": "npm",
+  "packages": [
+   "xml-crypto"
+  ],
+  "published_at": "2024-05-01T17:05:53Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-2xp3-57p7-qf4v",
+  "label_cwes": [347],
+  "repo": "node-saml/xml-crypto",
+  "fix_sha": "c2b83f984049edb68ad1d7c6ad0739ec92af11ca",
+  "parent_sha": "67b3a78586c3f740fb01ed963aee025c77fb1702",
+  "path_vulnerable": "lib/signed-xml.js",
+  "path_patched": "lib/signed-xml.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [7, 8],
+   [320, 320],
+   [338, 338],
+   [348, 348],
+   [354, 354],
+   [367, 368],
+   [379, 381],
+   [384, 385],
+   [387, 394],
+   [397, 404],
+   [491, 491],
+   [510, 510],
+   [519, 519],
+   [528, 528],
+   [935, 941],
+   [943, 943],
+   [946, 946],
+   [1193, 1194]
+  ],
+  "patched_lines": [
+   [6, 7],
+   [317, 318],
+   [333, 335],
+   [338, 338],
+   [348, 348],
+   [354, 354],
+   [367, 368],
+   [371, 371],
+   [380, 382],
+   [385, 385],
+   [387, 389],
+   [392, 409],
+   [413, 423],
+   [507, 507],
+   [526, 526],
+   [535, 535],
+   [544, 544],
+   [951, 958],
+   [960, 960],
+   [962, 964],
+   [1211, 1212]
+  ],
+  "commit_url": "https://github.com/node-saml/xml-crypto/commit/c2b83f984049edb68ad1d7c6ad0739ec92af11ca",
+  "case_id": "238-GHSA-2xp3-57p7-qf4v",
+  "content": {
+   "vulnerable": {
+    "sha256": "3afcc63e0717c8374af87d5791a2fb733a1f8b7d1f710614c0d2b9660b3b6f5b",
+    "bytes": 35121
+   },
+   "patched": {
+    "sha256": "bc9c35e4b3b18485dd20ce1153df66afa272445294c369a225e4134f37b17cec",
+    "bytes": 35672
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      17,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      15,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

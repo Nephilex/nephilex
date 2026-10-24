@@ -1,0 +1,102 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vvh2-82c7-ppfg",
+  "cve_id": "CVE-2024-21488",
+  "ecosystem": "npm",
+  "packages": [
+   "network"
+  ],
+  "published_at": "2024-01-30T06:30:23Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-vvh2-82c7-ppfg",
+  "label_cwes": [77],
+  "repo": "tomas/network",
+  "fix_sha": "5599ed6d6ff1571a5ccadea775430c131f381de7",
+  "parent_sha": "4a19ccd252174bc042bcb9b4ef78e6d1d321c042",
+  "path_vulnerable": "lib/linux.js",
+  "path_patched": "lib/linux.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [19, 19],
+   [30, 31],
+   [36, 37],
+   [41, 42],
+   [45, 46]
+  ],
+  "patched_lines": [
+   [16, 20],
+   [24, 24],
+   [27, 30],
+   [40, 40],
+   [47, 47],
+   [53, 53],
+   [58, 58]
+  ],
+  "commit_url": "https://github.com/tomas/network/commit/5599ed6d6ff1571a5ccadea775430c131f381de7",
+  "case_id": "316-GHSA-vvh2-82c7-ppfg",
+  "content": {
+   "vulnerable": {
+    "sha256": "19d9ee9a5d46298bab1071ef7999c812d2f4f71baffde4c68aa89867be32d282",
+    "bytes": 2557
+   },
+   "patched": {
+    "sha256": "436f5ca61e246c76ca16cb18baa5aaca00461c0291991e9a48b32916eb397fdb",
+    "bytes": 2931
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

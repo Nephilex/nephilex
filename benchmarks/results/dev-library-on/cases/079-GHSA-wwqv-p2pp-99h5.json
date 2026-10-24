@@ -1,0 +1,134 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wwqv-p2pp-99h5",
+  "cve_id": "CVE-2025-64439",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph-checkpoint"
+  ],
+  "published_at": "2025-11-05T19:52:50Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-wwqv-p2pp-99h5",
+  "label_cwes": [502],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "c5744f583b11745cd406f3059903e17bbcdcc8ac",
+  "parent_sha": "d298b489b477b6b6d479faf80b20aeba89a96ba5",
+  "path_vulnerable": "libs/checkpoint/langgraph/checkpoint/serde/encrypted.py",
+  "path_patched": "libs/checkpoint/langgraph/checkpoint/serde/encrypted.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [17, 22]
+  ],
+  "patched_lines": [
+   [16, 17]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/c5744f583b11745cd406f3059903e17bbcdcc8ac",
+  "case_id": "079-GHSA-wwqv-p2pp-99h5",
+  "content": {
+   "vulnerable": {
+    "sha256": "dca5dba3d4f5d89b09a19d3bd056fa15c9507452f0fd54fe130d477d9657508e",
+    "bytes": 3354
+   },
+   "patched": {
+    "sha256": "2ef00aaf2699cb15f2c8756c8cc14cfa540e4c309b68186ba517c1b4b4d57dfd",
+    "bytes": 3196
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      50,
+      "B413",
+      [327]
+     ],
+     [
+      78,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      44,
+      "B413",
+      [327]
+     ],
+     [
+      72,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

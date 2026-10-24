@@ -1,0 +1,139 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-39pv-4j6c-2g6v",
+  "cve_id": "CVE-2026-54266",
+  "ecosystem": "npm",
+  "packages": [
+   "@angular/common"
+  ],
+  "published_at": "2026-06-15T17:24:02Z",
+  "advisory_cwes": [328, 345],
+  "html_url": "https://github.com/advisories/GHSA-39pv-4j6c-2g6v",
+  "label_cwes": [328],
+  "repo": "angular/angular",
+  "fix_sha": "5f36274da3f961430ae72865159afa02a1dd9133",
+  "parent_sha": "e0d9ea2560a536369104baf5bc24375a532f8711",
+  "path_vulnerable": "packages/common/http/src/transfer_cache.ts",
+  "path_patched": "packages/common/http/src/transfer_cache.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [106, 106],
+   [108, 108],
+   [110, 110],
+   [112, 112],
+   [128, 128],
+   [158, 164],
+   [173, 176],
+   [190, 193],
+   [195, 195],
+   [198, 219],
+   [221, 230],
+   [232, 238],
+   [241, 241],
+   [249, 255],
+   [258, 260],
+   [267, 269],
+   [273, 273],
+   [278, 280],
+   [283, 288],
+   [290, 290],
+   [303, 305],
+   [330, 330],
+   [380, 399],
+   [536, 537]
+  ],
+  "patched_lines": [
+   [106, 106],
+   [108, 108],
+   [110, 110],
+   [112, 112],
+   [128, 128],
+   [158, 161],
+   [164, 172],
+   [178, 179],
+   [181, 181],
+   [195, 202],
+   [206, 208],
+   [210, 228],
+   [230, 240],
+   [243, 249],
+   [257, 258],
+   [261, 262],
+   [269, 279],
+   [287, 298],
+   [301, 304],
+   [306, 306],
+   [318, 319],
+   [321, 321],
+   [346, 348],
+   [397, 398],
+   [535, 694]
+  ],
+  "commit_url": "https://github.com/angular/angular/commit/5f36274da3f961430ae72865159afa02a1dd9133",
+  "case_id": "320-GHSA-39pv-4j6c-2g6v",
+  "content": {
+   "vulnerable": {
+    "sha256": "b834859a1810e13cdea1df0287c08ed09d1b2a24647969e9d19a2d1b638910f2",
+    "bytes": 17887
+   },
+   "patched": {
+    "sha256": "831808dda77ed3d4cf2e0fb7731636fc20a66ac101f351b2596c87186301621a",
+    "bytes": 24511
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

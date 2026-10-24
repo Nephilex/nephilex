@@ -1,0 +1,97 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-54xv-94qv-2gfg",
+  "cve_id": "CVE-2025-53626",
+  "ecosystem": "npm",
+  "packages": [
+   "@pdfme/common"
+  ],
+  "published_at": "2025-07-10T17:43:52Z",
+  "advisory_cwes": [79, 1321],
+  "html_url": "https://github.com/advisories/GHSA-54xv-94qv-2gfg",
+  "label_cwes": [79],
+  "repo": "pdfme/pdfme",
+  "fix_sha": "0dd54739acff2c249ed68c001a896bee38f0fd85",
+  "parent_sha": "663f21229fd532bc3f7ec325ed9fb7036f4fc63a",
+  "path_vulnerable": "packages/common/src/expression.ts",
+  "path_patched": "packages/common/src/expression.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [46, 46],
+   [91, 92],
+   [236, 237]
+  ],
+  "patched_lines": [
+   [40, 83],
+   [90, 90],
+   [136, 139],
+   [285, 288]
+  ],
+  "commit_url": "https://github.com/pdfme/pdfme/commit/0dd54739acff2c249ed68c001a896bee38f0fd85",
+  "case_id": "263-GHSA-54xv-94qv-2gfg",
+  "content": {
+   "vulnerable": {
+    "sha256": "d921ef2c42a6ca5a95e8bc10850a1ef6aec1cd583e7800f2cab1a53eb6328fd6",
+    "bytes": 12494
+   },
+   "patched": {
+    "sha256": "4195317e567f18fa2343f45b4fdf1a7e7924fe052811bbf6287ed711d7758eaf",
+    "bytes": 14398
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

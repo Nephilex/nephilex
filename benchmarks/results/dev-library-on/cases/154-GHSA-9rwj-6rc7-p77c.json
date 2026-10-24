@@ -1,0 +1,146 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9rwj-6rc7-p77c",
+  "cve_id": "CVE-2025-67644",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph-checkpoint-sqlite"
+  ],
+  "published_at": "2025-12-10T00:02:21Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-9rwj-6rc7-p77c",
+  "label_cwes": [89],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "297242913f8ad2143ee3e2f72e67db0911d48e2a",
+  "parent_sha": "02965fb5f5345d67c94af21e0663262e140e5e00",
+  "path_vulnerable": "libs/checkpoint-sqlite/langgraph/checkpoint/sqlite/__init__.py",
+  "path_patched": "libs/checkpoint-sqlite/langgraph/checkpoint/sqlite/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [332, 333]
+  ],
+  "patched_lines": [
+   [332, 334]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/297242913f8ad2143ee3e2f72e67db0911d48e2a",
+  "case_id": "154-GHSA-9rwj-6rc7-p77c",
+  "content": {
+   "vulnerable": {
+    "sha256": "85b7720dac0a30ba5b92e55a7019bc3082a7c3d7e06a4d6d83cf551702c13ade",
+    "bytes": 21807
+   },
+   "patched": {
+    "sha256": "c203296d49009504c05dd28855f20f91efb61ef2ab9d7dd2083ed41c76bd8f45",
+    "bytes": 21862
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      335,
+      "ast-python.ast-sql-injection",
+      [89]
+     ]
+    ],
+    "patched": [
+     [
+      336,
+      "ast-python.ast-sql-injection",
+      [89]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      328,
+      "B608",
+      [89]
+     ],
+     [
+      554,
+      "B311",
+      [330]
+     ]
+    ],
+    "patched": [
+     [
+      328,
+      "B608",
+      [89]
+     ],
+     [
+      555,
+      "B311",
+      [330]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

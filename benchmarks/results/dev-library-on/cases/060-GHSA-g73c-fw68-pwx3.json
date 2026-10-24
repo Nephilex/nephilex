@@ -1,0 +1,416 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g73c-fw68-pwx3",
+  "cve_id": "CVE-2025-2945",
+  "ecosystem": "pip",
+  "packages": [
+   "pgadmin4"
+  ],
+  "published_at": "2025-04-03T15:31:13Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-g73c-fw68-pwx3",
+  "label_cwes": [94],
+  "repo": "pgadmin-org/pgadmin4",
+  "fix_sha": "75be0bc22d3d8d7620711835db817bd7c021007c",
+  "parent_sha": "1305d9910beefd0d6b4c7eb4f111f86edb1d356b",
+  "path_vulnerable": "web/pgadmin/tools/sqleditor/__init__.py",
+  "path_patched": "web/pgadmin/tools/sqleditor/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2159, 2159]
+  ],
+  "patched_lines": [
+   [2159, 2160]
+  ],
+  "commit_url": "https://github.com/pgadmin-org/pgadmin4/commit/75be0bc22d3d8d7620711835db817bd7c021007c",
+  "case_id": "060-GHSA-g73c-fw68-pwx3",
+  "content": {
+   "vulnerable": {
+    "sha256": "ba44db771752bd6a3ccae11e0267e6c104302fe49c931ba812da8c1c445206be",
+    "bytes": 92726
+   },
+   "patched": {
+    "sha256": "2da5c707f2ea93134b73c5da9baf74e0f96f4f21f1565dd3dceb9daa7de33fa1",
+    "bytes": 92770
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      236,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      241,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      269,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      284,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      411,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      413,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      599,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      621,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      692,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      699,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      712,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      771,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      934,
+      "ast-python.ast-sql-injection",
+      [89]
+     ],
+     [
+      1442,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1714,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      1792,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      1976,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2037,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2046,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2108,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2159,
+      "ast-python.ast-code-injection",
+      [95]
+     ],
+     [
+      2707,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2750,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      236,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      241,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      269,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      284,
+      "ast-python.ast-trust-boundary",
+      [501]
+     ],
+     [
+      411,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      413,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      599,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      621,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      692,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      699,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      712,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      771,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      934,
+      "ast-python.ast-sql-injection",
+      [89]
+     ],
+     [
+      1442,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      1714,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      1792,
+      "patterns.python-pickle-loads",
+      [502]
+     ],
+     [
+      1976,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2037,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2046,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2108,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2708,
+      "ast-python.ast-xss",
+      [79]
+     ],
+     [
+      2751,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      12,
+      "B403",
+      [502]
+     ],
+     [
+      269,
+      "B301",
+      [502]
+     ],
+     [
+      502,
+      "B105",
+      [259]
+     ],
+     [
+      712,
+      "B301",
+      [502]
+     ],
+     [
+      771,
+      "B301",
+      [502]
+     ],
+     [
+      1714,
+      "B301",
+      [502]
+     ],
+     [
+      1792,
+      "B301",
+      [502]
+     ],
+     [
+      2159,
+      "B307",
+      [78]
+     ]
+    ],
+    "patched": [
+     [
+      12,
+      "B403",
+      [502]
+     ],
+     [
+      269,
+      "B301",
+      [502]
+     ],
+     [
+      502,
+      "B105",
+      [259]
+     ],
+     [
+      712,
+      "B301",
+      [502]
+     ],
+     [
+      771,
+      "B301",
+      [502]
+     ],
+     [
+      1714,
+      "B301",
+      [502]
+     ],
+     [
+      1792,
+      "B301",
+      [502]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

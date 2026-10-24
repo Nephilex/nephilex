@@ -82,6 +82,21 @@
       [306]
      ],
      [
+      428,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      480,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      484,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
       821,
       "ast-python.ast-path-traversal",
       [22]
@@ -122,6 +137,21 @@
       349,
       "authz.missing-authentication",
       [306]
+     ],
+     [
+      423,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      475,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      479,
+      "ast-python.ast-path-traversal",
+      [22]
      ],
      [
       816,

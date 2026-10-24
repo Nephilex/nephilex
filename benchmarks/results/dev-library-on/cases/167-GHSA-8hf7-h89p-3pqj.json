@@ -1,0 +1,128 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8hf7-h89p-3pqj",
+  "cve_id": "CVE-2026-24490",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2026-01-26T23:36:19Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-8hf7-h89p-3pqj",
+  "label_cwes": [79],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "2b08dd050e7685ee2a14fdbb454affab94129eae",
+  "parent_sha": "457d1e61f3c8dccc3351b40cf7cc34fb764ac615",
+  "path_vulnerable": "mobsf/StaticAnalyzer/views/android/manifest_analysis.py",
+  "path_patched": "mobsf/StaticAnalyzer/views/android/manifest_analysis.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [8, 9],
+   [70, 71],
+   [316, 317],
+   [379, 380],
+   [492, 493],
+   [607, 608],
+   [688, 689],
+   [775, 776],
+   [779, 780]
+  ],
+  "patched_lines": [
+   [9, 9],
+   [72, 78],
+   [325, 325],
+   [389, 389],
+   [503, 503],
+   [619, 619],
+   [701, 701],
+   [789, 789],
+   [794, 794]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/2b08dd050e7685ee2a14fdbb454affab94129eae",
+  "case_id": "167-GHSA-8hf7-h89p-3pqj",
+  "content": {
+   "vulnerable": {
+    "sha256": "881af3bb8f4faf8a3443216033d33aa54a535532aafd64e64365e675f1987082",
+    "bytes": 51115
+   },
+   "patched": {
+    "sha256": "4a0b866f63d352209da9c466548c910b2c6fe0d4bff52be8ac023ae2559bbad8",
+    "bytes": 51761
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

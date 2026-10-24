@@ -1,0 +1,143 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-p7w7-4929-vpj5",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@dynatrace-oss/dynatrace-mcp-server"
+  ],
+  "published_at": "2026-07-31T16:05:57Z",
+  "advisory_cwes": [306],
+  "html_url": "https://github.com/advisories/GHSA-p7w7-4929-vpj5",
+  "label_cwes": [306],
+  "repo": "dynatrace-oss/dynatrace-mcp",
+  "fix_sha": "8f12972481e9165e8bd24d63b0a9e71976f85a43",
+  "parent_sha": "ac5251edfcf9511c6c662414da743383e7d1451c",
+  "path_vulnerable": "src/index.ts",
+  "path_patched": "src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [45, 46],
+   [1539, 1540],
+   [1556, 1557],
+   [1602, 1604],
+   [1606, 1606],
+   [1619, 1620]
+  ],
+  "patched_lines": [
+   [46, 46],
+   [1541, 1547],
+   [1565, 1582],
+   [1628, 1642],
+   [1657, 1659]
+  ],
+  "commit_url": "https://github.com/dynatrace-oss/dynatrace-mcp/commit/8f12972481e9165e8bd24d63b0a9e71976f85a43",
+  "case_id": "275-GHSA-p7w7-4929-vpj5",
+  "content": {
+   "vulnerable": {
+    "sha256": "8c7ae52c78fbd1d4096d6980ad99456944df70ee8760f4df0678431f057573ef",
+    "bytes": 76508
+   },
+   "patched": {
+    "sha256": "e651a73a7613be88a075a376857fd44b8b62538b3309dccb20670df35a0e0ef1",
+    "bytes": 77904
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      152,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      154,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      171,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      1531,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ],
+    "patched": [
+     [
+      153,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      155,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      172,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      1532,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

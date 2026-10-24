@@ -1,0 +1,107 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m837-g268-mmv7",
+  "cve_id": "CVE-2025-54369",
+  "ecosystem": "npm",
+  "packages": [
+   "@node-saml/node-saml",
+   "node-saml"
+  ],
+  "published_at": "2025-07-25T14:08:50Z",
+  "advisory_cwes": [87, 287, 347],
+  "html_url": "https://github.com/advisories/GHSA-m837-g268-mmv7",
+  "label_cwes": [347],
+  "repo": "node-saml/node-saml",
+  "fix_sha": "31ead9411ebc3e2385086fa9149b6c17732bca10",
+  "parent_sha": "6c81160834cdeb8cb482893de0e2e1da8d199657",
+  "path_vulnerable": "src/xml.ts",
+  "path_patched": "src/xml.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [67, 79],
+   [106, 109],
+   [124, 124],
+   [179, 181],
+   [201, 204],
+   [226, 229],
+   [240, 243]
+  ],
+  "patched_lines": [
+   [61, 164],
+   [171, 173],
+   [201, 206],
+   [209, 209],
+   [224, 225],
+   [279, 279],
+   [299, 299],
+   [321, 321],
+   [332, 332]
+  ],
+  "commit_url": "https://github.com/node-saml/node-saml/commit/31ead9411ebc3e2385086fa9149b6c17732bca10",
+  "case_id": "243-GHSA-m837-g268-mmv7",
+  "content": {
+   "vulnerable": {
+    "sha256": "0799cf1e91bf5383d5ade61b2ca653cf01dfe75887470df90444f9ed4b4ab3bb",
+    "bytes": 9559
+   },
+   "patched": {
+    "sha256": "77f6f8c3a9d89597695863835cc25b66c7bc048a63dbe5ccd13cfecc6847e463",
+    "bytes": 13270
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,117 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-j6g5-3hh3-pgw8",
+  "cve_id": "CVE-2026-16796",
+  "ecosystem": "pip",
+  "packages": [
+   "bedrock-agentcore"
+  ],
+  "published_at": "2026-07-24T22:38:56Z",
+  "advisory_cwes": [88],
+  "html_url": "https://github.com/advisories/GHSA-j6g5-3hh3-pgw8",
+  "label_cwes": [88],
+  "repo": "aws/bedrock-agentcore-sdk-python",
+  "fix_sha": "3c4b4ee6b8730e6313a82c743ac37dbcc1c21cdb",
+  "parent_sha": "986801f10f3a8e2482d81f5c50330109355921e3",
+  "path_vulnerable": "src/bedrock_agentcore/tools/code_interpreter_client.py",
+  "path_patched": "src/bedrock_agentcore/tools/code_interpreter_client.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [8, 9],
+   [24, 24],
+   [609, 609]
+  ],
+  "patched_lines": [
+   [9, 9],
+   [24, 26],
+   [28, 28],
+   [613, 614]
+  ],
+  "commit_url": "https://github.com/aws/bedrock-agentcore-sdk-python/commit/3c4b4ee6b8730e6313a82c743ac37dbcc1c21cdb",
+  "case_id": "184-GHSA-j6g5-3hh3-pgw8",
+  "content": {
+   "vulnerable": {
+    "sha256": "4b5d1b8f3dbed8da60cdb8d7a010d2c92224045560a3f52c478184a6d1adf7f3",
+    "bytes": 31767
+   },
+   "patched": {
+    "sha256": "19236693156d94c2c5c40148357c1cb3e532eaf18e1d47ad0fc166c47d850c49",
+    "bytes": 32133
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

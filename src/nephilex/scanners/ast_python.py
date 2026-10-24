@@ -28,6 +28,7 @@ from functools import lru_cache
 from typing import TYPE_CHECKING, Any
 
 from nephilex.core.models import (
+    PUBLIC_API_TAG,
     Confidence,
     Finding,
     Likelihood,
@@ -41,12 +42,17 @@ from nephilex.scanners._pyflow import (
     CODE_FN,
     DESER_FN,
     NON_TAINT_SINKS,
+    ORIGIN_API,
+    ORIGIN_ARCHIVE,
+    ORIGIN_OPERATOR,
+    ORIGIN_REQUEST,
     PATH_FN,
     SINK_CWES,
     SOURCE_RE,
     SQL_FN,
     UNIVERSAL_SANITIZERS,
     Flow,
+    LibraryScope,
     source_callables,
 )
 
@@ -290,6 +296,24 @@ SINKS: list[Sink] = [
         "(e.g. os.path.realpath + prefix check, or secure_filename).",
     ),
     Sink(
+        id="ast-archive-extraction",
+        fn=re.compile(r"(?:^|\.)(?:extractall|extract|unpack_archive)$"),
+        cwe=["CWE-22"],
+        owasp=["A01:2021-Broken Access Control"],
+        severity=Severity.HIGH,
+        confidence=Confidence.MEDIUM,
+        title="Archive extracted without a member filter (tar slip)",
+        why="A tar archive that comes from untrusted input is extracted with "
+        "extractall()/extract() (or shutil.unpack_archive) and no filter, so member "
+        "names such as `../../etc/cron.d/x`, absolute paths and links are written "
+        "where they point, outside the destination directory.",
+        attack="Upload or supply an archive whose members are named `../` paths or "
+        "symlinks to overwrite files the application can write.",
+        impact="Arbitrary file write, often leading to code execution.",
+        fix="Pass filter='data' (Python 3.12+, backported to 3.8.17+) or validate each "
+        "member's resolved path against the destination before extracting it.",
+    ),
+    Sink(
         id="ast-code-injection",
         fn=CODE_FN,
         cwe=["CWE-95"],
@@ -300,6 +324,23 @@ SINKS: list[Sink] = [
         attack="Provide a Python expression/statement in the tainted value.",
         impact="Remote code execution within the interpreter.",
         fix="Never eval/exec untrusted input; use a safe parser or explicit dispatch.",
+    ),
+    Sink(
+        id="ast-template-injection",
+        fn=re.compile(r"(?:^|\.)(?:render_template_string|from_string|Template)$"),
+        cwe=["CWE-1336", "CWE-94"],
+        owasp=_INJECTION,
+        severity=Severity.HIGH,
+        title="Server-side template injection (template source from input)",
+        why="Untrusted input is used as the source of a Jinja2 or Mako template "
+        "(render_template_string, Template(), Environment.from_string). Template "
+        "expressions can reach Python objects, so the input can run code.",
+        attack="Send `{{ cycler.__init__.__globals__.os.popen('id').read() }}` as the "
+        "template text.",
+        impact="Remote code execution within the application.",
+        fix="Keep template source in files the application controls and pass input "
+        "as template variables; if users must write templates, render them with "
+        "jinja2.sandbox.ImmutableSandboxedEnvironment.",
     ),
     Sink(
         id="ast-unsafe-deserialization",
@@ -332,6 +373,41 @@ SINKS: list[Sink] = [
         impact="Script execution in the victim's session: account takeover, data theft.",
         fix="Escape output (markupsafe.escape / html.escape), render through an "
         "autoescaping template, or return JSON.",
+    ),
+    Sink(
+        id="ast-jinja-autoescape-off",
+        fn=re.compile(r"(?:^|\.)(?:Environment|SandboxedEnvironment|Template)$"),
+        cwe=["CWE-79"],
+        owasp=_INJECTION,
+        severity=Severity.MEDIUM,
+        confidence=Confidence.MEDIUM,
+        title="Jinja2 environment created with autoescape=False",
+        why="A Jinja2 Environment (or Template) is created with autoescaping "
+        "explicitly turned off, so every variable rendered into an HTML template is "
+        "inserted as raw markup.",
+        attack="Get any user-controlled value rendered by these templates to contain `<script>`.",
+        impact="Cross-site scripting in every page rendered with this environment.",
+        fix="Use autoescape=select_autoescape(['html', 'xml']) (or True) and mark "
+        "trusted HTML explicitly with markupsafe.Markup.",
+    ),
+    Sink(
+        id="ast-ssrf",
+        fn=re.compile(r"(?:^|\.)(?:get|post|put|patch|delete|head|options|request|urlopen|open)$"),
+        cwe=["CWE-918"],
+        owasp=["A10:2021-Server-Side Request Forgery (SSRF)"],
+        severity=Severity.HIGH,
+        title="Server-side request forgery (request URL from input)",
+        why="An outbound HTTP request (requests, httpx, aiohttp, urllib, urllib3) is "
+        "sent to a URL derived from untrusted input with no host allowlist or "
+        "internal-address check, so the server can be made to call any host it can "
+        "reach.",
+        attack="Supply `http://169.254.169.254/latest/meta-data/` or an internal "
+        "service URL as the parameter.",
+        impact="Access to cloud metadata credentials and internal services, and port "
+        "scanning from the server's network position.",
+        fix="Allow only expected hosts (urlparse(url).hostname in ALLOWED), or resolve "
+        "the host and reject private, loopback and link-local addresses before the "
+        "request; do not follow redirects to unchecked hosts.",
     ),
     Sink(
         id="ast-open-redirect",
@@ -424,6 +500,21 @@ _SINK_BY_ID = {s.id: s for s in SINKS}
 if set(_SINK_BY_ID) != set(SINK_CWES):  # pragma: no cover - a coding error
     raise RuntimeError("every flow sink needs a catalog entry")
 
+#: Command injection without a shell (an argv list, os.exec*): what the
+#: tainted value can do is choose the program or the code an interpreter runs.
+_ARGV_WHY = (
+    "A value derived from untrusted input chooses the program that is executed "
+    "(argv[0]), or the code passed to an interpreter or shell option such as -c. "
+    "No shell parses this command, so metacharacters alone do nothing; choosing "
+    "the program or its code is enough to run arbitrary commands."
+)
+_ARGV_ATTACK = (
+    "Name a different executable (for example /bin/sh) as the program, or supply "
+    "Python/shell code as the -c argument."
+)
+#: Which origin a finding keeps when several flows reach one sink.
+_ORIGIN_RANK = {ORIGIN_API: 0, ORIGIN_OPERATOR: 1, ORIGIN_ARCHIVE: 2, ORIGIN_REQUEST: 3}
+
 # Test/fixture paths, findings there are downgraded, matching the regex scanner.
 from nephilex.scanners.patterns import _is_test_file  # noqa: E402  (shared helper)
 
@@ -452,6 +543,9 @@ class ASTPythonScanner(Scanner):
             return
         context = language_context(ctx, "python")
         source = getattr(getattr(ctx.config, "context", None), "source", "") or ""
+        from nephilex.analysis.library import library_mode_for, module_is_public
+
+        library = library_mode_for(ctx.project, getattr(ctx.config, "library_mode", "auto"))
         for f in ctx.project.files():
             if f.language != "Python" or f.is_probably_binary():
                 continue
@@ -461,11 +555,14 @@ class ASTPythonScanner(Scanner):
             # One hostile or unparseable file must never sink the whole scanner:
             # analyze each file in isolation and note the ones that fail.
             in_test = _is_test_file(f.rel_path)
+            scope = (
+                LibraryScope(module_public=module_is_public(f.rel_path)) if library.active else None
+            )
             try:
                 tree = parser.parse(src)
                 findings = run_with_context(
-                    lambda c, src=src, path=f.rel_path, in_test=in_test: _Analyzer(
-                        src, path, in_test, context=c
+                    lambda c, src=src, path=f.rel_path, in_test=in_test, scope=scope: _Analyzer(
+                        src, path, in_test, context=c, library=scope
                     ),
                     tree.root_node,
                     f.text(),
@@ -518,11 +615,14 @@ class _Analyzer:
         context: LanguageContext | None = None,
         source_methods: frozenset[str] = frozenset(),
         source_functions: frozenset[str] = frozenset(),
+        library: LibraryScope | None = None,
     ) -> None:
         self._src = src
         self._path = path
         self._in_test = in_test
-        self._seen: set[tuple[str, int]] = set()  # (sink_id, line) de-dup within file
+        self._library = library
+        # (sink_id, line) -> index into self._findings: de-dup within the file
+        self._seen: dict[tuple[str, int], int] = {}
         self._lines: list[bytes] | None = None
         # Project context (trusted config only): extra sanitizers, some valid
         # only for particular CWEs, and sources that are not attacker-controlled.
@@ -539,8 +639,10 @@ class _Analyzer:
             context=self._ctx,
             source_methods=self._extra_methods | frozenset(methods),
             source_functions=self._extra_functions | frozenset(functions),
+            library=self._library,
         )
         self._findings = []
+        self._seen = {}
         flow.run(root)
         return list(self._findings)
 
@@ -553,29 +655,98 @@ class _Analyzer:
         """
         found: list[tuple[str, int]] = []
         seen: set[tuple[str, int]] = set()
+        #: (sink_id, line) -> emit detail ("argv" for a command without a shell)
+        self.seed_details: dict[tuple[str, int], str] = {}
 
-        def collect(sink_id: str, node) -> None:
+        def collect(sink_id: str, node, **info: object) -> None:
             key = (sink_id, node.start_point[0] + 1)
             if sink_id not in NON_TAINT_SINKS and key not in seen:
                 seen.add(key)
                 found.append(key)
+                if info.get("detail"):
+                    self.seed_details[key] = str(info["detail"])
 
         Flow(self._src, collect, context=self._ctx).run_body(body, seed_names)
         return found
 
-    def _emit(self, sink_id: str, node) -> None:
+    def _emit(
+        self,
+        sink_id: str,
+        node,
+        origin: str = ORIGIN_REQUEST,
+        owner: str | None = None,
+        detail: str | None = None,
+    ) -> None:
         line = node.start_point[0] + 1
         key = (sink_id, line)
-        if key in self._seen:
-            return
-        self._seen.add(key)
         sink = _SINK_BY_ID[sink_id]
-        self._findings.append(self._finding(sink, line, node))
+        if key in self._seen:
+            # The strongest origin wins at one sink: request data, an archive
+            # member name, operator input, then a public API parameter.
+            index = self._seen[key]
+            old = self._findings[index].metadata.get("source", ORIGIN_REQUEST)
+            if _ORIGIN_RANK[origin] > _ORIGIN_RANK.get(str(old), 0):
+                self._findings[index] = self._finding(sink, line, node, origin, owner, detail)
+            return
+        self._seen[key] = len(self._findings)
+        self._findings.append(self._finding(sink, line, node, origin, owner, detail))
 
-    def _finding(self, sink: Sink, line: int, node) -> Finding:
+    def _finding(
+        self,
+        sink: Sink,
+        line: int,
+        node,
+        origin: str = ORIGIN_REQUEST,
+        owner: str | None = None,
+        detail: str | None = None,
+    ) -> Finding:
         severity = sink.severity
         confidence = sink.confidence  # backed by real data flow, not a pattern
         tags = ["sast", "ast", "taint"]
+        why = sink.why
+        attack = sink.attack
+        if detail == "argv":
+            why = _ARGV_WHY
+            attack = _ARGV_ATTACK
+        description = why
+        metadata: dict[str, object] = {"analysis": "taint-dataflow"}
+        if origin == ORIGIN_OPERATOR:
+            # sys.argv, os.environ, input(): whoever runs the program controls
+            # them, so these flows matter when another program passes
+            # untrusted data through the command line or environment.
+            confidence = Confidence.LOW
+            tags.append("operator-input")
+            description = (
+                f"{why} The value comes from the command line, the environment or "
+                "interactive input (sys.argv, os.environ, input()), which the person "
+                "or program running this code controls; it matters when untrusted "
+                "data is passed in that way."
+            )
+            metadata["source"] = ORIGIN_OPERATOR
+        elif origin == ORIGIN_API:
+            # Library mode: the value is whatever a caller of the public API
+            # passes, not something traced to a request.
+            confidence = Confidence.LOW
+            tags += [PUBLIC_API_TAG, "library-mode"]
+            where = f"`{owner}()`" if owner else "a public function"
+            description = (
+                f"{why} The value comes from a parameter of the public function "
+                f"{where}, so whoever calls the library's API controls it; it was not "
+                "traced to a request. Reported in library mode; it does not count "
+                "toward --fail-on."
+            )
+            metadata["source"] = ORIGIN_API
+            if owner:
+                metadata["public_function"] = owner
+        elif origin == ORIGIN_ARCHIVE:
+            confidence = min(confidence, Confidence.MEDIUM)
+            tags.append("archive-entry")
+            description = (
+                f"{why} The path comes from a member name stored in a zip or tar "
+                "archive: an archive built by an attacker can name a member `../../x` "
+                "or an absolute path (zip slip)."
+            )
+            metadata["source"] = ORIGIN_ARCHIVE
         if self._in_test:
             severity = Severity(max(Severity.INFO, sink.severity - 1))
             confidence = Confidence.LOW
@@ -587,15 +758,15 @@ class _Analyzer:
             rule_id=f"{ASTPythonScanner.name}.{sink.id}",
             scanner=ASTPythonScanner.name,
             title=sink.title,
-            description=sink.why,
+            description=description,
             location=node_location(self._path, self._src, node, self._lines),
             severity=severity,
             confidence=confidence,
             likelihood=Likelihood.LIKELY,
             cwe=sink.cwe,
             owasp=sink.owasp,
-            why_vulnerable=sink.why,
-            attacker_perspective=sink.attack,
+            why_vulnerable=why,
+            attacker_perspective=attack,
             business_impact=sink.impact,
             remediation=Remediation(
                 summary=sink.fix,
@@ -604,7 +775,7 @@ class _Analyzer:
                 or [f"https://cwe.mitre.org/data/definitions/{sink.cwe[0].split('-')[1]}.html"],
             ),
             tags=tags,
-            metadata={"analysis": "taint-dataflow"},
+            metadata=metadata,
         )
 
 

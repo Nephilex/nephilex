@@ -1,0 +1,126 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cxqh-p2w9-fmr7",
+  "cve_id": "CVE-2026-3029",
+  "ecosystem": "pip",
+  "packages": [
+   "PyMuPDF"
+  ],
+  "published_at": "2026-03-19T18:31:18Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-cxqh-p2w9-fmr7",
+  "label_cwes": [22],
+  "repo": "pymupdf/PyMuPDF",
+  "fix_sha": "603cafe38a183b8bab34f16d05043b4185d8d40a",
+  "parent_sha": "2129cd2c5a48ecc3a558b7bbbcccae145b7cb87b",
+  "path_vulnerable": "src/__main__.py",
+  "path_patched": "src/__main__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [352, 353],
+   [1026, 1027]
+  ],
+  "patched_lines": [
+   [353, 358],
+   [1033, 1035]
+  ],
+  "commit_url": "https://github.com/pymupdf/PyMuPDF/commit/603cafe38a183b8bab34f16d05043b4185d8d40a",
+  "case_id": "116-GHSA-cxqh-p2w9-fmr7",
+  "content": {
+   "vulnerable": {
+    "sha256": "567450155500db92373500da6a1fff920ec0c9865294fa3da5feff5194a53832",
+    "bytes": 40780
+   },
+   "patched": {
+    "sha256": "bdbe9ee307ebc34dcd8b7bff22c7b39f5104422200c52a5196bf69fa8e81baa7",
+    "bytes": 41338
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      370,
+      "B110",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      376,
+      "B110",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

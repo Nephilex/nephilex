@@ -80,7 +80,37 @@
       [306]
      ],
      [
+      1054,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      1103,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1107,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
       1770,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2000,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2204,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2208,
       "ast-python.ast-path-traversal",
       [22]
      ],
@@ -127,7 +157,37 @@
       [306]
      ],
      [
+      1057,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      1106,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1110,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
       1773,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2003,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2207,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2211,
       "ast-python.ast-path-traversal",
       [22]
      ],

@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w284-33mx-6g9v",
+  "cve_id": "CVE-2026-54666",
+  "ecosystem": "npm",
+  "packages": [
+   "swagger-typescript-api"
+  ],
+  "published_at": "2026-07-29T14:35:02Z",
+  "advisory_cwes": [74, 94, 1336],
+  "html_url": "https://github.com/advisories/GHSA-w284-33mx-6g9v",
+  "label_cwes": [74, 94, 1336],
+  "repo": "acacode/swagger-typescript-api",
+  "fix_sha": "306d59acb8ffbb00f953f807b97234b21f51d9de",
+  "parent_sha": "de76b586072c1723c6749b177d648e11363ef19a",
+  "path_vulnerable": "src/code-gen-process.ts",
+  "path_patched": "src/code-gen-process.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [19, 20],
+   [591, 591]
+  ],
+  "patched_lines": [
+   [20, 20],
+   [592, 592]
+  ],
+  "commit_url": "https://github.com/acacode/swagger-typescript-api/commit/306d59acb8ffbb00f953f807b97234b21f51d9de",
+  "case_id": "217-GHSA-w284-33mx-6g9v",
+  "content": {
+   "vulnerable": {
+    "sha256": "de1155b7b93a9ca448e608736a8f02d6aa53e25459882d76cb924aab20f6a673",
+    "bytes": 18605
+   },
+   "patched": {
+    "sha256": "59ed59a9b50b5307b0a04f4ab0ad33d5d6e5ce998f4c58ba00d7b5d9b7773fb4",
+    "bytes": 18710
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

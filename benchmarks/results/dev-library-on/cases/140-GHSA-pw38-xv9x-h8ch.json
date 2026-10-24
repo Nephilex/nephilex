@@ -1,0 +1,136 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pw38-xv9x-h8ch",
+  "cve_id": "CVE-2024-4181",
+  "ecosystem": "pip",
+  "packages": [
+   "llama-index",
+   "llama-index-llms-rungpt"
+  ],
+  "published_at": "2024-05-16T09:33:08Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-pw38-xv9x-h8ch",
+  "label_cwes": [94],
+  "repo": "run-llama/llama_index",
+  "fix_sha": "d73715eaf0642705583e7897c78b9c8dd2d3a7ba",
+  "parent_sha": "44faac91742ef688d66f16cfd1adb811f43b53c2",
+  "path_vulnerable": "llama-index-core/llama_index/core/query_engine/cogniswitch_query_engine.py",
+  "path_patched": "llama-index-core/llama_index/core/query_engine/cogniswitch_query_engine.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [44, 44]
+  ],
+  "patched_lines": [
+   [43, 44]
+  ],
+  "commit_url": "https://github.com/run-llama/llama_index/commit/d73715eaf0642705583e7897c78b9c8dd2d3a7ba",
+  "case_id": "140-GHSA-pw38-xv9x-h8ch",
+  "content": {
+   "vulnerable": {
+    "sha256": "2ccfcd6c0b8dfc63060ceb6522397e56965350bb737d7d9af7a00779a47b6677",
+    "bytes": 2058
+   },
+   "patched": {
+    "sha256": "94af94e3dda56fb1135b8b9ff45c6eed169888d8ae531e0e38bed6b62f4f96a2",
+    "bytes": 2032
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      44,
+      "patterns.tls-verify-disabled",
+      [295]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      41,
+      "B113",
+      [400]
+     ],
+     [
+      44,
+      "B501",
+      [295]
+     ]
+    ],
+    "patched": [
+     [
+      41,
+      "B113",
+      [400]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

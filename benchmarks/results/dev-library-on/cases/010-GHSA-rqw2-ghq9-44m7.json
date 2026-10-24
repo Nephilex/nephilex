@@ -1,0 +1,114 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rqw2-ghq9-44m7",
+  "cve_id": "CVE-2025-13372",
+  "ecosystem": "pip",
+  "packages": [
+   "Django"
+  ],
+  "published_at": "2025-12-02T18:30:35Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-rqw2-ghq9-44m7",
+  "label_cwes": [89],
+  "repo": "django/django",
+  "fix_sha": "479415ce5249bcdebeb6570c72df2a87f45a7bbf",
+  "parent_sha": "da1dfe64c821ba03ca7b0c936184cca1ad641316",
+  "path_vulnerable": "django/db/backends/postgresql/compiler.py",
+  "path_patched": "django/db/backends/postgresql/compiler.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 3],
+   [27, 28]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [28, 36]
+  ],
+  "commit_url": "https://github.com/django/django/commit/479415ce5249bcdebeb6570c72df2a87f45a7bbf",
+  "case_id": "010-GHSA-rqw2-ghq9-44m7",
+  "content": {
+   "vulnerable": {
+    "sha256": "9b7f09ae8d1928e5719a580fc4a7aa9f476239a50c89bb2d70d3b5558ab43493",
+    "bytes": 2370
+   },
+   "patched": {
+    "sha256": "1dc07f56f58612761d23ca9d462d4632716cc794cebadbe99a52431b9a7ec2db",
+    "bytes": 2675
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

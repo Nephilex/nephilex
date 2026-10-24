@@ -1,0 +1,109 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8v8x-cx79-35w7",
+  "cve_id": "CVE-2026-21884",
+  "ecosystem": "npm",
+  "packages": [
+   "@remix-run/react",
+   "react-router"
+  ],
+  "published_at": "2026-01-08T20:50:05Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-8v8x-cx79-35w7",
+  "label_cwes": [79],
+  "repo": "remix-run/react-router",
+  "fix_sha": "c89c32c562a7723c45ee71dab1c892acaf7a608d",
+  "parent_sha": "041c7b10b503fa68fe830ecb4153dad07ece3646",
+  "path_vulnerable": "packages/react-router/lib/dom/server.tsx",
+  "path_patched": "packages/react-router/lib/dom/server.tsx",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [37, 38],
+   [190, 190],
+   [523, 538]
+  ],
+  "patched_lines": [
+   [38, 38],
+   [191, 191],
+   [523, 524]
+  ],
+  "commit_url": "https://github.com/remix-run/react-router/commit/c89c32c562a7723c45ee71dab1c892acaf7a608d",
+  "case_id": "307-GHSA-8v8x-cx79-35w7",
+  "content": {
+   "vulnerable": {
+    "sha256": "2699178dfc2ec13610390096794de7722fbe1fb40e293c11e13b02092e6e1169",
+    "bytes": 15147
+   },
+   "patched": {
+    "sha256": "d4d97af1a58402b04c30b5571ac1800e0186b07d6adc7bb60355a9c51c593fd2",
+    "bytes": 14704
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      224,
+      "typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      225,
+      "typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml",
+      [79]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

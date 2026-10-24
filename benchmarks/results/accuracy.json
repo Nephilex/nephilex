@@ -33,7 +33,7 @@
     "taint": {
       "recall": 1.0,
       "precision": 1.0,
-      "vulnerable_cases": 11,
+      "vulnerable_cases": 16,
       "false_positives": 0
     }
   },
@@ -43,7 +43,7 @@
   "overall": {
     "recall": 1.0,
     "precision": 1.0,
-    "vulnerable_cases": 43,
+    "vulnerable_cases": 48,
     "false_positives": 0
   }
 }

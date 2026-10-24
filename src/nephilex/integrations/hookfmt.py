@@ -23,7 +23,7 @@ from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
 
-from nephilex.core.models import Finding, Severity
+from nephilex.core.models import Finding, Severity, counts_toward_gate
 
 EDITORS = ("claude", "cursor")
 
@@ -138,7 +138,7 @@ def claude_response(findings: list[Finding], fail_on: Severity) -> dict[str, Any
     """
     if not findings:
         return None
-    blocking = [f for f in findings if f.severity >= fail_on]
+    blocking = [f for f in findings if f.severity >= fail_on and counts_toward_gate(f)]
     lines = hook_lines(findings)
     if blocking:
         head = (

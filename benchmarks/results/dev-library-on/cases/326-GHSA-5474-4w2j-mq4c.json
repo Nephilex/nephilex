@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5474-4w2j-mq4c",
+  "cve_id": "CVE-2026-34451",
+  "ecosystem": "npm",
+  "packages": [
+   "@anthropic-ai/sdk"
+  ],
+  "published_at": "2026-04-01T21:16:49Z",
+  "advisory_cwes": [22, 41],
+  "html_url": "https://github.com/advisories/GHSA-5474-4w2j-mq4c",
+  "label_cwes": [22],
+  "repo": "anthropics/anthropic-sdk-typescript",
+  "fix_sha": "0ac69b3438ee9c96b21a7d3c39c07b7cdb6995d9",
+  "parent_sha": "284561fe36b244f5b6ab624ec2608c07f71f476e",
+  "path_vulnerable": "src/tools/memory/node.ts",
+  "path_patched": "src/tools/memory/node.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [76, 76],
+   [144, 144]
+  ],
+  "patched_lines": [
+   [76, 76],
+   [144, 144]
+  ],
+  "commit_url": "https://github.com/anthropics/anthropic-sdk-typescript/commit/0ac69b3438ee9c96b21a7d3c39c07b7cdb6995d9",
+  "case_id": "326-GHSA-5474-4w2j-mq4c",
+  "content": {
+   "vulnerable": {
+    "sha256": "8ff05fc2edef11f8014bc62682340eb0b24fc53c6d943c9b14a19dcbdd0d2dcc",
+    "bytes": 13190
+   },
+   "patched": {
+    "sha256": "087245d1eb77a2d9e1a8877ba9c9ebd9483d6b51a0194435b05afa36cf2ca532",
+    "bytes": 13274
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

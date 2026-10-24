@@ -1,0 +1,191 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-55v6-g8pm-pw4c",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "rembg"
+  ],
+  "published_at": "2026-04-10T22:09:15Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-55v6-g8pm-pw4c",
+  "label_cwes": [918],
+  "repo": "danielgatis/rembg",
+  "fix_sha": "07ad0d493057bddf821dcc3e2410eb7e065257c0",
+  "parent_sha": "7c76d3cdc5757ffbda6a76664b24cfbecdb80273",
+  "path_vulnerable": "rembg/commands/s_command.py",
+  "path_patched": "rembg/commands/s_command.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [11, 11],
+   [102, 102],
+   [240, 241],
+   [252, 253]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [4, 4],
+   [7, 7],
+   [14, 14],
+   [105, 105],
+   [244, 271],
+   [284, 288]
+  ],
+  "commit_url": "https://github.com/danielgatis/rembg/commit/07ad0d493057bddf821dcc3e2410eb7e065257c0",
+  "case_id": "083-GHSA-55v6-g8pm-pw4c",
+  "content": {
+   "vulnerable": {
+    "sha256": "7d573c63ee50d902bbf5917d01aedaa9e1b047ac9a60ebbf3b014b67174d1144",
+    "bytes": 10945
+   },
+   "patched": {
+    "sha256": "8bb13614188843341d61debd505677ac15839a921f9a36e062ede4b5713e1928",
+    "bytes": 12138
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      254,
+      "ast-python.ast-ssrf",
+      [918]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      37,
+      "B104",
+      [605]
+     ],
+     [
+      204,
+      "B110",
+      [703]
+     ],
+     [
+      232,
+      "B110",
+      [703]
+     ],
+     [
+      331,
+      "B104",
+      [605]
+     ],
+     [
+      335,
+      "B104",
+      [605]
+     ]
+    ],
+    "patched": [
+     [
+      40,
+      "B104",
+      [605]
+     ],
+     [
+      207,
+      "B110",
+      [703]
+     ],
+     [
+      235,
+      "B110",
+      [703]
+     ],
+     [
+      367,
+      "B104",
+      [605]
+     ],
+     [
+      371,
+      "B104",
+      [605]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      103,
+      "python.fastapi.security.wildcard-cors.wildcard-cors",
+      [942]
+     ]
+    ],
+    "patched": [
+     [
+      106,
+      "python.fastapi.security.wildcard-cors.wildcard-cors",
+      [942]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  }
+ }
+}

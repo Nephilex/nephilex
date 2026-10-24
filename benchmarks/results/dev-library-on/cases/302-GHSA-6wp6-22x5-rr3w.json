@@ -1,0 +1,92 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6wp6-22x5-rr3w",
+  "cve_id": "CVE-2024-31621",
+  "ecosystem": "npm",
+  "packages": [
+   "flowise"
+  ],
+  "published_at": "2024-04-29T18:30:45Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-6wp6-22x5-rr3w",
+  "label_cwes": [94],
+  "repo": "FlowiseAI/Flowise",
+  "fix_sha": "e32b64344544312bf38b3e1fefe7b26c1776a426",
+  "parent_sha": "265de4e97e81441af2cf5b1781af4583b6efd54d",
+  "path_vulnerable": "packages/server/src/utils/logger.ts",
+  "path_patched": "packages/server/src/utils/logger.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [60, 61]
+  ],
+  "patched_lines": [
+   [60, 61]
+  ],
+  "commit_url": "https://github.com/FlowiseAI/Flowise/commit/e32b64344544312bf38b3e1fefe7b26c1776a426",
+  "case_id": "302-GHSA-6wp6-22x5-rr3w",
+  "content": {
+   "vulnerable": {
+    "sha256": "ae3d43a36f0c68e858bd2a851b1902fab7bfe879a075e4a8805b1b92ff03c65b",
+    "bytes": 3599
+   },
+   "patched": {
+    "sha256": "256eaa211baa90d3bb3485211d8ab23ba0371efe4035b60db9c674883d5eab12",
+    "bytes": 3652
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

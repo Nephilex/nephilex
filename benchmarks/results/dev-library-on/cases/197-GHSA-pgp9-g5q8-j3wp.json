@@ -1,0 +1,191 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pgp9-g5q8-j3wp",
+  "cve_id": "CVE-2025-5148",
+  "ecosystem": "pip",
+  "packages": [
+   "inspiremusic"
+  ],
+  "published_at": "2025-05-25T12:30:24Z",
+  "advisory_cwes": [20, 502],
+  "html_url": "https://github.com/advisories/GHSA-pgp9-g5q8-j3wp",
+  "label_cwes": [502],
+  "repo": "QwenAudio/FunMusic",
+  "fix_sha": "784cbf8dde2cf1456ff808aeba23177e1810e7a9",
+  "parent_sha": "bf32364bcb0d136497ca69f9db622e9216b029dd",
+  "path_vulnerable": "inspiremusic/cli/model.py",
+  "path_patched": "inspiremusic/cli/model.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [84, 84],
+   [89, 89],
+   [343, 343]
+  ],
+  "patched_lines": [
+   [84, 84],
+   [89, 89],
+   [343, 343]
+  ],
+  "commit_url": "https://github.com/QwenAudio/FunMusic/commit/784cbf8dde2cf1456ff808aeba23177e1810e7a9",
+  "case_id": "197-GHSA-pgp9-g5q8-j3wp",
+  "content": {
+   "vulnerable": {
+    "sha256": "788fb87ce44463e79a5a6300f2b50f9f051e61b0867daa848a7101d95bd57944",
+    "bytes": 18419
+   },
+   "patched": {
+    "sha256": "0b5b57b98d8e4fb8019868225035a08a79fbfc4c59f661c5bfd5e969b308f9e0",
+    "bytes": 18458
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      84,
+      "llm.torch-load-pickle",
+      [502]
+     ],
+     [
+      89,
+      "llm.torch-load-pickle",
+      [502]
+     ]
+    ],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      72,
+      "B101",
+      [703]
+     ],
+     [
+      84,
+      "B614",
+      [502]
+     ],
+     [
+      89,
+      "B614",
+      [502]
+     ],
+     [
+      105,
+      "B101",
+      [703]
+     ],
+     [
+      252,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      72,
+      "B101",
+      [703]
+     ],
+     [
+      105,
+      "B101",
+      [703]
+     ],
+     [
+      252,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      210,
+      "python.lang.security.insecure-uuid-version.insecure-uuid-version",
+      [330]
+     ],
+     [
+      331,
+      "python.lang.security.insecure-uuid-version.insecure-uuid-version",
+      [330]
+     ]
+    ],
+    "patched": [
+     [
+      210,
+      "python.lang.security.insecure-uuid-version.insecure-uuid-version",
+      [330]
+     ],
+     [
+      331,
+      "python.lang.security.insecure-uuid-version.insecure-uuid-version",
+      [330]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

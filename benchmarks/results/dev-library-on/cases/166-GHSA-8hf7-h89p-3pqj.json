@@ -1,0 +1,263 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8hf7-h89p-3pqj",
+  "cve_id": "CVE-2026-24490",
+  "ecosystem": "pip",
+  "packages": [
+   "mobsf"
+  ],
+  "published_at": "2026-01-26T23:36:19Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-8hf7-h89p-3pqj",
+  "label_cwes": [79],
+  "repo": "MobSF/Mobile-Security-Framework-MobSF",
+  "fix_sha": "2b08dd050e7685ee2a14fdbb454affab94129eae",
+  "parent_sha": "457d1e61f3c8dccc3351b40cf7cc34fb764ac615",
+  "path_vulnerable": "mobsf/StaticAnalyzer/views/android/kb/android_manifest_desc.py",
+  "path_patched": "mobsf/StaticAnalyzer/views/android/kb/android_manifest_desc.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [4, 4],
+   [25, 25],
+   [41, 41],
+   [55, 55],
+   [67, 67],
+   [79, 80],
+   [90, 90],
+   [99, 100],
+   [109, 109],
+   [121, 121],
+   [128, 128],
+   [190, 190],
+   [201, 201],
+   [210, 210],
+   [222, 222],
+   [230, 230],
+   [238, 239],
+   [247, 247],
+   [249, 249],
+   [267, 267],
+   [269, 269],
+   [286, 286],
+   [288, 288],
+   [303, 303],
+   [305, 305],
+   [324, 324],
+   [326, 327],
+   [344, 344],
+   [347, 347],
+   [365, 366],
+   [374, 374],
+   [377, 377],
+   [393, 393],
+   [396, 396],
+   [416, 417],
+   [425, 426],
+   [436, 436],
+   [450, 450],
+   [452, 452],
+   [467, 467],
+   [469, 469],
+   [488, 488],
+   [490, 490],
+   [509, 510],
+   [520, 520],
+   [522, 522],
+   [538, 538],
+   [540, 540],
+   [559, 559],
+   [562, 562],
+   [580, 580],
+   [583, 583],
+   [601, 602],
+   [613, 613],
+   [616, 616],
+   [631, 631],
+   [633, 634],
+   [653, 653],
+   [657, 657],
+   [676, 676],
+   [679, 679],
+   [699, 700],
+   [710, 710],
+   [712, 712],
+   [729, 729],
+   [732, 732],
+   [754, 754],
+   [758, 758],
+   [778, 778],
+   [782, 782],
+   [802, 803],
+   [814, 814],
+   [817, 817],
+   [834, 834],
+   [838, 838]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [25, 25],
+   [41, 41],
+   [55, 55],
+   [67, 67],
+   [79, 80],
+   [90, 90],
+   [99, 99],
+   [108, 108],
+   [120, 120],
+   [127, 127],
+   [189, 189],
+   [200, 200],
+   [209, 209],
+   [221, 221],
+   [229, 229],
+   [237, 238],
+   [246, 246],
+   [248, 248],
+   [266, 266],
+   [268, 268],
+   [285, 285],
+   [287, 287],
+   [302, 302],
+   [304, 304],
+   [323, 323],
+   [325, 325],
+   [342, 342],
+   [345, 345],
+   [363, 364],
+   [372, 372],
+   [375, 375],
+   [391, 391],
+   [394, 394],
+   [414, 415],
+   [423, 424],
+   [434, 434],
+   [448, 448],
+   [450, 450],
+   [465, 465],
+   [467, 467],
+   [486, 486],
+   [488, 488],
+   [507, 508],
+   [518, 518],
+   [520, 520],
+   [536, 536],
+   [538, 538],
+   [557, 557],
+   [560, 560],
+   [578, 578],
+   [581, 581],
+   [599, 600],
+   [611, 611],
+   [614, 614],
+   [629, 629],
+   [631, 632],
+   [651, 651],
+   [655, 655],
+   [674, 674],
+   [677, 677],
+   [697, 698],
+   [708, 708],
+   [710, 710],
+   [727, 727],
+   [730, 730],
+   [752, 752],
+   [756, 756],
+   [776, 776],
+   [780, 780],
+   [800, 801],
+   [812, 812],
+   [815, 815],
+   [832, 832],
+   [836, 836]
+  ],
+  "commit_url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/2b08dd050e7685ee2a14fdbb454affab94129eae",
+  "case_id": "166-GHSA-8hf7-h89p-3pqj",
+  "content": {
+   "vulnerable": {
+    "sha256": "d0904af9dc56ca80d762001bc34a990f3553515b08e493954f648b0de3ad291d",
+    "bytes": 52128
+   },
+   "patched": {
+    "sha256": "14b67483d64e4dd3b49ada512968d3a665706d3cfb6e759e08c0fdae2df54aa3",
+    "bytes": 51208
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [
+    "patched",
+    "vulnerable"
+   ],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

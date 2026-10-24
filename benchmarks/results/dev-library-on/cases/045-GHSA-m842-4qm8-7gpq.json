@@ -1,0 +1,262 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m842-4qm8-7gpq",
+  "cve_id": "CVE-2024-1728",
+  "ecosystem": "pip",
+  "packages": [
+   "gradio"
+  ],
+  "published_at": "2024-09-25T21:48:24Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m842-4qm8-7gpq",
+  "label_cwes": [22],
+  "repo": "gradio-app/gradio",
+  "fix_sha": "16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "parent_sha": "ba3ec1300e81e64be7389d759b89284c66473158",
+  "path_vulnerable": "gradio/routes.py",
+  "path_patched": "gradio/routes.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [20, 20],
+   [70, 72],
+   [139, 141]
+  ],
+  "patched_lines": [
+   [19, 20],
+   [69, 69],
+   [136, 136]
+  ],
+  "commit_url": "https://github.com/gradio-app/gradio/commit/16fbe9cd0cffa9f2a824a0165beb43446114eec7",
+  "case_id": "045-GHSA-m842-4qm8-7gpq",
+  "content": {
+   "vulnerable": {
+    "sha256": "60f4c4c6c5c33d7293a376c278baafd91b33d2e2e8f605113bc71fdb28741c73",
+    "bytes": 37021
+   },
+   "patched": {
+    "sha256": "2408020b4115f79a0a02d5f23882b4a0c15c826e45c26dbc698beb6acd3ab926",
+    "bytes": 36920
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      211,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      212,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      228,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      229,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      287,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      353,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      354,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      428,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      480,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      484,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      821,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      206,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      207,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      223,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      224,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      282,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      348,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      349,
+      "authz.missing-authentication",
+      [306]
+     ],
+     [
+      423,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      475,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      479,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      816,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      106,
+      "B704",
+      [79]
+     ],
+     [
+      174,
+      "B101",
+      [703]
+     ]
+    ],
+    "patched": [
+     [
+      103,
+      "B704",
+      [79]
+     ],
+     [
+      169,
+      "B101",
+      [703]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      206,
+      "python.fastapi.security.wildcard-cors.wildcard-cors",
+      [942]
+     ]
+    ],
+    "patched": [
+     [
+      201,
+      "python.fastapi.security.wildcard-cors.wildcard-cors",
+      [942]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

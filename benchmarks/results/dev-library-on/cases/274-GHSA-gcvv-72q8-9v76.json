@@ -1,0 +1,95 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-gcvv-72q8-9v76",
+  "cve_id": "CVE-2026-70591",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-08-04T21:38:17Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-gcvv-72q8-9v76",
+  "label_cwes": [918],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "5eff2de0f477b11c88f20bceb9d184c0d3b8a62e",
+  "parent_sha": "63c31fad7e473caa62d8fbb4651a04a2a62b5d00",
+  "path_vulnerable": "ghost/core/core/server/lib/image/image-utils.js",
+  "path_patched": "ghost/core/core/server/lib/image/image-utils.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [30, 30],
+   [40, 41]
+  ],
+  "patched_lines": [
+   [27, 39],
+   [43, 43],
+   [54, 54]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/5eff2de0f477b11c88f20bceb9d184c0d3b8a62e",
+  "case_id": "274-GHSA-gcvv-72q8-9v76",
+  "content": {
+   "vulnerable": {
+    "sha256": "7de2a18f074a55ada14193d2506aeb342dbce74c75807c3bd57bb2a8a0f8e5c7",
+    "bytes": 1827
+   },
+   "patched": {
+    "sha256": "0e3e3c1d5bda6de079921486232083861ed7f50c377aa68ec8c51619f15ebc3e",
+    "bytes": 2300
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,156 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-j98m-w3xp-9f56",
+  "cve_id": "CVE-2026-40576",
+  "ecosystem": "pip",
+  "packages": [
+   "excel-mcp-server"
+  ],
+  "published_at": "2026-04-14T00:03:17Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-j98m-w3xp-9f56",
+  "label_cwes": [22],
+  "repo": "haris-musa/excel-mcp-server",
+  "fix_sha": "f51340ecd5778952405044b203d3a2d4c8a46833",
+  "parent_sha": "de4dc75f6ba629ccd2e097f5963235846be622e6",
+  "path_vulnerable": "src/excel_mcp/server.py",
+  "path_patched": "src/excel_mcp/server.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [77, 77],
+   [80, 80],
+   [84, 86],
+   [88, 88],
+   [90, 91],
+   [93, 94]
+  ],
+  "patched_lines": [
+   [75, 86],
+   [89, 89],
+   [92, 92],
+   [96, 97],
+   [100, 111],
+   [113, 113]
+  ],
+  "commit_url": "https://github.com/haris-musa/excel-mcp-server/commit/f51340ecd5778952405044b203d3a2d4c8a46833",
+  "case_id": "024-GHSA-j98m-w3xp-9f56",
+  "content": {
+   "vulnerable": {
+    "sha256": "bc862fc7b268446f7bec47ece78548f4c1d29f5499a2cd9290856f2d7ba9effc",
+    "bytes": 25166
+   },
+   "patched": {
+    "sha256": "4cf2d42ea3114b691eeff3c3a2bddfd84e89d68d405946ea3158194b1495c97b",
+    "bytes": 25714
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      803,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      822,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      822,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      841,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      70,
+      "B104",
+      [605]
+     ]
+    ],
+    "patched": [
+     [
+      70,
+      "B104",
+      [605]
+     ]
+    ]
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

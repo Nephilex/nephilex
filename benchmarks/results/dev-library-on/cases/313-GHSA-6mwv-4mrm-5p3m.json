@@ -1,0 +1,104 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6mwv-4mrm-5p3m",
+  "cve_id": "CVE-2026-56678",
+  "ecosystem": "npm",
+  "packages": [
+   "9router"
+  ],
+  "published_at": "2026-09-23T18:12:30Z",
+  "advisory_cwes": [20, 918],
+  "html_url": "https://github.com/advisories/GHSA-6mwv-4mrm-5p3m",
+  "label_cwes": [918],
+  "repo": "decolua/9router",
+  "fix_sha": "126aa244c5b51b74ab8c7594e3418fcf4437bf6f",
+  "parent_sha": "f2a7ae20309b4af55023eb11d1c02f63be1b80d1",
+  "path_vulnerable": "src/lib/oauth/constants/oauth.js",
+  "path_patched": "src/lib/oauth/constants/oauth.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [69, 70]
+  ],
+  "patched_lines": [
+   [70, 80]
+  ],
+  "commit_url": "https://github.com/decolua/9router/commit/126aa244c5b51b74ab8c7594e3418fcf4437bf6f",
+  "case_id": "313-GHSA-6mwv-4mrm-5p3m",
+  "content": {
+   "vulnerable": {
+    "sha256": "40aa604a928c42bc34d5d99cb203cbf601a397eec43fae502d84857a6136fd27",
+    "bytes": 4666
+   },
+   "patched": {
+    "sha256": "3b31f89de053817ed88020dffb441f48c2cbf9cc2818497314b0e99352e36653",
+    "bytes": 5111
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      91,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ],
+    "patched": [
+     [
+      102,
+      "authz.oauth-missing-state",
+      [352]
+     ]
+    ]
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,100 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-277h-px4m-62q8",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@saltcorn/server"
+  ],
+  "published_at": "2024-10-03T19:46:12Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-277h-px4m-62q8",
+  "label_cwes": [22],
+  "repo": "saltcorn/saltcorn",
+  "fix_sha": "024f19a7e079913f62f4a2335ab04116ddb68192",
+  "parent_sha": "14546a32cfe3ca82542e040e400403238cddf0eb",
+  "path_vulnerable": "packages/plugins-loader/download_utils.js",
+  "path_patched": "packages/plugins-loader/download_utils.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [5, 5],
+   [96, 96],
+   [107, 107],
+   [110, 110],
+   [112, 112]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [96, 99],
+   [110, 113],
+   [116, 116],
+   [118, 118]
+  ],
+  "commit_url": "https://github.com/saltcorn/saltcorn/commit/024f19a7e079913f62f4a2335ab04116ddb68192",
+  "case_id": "209-GHSA-277h-px4m-62q8",
+  "content": {
+   "vulnerable": {
+    "sha256": "d693e259a081e5b5f4f74a6cd28dfc54c5c80138a87a2fe988667ac5d9d40220",
+    "bytes": 4352
+   },
+   "patched": {
+    "sha256": "45af9b9f272bb4f022a1e2ccd3f2494a4c25d528a43099f53072fcc46230fc0f",
+    "bytes": 4419
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

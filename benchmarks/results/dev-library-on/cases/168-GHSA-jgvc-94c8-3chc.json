@@ -1,0 +1,114 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-jgvc-94c8-3chc",
+  "cve_id": "CVE-2026-42352",
+  "ecosystem": "pip",
+  "packages": [
+   "pygeoapi"
+  ],
+  "published_at": "2026-04-29T22:19:53Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-jgvc-94c8-3chc",
+  "label_cwes": [918],
+  "repo": "geopython/pygeoapi",
+  "fix_sha": "3a63f5b0cc6275e3ae0edb47726b13a43cdd90ef",
+  "parent_sha": "bf25b8695edbdd5476eeffc102b633d1d3e45f52",
+  "path_vulnerable": "pygeoapi/process/base.py",
+  "path_patched": "pygeoapi/process/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [6, 6],
+   [55, 56]
+  ],
+  "patched_lines": [
+   [6, 6],
+   [56, 57]
+  ],
+  "commit_url": "https://github.com/geopython/pygeoapi/commit/3a63f5b0cc6275e3ae0edb47726b13a43cdd90ef",
+  "case_id": "168-GHSA-jgvc-94c8-3chc",
+  "content": {
+   "vulnerable": {
+    "sha256": "f96d2b2c3a2923a25645de0566e3ea19c22bc4ce711f82db8f63e079509b18c8",
+    "bytes": 3842
+   },
+   "patched": {
+    "sha256": "c53fc917119ef443ddf06e6b07f3e3bb7c7de44eb58fd0ba1ca77ae32799083a",
+    "bytes": 3946
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "bandit": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

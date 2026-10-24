@@ -1,0 +1,109 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-j4gv-6x9v-v23g",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "omero-web"
+  ],
+  "published_at": "2025-11-24T23:35:30Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-j4gv-6x9v-v23g",
+  "label_cwes": [79],
+  "repo": "ome/omero-web",
+  "fix_sha": "a3eadf722cfada2b844b97abe65baf5856e77c4f",
+  "parent_sha": "2a7c4d2e3a98d90b3345039bf70dcc0d96b36135",
+  "path_vulnerable": "omeroweb/webgateway/static/3rdparty/jquery.form-4.3.0.js",
+  "path_patched": "omeroweb/webgateway/static/3rdparty/jquery.form-4.3.1-custom.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [3, 3],
+   [162, 162],
+   [209, 209],
+   [271, 271],
+   [458, 458],
+   [693, 693],
+   [922, 923],
+   [984, 984],
+   [1122, 1122]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [162, 162],
+   [209, 209],
+   [265, 268],
+   [275, 275],
+   [462, 466],
+   [701, 701],
+   [930, 934],
+   [995, 995],
+   [1133, 1133]
+  ],
+  "commit_url": "https://github.com/ome/omero-web/commit/a3eadf722cfada2b844b97abe65baf5856e77c4f",
+  "case_id": "105-GHSA-j4gv-6x9v-v23g",
+  "content": {
+   "vulnerable": {
+    "sha256": "b749ca369655c37f5619632b25c15c649820f847ea3e0574c71d7da10dada7b5",
+    "bytes": 41872
+   },
+   "patched": {
+    "sha256": "772f8f063441d3efcca612ebc465f22e47cd945ceedea801339c6c1ae0e24c03",
+    "bytes": 42237
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  },
+  "bandit": {
+   "status": "not_applicable"
+  },
+  "semgrep": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  },
+  "semgrep": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}
