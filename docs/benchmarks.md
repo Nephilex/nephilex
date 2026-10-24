@@ -887,8 +887,8 @@ for path traversal, XSS, SSRF and code injection, and library mode (see
 Python miss in this set. Nephilex was re-run on the same 351 cases with
 `scan --set dev --only nephilex`, which keeps the committed Bandit and
 Semgrep results; the Nephilex source is commit
-`26011609fa7e31854e0a55dae887054af3d6137d` (recorded in
-`benchmarks/results/dev/SUMMARY.md`, `src/nephilex` unmodified; the
+`26011609fa7e31854e0a55dae887054af3d6137d` (`src/nephilex` unmodified;
+`benchmarks/results/dev/` now holds the combined run below; the
 library-mode run records `261c48999c9ca36ee4c6992ddc0d792a816341ac`, a
 documentation commit with the same `src/nephilex`). The
 library-mode run used `--nephilex-config` with `library_mode: "on"` and
@@ -998,6 +998,26 @@ cache (names built from a bucket key), `PackageLoader.get_source` (whose
 `split_template_path` check is not modeled) and the traceback rewriter's
 `exec` of a code object. Reviewers of a library should expect findings of
 this kind.
+
+#### With all 0.12 detection work combined
+
+**Development data, not a claim.** Nephilex re-run on the same 351 cases at
+commit `1692d69164140f534ac2f87f76cc3010b386d3fa`, which combines the Python
+work above with the JavaScript/TypeScript taint engine, the authorization
+and malware precision fixes and the instruction-file rules (Bandit and
+Semgrep results kept, default configuration). The results are in
+`benchmarks/results/dev/`.
+
+| Subset | Cases | 0.11.0 | Combined |
+| --- | --- | --- | --- |
+| All languages | 351 | 12 / 4 | 24 / 5 |
+| Python | 193 | 10 / 4 | 12 / 4 |
+| JavaScript and TypeScript | 158 | 2 / 0 | 12 / 1 |
+
+Detected / flagged after the fix, mapped CWE match, 3-line window. Every
+case's result equals that of the separate Python and JavaScript/TypeScript
+runs, so the two kinds of work do not interact. The scan took 859 s against
+735 s for 0.11.0 on the same machine.
 
 ## Public reference apps (finding inventory)
 
