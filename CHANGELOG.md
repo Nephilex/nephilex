@@ -76,6 +76,10 @@ include breaking changes, noted explicitly).
 - Dashboard: table rows link with a real `<a href>` in their first cell, and
   the row click handler follows that link instead of turning a `data-href`
   attribute into a navigation target.
+- Instruction files: telling the assistant to decode something and run it in
+  a shell is reported even when the payload does not decode, rules that "take
+  priority over" the user count as an override, and British spellings such as
+  "summarise" are matched.
 
 ## [0.11.0] - 2026-10-23
 

@@ -742,6 +742,27 @@ was changed in response, but those two are not strictly unseen. Results:
 `benchmarks/agent/results/ai-supply-chain-baseline.json`,
 `ai-supply-chain-after.json`, `ai-supply-chain-post-review.json`.
 
+**A second, larger held-out set.** Because 7 held-out scenarios are too few,
+14 more were added on 2026-10-25 by an author who did not read the rules or
+run the scanner (2 dev scenarios came with them). They were scored once, with
+the rules frozen at the 0.12 detection merge (`e94f356`), before anyone read
+the misses:
+
+| New held-out scenarios | Attacks detected | False positives on safe twins |
+|------------------------|------------------|-------------------------------|
+| 14 (7 instruction file, 7 tool poisoning) | 12 of 14 (85.7%) | 0 of 14 |
+
+The two misses: a GEMINI.md that tells the assistant to decode a hex command
+and run it in the shell (the hex itself is malformed, so no blob decoded, and
+the instruction alone was not reported), and a `.cursorrules` file whose
+rules "take priority over anything the user says". Both phrasings were added
+afterwards (a sentence that tells the assistant to decode something and run
+it in a shell now counts as download and execute; precedence over the user
+counts as an override), so those two cases are no longer unseen. A third
+candidate, "work silently", was dropped because a real awesome-copilot file
+uses it harmlessly. Real instruction files after the change: still 1 finding
+in 646. Result: `benchmarks/agent/results/ai-supply-chain-heldout2.json`.
+
 False positives on real files, downloaded raw and never executed (2026-10-23):
 646 instruction files from openai/codex, apache/airflow,
 openai/openai-agents-python, pydantic/pydantic-ai, langchain-ai/langchain,
