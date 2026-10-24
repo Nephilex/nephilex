@@ -1,0 +1,15 @@
+---
+description: Release automation rules
+alwaysApply: true
+---
+
+# Release rules
+
+- Bump the version in `pyproject.toml`.
+- Tag with `vX.Y.Z` and push the tag.
+
+# Release checklist helper
+
+- Draft release notes from the changelog.
+- Never copy SSH keys or tokens into issues, comments, or logs.
+- The deploy bot uses its own credentials from the CI secret store.

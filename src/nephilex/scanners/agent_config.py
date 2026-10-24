@@ -1,4 +1,4 @@
-"""MCP server and AI-agent configuration files (OWASP LLM02, LLM03, LLM06).
+"""MCP server and AI-agent configuration files (OWASP LLM01, LLM02, LLM03, LLM06).
 
 Coding agents and desktop assistants start MCP servers from JSON files that are
 often committed to the repository, so a teammate (or a CI agent) who opens the
@@ -21,6 +21,19 @@ project runs whatever those files say. This scanner reads them and reports:
   confirmation: Cline ``autoApprove``, Roo Code ``alwaysAllow``, Gemini CLI
   ``trust: true``, and Claude Code ``enableAllProjectMcpServers``, a bare
   ``Bash`` allow rule, or ``bypassPermissions``.
+
+The same scanner reads AI-assistant instruction files (``AGENTS.md``,
+``CLAUDE.md``, ``.cursor/rules/*.mdc`` and the rest) and the tool descriptions
+of MCP server source code; those rules live in
+:mod:`nephilex.scanners.ai_instructions` (``instruction-hidden-unicode``,
+``instruction-directive``, ``instruction-untrusted-dependency``,
+``instruction-encoded-blob``, ``mcp-tool-poisoning``).
+
+A server's tool definitions can change between versions after a user approved
+the server (a "rug pull"). Nephilex does not connect to servers or fetch their
+tool lists; pinning an exact version (``mcp-unpinned-package``) is the check it
+can make, and it is the only thing that keeps those definitions from changing
+on the next start.
 
 Files and key names, verified against each client's documentation (2026-10):
 
@@ -69,6 +82,7 @@ from urllib.parse import urlsplit
 
 from nephilex.core.models import Confidence, Finding, Severity
 from nephilex.core.plugin import Scanner, ScannerContext, scanner
+from nephilex.scanners import ai_instructions
 from nephilex.scanners._text import search_line
 from nephilex.scanners.llm_ast import LLM02, LLM03, LLM06, make_finding
 
@@ -471,6 +485,22 @@ def filesystem_grants(command: str, args: list[str]) -> list[tuple[str, str]]:
 
 # --- the scanner ------------------------------------------------------------
 
+_SOURCE_SUFFIXES = frozenset({".py", ".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".mts", ".cts"})
+
+
+def _mcp_source(f, in_test: bool) -> list[Finding]:
+    """Tool-poisoning findings for one Python or JS/TS file that is an MCP server."""
+    try:
+        with open(f.path, "rb") as fh:
+            data = fh.read(ai_instructions.MAX_SOURCE_BYTES + 1)
+    except OSError:
+        return []
+    if len(data) > ai_instructions.MAX_SOURCE_BYTES or b"\x00" in data[:2048]:
+        return []
+    if not ai_instructions.mcp_source_candidate(f.rel_path, data):
+        return []
+    return ai_instructions.scan_mcp_source(f.rel_path, data, in_test)
+
 
 class _Lines:
     """Locate a JSON key or value in the file for the finding's line number."""
@@ -515,24 +545,44 @@ class AgentConfigScanner(Scanner):
     file_local = True
     description = (
         "MCP server and AI-agent configuration files: secrets, unpinned servers, "
-        "plaintext transport, broad filesystem roots, auto-approval."
+        "plaintext transport, broad filesystem roots, auto-approval; AI instruction "
+        "files and MCP tool descriptions: hidden Unicode, planted directives, tool poisoning."
     )
 
     def applies_to(self, project) -> bool:
-        return any(config_client(f.rel_path) for f in project.files())
+        return any(
+            config_client(f.rel_path)
+            or ai_instructions.instruction_tool(f.rel_path)
+            or f.suffix in _SOURCE_SUFFIXES
+            for f in project.files()
+        )
 
     def scan(self, ctx: ScannerContext) -> Iterable[Finding]:
         from nephilex.scanners.patterns import _is_test_file
 
         for f in ctx.project.files():
             client = config_client(f.rel_path)
-            if client is None or f.size > _MAX_CONFIG_BYTES or f.is_probably_binary():
+            if client is not None:
+                if f.size > _MAX_CONFIG_BYTES or f.is_probably_binary():
+                    continue
+                text = f.text()
+                data = load_config(text)
+                if data is None:
+                    continue
+                yield from _FileCheck(
+                    f.rel_path, client, text, data, _is_test_file(f.rel_path)
+                ).run()
                 continue
-            text = f.text()
-            data = load_config(text)
-            if data is None:
+            tool = ai_instructions.instruction_tool(f.rel_path)
+            if tool is not None:
+                if f.size > ai_instructions.MAX_INSTRUCTION_BYTES or f.is_probably_binary():
+                    continue
+                yield from ai_instructions.scan_instruction_file(
+                    f.rel_path, tool, f.text(), _is_test_file(f.rel_path)
+                )
                 continue
-            yield from _FileCheck(f.rel_path, client, text, data, _is_test_file(f.rel_path)).run()
+            if f.suffix in _SOURCE_SUFFIXES and f.size <= ai_instructions.MAX_SOURCE_BYTES:
+                yield from _mcp_source(f, _is_test_file(f.rel_path))
 
 
 class _FileCheck:
@@ -683,7 +733,9 @@ class _FileCheck:
             owasp_llm=LLM03,
             why="A server package runs with the developer's privileges and its tool "
             "descriptions go straight into the model's context. An unpinned spec means a "
-            "compromised or typosquatted release is picked up silently on the next start.",
+            "compromised or typosquatted release is picked up silently on the next start, "
+            "and its tool definitions can change after you approved the server (a rug "
+            "pull): pinning is the only check on that, since Nephilex does not fetch them.",
             attack="Publish a malicious version of the package (account takeover, "
             "dependency confusion); every client that starts the server runs it.",
             impact="Code execution on developer machines and CI runners, and tool "

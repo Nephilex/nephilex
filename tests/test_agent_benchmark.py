@@ -69,7 +69,9 @@ def test_committed_corpus_is_well_formed() -> None:
     assert sum(c.vulnerable for c in cases) == sum(not c.vulnerable for c in cases)
     assert {c.split for c in cases} == {"dev", "heldout"}
     for c in cases:
-        files = [p for p in (run.CORPUS / c.path).iterdir() if p.is_file()]
+        # One file per case, at the path its tool reads it from (instruction
+        # files such as .cursor/rules/style.mdc sit in subdirectories).
+        files = [p for p in (run.CORPUS / c.path).rglob("*") if p.is_file()]
         assert len(files) == 1, c.path
 
 
