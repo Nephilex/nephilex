@@ -58,6 +58,7 @@ from nephilex.scanners._pyflow import (
 
 if TYPE_CHECKING:
     from nephilex.context import LanguageContext
+    from nephilex.scanners._pyflow import _Shared
 
 log = logging.getLogger("nephilex.scanners.ast")
 
@@ -630,6 +631,9 @@ class _Analyzer:
         self._extra_methods = source_methods
         self._extra_functions = source_functions
         self._findings: list[Finding] = []
+        # Helper index and summaries reused by every seeded_sinks run on this
+        # file: the runs share settings, so rebuilding them per call is waste.
+        self._seed_shared: _Shared | None = None
 
     def run(self, root) -> list[Finding]:
         methods, functions = source_callables(self._src, root, self._ctx)
@@ -666,7 +670,9 @@ class _Analyzer:
                 if info.get("detail"):
                     self.seed_details[key] = str(info["detail"])
 
-        Flow(self._src, collect, context=self._ctx).run_body(body, seed_names)
+        flow = Flow(self._src, collect, context=self._ctx, shared=self._seed_shared)
+        flow.run_body(body, seed_names)
+        self._seed_shared = flow.shared
         return found
 
     def _emit(

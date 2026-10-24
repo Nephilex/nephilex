@@ -981,6 +981,7 @@ class Flow:
         source_methods: frozenset[str] = frozenset(),
         source_functions: frozenset[str] = frozenset(),
         library: LibraryScope | None = None,
+        shared: _Shared | None = None,
     ) -> None:
         self._src = src
         self._emit_cb = emit
@@ -997,7 +998,9 @@ class Flow:
         self._steps = 0
         self._step_limit = MAX_STEPS
         self._summary_depth = 0
-        self._shared: _Shared | None = None
+        #: The file's helper index and summaries. A caller that runs several
+        #: flows over one file with the same settings passes it on (``shared``).
+        self._shared: _Shared | None = shared
         self._module_consts: dict[str, Val] = {}
         #: (kind, line) -> "tainted" | "literal" | "unknown", for the regex tier.
         self.verdicts: dict[tuple[str, int], str] = {}
@@ -1133,6 +1136,11 @@ class Flow:
                 declared_global.update(self.text(c) for c in n.named_children)
             stack.extend(n.children)
         return {n: v for n, v in found.items() if counts[n] == 1 and n not in declared_global}
+
+    @property
+    def shared(self) -> _Shared | None:
+        """The file's helper index and summaries, once built."""
+        return self._shared
 
     def run_body(self, body, seeds: Iterable[str]) -> None:
         self._ensure_shared(body)
