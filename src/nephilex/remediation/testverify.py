@@ -402,7 +402,8 @@ def resolve_executable(program: str, cwd: Path, search_path: str | None) -> str 
     def first(base: str) -> str | None:
         for ext in exts:
             candidate = base + ext
-            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            # The suffix comes from PATHEXT in the environment of whoever runs this.
+            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):  # nephilex-ignore: ast-path-traversal reason="PATH lookup; the PATHEXT suffixes come from the environment of whoever runs the command"  # fmt: skip
                 return candidate
         return None
 
