@@ -102,3 +102,13 @@ def test_request_input_outranks_operator_input(tmp_path):
     code = _view("os.system('run ' + v + sys.argv[1])")
     (f,) = _findings(tmp_path, {"app.py": code})
     assert f.confidence == Confidence.HIGH and "operator-input" not in f.tags
+
+
+def test_helper_returning_argv_is_operator_input(tmp_path):
+    code = (
+        "import subprocess, sys\n"
+        "def args_for_restart():\n    return [sys.executable] + sys.argv[1:]\n"
+        "def restart():\n    subprocess.call(args_for_restart())\n"
+    )
+    (f,) = _findings(tmp_path, {"reloader.py": code})
+    assert f.confidence == Confidence.LOW and "operator-input" in f.tags

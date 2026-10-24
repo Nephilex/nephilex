@@ -2924,7 +2924,7 @@ class Flow:
         if c.last in self.source_functions and (
             c.recv_node is None or (self._path(c.recv_node) or "") not in st.vars
         ):
-            return TAINT
+            return self._helper_source_taint(c.last)
         if self._is_weak_random(c):
             return Val(weak=True)
         if c.fn.endswith("random.Random") or (
@@ -3123,6 +3123,20 @@ class Flow:
             embed=embed,
             part=part,
         )
+
+    def _helper_source_taint(self, name: str) -> Val:
+        """Taint returned by a same-file function that reads a source.
+
+        Operator-controlled (ORIGIN_OPERATOR) when its body reads only
+        ``sys.argv``, ``os.environ`` or ``input()``; request taint otherwise,
+        including for helpers defined in another file.
+        """
+        node = self._shared.functions.get(name) if self._shared is not None else None
+        if node is not None:
+            text = self._src[node.start_byte : node.end_byte].decode("utf-8", "ignore")
+            if OPERATOR_SOURCE_RE.search(text) and not REQUEST_SOURCE_RE.search(text):
+                return OPERATOR_TAINT
+        return TAINT
 
     def _is_record_lookup(self, c: _Call) -> bool:
         """A database lookup by key: Django managers, (Flask-)SQLAlchemy queries,
