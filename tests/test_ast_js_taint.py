@@ -485,7 +485,7 @@ CASES = [
         "CWE-22",
     ),
     (
-        # http-server style: a slice of the resolved path compared with a root that
+        # Static file server style: a slice of the resolved path compared with a root that
         # path.join(dir, '/') ends with a separator
         "path-slice-prefix-check",
         "static.js",
