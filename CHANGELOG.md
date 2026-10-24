@@ -63,6 +63,19 @@ include breaking changes, noted explicitly).
   host is not reported.
 - A condition that joins path containment checks with `or` is no longer
   dropped by the Python flow engine.
+- Python: a redirect to a URL whose literal start already fixes the host
+  (`f"/scans/{scan_id}"`, `"https://example.com/" + path`) is no longer
+  reported as an open redirect. `"/" + value`, `"//"` and an unclosed host
+  (`"https://example.com" + value`) still are.
+- CI/CD: `cicd.excessive-permissions` reports `contents: write` only in the
+  workflow-level `permissions:` block. The same grant on the one job that
+  needs it is the least-privilege form the rule recommends. `write-all` is
+  still reported at either level.
+- Dashboard: a report that cannot be stored now gets a generic error from
+  `/upload` and `/api/scans`; the exception text goes to the server log only.
+- Dashboard: table rows link with a real `<a href>` in their first cell, and
+  the row click handler follows that link instead of turning a `data-href`
+  attribute into a navigation target.
 
 ## [0.11.0] - 2026-10-23
 

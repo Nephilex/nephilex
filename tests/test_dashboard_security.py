@@ -230,4 +230,12 @@ def test_pages_have_no_inline_event_handlers(client):
     for path in ("/", f"/projects/{slug}"):
         html = client.get(path).text
         assert "onclick" not in html
-    assert 'data-href="/projects/' in client.get("/").text
+        assert "data-href" not in html
+    assert f'<a href="/projects/{slug}">' in client.get("/").text
+    assert '<a href="/scans/' in client.get(f"/projects/{slug}").text
+
+
+def test_row_script_never_builds_a_url_from_page_text(client):
+    js = client.get("/static/app.js").text
+    assert "location" not in js and 'getAttribute("data-href")' not in js
+    assert 'querySelector("a[href]")' in js

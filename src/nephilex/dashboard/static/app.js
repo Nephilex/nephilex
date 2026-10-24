@@ -17,17 +17,14 @@
   }
 
   // --- clickable table rows (no inline handlers: the CSP forbids them) ----
-  function followRow(e) {
-    var row = e.target.closest("tr[data-href]");
-    if (!row) return;
-    var href = row.getAttribute("data-href") || "";
-    // Only same-origin absolute paths.
-    if (href.charAt(0) !== "/" || href.charAt(1) === "/") return;
-    location.href = href;
-  }
-  document.addEventListener("click", followRow);
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") followRow(e);
+  // A click anywhere on a row follows the real link in its first cell, so the
+  // browser resolves the destination and no page text is turned into a URL.
+  // The link itself is focusable, which keeps the rows keyboard accessible.
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("a, button, input, select, textarea")) return;
+    var row = e.target.closest("tr.row-link");
+    var link = row && row.querySelector("a[href]");
+    if (link) link.click();
   });
 
   // --- findings filter ----------------------------------------------------

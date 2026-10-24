@@ -10,8 +10,10 @@ from nephilex.core.plugin import Reporter, reporter
 
 # Characters XML 1.0 does not allow at all: C0 controls other than tab/LF/CR,
 # lone UTF-16 surrogates, and the U+FFFE/U+FFFF non-characters. ElementTree
-# writes them through unchanged, producing a file CI parsers reject.
-_INVALID_XML = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]")
+# writes them through unchanged, producing a file CI parsers reject. A raw
+# string, so each range is written as escapes the regex engine reads, not as
+# the control characters themselves.
+_INVALID_XML = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\uD800-\uDFFF\uFFFE\uFFFF]")
 
 
 def _xml_text(value: object) -> str:

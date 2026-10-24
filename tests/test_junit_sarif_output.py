@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
 from nephilex.core.models import Finding, Location, ScanResult, Severity
-from nephilex.reporting.junit import JUnitReporter
+from nephilex.reporting.junit import _INVALID_XML, JUnitReporter
 from nephilex.reporting.sarif import SARIFReporter
 
 
@@ -34,6 +34,16 @@ def test_junit_strips_characters_xml_cannot_hold():
     failure = root.find("testcase/failure")
     assert failure is not None
     assert failure.get("message") == "nul bell vt ff esc lone ok\ttab"
+
+
+def test_junit_strips_exactly_the_characters_outside_xml_char():
+    # XML 1.0 Char: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+    def allowed(cp: int) -> bool:
+        return cp in (0x9, 0xA, 0xD) or 0x20 <= cp <= 0xD7FF or 0xE000 <= cp <= 0xFFFD
+
+    for cp in range(0x10000):
+        assert (_INVALID_XML.match(chr(cp)) is None) == allowed(cp), hex(cp)
+    assert _INVALID_XML.match("\U0001f600") is None
 
 
 def test_sarif_uri_is_percent_encoded():
