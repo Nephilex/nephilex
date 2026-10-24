@@ -2,14 +2,14 @@
  "schema_version": 1,
  "set": "dev",
  "note": "Development data, not a claim: this set is studied to improve detection, so its numbers say nothing about code Nephilex was not developed on. Release numbers come from the time-split set.",
- "generated_at": "2026-10-24T19:16:57+00:00",
+ "generated_at": "2026-10-24T20:01:14+00:00",
  "mode": "live",
  "host": {
   "os": "Windows",
   "python": "3.11.9"
  },
  "nephilex_source": {
-  "commit": "a357fec034af0a9aa898d76c0153bdfd8bc8b5ec",
+  "commit": "d00bdf64e1a939a9724a36740c6bd990d1b39302",
   "src_nephilex_modified": false
  },
  "manifest": {
@@ -183,7 +183,7 @@
    "status": "ok",
    "run": {
     "tool": "nephilex",
-    "started_at": "2026-10-24T18:59:55+00:00",
+    "started_at": "2026-10-24T19:44:17+00:00",
     "version": "0.11.0",
     "command": [
      "nephilex",
@@ -198,7 +198,7 @@
      "<raw_output>"
     ],
     "runs": 702,
-    "seconds": 1019.9,
+    "seconds": 1015.1,
     "scanners_failed": {},
     "notes": "one run per case and version; offline heuristic provider (--no-ai); default scanners incl. the [ast] tier"
    },
