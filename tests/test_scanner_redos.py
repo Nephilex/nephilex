@@ -302,6 +302,19 @@ def test_cicd_permissions_block_form_is_detected(tmp_path):
     assert [f.location.start_line for f in hits] == [2]
 
 
+def test_cicd_job_level_contents_write_is_least_privilege(tmp_path):
+    wf = (
+        "on: push\npermissions:\n  contents: read\n"
+        "jobs:\n  deploy:\n    permissions:\n      contents: write\n"
+        "    runs-on: ubuntu-latest\n"
+        "  other:\n    permissions: write-all\n    runs-on: ubuntu-latest\n"
+    )
+    ctx = _ctx(tmp_path, {".github/workflows/ci.yml": wf})
+    hits = [f for f in cicd.CicdScanner().scan(ctx) if f.rule_id == "cicd.excessive-permissions"]
+    # The job that needs contents: write is not reported; write-all still is.
+    assert [f.location.start_line for f in hits] == [10]
+
+
 def test_patterns_scan_of_hostile_file_finishes(tmp_path):
     line = 'q = f"' + " select from" * 400 + '"\n'
     ctx = _ctx(tmp_path, {"app.py": line * 200})

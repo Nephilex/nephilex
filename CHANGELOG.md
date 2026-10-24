@@ -67,6 +67,10 @@ include breaking changes, noted explicitly).
   (`f"/scans/{scan_id}"`, `"https://example.com/" + path`) is no longer
   reported as an open redirect. `"/" + value`, `"//"` and an unclosed host
   (`"https://example.com" + value`) still are.
+- CI/CD: `cicd.excessive-permissions` reports `contents: write` only in the
+  workflow-level `permissions:` block. The same grant on the one job that
+  needs it is the least-privilege form the rule recommends. `write-all` is
+  still reported at either level.
 - Dashboard: a report that cannot be stored now gets a generic error from
   `/upload` and `/api/scans`; the exception text goes to the server log only.
 - Dashboard: table rows link with a real `<a href>` in their first cell, and
