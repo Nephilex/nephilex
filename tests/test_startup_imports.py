@@ -61,6 +61,23 @@ def test_nephilex_check_does_not_import_http_clients_or_reporters(tmp_path: Path
         assert heavy not in loaded, heavy
 
 
+def test_supply_chain_imports_httpx_only_for_a_network_fetch() -> None:
+    loaded = _modules_after(
+        """
+        import nephilex.supply_chain
+        import nephilex.supply_chain.behavior
+        import nephilex.supply_chain.intel
+        import nephilex.supply_chain.sandbox
+        import nephilex.scanners.supply_chain
+        from nephilex.supply_chain.intel import is_malicious, typosquat_risk
+        is_malicious("npm", "left-pad", online=False)
+        typosquat_risk("reqeusts")
+        """
+    )
+    assert "nephilex.supply_chain.intel" in loaded
+    assert "httpx" not in loaded
+
+
 def test_nephilex_scanners_lists_every_builtin() -> None:
     from nephilex.core.plugin import registry
 

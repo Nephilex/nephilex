@@ -27,11 +27,11 @@ def _client(handler) -> httpx.Client:
 
 @pytest.fixture(autouse=True)
 def _public_example(monkeypatch):
-    """Treat *.example.com as public without real DNS; everything else uses the real check."""
+    """Treat the test origin as public without real DNS; everything else uses the real check."""
     real = posture._hostname_is_public
 
     def fake(host: str) -> bool:
-        return True if host.endswith("example.com") else real(host)
+        return True if host == "app.example.com" else real(host)
 
     monkeypatch.setattr(posture, "_hostname_is_public", fake)
     for var in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy"):

@@ -1,0 +1,1374 @@
+{
+  "splits": {
+    "dev": {
+      "vulnerable": 23,
+      "safe": 23,
+      "TP": 23,
+      "FN": 0,
+      "FP": 0,
+      "TN": 23,
+      "recall": 1.0,
+      "precision": 1.0
+    },
+    "heldout": {
+      "vulnerable": 21,
+      "safe": 21,
+      "TP": 19,
+      "FN": 2,
+      "FP": 0,
+      "TN": 21,
+      "recall": 0.905,
+      "precision": 1.0
+    },
+    "all": {
+      "vulnerable": 44,
+      "safe": 44,
+      "TP": 42,
+      "FN": 2,
+      "FP": 0,
+      "TN": 44,
+      "recall": 0.955,
+      "precision": 1.0
+    }
+  },
+  "by_category": {
+    "instruction-file": {
+      "dev": {
+        "vulnerable": 15,
+        "safe": 15,
+        "TP": 15,
+        "FN": 0,
+        "FP": 0,
+        "TN": 15,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "heldout": {
+        "vulnerable": 12,
+        "safe": 12,
+        "TP": 10,
+        "FN": 2,
+        "FP": 0,
+        "TN": 12,
+        "recall": 0.833,
+        "precision": 1.0
+      }
+    },
+    "tool-poisoning": {
+      "dev": {
+        "vulnerable": 8,
+        "safe": 8,
+        "TP": 8,
+        "FN": 0,
+        "FP": 0,
+        "TN": 8,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "heldout": {
+        "vulnerable": 9,
+        "safe": 9,
+        "TP": 9,
+        "FN": 0,
+        "FP": 0,
+        "TN": 9,
+        "recall": 1.0,
+        "precision": 1.0
+      }
+    }
+  },
+  "cases": [
+    {
+      "path": "ir-agents-root-tag-chars/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "path": "ir-agents-root-tag-chars/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-clinerules-dir-tag-chars/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "path": "ir-clinerules-dir-tag-chars/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-cursorrules-zero-width/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 16
+        },
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "path": "ir-cursorrules-zero-width/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-windsurf-bidi-override/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 9
+        },
+        {
+          "rule": "agent-config.instruction-untrusted-dependency",
+          "owasp": "LLM03",
+          "severity": "High",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "path": "ir-windsurf-bidi-override/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-copilot-bidi-isolate/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "path": "ir-copilot-bidi-isolate/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-claude-invisible-format/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        },
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "ir-claude-invisible-format/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-gemini-html-comment/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "path": "ir-gemini-html-comment/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-cursor-mdc-ignore-prior/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "path": "ir-cursor-mdc-ignore-prior/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-roo-hide-actions/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "ir-roo-hide-actions/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-clinerules-single-skip-security/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "ir-clinerules-single-skip-security/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-agents-nested-curl-exec/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "ir-agents-nested-curl-exec/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-copilot-instr-read-env/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "ir-copilot-instr-read-env/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-cursor-mdc-exfil-ssh/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "path": "ir-cursor-mdc-exfil-ssh/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-roo-add-dependency/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-untrusted-dependency",
+          "owasp": "LLM03",
+          "severity": "Medium",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "ir-roo-add-dependency/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-claude-push-no-review/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "path": "ir-claude-push-no-review/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-agents-base64-directive/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-encoded-blob",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "ir-agents-base64-directive/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-copilot-base64-directive/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-encoded-blob",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "ir-copilot-base64-directive/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-agents-web-exfil-token-image/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "ir-agents-web-exfil-token-image/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-weather-ssh-read/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-weather-ssh-read/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-desc-kwarg-hide/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-desc-kwarg-hide/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-param-field-desc/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-param-field-desc/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-standalone-shadow-email/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-standalone-shadow-email/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-lowlevel-server-list-tools-unicode/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "path": "tp-lowlevel-server-list-tools-unicode/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-sdk-server-tool-env-token/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "path": "tp-sdk-server-tool-env-token/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-sdk-register-tool-zod-describe/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "path": "tp-sdk-register-tool-zod-describe/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-sdk-lowlevel-listtools-chain-env/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 18
+        },
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "path": "tp-sdk-lowlevel-listtools-chain-env/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-js-server-tool-bidi-url/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "path": "tp-js-server-tool-bidi-url/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-config-read-param-zerowidth/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-config-read-param-zerowidth/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-claude-silent-backdoor-route/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "ir-claude-silent-backdoor-route/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-gemini-hex-payload-exec/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "FN",
+      "findings": []
+    },
+    {
+      "path": "ir-gemini-hex-payload-exec/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-cursorrules-ignore-user-silent/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "FN",
+      "findings": []
+    },
+    {
+      "path": "ir-cursorrules-ignore-user-silent/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-windsurf-dir-skip-tests/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "ir-windsurf-dir-skip-tests/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-cline-disable-linter-hooks/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "path": "ir-cline-disable-linter-hooks/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-gemini-zero-width-new-cred/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 8
+        },
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "ir-gemini-zero-width-new-cred/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-claude-tag-chars-add-admin/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-hidden-unicode",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "path": "ir-claude-tag-chars-add-admin/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-list-dir-secrets/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-list-dir-secrets/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-param-read-aws-creds/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-param-read-aws-creds/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-zerowidth-call-shell/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-zerowidth-call-shell/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-sdk-ts-param-bidi-url/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "path": "tp-sdk-ts-param-bidi-url/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-js-tool-hidden-read-netrc/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "tp-js-tool-hidden-read-netrc/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-fastmcp-docstring-hide-output/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Medium",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "path": "tp-fastmcp-docstring-hide-output/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "tp-sdk-register-tool-tag-chars/vulnerable",
+      "split": "heldout",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.mcp-tool-poisoning",
+          "owasp": "LLM01",
+          "severity": "Critical",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "path": "tp-sdk-register-tool-tag-chars/safe",
+      "split": "heldout",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-copilot-extra-index-url/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-untrusted-dependency",
+          "owasp": "LLM03",
+          "severity": "Medium",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "ir-copilot-extra-index-url/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    },
+    {
+      "path": "ir-agents-pr-comment-exfil/vulnerable",
+      "split": "dev",
+      "vulnerable": true,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TP",
+      "findings": [
+        {
+          "rule": "agent-config.instruction-directive",
+          "owasp": "LLM01",
+          "severity": "High",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "path": "ir-agents-pr-comment-exfil/safe",
+      "split": "dev",
+      "vulnerable": false,
+      "expected_owasp": [
+        "LLM01",
+        "LLM03"
+      ],
+      "outcome": "TN",
+      "findings": []
+    }
+  ]
+}

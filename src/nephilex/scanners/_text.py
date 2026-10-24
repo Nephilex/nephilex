@@ -30,8 +30,16 @@ WINDOW_OVERLAP = 256
 #: download command and the pipe: a real fetch always has one, while prose
 #: that merely names the pattern ("avoid curl | bash") does not.
 #: Linear: ``\s+`` and ``[^\s|]`` cannot match the same character, and
-#: ``[^\n|]*`` stops at the first pipe.
-CURL_PIPE_SHELL = r"\b(?:curl|wget|fetch)\s+[^\s|][^\n|]*\|\s*(?:sudo\s+(?:-\S+\s+)*)?(?:ba|z)?sh\b"
+#: ``[^\n|]*`` stops at the first pipe. Each sudo flag (``-E``, ``--preserve-env``)
+#: is a run of visible ASCII (``[!-~]``) followed by spaces or tabs. The two
+#: classes are disjoint by construction, so the repeated group cannot split one
+#: input two ways; ``\S``/``\s`` are also disjoint in Python, but static ReDoS
+#: checks that model them loosely (control characters in both) report
+#: exponential backtracking there. Flags with control characters are not real.
+CURL_PIPE_SHELL = (
+    r"\b(?:curl|wget|fetch)\s+[^\s|][^\n|]*\|\s*"
+    r"(?:sudo[ \t]+(?:-[!-~]+[ \t]+)*)?(?:ba|z)?sh\b"
+)
 CURL_PIPE_SHELL_RE = re.compile(CURL_PIPE_SHELL, re.IGNORECASE)
 
 

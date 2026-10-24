@@ -106,12 +106,19 @@ _CONTENTS_WRITE = re.compile(r"^\s*contents:\s*['\"]?write\b")
 
 
 def _permission_block_lines(lines: list[str]) -> list[int]:
-    """Line numbers of a `permissions:` mapping whose entries grant contents: write."""
+    """Line numbers of a workflow-level `permissions:` mapping granting contents: write.
+
+    Only the top-level key counts: it applies to every job. The same grant on
+    one job's own `permissions:` is the least-privilege form this rule's
+    remediation asks for, so it is not reported.
+    """
     out: list[int] = []
     for idx, line in enumerate(lines):
         if len(line) > MAX_SCAN_LINE or not _PERMISSIONS_KEY.match(line):
             continue
         indent = len(line) - len(line.lstrip())
+        if indent:
+            continue  # a job's own permissions
         for entry in lines[idx + 1 : idx + 20]:
             if not entry.strip() or entry.lstrip().startswith("#"):
                 continue

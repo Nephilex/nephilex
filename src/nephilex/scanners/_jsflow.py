@@ -427,6 +427,8 @@ _VALIDATOR_STMT = re.compile(
     r"(?i)^(?:assert|validate|ensure|check|verify|require|guard)\w*$"
     r"|^\w*(?:valid|safe)\w*(?:or(?:throw|fail)|strict)$"
 )
+#: What a prefix check proves: the value stays under a directory or on a host.
+_PREFIX_KINDS = frozenset({"file", "ssrf", "redirect"})
 _WEAK_PREFIXES = {"", "/", "./", "http", "https", "http:", "https:", "http://", "https://"}
 #: A literal URL prefix that fixes the scheme and host, or a relative URL.
 _HOST_PINNED = re.compile(
@@ -519,6 +521,8 @@ class JsFlow:
         self.rooted_vars: set[str] = set()
         self.sep_terminated: set[str] = set()
         self.derived: dict[str, str] = {}
+        #: ``q = `${p}.gz```: q -> p, so a containment check of p also covers q.
+        self.suffixed: dict[str, str] = {}
         self._seen: set[tuple[str, int]] = set()
         self._done: set[tuple[int, int]] = set()
         self._ret_stack: list[TaintSet] = []
@@ -915,6 +919,9 @@ class JsFlow:
                 if nxt in chain:
                     break
                 chain.append(nxt)
+            # gz = `${file}.gz` built before the check: a separator-free suffix cannot
+            # leave the directory the checked path is in, so gz is covered too.
+            chain += [q for q, base in self.suffixed.items() if base in chain and q not in chain]
             for name in chain:
                 for key in [
                     s for s in scope if s == name or s.startswith((name + ".", name + REST))
@@ -938,11 +945,13 @@ class JsFlow:
         value = self.unwrap(value)
         if name is None or value is None:
             return
+        self.suffixed.pop(name, None)  # reassigned: the old derivation no longer holds
+        base = self._suffix_base(value)
+        if base is not None and base != name:
+            self.suffixed[name] = base
         if value.type == "binary_expression":
             right = self.unwrap(value.child_by_field_name("right"))
-            if right is not None and (
-                self.text(right) in ("path.sep", "sep", "'/'", '"/"', "'\\\\'", '"\\\\"')
-            ):
+            if right is not None and self._is_sep(right):
                 self.sep_terminated.add(name)  # base = root + path.sep
         if value.type in ("new_expression", "call_expression"):
             fn = value.child_by_field_name("constructor") or value.child_by_field_name("function")
@@ -967,11 +976,51 @@ class JsFlow:
                     self.derived[name] = src
             if last in _RESOLVERS and self._path_module(fn, fn_text):
                 self.resolved.add(name)
+                argv = args.named_children if args is not None else []
+                if last == "join" and len(argv) > 1 and self._is_sep(argv[-1]):
+                    self.sep_terminated.add(name)  # path.join(dir, '/') keeps the slash
                 if first is not None and args is not None:
                     # p = path.resolve(base, x): checking p vouches for x too
                     src = self.key(args.named_children[-1])
                     if src is not None and src != name:
                         self.derived.setdefault(name, src)
+
+    def _is_sep(self, node) -> bool:
+        """``path.sep``, ``sep``, ``'/'`` or ``'\\\\'``."""
+        return self.text(node) in ("path.sep", "sep", "'/'", '"/"', "'\\\\'", '"\\\\"')
+
+    def _suffix_base(self, value) -> str | None:
+        """``p`` for `` `${p}.gz` `` or ``p + '.gz'``: a literal suffix with no separator.
+
+        Such a suffix keeps the value in the directory ``p`` names, so a containment
+        check of ``p`` holds for it as well. A suffix of only dots is not accepted
+        (``root/`` + ``..`` climbs out).
+        """
+        if value.type == "template_string":
+            kids = value.named_children
+            if not kids or kids[0].type != "template_substitution":
+                return None
+            subs = kids[0].named_children
+            if len(subs) != 1 or any(c.type != "string_fragment" for c in kids[1:]):
+                return None
+            head, suffix = subs[0], "".join(self.text(c) for c in kids[1:])
+        elif value.type == "binary_expression":
+            op = value.child_by_field_name("operator")
+            if op is None or self.text(op) != "+":
+                return None
+            head = value.child_by_field_name("left")
+            right = self.unwrap(value.child_by_field_name("right"))
+            if right is None or any(c.type != "string_fragment" for c in right.named_children):
+                return None  # an escape sequence could spell a separator
+            suffix = self.string(right) or ""
+        else:
+            return None
+        head = self.unwrap(head)
+        if head is None or head.type not in ("identifier", "member_expression"):
+            return None
+        if not suffix or "/" in suffix or "\\" in suffix or not suffix.strip("."):
+            return None
+        return self.key(head)
 
     def _path_module(self, fn, fn_text: str) -> bool:
         """Whether ``fn`` is a function of ``path`` or ``fs`` (``path.resolve``, ``realpath``)."""
@@ -1171,6 +1220,18 @@ class JsFlow:
                     return _union(lp, rp), _intersect(ln, rn)
                 return _intersect(lp, rp), _union(ln, rn)
             if op in ("===", "==", "!==", "!="):
+                sliced = self._slice_prefix(left, right) or self._slice_prefix(right, left)
+                if sliced is not None:
+                    # p.slice(0, base.length) === base is p.startsWith(base). Trusted
+                    # only when base ends with a separator (or is not a directory);
+                    # otherwise a sibling such as /srv/www-evil passes and the value
+                    # stays tainted.
+                    held: dict[str, frozenset[str]] = {}
+                    if not self._weak_prefix(*sliced) and not _attacker(
+                        self._eval(sliced[1], scope)
+                    ):
+                        held = {k: _PREFIX_KINDS for k in self._checked(sliced[0])}
+                    return (held, empty) if op in ("===", "==") else (empty, held)
                 keys: dict[str, frozenset[str]] = {}
                 for a, b in ((left, right), (right, left)):
                     if a is None or b is None:
@@ -1280,6 +1341,35 @@ class JsFlow:
             return checked, empty
         return empty, empty
 
+    def _slice_prefix(self, side, other):
+        """(p, base) for ``p.slice(0, base.length)`` compared with ``base``, else None.
+
+        ``substring`` and ``substr`` with the same arguments are the same test.
+        """
+        side = self.unwrap(side)
+        if side is None or side.type != "call_expression":
+            return None
+        fn = side.child_by_field_name("function")
+        args = side.child_by_field_name("arguments")
+        if fn is None or args is None or fn.type != "member_expression":
+            return None
+        prop = fn.child_by_field_name("property")
+        if prop is None or self.text(prop) not in ("slice", "substring", "substr"):
+            return None
+        argv = args.named_children
+        if len(argv) != 2 or self.text(argv[0]) != "0":
+            return None
+        length = self.unwrap(argv[1])
+        if length is None or length.type != "member_expression":
+            return None
+        lprop = length.child_by_field_name("property")
+        base = self.key(length.child_by_field_name("object"))
+        if lprop is None or self.text(lprop) != "length" or base is None:
+            return None
+        if self.key(other) != base:
+            return None
+        return fn.child_by_field_name("object"), other
+
     def _prefix_guard(self, call, obj, prefix, scope: dict[str, TaintSet]):
         """``p.startsWith(base)``: a containment check for resolved paths and pinned URLs."""
         out: dict[str, frozenset[str]] = {}
@@ -1289,13 +1379,13 @@ class JsFlow:
             if lit.lower() in _WEAK_PREFIXES or not _HOST_PINNED.match(lit) and "/" not in lit:
                 return out
             for k in checked:
-                out[k] = frozenset({"ssrf", "redirect", "file"})
+                out[k] = _PREFIX_KINDS
             return out
         if _attacker(self._eval(prefix, scope)):
             return out  # comparing against another attacker value proves nothing
         self._weak_prefix_check(call, obj, prefix)
         for k in checked:
-            out[k] = frozenset({"file", "ssrf", "redirect"})
+            out[k] = _PREFIX_KINDS
         return out
 
     def _autoescape_off(self, node, fn, fn_text, head, head_mod, last, args) -> None:
@@ -1328,23 +1418,24 @@ class JsFlow:
             )
         )
 
-    def _weak_prefix_check(self, call, obj, prefix) -> None:
-        """``resolved.startsWith(rootDir)`` without a trailing separator: /root-evil passes."""
+    def _weak_prefix(self, obj, prefix) -> bool:
+        """A resolved path compared with a directory that has no trailing separator."""
         prefix = self.unwrap(prefix)
         if prefix is None or prefix.type not in ("identifier", "member_expression"):
-            return
+            return False
         name = self.key(prefix) or ""
         if not _DIRISH.search(name.rsplit(".", 1)[-1]) or name in self.sep_terminated:
-            return
+            return False
         target = self.unwrap(obj)
-        resolved = False
         if target is not None and target.type == "call_expression":
             fn = target.child_by_field_name("function")
             last = self.callee_text(fn).rsplit(".", 1)[-1] if fn is not None else ""
-            resolved = last in _RESOLVERS
-        elif target is not None:
-            resolved = (self.key(target) or "") in self.resolved
-        if not resolved:
+            return last in _RESOLVERS
+        return target is not None and (self.key(target) or "") in self.resolved
+
+    def _weak_prefix_check(self, call, obj, prefix) -> None:
+        """``resolved.startsWith(rootDir)`` without a trailing separator: /root-evil passes."""
+        if not self._weak_prefix(obj, prefix):
             return
         line = call.start_point[0] + 1
         if ("prefix", line) in self._seen:

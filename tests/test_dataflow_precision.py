@@ -240,6 +240,36 @@ def test_open_redirect_and_netloc_allowlist(tmp_path):
     assert "ast-open-redirect" not in _rules(tmp_path, _view("return redirect(url_for('home'))"))
 
 
+@pytest.mark.parametrize(
+    "target",
+    [
+        "f\"/scans/{request.args['id']}\"",
+        "'/items/' + request.args['id']",
+        "'/items/' + request.args['id'] + '/edit?tab=' + request.args['tab']",
+        "f\"https://example.com/{request.args['p']}\"",
+        "'https://example.com?next=' + request.args['p']",
+    ],
+)
+def test_redirect_whose_literal_start_fixes_the_host_is_not_reported(tmp_path, target):
+    assert "ast-open-redirect" not in _rules(tmp_path, _view(f"return redirect({target})"))
+
+
+@pytest.mark.parametrize(
+    "target",
+    [
+        "'/' + request.args['n']",
+        "f\"//{request.args['h']}/x\"",
+        "'/\\\\' + request.args['h']",
+        "f\"https://{request.args['h']}/x\"",
+        "'https://example.com' + request.args['p']",
+        "'https://example.com@' + request.args['p']",
+        "f\"{request.args['n']}/home\"",
+    ],
+)
+def test_redirect_whose_host_can_still_change_is_reported(tmp_path, target):
+    assert "ast-open-redirect" in _rules(tmp_path, _view(f"return redirect({target})"))
+
+
 def test_xxe_needs_external_entities_and_tainted_xml(tmp_path):
     vuln = _view(
         "import xml.sax, xml.dom.minidom\nxml_doc = request.data\nparser = xml.sax.make_parser()\n"

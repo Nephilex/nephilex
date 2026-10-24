@@ -1019,6 +1019,13 @@ case's result equals that of the separate Python and JavaScript/TypeScript
 runs, so the two kinds of work do not interact. The scan took 859 s against
 735 s for 0.11.0 on the same machine.
 
+After the precision fixes that followed (JavaScript/TypeScript containment
+checks, example code at low confidence, same-site redirect targets), a rerun
+at `d00bdf64e1a939a9724a36740c6bd990d1b39302` detects the same 24 of 351
+with 5 flagged after the fix; the only per-case change is a MobSF redirect to
+`f"/download/{file_name}"`, no longer reported as an open redirect because
+its literal start keeps it on the same site.
+
 ## Public reference apps (finding inventory)
 
 The larger harness scans real, known-vulnerable applications:

@@ -48,11 +48,6 @@
       [22]
      ],
      [
-      510,
-      "ast-python.ast-open-redirect",
-      [601]
-     ],
-     [
       555,
       "ast-python.ast-path-traversal",
       [22]
@@ -63,11 +58,6 @@
       468,
       "ast-python.ast-path-traversal",
       [22]
-     ],
-     [
-      510,
-      "ast-python.ast-open-redirect",
-      [601]
      ],
      [
       555,
