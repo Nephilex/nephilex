@@ -330,13 +330,27 @@ validator (`isValid*`, `isAllowed*`, `isSafe*`, `isPathInside`) or a blocklist
 (`isPrivate*`, `isBlocked*`), a URL host compared with an allowlist or with the
 request's own host, a resolved path checked with `startsWith(base + path.sep)`
 or `path.relative(base, p)` against `..`, and a regex `replace` that removes
-everything outside a character class. A statement call such as
+everything outside a character class. `p.slice(0, base.length) === base` (or
+`substring`/`substr` with the same arguments) is the same test as
+`p.startsWith(base)`; it is trusted only when `base` ends with a separator
+(`base + path.sep`, or `path.join(dir, '/')`, which keeps the trailing slash),
+since otherwise a sibling such as `/srv/www-evil` passes a check for
+`/srv/www`. A check of a path also covers a value built from it with a literal
+suffix that has no separator and is not only dots (`` `${file}.gz` ``), even
+when that value was built before the check. A statement call such as
 `assertValidRegion(r)` or `validateName(n)` is taken to throw and clears its
 argument. `path.join(root, path.normalize('/' + p))` stays under `root`. Host
 pinned URLs (`` `https://api.example.com/${id}` ``) and relative URLs are not
 SSRF or open redirect. String blocklists (`p.includes('..')`) are not trusted.
 Express's `res.send` of a string is HTML unless the handler sets another
 content type.
+
+**JS/TS test and example code.** Findings in test files (`test/`, `tests/`,
+`__tests__/`, `spec/`, `fixtures/`) and in example or demo code (`example/`,
+`examples/`, `sample/`, `samples/`, `demo/`, `demos/`) are still reported, one
+severity step lower and at low confidence, tagged `test-context` or
+`example-context`. Such code is not part of what a package runs, but readers
+copy examples, so the finding is kept.
 
 **Limits.** Strongest for Python and JS/TS. Interprocedural analysis is bounded
 (one call hop across files, plus request wrappers and same-file helper

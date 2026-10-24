@@ -112,6 +112,8 @@ _SANITIZERS = {
 
 
 _JS_PATTERNS = ("*.js", "*.jsx", "*.mjs", "*.cjs", "*.ts", "*.tsx", "*.mts", "*.cts")
+#: Example and demo code a package ships for its readers, not as part of its runtime.
+_EXAMPLE_PATH = re.compile(r"(?i)(^|/)(examples?|samples?|demos?)/")
 
 
 @dataclass
@@ -345,11 +347,12 @@ class ASTJsScanner(Scanner):
             # Per-file isolation: one hostile file is skipped and noted, it does
             # not take the findings for every other file down with it.
             in_test = _is_test_file(f.rel_path)
+            in_example = not in_test and bool(_EXAMPLE_PATH.search(f.rel_path))
             try:
                 tree = parsers[lang].parse(src)
                 findings = run_with_context(
-                    lambda c, src=src, path=f.rel_path, in_test=in_test: _JsAnalyzer(
-                        src, path, in_test, context=c
+                    lambda c, src=src, path=f.rel_path, t=in_test, e=in_example: _JsAnalyzer(
+                        src, path, t, context=c, in_example=e
                     ),
                     tree.root_node,
                     f.text(),
@@ -373,10 +376,12 @@ class _JsAnalyzer:
         in_test: bool,
         *,
         context: LanguageContext | None = None,
+        in_example: bool = False,
     ) -> None:
         self._src = src
         self._path = path
         self._in_test = in_test
+        self._in_example = in_example
         self._ctx = context
         self._lines: list[bytes] | None = None
 
@@ -398,10 +403,12 @@ class _JsAnalyzer:
             Confidence.HIGH if t.flavor in ("request", "dom", "archive") else Confidence.MEDIUM
         )
         tags = ["sast", "ast", "taint"]
-        if self._in_test:
+        if self._in_test or self._in_example:
+            # Still reported, one severity step down and at low confidence: the code
+            # is not part of what the package runs, though readers copy examples.
             severity = Severity(max(Severity.INFO, sink.severity - 1))
             confidence = Confidence.LOW
-            tags.append("test-context")
+            tags.append("test-context" if self._in_test else "example-context")
         if report.rule:
             description = sink.why
             metadata: dict[str, object] = {"analysis": "configuration", "check": report.label}

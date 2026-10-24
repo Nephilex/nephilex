@@ -80,6 +80,13 @@ include breaking changes, noted explicitly).
   a shell is reported even when the payload does not decode, rules that "take
   priority over" the user count as an override, and British spellings such as
   "summarise" are matched.
+- JS/TS path traversal: `p.slice(0, base.length) === base` is recognized as a
+  containment check when the base ends with a separator (including
+  `path.join(dir, '/')`), and the check also covers a path built from the
+  checked one with a plain suffix such as `.gz`.
+- JS/TS findings in example and demo code (`example/`, `samples/`, `demo/`)
+  are reported one severity step lower and at low confidence, as findings in
+  test code already were.
 
 ## [0.11.0] - 2026-10-23
 
