@@ -22,7 +22,7 @@ request, or discussion for a suspected vulnerability.
 Preferred channel: GitHub private vulnerability reporting at
 <https://github.com/nephilex/nephilex/security/advisories/new>.
 
-Alternative: email haseebfarooq35@gmail.com or abdullah@devfactory.io.
+Alternative: email haseebfarooq35@gmail.com or abdullah@fourdevs.ai.
 
 Please include:
 
