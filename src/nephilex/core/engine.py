@@ -353,7 +353,8 @@ class ScanEngine:
                 options["__library_mode__"] = True  # different sources, different findings
         skey = scanner_key(scanner.name, options)
         files = ctx.project.files()
-        keys = {f.rel_path: file_key(f.rel_path, f.text()) for f in files}
+        salt = scanner.cache_salt(ctx)
+        keys = {f.rel_path: file_key(f.rel_path, f.text(), salt.get(f.rel_path, "")) for f in files}
 
         hits: list[Finding] = []
         misses = []
@@ -370,7 +371,13 @@ class ScanEngine:
 
             subset = copy.copy(ctx.project)
             subset._files_cache = tuple(misses)
-            sub_ctx = ScannerContext(project=subset, config=ctx.config, ai=ctx.ai)
+            sub_ctx = ScannerContext(
+                project=subset,
+                config=ctx.config,
+                ai=ctx.ai,
+                scope=ctx.scope or ctx.project,
+                shared=ctx.shared,
+            )
             fresh = list(scanner.scan(sub_ctx))
             by_file: dict[str, list[Finding]] = {f.rel_path: [] for f in misses}
             for finding in fresh:
