@@ -601,10 +601,58 @@ _ROUTE_RULE = re.compile(r"\(\s*(['\"])([^'\"\n]*)\1")
 _REQUEST_PATH = frozenset({"request.path", "flask.request.path"})
 _IMPORTS_FLASK = re.compile(rb"(?m)^\s*(?:from|import)\s+(?:flask|quart|bottle)\b")
 _IMPORTS_JSON_FRAMEWORK = re.compile(rb"(?m)^\s*(?:from|import)\s+(?:fastapi|starlette)\b")
+#: ``from module import a, b as c`` (one line, or a parenthesized list).
+_FROM_IMPORT = re.compile(rb"(?m)^[ \t]*from[ \t]+([\w.]+)[ \t]+import[ \t]+(\([^)]*\)|[^\n#;]+)")
+#: Command-line frameworks: Typer, Click and the packages built on Click.
+_IMPORTS_CLI = re.compile(
+    rb"(?m)^\s*(?:from|import)\s+(?:typer|click|rich_click|asyncclick|cloup)\b"
+)
+#: Decorators that make a function a command: ``@app.command()``,
+#: ``@click.command()``, ``@cli.group()``, ``@app.callback()``,
+#: ``@click.argument(...)``, ``@click.option(...)``.
+_CLI_DECORATOR = re.compile(r"(?:^@\s*|\.)(?:command|group|callback|argument|option)\s*(?:\(|$)")
+#: A Typer or Click parameter declared in a default value or inside
+#: ``Annotated[...]``: ``typer.Argument(...)``, ``typer.Option(...)``.
+_CLI_PARAM_MARKER = re.compile(r"(?:\b(?:typer|click)\.|(?<![\w.]))(?:Argument|Option)\(")
+#: Functions registered as commands without a decorator: ``app.command("x")(fn)``
+#: and ``typer.run(fn)``.
+_CLI_REGISTERED = re.compile(
+    rb"\.command\s*\((?:[^()]|\([^()]*\))*\)\s*\(\s*([A-Za-z_]\w*)\s*\)"
+    rb"|\btyper\.run\s*\(\s*([A-Za-z_]\w*)\s*\)"
+)
+#: Parameter annotations of the command's context object, not a value.
+_CLI_CONTEXT = re.compile(r"(?:^|\.)Context$")
 _IMPORTS_LDAP = re.compile(rb"(?m)^\s*(?:from|import)\s+ldap3?\b")
 _IMPORTS_XML = re.compile(rb"(?m)^\s*(?:from|import)\s+(?:lxml|xml\.etree|elementpath)\b")
 _FROM_RANDOM = re.compile(rb"(?m)^\s*from\s+random\s+import\s+([^\n#]+)")
 _EXTERNAL_ENTITY_FEATURE = re.compile(r"external[-_](?:ges|pes|general|parameter)")
+
+
+def _marker_imports(src: bytes) -> tuple[frozenset[str], frozenset[str]]:
+    """Local names of FastAPI's parameter markers, and marker names bound elsewhere.
+
+    The first set holds names imported from ``fastapi`` (``Query``, or ``Q``
+    for ``Query as Q``). The second holds marker names imported from any other
+    absolute module, such as ``Path`` from ``pathlib``: a default of
+    ``Path(".")`` is then a file system path, not a request parameter.
+    """
+    web: set[str] = set()
+    other: set[str] = set()
+    for m in _FROM_IMPORT.finditer(src):
+        module = m.group(1).decode("ascii", "ignore")
+        names = re.sub(r"#[^\n]*|[()\\]", " ", m.group(2).decode("utf-8", "ignore"))
+        from_fastapi = module == "fastapi" or module.startswith("fastapi.")
+        for part in names.split(","):
+            bits = part.split()
+            if not bits:
+                continue
+            original, local = bits[0], bits[-1]
+            if from_fastapi and original in FASTAPI_PARAMS:
+                web.add(local)
+            elif local in FASTAPI_PARAMS and not module.startswith("."):
+                # A relative import may re-export FastAPI's marker: not known.
+                other.add(local)
+    return frozenset(web), frozenset(other - web)
 
 
 #: One step of a tainted value's history: (start byte, line, byte column,
@@ -1164,6 +1212,13 @@ class Flow:
         self.verdicts: dict[tuple[str, int], str] = {}
         self._flask = bool(_IMPORTS_FLASK.search(src))
         self._json_framework = bool(_IMPORTS_JSON_FRAMEWORK.search(src))
+        self._web_markers, self._other_markers = _marker_imports(src)
+        self._cli = bool(_IMPORTS_CLI.search(src))
+        #: Functions this file registers as commands without a decorator.
+        self._cli_commands: frozenset[str] = frozenset(
+            (a or b).decode("ascii", "ignore")
+            for a, b in (_CLI_REGISTERED.findall(src) if self._cli else ())
+        )
         self._ldap = bool(_IMPORTS_LDAP.search(src))
         self._xml = bool(_IMPORTS_XML.search(src))
         self._jinja_template = bool(_IMPORTS_JINJA_TEMPLATE.search(src))
@@ -2013,6 +2068,16 @@ class Flow:
         )
         html_route = api_route and any("HTMLResponse" in d for d in decorators)
         route = flask_route or html_route
+        # A Typer or Click command: its parameters come from the command line.
+        cli = (
+            self._cli
+            and not (flask_route or api_route)
+            and (
+                any(_CLI_DECORATOR.search(d.strip()) for d in decorators)
+                or name in self._cli_commands
+                or self._has_cli_param(node)
+            )
+        )
         nested = bool(self._fn_stack)
         owner: str | None = None
         if nested:
@@ -2038,6 +2103,7 @@ class Flow:
                 route_rules=decorators if flask_route else None,
                 api_route=api_route,
                 public=owner is not None and not nested,
+                cli=cli,
             )
             scope.update(params)
             self._exec_block(body, State(scope), depth + 1)
@@ -2104,6 +2170,7 @@ class Flow:
         route_rules: list[str] | None = None,
         api_route: bool = False,
         public: bool = False,
+        cli: bool = False,
     ) -> dict[str, Val]:
         """Each parameter (except ``self``/``cls``) as a value of caller origin.
 
@@ -2112,8 +2179,10 @@ class Flow:
         parameters (``Query()``, ``Form()``, ``File()``... defaults, and every
         non-dependency parameter of a path operation), ``UploadFile`` uploads.
         A parameter annotated as the framework's request object is marked so
-        its client-controlled attributes are sources. In library mode the
-        parameters of a public function are sources of origin ORIGIN_API.
+        its client-controlled attributes are sources. The parameters of a
+        Typer or Click command (``cli``) come from the command line: they are
+        sources of origin ORIGIN_OPERATOR. In library mode the parameters of a
+        public function are sources of origin ORIGIN_API.
         """
         params = fn_node.child_by_field_name("parameters")
         out: dict[str, Val] = {}
@@ -2124,7 +2193,10 @@ class Flow:
             name, annotation, default = self._param_parts(p)
             if name is None or name in ("self", "cls"):
                 continue
-            v = self._param_source(name, annotation, default, converters, api_route, public)
+            if cli:
+                v = self._cli_param_source(annotation)
+            else:
+                v = self._param_source(name, annotation, default, converters, api_route, public)
             if v.taint and self._trails:
                 v = self._hop(v, p, "source", name, ("param", v.origins))
             out[name] = v
@@ -2162,18 +2234,21 @@ class Flow:
         api_route: bool,
         public: bool,
     ) -> Val:
-        marker = ""
+        callee = ""
         if default is not None and default.type == "call":
             fn = default.child_by_field_name("function")
-            marker = self._compact(fn).rsplit(".", 1)[-1] if fn is not None else ""
+            callee = self._compact(fn) if fn is not None else ""
+        marker = callee.rsplit(".", 1)[-1]
         if marker in ("Depends", "Security") or "Depends(" in annotation:
             return Val(param=True)
         core = re.sub(r"^Optional\[(.*)\]$|\|None$", r"\1", annotation)
         if core and _REQUEST_TYPES.match(core):
             return Val(param=True, flags=frozenset({"httpreq"}))
         safe = bool(_SAFE_ANNOTATION.match(annotation))
-        fastapi_marker = marker in FASTAPI_PARAMS or bool(
-            re.search(r"\b(?:Query|Path|Body|Form|File|Header|Cookie)\(", annotation)
+        # A FastAPI marker in the default or in ``Annotated[...]``; an
+        # ``Annotated`` type alone, or ``pathlib.Path(".")``, is not one.
+        fastapi_marker = self._is_web_marker(callee) or any(
+            self._is_web_marker(m) for m in re.findall(r"([\w.]+)\(", annotation)
         )
         if fastapi_marker or "UploadFile" in annotation:
             return LIT if safe else TAINT
@@ -2184,6 +2259,50 @@ class Flow:
         if public:
             return Val(lit=True, param=True) if safe else API_TAINT
         return Val(param=True)
+
+    def _is_web_marker(self, callee: str) -> bool:
+        """``callee`` is one of FastAPI's request parameter markers (``Query`` ...)."""
+        prefix, _, last = callee.rpartition(".")
+        if prefix:
+            return last in FASTAPI_PARAMS and (
+                prefix == "fastapi"
+                or prefix.startswith("fastapi.")
+                or (prefix == "params" and self._json_framework)
+            )
+        if last in self._web_markers:
+            return True
+        return last in FASTAPI_PARAMS and self._json_framework and last not in self._other_markers
+
+    def _has_cli_param(self, fn_node) -> bool:
+        """A parameter of ``fn_node`` is declared with ``typer.Argument/Option(...)``."""
+        params = fn_node.child_by_field_name("parameters")
+        if params is None:
+            return False
+        for p in params.named_children:
+            _name, annotation, default = self._param_parts(p)
+            text = annotation + (self._compact(default) if default is not None else "")
+            if _CLI_PARAM_MARKER.search(text):
+                return True
+        return False
+
+    @staticmethod
+    def _cli_param_source(annotation: str) -> Val:
+        """A command parameter: the person running the command chooses it."""
+        m = re.match(r"^(?:typing\.|typing_extensions\.)?Annotated\[(.*)\]$", annotation)
+        base = annotation
+        if m is not None:
+            depth = 0
+            for i, ch in enumerate(m.group(1)):
+                if ch in "[(":
+                    depth += 1
+                elif ch in "])":
+                    depth -= 1
+                elif ch == "," and depth == 0:
+                    base = m.group(1)[:i]
+                    break
+        if _CLI_CONTEXT.search(base):
+            return Val(param=True)  # click.Context / typer.Context
+        return LIT if _SAFE_ANNOTATION.match(base) else OPERATOR_TAINT
 
     @staticmethod
     def _route_converters(decorators: list[str]) -> dict[str, str]:
