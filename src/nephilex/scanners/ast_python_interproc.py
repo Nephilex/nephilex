@@ -47,7 +47,14 @@ from nephilex.core.models import (
     Severity,
 )
 from nephilex.core.plugin import Scanner, ScannerContext, scanner
-from nephilex.scanners._pyflow import OPERATOR_SOURCE_RE, REQUEST_SOURCE_RE, source_callables
+from nephilex.scanners._pyflow import (
+    OPERATOR_SOURCE_RE,
+    REQUEST_SOURCE_RE,
+    ProjectLink,
+    SummaryStore,
+    source_callables,
+)
+from nephilex.scanners._pyproject import python_project
 from nephilex.scanners.ast_python import (
     _ARGV_ATTACK,
     _SOURCE_RE,
@@ -126,10 +133,12 @@ class _SourceIndex:
 
 
 class _FileParse:
-    def __init__(self, path: str, src: bytes, root) -> None:
+    def __init__(self, path: str, src: bytes, root, link: ProjectLink | None = None) -> None:
         self.path = path
         self.src = src
         self.root = root
+        #: The file's place in the project, for helpers in other files.
+        self.link = link
         self._lines: list[bytes] | None = None
 
     @property
@@ -175,11 +184,22 @@ class ASTPythonInterprocScanner(Scanner):
         # analysis is skipped and noted instead of failing the whole scanner.
         skipped: list[Finding] = []
         parses: list[_FileParse] = []
+        # The parses are shared with ast-python, and so are the module names
+        # that resolve helpers imported from other files.
+        project = python_project(ctx)
+        store = SummaryStore(project)
         for f in ctx.project.files():
             if f.language != "Python" or f.is_probably_binary():
                 continue
-            src = f.text().encode("utf-8", "replace")
+            text = project.text(f.rel_path)
+            src = (text if text is not None else f.text()).encode("utf-8", "replace")
             if not src.strip():
+                continue
+            parsed = project.parsed(f.rel_path)
+            if parsed is not None and parsed[0] == src:
+                parses.append(
+                    _FileParse(f.rel_path, src, parsed[1], ProjectLink(store, f.rel_path))
+                )
                 continue
             try:
                 tree = parser.parse(src)
@@ -242,13 +262,14 @@ class ASTPythonInterprocScanner(Scanner):
                 continue
             in_test = _is_test_file(fp.path)
             try:
-                plain = _Analyzer(fp.src, fp.path, in_test).run(fp.root)
+                plain = _Analyzer(fp.src, fp.path, in_test, project=fp.link).run(fp.root)
                 extended = _Analyzer(
                     fp.src,
                     fp.path,
                     in_test,
                     source_methods=frozenset(methods),
                     source_functions=frozenset(functions),
+                    project=fp.link,
                 ).run(fp.root)
             except Exception as exc:
                 yield analysis_skipped_finding(self.name, fp.path, exc)
@@ -285,7 +306,7 @@ class ASTPythonInterprocScanner(Scanner):
 
     # --- pass 1 -------------------------------------------------------------
     def _summarize_file(self, fp: _FileParse) -> Iterable[_DangerousParam]:
-        analyzer = _Analyzer(fp.src, fp.path, _is_test_file(fp.path))
+        analyzer = _Analyzer(fp.src, fp.path, _is_test_file(fp.path), project=fp.link)
         for fn in self._iter_functions(fp.root):
             name_node = fn.child_by_field_name("name")
             body = fn.child_by_field_name("body")

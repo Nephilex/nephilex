@@ -12,8 +12,10 @@ multiple hops, so it catches injection that the regex tier misses:
 
 It is **optional**: tree-sitter is an extra (``pip install "nephilex[ast]"``).
 Without it the scanner reports as not-applicable and Nephilex falls back to the
-regex tier, nothing breaks. Analysis here is intra-file and per-function-scope,
-which keeps it fast and low-noise; a companion depth-1 cross-file/inter-procedural
+regex tier, nothing breaks. Analysis here is per file and per function scope,
+which keeps it fast and low-noise; helpers imported from other project files
+are followed through summaries of their bodies. A companion depth-1
+cross-file/inter-procedural
 tier lives in :mod:`nephilex.scanners.ast_python_interproc`, and deeper multi-hop
 whole-program flow remains future work.
 """
@@ -55,8 +57,11 @@ from nephilex.scanners._pyflow import (
     UNIVERSAL_SANITIZERS,
     Flow,
     LibraryScope,
+    ProjectLink,
+    SummaryStore,
     source_callables,
 )
+from nephilex.scanners._pyproject import python_project
 
 if TYPE_CHECKING:
     from nephilex.context import LanguageContext
@@ -540,6 +545,14 @@ class ASTPythonScanner(Scanner):
             return None
         return 'needs the [ast] extra: pip install "nephilex[ast]"'
 
+    def cache_salt(self, ctx: ScannerContext) -> dict[str, str]:
+        # Findings depend on helpers imported from other project files, so a
+        # file's cache entry is keyed by the files its calls resolve into too.
+        if _load_parser() is None:
+            return {}
+        project = python_project(ctx)
+        return {path: project.dependency_digest(path) for path in project.paths}
+
     def scan(self, ctx: ScannerContext) -> Iterable[Finding]:
         parser = _load_parser()
         if parser is None:
@@ -549,10 +562,17 @@ class ASTPythonScanner(Scanner):
         from nephilex.analysis.library import library_mode_for, module_is_public
 
         library = library_mode_for(ctx.project, getattr(ctx.config, "library_mode", "auto"))
+        # Helpers imported from other files are summarized in their own file;
+        # the parses are shared with the cross-file scanner.
+        project = python_project(ctx)
+        store = SummaryStore(project)
         for f in ctx.project.files():
             if f.language != "Python" or f.is_probably_binary():
                 continue
-            src = f.text().encode("utf-8", "replace")
+            text = project.text(f.rel_path)
+            if text is None:
+                text = f.text()
+            src = text.encode("utf-8", "replace")
             if not src.strip():
                 continue
             # One hostile or unparseable file must never sink the whole scanner:
@@ -561,14 +581,20 @@ class ASTPythonScanner(Scanner):
             scope = (
                 LibraryScope(module_public=module_is_public(f.rel_path)) if library.active else None
             )
+            link: ProjectLink | None = ProjectLink(store, f.rel_path)
             try:
-                tree = parser.parse(src)
+                parsed = project.parsed(f.rel_path)
+                if parsed is not None and parsed[0] == src:
+                    root = parsed[1]
+                else:
+                    root = parser.parse(src).root_node
+                    link = None
                 findings = run_with_context(
-                    lambda c, src=src, path=f.rel_path, in_test=in_test, scope=scope: _Analyzer(
-                        src, path, in_test, context=c, library=scope
+                    lambda c, src=src, path=f.rel_path, in_test=in_test, scope=scope, link=link: (
+                        _Analyzer(src, path, in_test, context=c, library=scope, project=link)
                     ),
-                    tree.root_node,
-                    f.text(),
+                    root,
+                    text,
                     context,
                     scanner_name=self.name,
                     source=source,
@@ -704,9 +730,12 @@ class _Analyzer:
         source_methods: frozenset[str] = frozenset(),
         source_functions: frozenset[str] = frozenset(),
         library: LibraryScope | None = None,
+        project: ProjectLink | None = None,
     ) -> None:
         self._src = src
         self._path = path
+        #: The file's place in the project, for helpers in other files.
+        self._project = project
         self._in_test = in_test
         self._library = library
         # (sink_id, line) -> index into self._findings: de-dup within the file
@@ -731,6 +760,7 @@ class _Analyzer:
             source_methods=self._extra_methods | frozenset(methods),
             source_functions=self._extra_functions | frozenset(functions),
             library=self._library,
+            project=self._project,
         )
         self._findings = []
         self._seen = {}
@@ -760,7 +790,13 @@ class _Analyzer:
                     self.seed_details[key] = str(info["detail"])
                 self.seed_trails[key] = (node, tuple(info.get("trail") or ()))
 
-        flow = Flow(self._src, collect, context=self._ctx, shared=self._seed_shared)
+        flow = Flow(
+            self._src,
+            collect,
+            context=self._ctx,
+            shared=self._seed_shared,
+            project=self._project,
+        )
         flow.run_body(body, seed_names)
         self._seed_shared = flow.shared
         return found

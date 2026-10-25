@@ -27,7 +27,10 @@ refine the state on each side of a condition: an early return when
 clears it entirely, and a ``urlparse(u).netloc`` allowlist clears ``u`` for
 open redirect.
 
-Everything here is intra-procedural and deliberately simple. Python's own
+Everything here is intra-procedural and deliberately simple, except for helper
+summaries: a call to a helper defined in the same file, or imported from
+another file of the project (through :mod:`nephilex.scanners._pyproject`), is
+analyzed through a bounded summary of the helper's body. Python's own
 recursion is bounded: statements and expressions nested deeper than a fixed
 limit fall back to a flat, conservative scan instead of recursing further, so a
 hostile file cannot exhaust the stack.
@@ -37,9 +40,12 @@ from __future__ import annotations
 
 import ast as _pyast
 import re
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from contextlib import contextmanager
 from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING, Any
+
+from nephilex.scanners._pyproject import MAX_XFILE_DEPTH
 
 if TYPE_CHECKING:
     from nephilex.context import LanguageContext
@@ -1029,6 +1035,71 @@ class _Shared:
     guards: dict[tuple[str, str], _Guard | None] = field(default_factory=dict)
 
 
+@dataclass(frozen=True)
+class _HelperRef:
+    """A helper a call resolves to, in this file or in another project file."""
+
+    #: Summary cache key in the defining file's tables.
+    key: str
+    node: Any
+    #: The flow over the file that defines the helper (the caller itself for
+    #: a helper in the same file).
+    host: Flow
+    #: The name shown in evidence.
+    label: str
+    #: ``path:line`` of the definition for a helper in another file, else None.
+    where: str | None = None
+
+
+@dataclass
+class ProjectLink:
+    """Where a flow's file sits in the project, for cross-file helpers."""
+
+    store: SummaryStore
+    path: str
+
+
+class SummaryStore:
+    """Flows over the project's files that hold cross-file helper summaries.
+
+    One store serves one scanner run. A defining file gets one flow per set of
+    analysis settings (project context and extra sources), and that flow's
+    summary tables are reused by every caller in the scan, so each
+    (file, function, mode) is summarized once per settings.
+    """
+
+    def __init__(self, project: Any) -> None:
+        #: A :class:`nephilex.scanners._pyproject.PythonProject`.
+        self.project = project
+        self._hosts: dict[tuple[Any, ...], tuple[Flow | None, Any]] = {}
+
+    def host(self, path: str, caller: Flow) -> Flow | None:
+        key = (path, id(caller._ctx), caller.source_methods, caller.source_functions)
+        hit = self._hosts.get(key)
+        if hit is not None:
+            return hit[0]
+        flow: Flow | None = None
+        parsed = self.project.parsed(path)
+        if parsed is not None:
+            src, root = parsed
+            flow = Flow(
+                src,
+                None,
+                context=caller._ctx,
+                source_methods=caller.source_methods,
+                source_functions=caller.source_functions,
+                project=ProjectLink(self, path),
+            )
+            try:
+                flow._ensure_shared(root)
+                flow._module_consts = flow._module_constants(root)
+            except (AnalysisBudgetExceeded, RecursionError):
+                flow = None
+        # The context object is kept so its id is not reused during the scan.
+        self._hosts[key] = (flow, caller._ctx)
+        return flow
+
+
 #: Flags a helper's return value passes on to its callers.
 #: ("html" is not passed on: returned HTML is judged where it is built.)
 _RETURN_FLAGS = frozenset({"path", "normalized", "http", "tar", "zip", "jinja", "jinja-sandbox"})
@@ -1056,6 +1127,7 @@ class Flow:
         source_functions: frozenset[str] = frozenset(),
         library: LibraryScope | None = None,
         shared: _Shared | None = None,
+        project: ProjectLink | None = None,
     ) -> None:
         self._src = src
         self._emit_cb = emit
@@ -1065,6 +1137,8 @@ class Flow:
         self._trails = emit is not None
         #: The condition or validator call being applied, for "guard" hops.
         self._guard_at: Any = None
+        #: ``path:line`` of a validator in another file being applied, if any.
+        self._guard_where: str | None = None
         self._ctx = context
         self._cwes: frozenset[str] = TAINT_CWES | (context.cwes if context else frozenset())
         self.source_methods = source_methods
@@ -1081,6 +1155,10 @@ class Flow:
         #: The file's helper index and summaries. A caller that runs several
         #: flows over one file with the same settings passes it on (``shared``).
         self._shared: _Shared | None = shared
+        #: The project around this file, for helpers defined in other files.
+        self._project = project
+        #: File boundaries crossed by the summary chain this flow runs in.
+        self._xdepth = 0
         self._module_consts: dict[str, Val] = {}
         #: (kind, line) -> "tainted" | "literal" | "unknown", for the regex tier.
         self.verdicts: dict[tuple[str, int], str] = {}
@@ -2387,8 +2465,12 @@ class Flow:
         arg_nodes = (
             [c for c in args.named_children if c.type != "comment"] if args is not None else []
         )
-        for path, guard in self._guarded_args(node, st):
-            self._clean(st, path, guard.true if holds else guard.false)
+        saved_where = self._guard_where
+        try:
+            for path, guard in self._guarded_args(node, st):
+                self._clean(st, path, guard.true if holds else guard.false)
+        finally:
+            self._guard_where = saved_where
         if not holds:
             return
         if recv is None and last == "isinstance" and len(arg_nodes) == 2:
@@ -2419,7 +2501,10 @@ class Flow:
         if v is not None and v.taint:
             v = replace(v, clean=v.clean | cwes)
             if self._trails and self._guard_at is not None and cwes:
-                v = self._hop(v, self._guard_at, "guard", self._snip(self._guard_at, 60), cwes)
+                text = self._snip(self._guard_at, 60)
+                if self._guard_where is not None:
+                    text = f"{text} (defined in {self._guard_where})"
+                v = self._hop(v, self._guard_at, "guard", text, cwes)
             st.vars[path] = v
 
     # --- same-file helpers ----------------------------------------------------
@@ -2456,6 +2541,53 @@ class Flow:
         assert self._shared is not None
         return (self._shared.methods if method else self._shared.functions).get(name)
 
+    # A helper imported from another file of the project resolves through the
+    # project index (``from .utils import clean``, ``utils.clean(x)``, a static
+    # or class method, a method of a module-level instance) and is summarized
+    # in its own file, with the caller's settings, by a flow the scan's
+    # SummaryStore keeps for that file. Summaries nest at most
+    # MAX_SUMMARY_DEPTH deep and cross at most MAX_XFILE_DEPTH file boundaries.
+    def _helper_ref(self, fn, st: State | None = None) -> _HelperRef | None:
+        """The helper a call target ``fn`` names, in this file or another one."""
+        local = self._local_helper(fn)
+        if local is not None:
+            node = self._helper_node(*local)
+            if node is None:
+                return None
+            key = ("m:" if local[1] else "f:") + local[0]
+            return _HelperRef(key, node, self, local[0])
+        link = self._project
+        if link is None or fn is None or self._xdepth >= MAX_XFILE_DEPTH:
+            return None
+        dotted = self._path(fn)
+        if dotted is None or (st is not None and dotted.split(".", 1)[0] in st.vars):
+            return None
+        callee = link.store.project.resolve_call(link.path, dotted)
+        if callee is None or callee.path == link.path:
+            return None
+        host = link.store.host(callee.path, self)
+        if host is None:
+            return None
+        label = callee.qualname
+        return _HelperRef(
+            "x:" + callee.qualname, callee.node, host, label, f"{callee.path}:{callee.line}"
+        )
+
+    @contextmanager
+    def _visit(self, ref: _HelperRef) -> Iterator[Flow]:
+        """``ref``'s defining flow, entered at this flow's depths."""
+        host = ref.host
+        if host is self:
+            yield self
+            return
+        saved = host._summary_depth, host._xdepth
+        host._summary_depth = self._summary_depth
+        host._xdepth = self._xdepth + 1
+        try:
+            yield host
+        finally:
+            host._summary_depth, host._xdepth = saved
+
     def _helper_params(self, fn_node) -> list[tuple[str, bool]]:
         """(name, is_splat) for each parameter except ``self``/``cls``."""
         params = fn_node.child_by_field_name("parameters")
@@ -2473,12 +2605,11 @@ class Flow:
             out.append((name, splat))
         return out
 
-    def _call_arg_map(self, call, fn_node) -> list[tuple[str, Any]]:
-        """(parameter name, argument node) pairs for a call to ``fn_node``."""
+    def _call_arg_map(self, call, params: list[tuple[str, bool]]) -> list[tuple[str, Any]]:
+        """(parameter name, argument node) pairs for a call to a helper with ``params``."""
         args = call.child_by_field_name("arguments")
         if args is None or args.type == "generator_expression":
             return []
-        params = self._helper_params(fn_node)
         positional: list[str] = []
         for name, splat in params:
             if splat:
@@ -2514,6 +2645,8 @@ class Flow:
             source_functions=self.source_functions,
         )
         sub._shared = self._shared
+        sub._project = self._project
+        sub._xdepth = self._xdepth
         sub._module_consts = self._module_consts
         sub._summary_depth = self._summary_depth + 1
         sub._step_limit = SUMMARY_STEPS
@@ -2538,15 +2671,18 @@ class Flow:
             ctx.exits.append((None, None, end))
         return sub, ctx
 
-    def _return_summary(self, name: str, method: bool) -> _RetSummary | None:
+    def _return_summary(self, ref: _HelperRef) -> _RetSummary | None:
+        with self._visit(ref) as host:
+            return host._return_summary_at(ref.key, ref.node)
+
+    def _return_summary_at(self, key: str, node) -> _RetSummary | None:
+        """What helper ``node`` of this file returns when its parameters are tainted."""
         assert self._shared is not None
-        key = ("m:" if method else "f:") + name
         if key in self._shared.returns:
             return self._shared.returns[key]
         if self._summary_depth >= MAX_SUMMARY_DEPTH:
             return None  # too deep here; do not memoize the gap
         self._shared.returns[key] = None  # recursion guard
-        node = self._helper_node(name, method)
         if node is None or _is_generator(node):
             return None
         run = self._run_summary(node, {p: TAINT for p, _ in self._helper_params(node)})
@@ -2571,15 +2707,19 @@ class Flow:
         self._shared.returns[key] = summ
         return summ
 
-    def _guard_summary(self, name: str, method: bool, pname: str) -> _Guard | None:
+    def _guard_summary(self, ref: _HelperRef, pname: str) -> _Guard | None:
+        with self._visit(ref) as host:
+            return host._guard_summary_at(ref.key, ref.node, pname)
+
+    def _guard_summary_at(self, name: str, node, pname: str) -> _Guard | None:
+        """CWEs helper ``node`` of this file validates its parameter ``pname`` for."""
         assert self._shared is not None
-        key = (("m:" if method else "f:") + name, pname)
+        key = (name, pname)
         if key in self._shared.guards:
             return self._shared.guards[key]
         if self._summary_depth >= MAX_SUMMARY_DEPTH:
             return None
         self._shared.guards[key] = None
-        node = self._helper_node(name, method)
         if node is None or not _has_rejection(node):
             return None
         run = self._run_summary(node, {pname: TAINT})
@@ -2649,22 +2789,21 @@ class Flow:
         return False
 
     def _guarded_args(self, call, st: State) -> list[tuple[str, _Guard]]:
-        """Tainted variables a call to a same-file validator vouches for."""
+        """Tainted variables a call to a validator helper vouches for."""
         fn = call.child_by_field_name("function")
-        helper = self._local_helper(fn)
-        if helper is None:
-            return []
-        node = self._helper_node(*helper)
-        if node is None:
+        ref = self._helper_ref(fn, st)
+        if ref is None:
             return []
         out: list[tuple[str, _Guard]] = []
-        for pname, arg in self._call_arg_map(call, node):
+        for pname, arg in self._call_arg_map(call, ref.host._helper_params(ref.node)):
             path = self._path(arg)
             if path is None or not st.get(path).taint:
                 continue
-            guard = self._guard_summary(helper[0], helper[1], pname)
+            guard = self._guard_summary(ref, pname)
             if guard is not None:
                 out.append((path, guard))
+        if out and ref.where is not None:
+            self._guard_where = ref.where
         return out
 
     def _apply_guard_statement(self, node, st: State) -> None:
@@ -2674,11 +2813,13 @@ class Flow:
         if node.type != "call" or not st.live:
             return
         saved, self._guard_at = self._guard_at, node
+        saved_where, self._guard_where = self._guard_where, None
         try:
             for path, guard in self._guarded_args(node, st):
                 self._clean(st, path, guard.after)
         finally:
             self._guard_at = saved
+            self._guard_where = saved_where
 
     # --- expressions --------------------------------------------------------
     def ev(self, node, st: State, depth: int) -> Val:
@@ -3128,9 +3269,13 @@ class Flow:
         if c.fn in TAR_CTORS:
             # An archive object; it carries the taint of where it was read from.
             return replace(summary(combine(args)), flags=frozenset({"tar"}))
-        helper = self._local_helper(c.node.child_by_field_name("function"))
-        if helper is not None and any(a.taint for a in args):
-            summ = self._return_summary(*helper)
+        helper = (
+            self._helper_ref(c.node.child_by_field_name("function"), st)
+            if any(a.taint for a in args)
+            else None
+        )
+        if helper is not None:
+            summ = self._return_summary(helper)
             if summ is not None:
                 if not summ.taint:
                     return Val(lit=summ.lit, flags=summ.flags)
@@ -3146,7 +3291,10 @@ class Flow:
                     trail=base.trail or _OPAQUE_TRAIL,
                 )
                 if self._trails:
-                    out = self._hop(out, c.node, "step", f"returned by {helper[0][:40]}()")
+                    note = f"returned by {helper.label[:40]}()"
+                    if helper.where is not None:
+                        note += f", defined in {helper.where}"
+                    out = self._hop(out, c.node, "step", note)
                 return out
         if self._is_record_lookup(c):
             # A row looked up by a key from the request holds stored data, not
