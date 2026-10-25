@@ -71,8 +71,11 @@ def code_fingerprint() -> str:
     return h.hexdigest()[:12]
 
 
-def file_key(rel_path: str, text: str) -> str:
-    digest = hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()[:24]
+def file_key(rel_path: str, text: str, salt: str = "") -> str:
+    data = text.encode("utf-8", errors="replace")
+    if salt:
+        data += b"\0" + salt.encode("utf-8", errors="replace")
+    digest = hashlib.sha256(data).hexdigest()[:24]
     return f"{rel_path}@{digest}"
 
 

@@ -59,6 +59,9 @@ class Case:
     filename: str
     vulnerable: bool
     code: str
+    #: Other files of the project (path -> text), for flows through a helper
+    #: defined in another module. Findings in them count too.
+    extra: dict[str, str] | None = None
 
 
 # --- the labeled corpus ----------------------------------------------------
@@ -928,6 +931,31 @@ CASES: list[Case] = [
         _FLASK + "@app.route('/pref', methods=['POST'])\ndef pref():\n"
         "    session['theme'] = 'dark' if request.form.get('dark') else 'light'\n    return 'ok'\n",
     ),
+    # --- through a helper imported from another file of the project -----------
+    Case(
+        "taint-imported-helper-path",
+        "taint",
+        "views.py",
+        True,
+        _FLASK + "from paths import under\n@app.route('/file')\ndef read_file():\n"
+        "    return open(under('/srv/files', request.args.get('name'))).read()\n",
+        extra={
+            "paths.py": "import os\ndef under(base, name):\n    return os.path.join(base, name)\n",
+        },
+    ),
+    Case(
+        "taint-imported-validator-safe",
+        "taint",
+        "views.py",
+        False,
+        _FLASK + "from checks import require_known\n@app.route('/file')\ndef read_file():\n"
+        "    name = request.args.get('name')\n    require_known(name)\n"
+        "    return open(os.path.join('/srv/files', name)).read()\n",
+        extra={
+            "checks.py": "KNOWN = ('terms.txt', 'privacy.txt')\ndef require_known(name):\n"
+            "    if name not in KNOWN:\n        raise ValueError('unknown file')\n",
+        },
+    ),
     # --- JavaScript / TypeScript taint (ast-js), each with a fixed twin --------
     Case(
         "taint-js-express-ssrf",
@@ -1112,6 +1140,9 @@ def _scan_case(case: Case) -> int:
         target = tmp / case.filename
         target.parent.mkdir(parents=True, exist_ok=True)  # e.g. .cursor/mcp.json
         target.write_text(case.code, encoding="utf-8")
+        for rel, text in (case.extra or {}).items():
+            (tmp / rel).parent.mkdir(parents=True, exist_ok=True)
+            (tmp / rel).write_text(text, encoding="utf-8")
         cfg = Config(scanner_options={"dependencies": {"online": False}})
         result = ScanEngine(cfg).scan(Project.from_path(tmp))
         return sum(1 for f in result.sorted_findings() if f.severity >= MIN_SEVERITY)

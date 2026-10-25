@@ -28,8 +28,8 @@ from __future__ import annotations
 
 import abc
 import logging
-from collections.abc import Callable, Iterable
-from dataclasses import dataclass
+from collections.abc import Callable, Iterable, Mapping
+from dataclasses import dataclass, field
 from importlib import metadata
 from typing import TYPE_CHECKING, Any, ClassVar
 
@@ -113,6 +113,14 @@ class ScannerContext:
     project: Project
     config: Config
     ai: AIProvider | None = None
+    #: The whole project when ``project`` is a narrower view of it (the files
+    #: that missed the per-file cache), else None. A scanner that reads other
+    #: files to analyze one (cross-file taint) looks them up here.
+    scope: Project | None = None
+    #: State shared by the scanners of one scan (for example the parsed Python
+    #: files), keyed by a name the owner chooses. Scanners run on separate
+    #: threads, so an entry must be safe to share.
+    shared: dict[str, Any] = field(default_factory=dict)
 
 
 class Scanner(abc.ABC):
@@ -162,6 +170,16 @@ class Scanner(abc.ABC):
         credential every run.
         """
         return self.file_local
+
+    def cache_salt(self, ctx: ScannerContext) -> Mapping[str, str]:
+        """Extra per-file cache key material, by relative path.
+
+        A file-local scanner whose findings for a file also depend on other
+        files (a helper imported from another module) returns a digest of
+        those files here, so editing one of them invalidates the entry.
+        Default: nothing extra.
+        """
+        return {}
 
     @abc.abstractmethod
     def scan(self, ctx: ScannerContext) -> Iterable[Finding]:

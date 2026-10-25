@@ -213,7 +213,35 @@ validates a parameter for when it raises, or returns a boolean, unless the
 value passed a check. `validate(x)` on its own line, or `if not
 is_safe(x): return`, then clears `x` for those classes. Summaries are computed
 on demand, bounded in depth (two helpers deep) and in work, and generators are
-not summarized. A record looked up by a key (Django `Model.objects.get()` /
+not summarized.
+
+Helpers imported from another file of the same project are summarized the
+same way, in the file that defines them and with the caller's settings
+(project context, sources). What crosses files:
+
+- module functions imported with `from pkg.mod import f`, `from .mod import f`
+  (relative), `from pkg.mod import f as g`, `import pkg.mod` then
+  `pkg.mod.f(x)`, and `import pkg.mod as m` then `m.f(x)`;
+- a name re-exported by a package's `__init__.py` (`from pkg import f` where
+  `pkg/__init__.py` has `from .impl import f`), one re-export deep;
+- static and class methods called on an imported class (`Paths.clean(x)`), and
+  methods called on a module-level instance (`service = Service()` in the
+  helper's module, or in the caller's module for an imported class).
+
+Module names come from file paths and package roots (directories with an
+`__init__.py`), so `src/` layouts and directories without an `__init__.py`
+resolve too. What does not cross files: methods called on any other receiver
+(an object passed in, `self` inherited from a base class in another file),
+star imports, a name that two modules could provide (two top-level `utils.py`
+files that the importing file's location does not tell apart), a name the
+importing file also defines itself, and anything outside the scanned project
+(installed packages stay opaque). A chain of summaries crosses at most two
+file boundaries; past that the call is opaque and its result keeps the
+arguments' taint. Each file is parsed once per scan and each helper is
+summarized once per scan and settings. When an imported helper passes taint
+on, the finding's evidence shows the call with the file and line where the
+helper is defined. A validation done by every caller of a function (rather
+than inside a helper it calls) is not modeled. A record looked up by a key (Django `Model.objects.get()` /
 `filter()`, `Model.query.get()`, SQLAlchemy `session.get(Model, key)` and
 `session.query(...)`, `get_object_or_404`, and methods named by the
 repository convention `get_..._by_id` / `find_by_...`) is stored data, not
@@ -393,8 +421,8 @@ severity step lower and at low confidence, tagged `test-context` or
 copy examples, so the finding is kept.
 
 **Limits.** Strongest for Python and JS/TS. Interprocedural analysis is bounded
-(one call hop across files, plus request wrappers and same-file helper
-summaries); extremely dynamic code can defeat static tracing. Guards are
+(one call hop across files, plus request wrappers and helper summaries that
+cross at most two files); extremely dynamic code can defeat static tracing. Guards are
 recognized only in the simple forms above. Option injection into an argv list
 (CWE-88) is not reported. A file that needs more than a fixed amount of
 analysis work, or nests statements deeper than 60 levels, falls back to a
