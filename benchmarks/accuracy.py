@@ -1130,6 +1130,33 @@ CASES: list[Case] = [
         "def remember(resp, sid):\n    resp.set_cookie('sid', sid,\n"
         "        secure=True,\n        httponly=True,\n        samesite='Lax')\n    return resp\n",
     ),
+    # SAST: FastAPI parameters are request input, command-line parameters are not
+    Case(
+        "sast-fastapi-annotated-query-path",
+        "sast",
+        "api.py",
+        True,
+        "from typing import Annotated\nfrom fastapi import FastAPI, Query\napp = FastAPI()\n"
+        "@app.get('/read')\ndef read(name: Annotated[str, Query()]):\n"
+        "    with open('/srv/files/' + name) as f:\n        return f.read()\n",
+    ),
+    Case(
+        "sast-typer-option-url-safe",
+        "sast",
+        "cli.py",
+        False,
+        "from typing import Annotated\nimport requests\nimport typer\napp = typer.Typer()\n"
+        "@app.command()\ndef fetch(url: Annotated[str, typer.Option()]):\n"
+        "    print(requests.get(url, timeout=10).status_code)\n",
+    ),
+    Case(
+        "sast-pathlib-default-safe",
+        "sast",
+        "build.py",
+        False,
+        "from pathlib import Path\ndef build(path: Path = Path('.')):\n"
+        "    with open(path / 'pyproject.toml') as f:\n        return f.read()\n",
+    ),
 ]
 
 
