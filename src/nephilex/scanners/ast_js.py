@@ -35,6 +35,8 @@ from typing import TYPE_CHECKING
 
 from nephilex.core.models import (
     Confidence,
+    Evidence,
+    EvidenceStep,
     Finding,
     Likelihood,
     Location,
@@ -42,7 +44,7 @@ from nephilex.core.models import (
     Severity,
 )
 from nephilex.core.plugin import Scanner, ScannerContext, scanner
-from nephilex.scanners._jsflow import KIND_CWE, JsFlow, Report
+from nephilex.scanners._jsflow import KIND_CWE, JsFlow, Report, Taint
 from nephilex.scanners.ast_python import (
     analysis_skipped_finding,
     language_context,
@@ -302,6 +304,14 @@ _RULE_SPECS = {
     "ast-path-prefix-check": _PREFIX_CHECK,
     "ast-template-autoescape-off": _AUTOESCAPE_OFF,
 }
+#: What the source of each flavor is, after its expression, in an evidence step.
+_SOURCE_NOTE = {
+    "request": "is attacker-controlled",
+    "dom": "is browser input that a crafted link or page can set",
+    "archive": "is received from an archive and names the entry",
+    "env": "comes from the environment or the command line",
+    "param": "comes from callers of the function",
+}
 _FLAVOR_NOTE = {
     "request": "",
     "dom": "",
@@ -394,6 +404,54 @@ class _JsAnalyzer:
             self._lines = self._src.splitlines()
         return node_location(self._path, self._src, node, self._lines)
 
+    def _code(self, line: int) -> tuple[bytes, str]:
+        lines = self._lines or []
+        raw = lines[line - 1] if 0 < line <= len(lines) else b""
+        return raw, raw.decode("utf-8", "ignore")
+
+    def _evidence(self, report: Report, location: Location) -> Evidence:
+        """The recorded path of a taint report: source, the steps it took, the sink."""
+        t: Taint = report.taint
+        _, code = self._code(t.line)
+        note = f"{t.origin} {_SOURCE_NOTE.get(t.flavor, 'is untrusted input')}"
+        at = code.find(t.origin)
+        steps = [
+            EvidenceStep(
+                path=self._path,
+                line=t.line,
+                column=at + 1 if at >= 0 else None,
+                role="source",
+                code=code,
+                note=note,
+            )
+        ]
+        for line, col, text in t.steps:
+            if not text:
+                steps.append(
+                    EvidenceStep(path=self._path, role="elided", note="earlier steps left out")
+                )
+                continue
+            raw, code = self._code(line)
+            column = len(raw[: max(col - 1, 0)].decode("utf-8", "ignore")) + 1
+            steps.append(
+                EvidenceStep(
+                    path=self._path, line=line, column=column, role="step", code=code, note=text
+                )
+            )
+        sink_line = report.sink_line
+        same = sink_line == location.start_line
+        steps.append(
+            EvidenceStep(
+                path=self._path,
+                line=sink_line,
+                column=location.start_column if same else None,
+                role="sink",
+                code=(location.snippet or "") if same else self._code(sink_line)[1],
+                note=f"reaches {report.label}",
+            )
+        )
+        return Evidence(path=steps)
+
     def _finding(self, report: Report) -> Finding:
         sink = _RULE_SPECS[report.rule] if report.rule else _BY_ID[_KIND_SINK[report.kind]]
         line = report.node.start_point[0] + 1
@@ -431,13 +489,15 @@ class _JsAnalyzer:
                 "sink_line": report.sink_line,
             }
         cwe = list(sink.cwe) if report.rule else [KIND_CWE[report.kind]]
+        location = self._location(report.node)
+        evidence = None if report.rule else self._evidence(report, location)
         return Finding(
             id=f"{ASTJsScanner.name}:{sink.id}:{self._path}:{line}",
             rule_id=f"{ASTJsScanner.name}.{sink.id}",
             scanner=ASTJsScanner.name,
             title=sink.title,
             description=description,
-            location=self._location(report.node),
+            location=location,
             severity=severity,
             confidence=confidence,
             likelihood=Likelihood.LIKELY if t.flavor in ("request", "dom") else Likelihood.POSSIBLE,
@@ -454,4 +514,5 @@ class _JsAnalyzer:
             ),
             tags=tags,
             metadata=metadata,
+            evidence=evidence,
         )

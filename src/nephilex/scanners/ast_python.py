@@ -30,6 +30,8 @@ from typing import TYPE_CHECKING, Any
 from nephilex.core.models import (
     PUBLIC_API_TAG,
     Confidence,
+    Evidence,
+    EvidenceStep,
     Finding,
     Likelihood,
     Location,
@@ -604,6 +606,91 @@ def node_location(path: str, src: bytes, node, lines: list[bytes] | None = None)
     )
 
 
+def _char_column(line: bytes, byte_col: int) -> int:
+    """1-based character column of 1-based byte column ``byte_col`` in ``line``."""
+    return len(line[: max(byte_col - 1, 0)].decode("utf-8", "ignore")) + 1
+
+
+def _line_text(lines: list[bytes], line: int) -> tuple[bytes, str]:
+    raw = lines[line - 1] if 0 < line <= len(lines) else b""
+    return raw, raw.decode("utf-8", "ignore")
+
+
+def _source_note(text: str, extra: Any, origin: str, owner: str | None) -> str:
+    """What a "source" hop means for a finding of ``origin``."""
+    how = extra[0] if isinstance(extra, tuple) and extra else "expr"
+    if origin == ORIGIN_OPERATOR:
+        return f"{text} comes from the command line, the environment or console input"
+    if origin == ORIGIN_ARCHIVE:
+        return f"{text} is a member name read from an archive"
+    if origin == ORIGIN_API:
+        where = f"{owner}()" if owner else "a public function"
+        return f"{text} is a parameter of {where}, so callers of the library control it"
+    if how == "param":
+        return f"{text} is filled from the request by the web framework"
+    return f"{text} is attacker-controlled"
+
+
+def sink_note(src: bytes, node) -> str:
+    """What happens at the sink ``node``: ``passed to cursor.execute``."""
+    if node.type == "call":
+        fn = node.child_by_field_name("function")
+        if fn is not None:
+            name = re.sub(r"\s+", "", src[fn.start_byte : fn.end_byte].decode("utf-8", "ignore"))
+            return f"passed to {name[:60]}"
+    if node.type == "return_statement":
+        return "returned to the client as the response"
+    text = re.sub(r"\s+", " ", src[node.start_byte : node.end_byte].decode("utf-8", "ignore"))
+    return f"reaches {text.strip()[:60]}"
+
+
+def trail_steps(
+    path: str,
+    lines: list[bytes],
+    trail: tuple[Any, ...],
+    *,
+    origin: str,
+    owner: str | None,
+    sink_cwes: frozenset[str],
+) -> list[EvidenceStep]:
+    """Evidence steps for the hops of a taint trail recorded in file ``path``."""
+    steps: list[EvidenceStep] = []
+    for _start, line, col, kind, text, extra in trail:
+        if kind == "opaque":
+            continue
+        if kind == "elided":
+            steps.append(EvidenceStep(path=path, role="elided", note="earlier steps left out"))
+            continue
+        raw, code = _line_text(lines, line)
+        column = _char_column(raw, col)
+        if kind == "source":
+            note = _source_note(text, extra, origin, owner)
+            steps.append(
+                EvidenceStep(
+                    path=path, line=line, column=column, role="source", code=code, note=note
+                )
+            )
+        elif kind == "param":
+            note = f"received as parameter {text}"
+            steps.append(
+                EvidenceStep(path=path, line=line, column=column, role="step", code=code, note=note)
+            )
+        elif kind == "guard":
+            if isinstance(extra, frozenset) and extra & sink_cwes:
+                continue  # a check that covers this sink was on another path
+            note = f"checked by {text}, which does not cover this kind of sink"
+            steps.append(
+                EvidenceStep(
+                    path=path, line=line, column=column, role="guard", code=code, note=note
+                )
+            )
+        else:
+            steps.append(
+                EvidenceStep(path=path, line=line, column=column, role="step", code=code, note=text)
+            )
+    return steps
+
+
 class _Analyzer:
     """Runs the flow engine over one file and turns its reports into findings."""
 
@@ -661,14 +748,17 @@ class _Analyzer:
         seen: set[tuple[str, int]] = set()
         #: (sink_id, line) -> emit detail ("argv" for a command without a shell)
         self.seed_details: dict[tuple[str, int], str] = {}
+        #: (sink_id, line) -> (the sink node, the taint trail from the parameter)
+        self.seed_trails: dict[tuple[str, int], tuple[Any, tuple[Any, ...]]] = {}
 
-        def collect(sink_id: str, node, **info: object) -> None:
+        def collect(sink_id: str, node, **info: Any) -> None:
             key = (sink_id, node.start_point[0] + 1)
             if sink_id not in NON_TAINT_SINKS and key not in seen:
                 seen.add(key)
                 found.append(key)
                 if info.get("detail"):
                     self.seed_details[key] = str(info["detail"])
+                self.seed_trails[key] = (node, tuple(info.get("trail") or ()))
 
         flow = Flow(self._src, collect, context=self._ctx, shared=self._seed_shared)
         flow.run_body(body, seed_names)
@@ -682,6 +772,7 @@ class _Analyzer:
         origin: str = ORIGIN_REQUEST,
         owner: str | None = None,
         detail: str | None = None,
+        trail: tuple[Any, ...] = (),
     ) -> None:
         line = node.start_point[0] + 1
         key = (sink_id, line)
@@ -692,10 +783,12 @@ class _Analyzer:
             index = self._seen[key]
             old = self._findings[index].metadata.get("source", ORIGIN_REQUEST)
             if _ORIGIN_RANK[origin] > _ORIGIN_RANK.get(str(old), 0):
-                self._findings[index] = self._finding(sink, line, node, origin, owner, detail)
+                self._findings[index] = self._finding(
+                    sink, line, node, origin, owner, detail, trail
+                )
             return
         self._seen[key] = len(self._findings)
-        self._findings.append(self._finding(sink, line, node, origin, owner, detail))
+        self._findings.append(self._finding(sink, line, node, origin, owner, detail, trail))
 
     def _finding(
         self,
@@ -705,6 +798,7 @@ class _Analyzer:
         origin: str = ORIGIN_REQUEST,
         owner: str | None = None,
         detail: str | None = None,
+        trail: tuple[Any, ...] = (),
     ) -> Finding:
         severity = sink.severity
         confidence = sink.confidence  # backed by real data flow, not a pattern
@@ -759,13 +853,33 @@ class _Analyzer:
             tags.append("test-context")
         if self._lines is None:  # split once per file, not once per finding
             self._lines = self._src.splitlines()
+        location = node_location(self._path, self._src, node, self._lines)
+        evidence = None
+        if trail:
+            steps = trail_steps(
+                self._path,
+                self._lines,
+                trail,
+                origin=origin,
+                owner=owner,
+                sink_cwes=frozenset(sink.cwe),
+            )
+            sink_step = EvidenceStep(
+                path=self._path,
+                line=location.start_line,
+                column=location.start_column,
+                role="sink",
+                code=location.snippet or "",
+                note=sink_note(self._src, node),
+            )
+            evidence = Evidence(path=[*steps, sink_step])
         return Finding(
             id=f"{ASTPythonScanner.name}:{sink.id}:{self._path}:{line}",
             rule_id=f"{ASTPythonScanner.name}.{sink.id}",
             scanner=ASTPythonScanner.name,
             title=sink.title,
             description=description,
-            location=node_location(self._path, self._src, node, self._lines),
+            location=location,
             severity=severity,
             confidence=confidence,
             likelihood=Likelihood.LIKELY,
@@ -782,6 +896,7 @@ class _Analyzer:
             ),
             tags=tags,
             metadata=metadata,
+            evidence=evidence,
         )
 
 

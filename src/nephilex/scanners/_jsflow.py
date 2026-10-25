@@ -44,7 +44,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterator
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
@@ -84,6 +84,13 @@ class AnalysisBudgetExceeded(RuntimeError):
     """The file needs more analysis work than the per-file budget allows."""
 
 
+#: One step a tainted value took after its source: (line, byte column, note).
+Step = tuple[int, int, str]
+#: Steps kept per taint: the newest ones, after an "elided" marker when cut.
+MAX_STEPS = 14
+_ELIDED_STEP: Step = (0, 0, "")
+
+
 @dataclass(frozen=True)
 class Taint:
     flavor: str
@@ -92,9 +99,31 @@ class Taint:
     kinds: frozenset[str]
     #: Combined into a larger string together with literal text.
     built: bool = False
+    #: Assignments and calls that moved the value since ``line``, for the
+    #: evidence shown with a finding. Not part of equality or hashing, so
+    #: analysis results and memoization behave exactly as without it.
+    steps: tuple[Step, ...] = field(default=(), compare=False, repr=False)
 
 
 TaintSet = dict[str, Taint]
+
+
+def add_step(t: Taint, step: Step) -> Taint:
+    """``t`` with ``step`` appended (not repeated, capped at :data:`MAX_STEPS`)."""
+    steps = t.steps
+    if steps and steps[-1] == step:
+        return t
+    out = (*steps, step)
+    if len(out) > MAX_STEPS:
+        out = (_ELIDED_STEP, *out[-(MAX_STEPS - 1) :])
+    return replace(t, steps=out)
+
+
+def with_step(ts: TaintSet, node, note: str) -> TaintSet:
+    """Every taint in ``ts`` with one more step at ``node``."""
+    row, col = node.start_point
+    step: Step = (row + 1, col + 1, note)
+    return {f: add_step(t, step) for f, t in ts.items()}
 
 
 def merge(a: TaintSet, b: TaintSet) -> TaintSet:
@@ -1049,10 +1078,11 @@ class JsFlow:
             if t == "subscript_expression" and key.endswith("[]"):
                 obj = key[:-2]
                 if taint:
+                    taint = with_step(taint, target, f"stored in {obj[:60]}")
                     scope[obj] = merge(scope.get(obj, {}), taint)
                 return
             if taint:
-                scope[key] = taint
+                scope[key] = with_step(taint, target, f"assigned to {key[:60]}")
             elif key in scope or self._is_source_key(key):
                 scope[key] = {}
             for k in [s for s in scope if s.startswith((key + ".", key + REST))]:
@@ -1714,7 +1744,7 @@ class JsFlow:
             ts = self._eval(a, scope)
             if ts:
                 for pname in self._names(self._param_pattern(p)):
-                    callee[pname] = ts
+                    callee[pname] = with_step(ts, a, f"passed to {name[:40]}() as {pname[:40]}")
                 passed.update((t.flavor, t.origin, t.line) for t in ts.values())
         outer = self._anchor is None
         # Worth following per call site only when the arguments carry reportable taint:
