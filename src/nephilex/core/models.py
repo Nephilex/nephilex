@@ -12,9 +12,9 @@ import hashlib
 import re
 from datetime import datetime, timezone
 from enum import IntEnum
-from typing import Any, TypeVar
+from typing import Any, Literal, TypeVar
 
-from pydantic import BaseModel, Field, computed_field
+from pydantic import BaseModel, Field, computed_field, field_validator
 
 # Documentation home. Every finding links back to the relevant scanner page, so a
 # report is a jumping-off point into the docs (and, incidentally, good SEO).
@@ -182,6 +182,84 @@ class ExploitScenario(BaseModel):
     sandbox_ok: bool = False
 
 
+#: Evidence grades, strongest first. See :mod:`nephilex.core.evidence` for the rules.
+EVIDENCE_GRADES = ("confirmed", "likely", "possible")
+EvidenceGrade = Literal["confirmed", "likely", "possible"]
+#: Roles of one evidence step: where the data comes from (``source``), how it
+#: moves (``step``), a check that was seen but does not cover this sink
+#: (``guard``), where it is used (``sink``), and a marker for steps left out.
+EvidenceRole = Literal["source", "step", "guard", "sink", "elided"]
+#: Longest code excerpt and note kept on one step.
+EVIDENCE_CODE_LIMIT = 160
+EVIDENCE_TEXT_LIMIT = 300
+
+
+def _safe_text(value: str, limit: int) -> str:
+    """Untrusted text made safe to show: one line, controls escaped, secrets masked."""
+    if not value:
+        return ""
+    from nephilex.scanners.ai_instructions import safe_excerpt
+
+    return safe_excerpt(value, limit)
+
+
+class EvidenceStep(BaseModel):
+    """One step of an evidence path: a line of code and what happens there.
+
+    ``code`` and ``note`` can quote the scanned repository, so both are
+    reduced to one line with control, bidirectional and zero-width characters
+    shown as ``<U+XXXX>`` and secret-looking values masked. Reporters still
+    escape them for their own format.
+    """
+
+    path: str
+    line: int | None = None
+    column: int | None = None
+    role: EvidenceRole = "step"
+    code: str = ""
+    note: str = ""
+
+    @field_validator("code")
+    @classmethod
+    def _clean_code(cls, value: str) -> str:
+        return _safe_text(value.strip(), EVIDENCE_CODE_LIMIT)
+
+    @field_validator("note")
+    @classmethod
+    def _clean_note(cls, value: str) -> str:
+        return _safe_text(value, EVIDENCE_TEXT_LIMIT)
+
+    def as_ref(self) -> str:
+        return self.path if self.line is None else f"{self.path}:{self.line}"
+
+
+class Evidence(BaseModel):
+    """Why a finding was reported, and how to check it by reading the code.
+
+    ``grade`` says how strong the proof is (``confirmed``, ``likely``,
+    ``possible``), ``basis`` says in one sentence what the grade rests on,
+    ``path`` lists the lines from the source of the data to where it is used,
+    and ``verify`` gives a few steps a developer can follow to confirm or rule
+    out the finding. Evidence only explains a finding; it never changes its
+    severity or confidence.
+    """
+
+    grade: EvidenceGrade = "possible"
+    basis: str = ""
+    path: list[EvidenceStep] = Field(default_factory=list)
+    verify: list[str] = Field(default_factory=list)
+
+    @field_validator("basis")
+    @classmethod
+    def _clean_basis(cls, value: str) -> str:
+        return _safe_text(value, EVIDENCE_TEXT_LIMIT)
+
+    @field_validator("verify")
+    @classmethod
+    def _clean_verify(cls, value: list[str]) -> list[str]:
+        return [_safe_text(v, EVIDENCE_TEXT_LIMIT) for v in value if v and v.strip()]
+
+
 class Finding(BaseModel):
     """A single security finding.
 
@@ -222,6 +300,10 @@ class Finding(BaseModel):
     tags: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
     detected_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    # Why it was reported and how to check it (see nephilex.core.evidence).
+    # Optional and additive: older reports have no such field.
+    evidence: Evidence | None = None
 
     @computed_field  # type: ignore[prop-decorator]
     @property
