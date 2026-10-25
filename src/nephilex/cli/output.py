@@ -141,9 +141,12 @@ def print_table(result: ScanResult) -> None:
             console.print("[green]No findings at or above the configured severity.[/green]")
         return
 
+    from nephilex.core.evidence import compact_path
+
     table = Table(show_lines=False)
     table.add_column("Sev", style="bold")
     table.add_column("Risk", justify="right")
+    table.add_column("Grade")
     table.add_column("Title")
     table.add_column("Location", style="dim")
     table.add_column("Rule", style="dim")
@@ -155,16 +158,31 @@ def print_table(result: ScanResult) -> None:
         Severity.LOW: "blue",
         Severity.INFO: "white",
     }
+    grade_colors = {"confirmed": "green", "likely": "yellow", "possible": "dim"}
     for f in findings:
         c = colors.get(f.severity, "white")
+        title = escape(f.title)
+        grade = ""
+        ev = f.evidence
+        if ev is not None:
+            g = grade_colors.get(ev.grade, "dim")
+            grade = f"[{g}]{escape(ev.grade)}[/{g}]"
+            if sum(1 for s in ev.path if s.role != "elided") > 1:
+                title += f"\n[dim]{escape(compact_path(ev))}[/dim]"
         table.add_row(
             f"[{c}]{f.severity.label}[/{c}]",
             str(f.risk_score()),
-            escape(f.title),
+            grade,
+            title,
             escape(f.location.as_ref()),
             escape(f.rule_id),
         )
     console.print(table)
+    if any(f.evidence is not None for f in findings):
+        console.print(
+            "[dim]Grade: confirmed (proved), likely (traced or exact match), possible "
+            "(heuristic). Full evidence and verify steps: -f html, markdown, json or sarif.[/dim]"
+        )
 
 
 def print_posture(result: ScanResult, fail_on: Severity | None) -> None:

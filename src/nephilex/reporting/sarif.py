@@ -129,7 +129,7 @@ class SARIFReporter(Reporter):
             # point at a path that does not exist in the repository.
             location = {"logicalLocations": [{"name": path or "(unknown)", "kind": "resource"}]}
 
-        return {
+        out: dict = {
             "ruleId": f.rule_id,
             "level": _LEVEL[f.severity],
             "message": {"text": self._message(f)},
@@ -139,6 +139,47 @@ class SARIFReporter(Reporter):
                 "confidence": f.confidence.label,
                 "riskScore": f.risk_score(),
             },
+        }
+        if f.evidence is not None:
+            out["properties"]["grade"] = f.evidence.grade
+            flow = self._code_flow(f.evidence)
+            if flow is not None:
+                out["codeFlows"] = [flow]
+        return out
+
+    @staticmethod
+    def _code_flow(evidence) -> dict | None:
+        """The evidence path as one SARIF thread flow, when it has two or more steps.
+
+        Each step becomes a location with its region, the code line as the
+        snippet and ``role: note`` as the message. Steps outside the
+        repository (placeholders, URLs) or without a line leave the flow out.
+        """
+        steps = [s for s in evidence.path if s.role != "elided"]
+        if len(steps) < 2 or any(not _is_file_path(s.path) or not s.line for s in steps):
+            return None
+        locations = []
+        for s in steps:
+            region: dict = {"startLine": s.line}
+            if s.column:
+                region["startColumn"] = s.column
+            if s.code:
+                region["snippet"] = {"text": s.code}
+            locations.append(
+                {
+                    "location": {
+                        "physicalLocation": {
+                            "artifactLocation": {"uri": _artifact_uri(s.path)},
+                            "region": region,
+                        },
+                        "message": {"text": f"{s.role}: {s.note}" if s.note else s.role},
+                    },
+                    "properties": {"role": s.role},
+                }
+            )
+        return {
+            "message": {"text": evidence.basis or "Evidence path"},
+            "threadFlows": [{"locations": locations}],
         }
 
     @staticmethod
