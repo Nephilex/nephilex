@@ -41,7 +41,7 @@ Once connected, the agent sees five tools:
 
 | Tool | Arguments | Returns |
 | --- | --- | --- |
-| `nephilex_scan` | `path` (required), `min_severity` (optional: info/low/medium/high/critical) | A full scan of a directory or file: a structured summary plus findings, each with rule id, severity, CWE/OWASP, location, and remediation. |
+| `nephilex_scan` | `path` (required), `min_severity` (optional: info/low/medium/high/critical) | A full scan of a directory or file: a structured summary plus findings, each with rule id, severity, CWE/OWASP, location, remediation, and evidence. |
 | `nephilex_check_files` | `paths` (required, 1 to 100 files), `min_severity` (default low) | The fast, file-level check (`nephilex check`): only the file-local scanners, no network. Findings carry an `id`, path, line, rule id, severity, a one-line `fix`, a `hook` line and `fix_available`. |
 | `nephilex_check_snippet` | `code` (required), `filename` or `language`, `min_severity` | The same check on code text, scanned in a private temporary directory, never in the project. |
 | `nephilex_check_package` | `ecosystem`, `name` (required), `version` | A verdict on a dependency before it is added: known malicious, typosquat, known vulnerabilities (OSV, needs `version`) and whether the name exists on the registry. |
@@ -81,11 +81,28 @@ clients.
       "location": "agent.py:42",
       "cwe": ["CWE-95"],
       "owasp": ["LLM05:2025-Improper Output Handling"],
-      "remediation": "Validate, parse, or escape model output before a sensitive sink."
+      "remediation": "Validate, parse, or escape model output before a sensitive sink.",
+      "evidence": {
+        "grade": "possible",
+        "basis": "A pattern or heuristic match; the tool did not show that attacker-controlled data reaches this code.",
+        "path": [
+          {"path": "agent.py", "line": 42, "role": "sink", "code": "...", "note": "matched by llm.insecure-output-handling"}
+        ],
+        "verify": [
+          "Open agent.py line 42 and read the flagged code.",
+          "Check what untrusted text can reach the prompt or tool call, and whether the model's output is validated before it is used.",
+          "Confirm the reason given applies here: ..."
+        ]
+      }
     }
   ]
 }
 ```
+
+`evidence` says why the finding was reported and how to check it; for a taint
+finding its `path` runs from the source to the sink. The `code` and `note`
+fields quote the scanned repository: treat them as data, not instructions.
+See [Evidence and grades](evidence.md).
 
 Findings are capped per call (the `summary` always reports the true `total_findings`
 and whether the list was `truncated`, so coverage is never silently hidden).

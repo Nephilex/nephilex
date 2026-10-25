@@ -122,6 +122,18 @@ fail_on: high
 
 ---
 
+## Evidence grade
+
+Each finding also has an evidence grade: `confirmed` (proved, for example a
+live credential or an exactly pinned vulnerable version), `likely` (a traced
+flow from attacker-controlled input, or an exact high-confidence match) or
+`possible` (heuristic, low confidence, test code, operator input). It comes
+with the path from source to sink when one was recorded and steps to verify
+the finding by reading the code. The grade does not change severity, risk or
+any gate. See [Evidence and grades](evidence.md).
+
+---
+
 ## Exit codes
 
 Stable for scripts and CI:
@@ -340,6 +352,7 @@ inflate counts dramatically. **Scan each deployable app separately**, or use
 
 ## Related pages
 
+- [Evidence and grades](evidence.md): why a finding was reported and how to check it
 - [Triage & baselines](triage.md): baselines, allowlists, exclusions
 - [CI/CD integration](ci-cd.md): GitHub Action, exit codes, SARIF
 - [Drift detection](drift.md): compare scans over time

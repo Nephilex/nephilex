@@ -269,10 +269,15 @@ class ScanEngine:
         from nephilex.analysis.risk_engine import enrich_contextual_risk
         from nephilex.analysis.security_graph import build_security_graph
         from nephilex.analysis.verification import apply_verification_states
+        from nephilex.core.evidence import attach_evidence
         from nephilex.exceptions import apply_exceptions, default_exceptions_path, load_exceptions
         from nephilex.observability.metrics import MetricsTimer, ScanMetrics
 
         timer = MetricsTimer()
+        # Evidence first: its "confirmed" grade must see only the verification
+        # states that scanners and verifiers recorded, not the defaults that
+        # apply_verification_states fills in from confidence.
+        attach_evidence(result.findings)
         apply_verification_states(result.findings)
         enrich_contextual_risk(result)
         result.project_summary["security_graph"] = build_security_graph(result)
@@ -867,8 +872,10 @@ class ScanEngine:
         ``check`` agree. Only merges findings from *different* scanners with the
         same CWE in the same file within a small line window, so distinct issues
         and within-tier findings are preserved. Findings with no line or CWE pass
-        through.
+        through. A kept finding without a recorded data-flow path takes over the
+        one the merged finding traced (evidence only; nothing else changes).
         """
+        from nephilex.core.evidence import carry_path
         from nephilex.remediation.rewrites import has_rewrite
 
         def rank(f: Finding) -> tuple[Any, ...]:
@@ -892,7 +899,10 @@ class ScanEngine:
             ):
                 # f wins on rank, or on a full tie by having the lower rule id.
                 if (rank(f), prev.rule_id) > (rank(prev), f.rule_id):
+                    carry_path(f, prev)
                     kept[-1] = f
+                else:
+                    carry_path(prev, f)
                 continue
             kept.append(f)
         return passthrough + kept

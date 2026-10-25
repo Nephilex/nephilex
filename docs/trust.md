@@ -70,6 +70,15 @@ Read the benchmark page before quoting any number. In short:
   IaC and agent-config domains have one to seven cases each.
 - All runs use `--no-ai`, so AI enrichment is not measured.
 
+## Checking a finding yourself
+
+Each finding carries evidence: a grade (`confirmed`, `likely` or
+`possible`), the path from where the data comes from to where it is used when
+a taint engine recorded one, and a few steps to confirm or rule it out by
+reading the code. A grade describes the kind of proof behind one finding; it
+is not an accuracy figure and is not measured by the benchmarks above. See
+[Evidence and grades](evidence.md).
+
 ## What runs where
 
 | Activity | When | What leaves your machine |

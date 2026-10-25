@@ -35,9 +35,12 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable
 from dataclasses import dataclass
+from typing import Any
 
 from nephilex.core.models import (
     Confidence,
+    Evidence,
+    EvidenceStep,
     Finding,
     Likelihood,
     Remediation,
@@ -54,6 +57,8 @@ from nephilex.scanners.ast_python import (
     is_available,
     new_parser,
     node_location,
+    sink_note,
+    trail_steps,
 )
 from nephilex.scanners.patterns import _is_test_file
 
@@ -69,6 +74,11 @@ class _DangerousParam:
     sink_line: int
     def_path: str
     detail: str | None = None
+    #: The file the function is defined in, the sink node there and the taint
+    #: trail from the parameter to the sink (for the finding's evidence).
+    def_file: _FileParse | None = None
+    sink_node: Any = None
+    trail: tuple[Any, ...] = ()
 
 
 class _SourceIndex:
@@ -120,6 +130,13 @@ class _FileParse:
         self.path = path
         self.src = src
         self.root = root
+        self._lines: list[bytes] | None = None
+
+    @property
+    def lines(self) -> list[bytes]:
+        if self._lines is None:
+            self._lines = self.src.splitlines()
+        return self._lines
 
     def text(self, node) -> str:
         return self.src[node.start_byte : node.end_byte].decode("utf-8", "ignore")
@@ -284,8 +301,18 @@ class ASTPythonInterprocScanner(Scanner):
                 if sinks:
                     sink_id, sink_line = sinks[0]
                     detail = analyzer.seed_details.get((sink_id, sink_line))
+                    sink_node, trail = analyzer.seed_trails.get((sink_id, sink_line), (None, ()))
                     yield _DangerousParam(
-                        func_name, index, pname, sink_id, sink_line, fp.path, detail
+                        func_name,
+                        index,
+                        pname,
+                        sink_id,
+                        sink_line,
+                        fp.path,
+                        detail,
+                        def_file=fp,
+                        sink_node=sink_node,
+                        trail=trail,
                     )
 
     @staticmethod
@@ -357,7 +384,7 @@ class ASTPythonInterprocScanner(Scanner):
                 operator = bool(OPERATOR_SOURCE_RE.search(text)) and not REQUEST_SOURCE_RE.search(
                     text
                 )
-                yield self._finding(fp, call, line, summary, operator=operator)
+                yield self._finding(fp, call, line, summary, operator=operator, arg=arg)
 
     def _iter_calls(self, node):
         return self._iter_nodes(node, "call")
@@ -384,6 +411,7 @@ class ASTPythonInterprocScanner(Scanner):
         summary: _DangerousParam,
         *,
         operator: bool = False,
+        arg: Any = None,
     ) -> Finding:
         sink = _SINK_BY_ID.get(summary.sink_id)
         title = sink.title if sink else "Tainted input reaches a dangerous sink"
@@ -406,6 +434,7 @@ class ASTPythonInterprocScanner(Scanner):
             if summary.def_path != fp.path
             else f"line {summary.sink_line}"
         )
+        location = node_location(fp.path, fp.src, call)
         return Finding(
             id=f"{self.name}:{summary.sink_id}:{fp.path}:{line}",
             rule_id=f"{self.name}.{summary.sink_id}",
@@ -415,7 +444,7 @@ class ASTPythonInterprocScanner(Scanner):
                 f"Untrusted input is passed as `{summary.name}` to "
                 f"`{summary.func_name}()`, whose body reaches a sink at {where}."
             ),
-            location=node_location(fp.path, fp.src, call),
+            location=location,
             severity=severity,
             confidence=confidence,
             likelihood=Likelihood.LIKELY,
@@ -451,4 +480,76 @@ class ASTPythonInterprocScanner(Scanner):
                 "sink_location": where,
                 "callee": summary.func_name,
             },
+            evidence=self._evidence(fp, call, arg, summary, location, operator=operator),
         )
+
+    @staticmethod
+    def _evidence(
+        fp: _FileParse,
+        call,
+        arg,
+        summary: _DangerousParam,
+        location,
+        *,
+        operator: bool,
+    ) -> Evidence | None:
+        """Caller source, the call site, the callee's steps and the sink in the callee."""
+        if arg is None:
+            return None
+        arg_loc = node_location(fp.path, fp.src, arg, fp.lines)
+        arg_text = re.sub(r"\s+", " ", fp.text(arg)).strip()[:80]
+        if operator:
+            note = f"{arg_text} comes from the command line, the environment or console input"
+        else:
+            note = f"{arg_text} is attacker-controlled"
+        steps = [
+            EvidenceStep(
+                path=fp.path,
+                line=arg_loc.start_line,
+                column=arg_loc.start_column,
+                role="source",
+                code=arg_loc.snippet or "",
+                note=note,
+            ),
+            EvidenceStep(
+                path=fp.path,
+                line=location.start_line,
+                column=location.start_column,
+                role="step",
+                code=location.snippet or "",
+                note=f"passed to {summary.func_name}() as {summary.name}",
+            ),
+        ]
+        callee = summary.def_file
+        if callee is not None:
+            sink = _SINK_BY_ID.get(summary.sink_id)
+            steps += trail_steps(
+                callee.path,
+                callee.lines,
+                summary.trail,
+                origin="operator" if operator else "request",
+                owner=None,
+                sink_cwes=frozenset(sink.cwe) if sink else frozenset(),
+            )
+            if summary.sink_node is not None:
+                sink_loc = node_location(callee.path, callee.src, summary.sink_node, callee.lines)
+                steps.append(
+                    EvidenceStep(
+                        path=callee.path,
+                        line=sink_loc.start_line,
+                        column=sink_loc.start_column,
+                        role="sink",
+                        code=sink_loc.snippet or "",
+                        note=sink_note(callee.src, summary.sink_node),
+                    )
+                )
+                return Evidence(path=steps)
+        steps.append(
+            EvidenceStep(
+                path=summary.def_path,
+                line=summary.sink_line,
+                role="sink",
+                note=f"reaches the sink in {summary.func_name}()",
+            )
+        )
+        return Evidence(path=steps)

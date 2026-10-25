@@ -157,6 +157,12 @@ the argument to `yaml.load` was traced back to request data. The source (line
 44, `request.args.get`) and the sink (line 45, `yaml.load`) above are read from
 the code, not from the report.
 
+Versions after 0.11.0 do record this path: every finding has an `evidence`
+block with a grade, the steps from source to sink and how to verify it. For
+this finding the path is `request.args.get("data")` (line 44), assigned to
+`raw` (line 44), passed to `yaml.load` (line 45), graded `likely`. See
+[Evidence and grades](evidence.md).
+
 Two other results point at the same line:
 
 - The taint scanner reports `ast-python.ast-xss` on line 45 (Medium): the

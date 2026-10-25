@@ -21,6 +21,10 @@ _SEV_COLOR = {
 }
 
 
+#: Evidence grade badge colors.
+_GRADE_COLOR = {"confirmed": "#1f7a3a", "likely": "#8a5a00", "possible": "#4b5563"}
+
+
 def _esc(text: str) -> str:
     return html_lib.escape(text or "")
 
@@ -115,6 +119,7 @@ class HTMLReporter(Reporter):
             if val:
                 blocks.append(f"<p><strong>{label}:</strong> {_esc(val)}</p>")
 
+        evidence = self._evidence(f.evidence) if f.evidence else ""
         exploit = self._exploit(f.exploit) if f.exploit else ""
         remediation = self._remediation(f.remediation) if f.remediation else ""
         mapping = ", ".join(f.cwe + f.owasp)
@@ -135,9 +140,36 @@ class HTMLReporter(Reporter):
     {f'<div class="mapping">{_esc(mapping)}</div>' if mapping else ""}
     {snippet}
     {"".join(blocks)}
+    {evidence}
     {exploit}
     {remediation}
   </article>"""
+
+    def _evidence(self, ev) -> str:
+        """A collapsible "Evidence" block: grade, basis, path steps and how to verify.
+
+        Every value can quote the scanned repository, so all of it is escaped.
+        """
+        grade = ev.grade if ev.grade in _GRADE_COLOR else "possible"
+        steps = []
+        for s in ev.path:
+            if s.role == "elided":
+                steps.append(f'<li class="elided">{_esc(s.note or "steps left out")}</li>')
+                continue
+            code = f'<pre class="code">{_esc(s.code)}</pre>' if s.code else ""
+            steps.append(
+                f'<li><span class="role role-{_esc(s.role)}">{_esc(s.role)}</span> '
+                f'<span class="mono">{_esc(s.as_ref())}</span> {_esc(s.note)}{code}</li>'
+            )
+        verify = "".join(f"<li>{_esc(v)}</li>" for v in ev.verify)
+        verify_block = f'<p class="ev-h">How to verify</p><ol>{verify}</ol>' if verify else ""
+        return f"""
+    <details class="evidence"><summary>Evidence
+      <span class="grade" style="background:{_GRADE_COLOR[grade]}">{_esc(grade)}</span></summary>
+      <p class="basis">{_esc(ev.basis)}</p>
+      <ol class="steps">{"".join(steps)}</ol>
+      {verify_block}
+    </details>"""
 
     def _exploit(self, ex) -> str:
         rows = [
@@ -228,6 +260,19 @@ h2 { margin-top: 32px; }
 .sim summary { cursor:pointer; font-weight:600; }
 .sim ul { margin:8px 0 0; padding-left:18px; }
 .sim li { margin:4px 0; }
+.evidence { margin:10px 0; }
+.evidence summary { cursor:pointer; font-weight:600; }
+.evidence .grade { color:#fff; font-size:11px; font-weight:700; padding:1px 8px;
+  border-radius:20px; text-transform:uppercase; letter-spacing:.4px; margin-left:6px; }
+.evidence .basis { margin:8px 0 4px; }
+.evidence .steps { margin:6px 0; padding-left:20px; }
+.evidence .steps li { margin:6px 0; }
+.evidence .steps .code { margin:4px 0 0; }
+.evidence .role { font-size:11px; font-weight:700; text-transform:uppercase;
+  color:var(--muted); margin-right:4px; }
+.evidence .role-source, .evidence .role-sink { color:var(--fg); }
+.evidence .elided { color:var(--muted); font-style:italic; }
+.evidence .ev-h { font-weight:600; margin:8px 0 2px; }
 .empty { color:var(--muted); }
 footer { color:var(--muted); font-size:12px; margin-top:40px;
   border-top:1px solid var(--border); padding-top:16px; }

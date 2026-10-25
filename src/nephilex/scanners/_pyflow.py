@@ -601,6 +601,33 @@ _FROM_RANDOM = re.compile(rb"(?m)^\s*from\s+random\s+import\s+([^\n#]+)")
 _EXTERNAL_ENTITY_FEATURE = re.compile(r"external[-_](?:ges|pes|general|parameter)")
 
 
+#: One step of a tainted value's history: (start byte, line, byte column,
+#: kind, text, extra). ``kind`` is "source" (``extra`` is ``(how, origins)``),
+#: "param" (a seeded parameter), "step" (an assignment or a helper call),
+#: "guard" (``extra`` is the CWEs the check cleared), "elided" (steps left
+#: out) or "opaque" (taint found by the flat fallback scan, origin unknown).
+Hop = tuple[int, int, int, str, str, Any]
+#: Hops kept per value: the first one (the source) and the most recent ones.
+MAX_TRAIL = 16
+_ELIDED_HOP: Hop = (-1, 0, 0, "elided", "", None)
+_OPAQUE_TRAIL: tuple[Hop, ...] = ((-1, 0, 0, "opaque", "", None),)
+
+
+def extend_trail(trail: tuple[Hop, ...], hop: Hop) -> tuple[Hop, ...]:
+    """``trail`` with ``hop`` appended, capped at :data:`MAX_TRAIL`.
+
+    A hop equal to the last one is not repeated (a loop body runs more than
+    once). Past the cap the source and the newest hops are kept, with an
+    "elided" marker between them.
+    """
+    if trail and trail[-1][1:5] == hop[1:5]:
+        return trail
+    out = (*trail, hop)
+    if len(out) > MAX_TRAIL:
+        out = (out[0], _ELIDED_HOP, *out[-(MAX_TRAIL - 2) :])
+    return out
+
+
 @dataclass(frozen=True)
 class Val:
     """Abstract value of one expression or variable."""
@@ -621,6 +648,10 @@ class Val:
     embed: bool = False
     #: The value is a field or item of a tainted object, not the object itself.
     part: bool = False
+    #: Where the taint came from and how it moved (:data:`Hop` entries), for
+    #: the evidence shown with a finding. Not part of equality or hashing, so
+    #: joins, loop fixed points and caches behave exactly as without it.
+    trail: tuple[Hop, ...] = field(default=(), compare=False, repr=False)
 
     def tainted_for(self, cwes: frozenset[str]) -> bool:
         return self.taint and not (cwes & self.clean)
@@ -651,6 +682,8 @@ def combine(vals: Iterable[Val]) -> Val:
     lit = True
     clean: frozenset[str] | None = None
     src: frozenset[str] = frozenset()
+    trail: tuple[Hop, ...] = ()
+    trail_request = False
     for v in vals:
         if v.taint:
             taint = True
@@ -658,6 +691,9 @@ def combine(vals: Iterable[Val]) -> Val:
             src = src | v.origins
             embed = embed or v.embed
             part = part or v.part
+            if v.trail and not trail_request and (not trail or ORIGIN_REQUEST in v.origins):
+                trail = v.trail
+                trail_request = ORIGIN_REQUEST in v.origins
         weak = weak or v.weak
         param = param or v.param
         lit = lit and v.lit
@@ -670,6 +706,7 @@ def combine(vals: Iterable[Val]) -> Val:
         src=src,
         embed=embed,
         part=part,
+        trail=trail,
     )
 
 
@@ -684,6 +721,7 @@ def derived(v: Val, **changes: Any) -> Val:
         src=v.src,
         embed=v.embed,
         part=v.part,
+        trail=v.trail,
     )
     return replace(out, **changes) if changes else out
 
@@ -789,7 +827,17 @@ def join(a: Val, b: Val) -> Val:
         src=a.origins | b.origins,
         embed=(a.taint and a.embed) or (b.taint and b.embed),
         part=(a.taint and a.part) or (b.taint and b.part),
+        trail=_joined_trail(a, b),
     )
+
+
+def _joined_trail(a: Val, b: Val) -> tuple[Hop, ...]:
+    """The trail of whichever joined value is tainted, preferring request data."""
+    left = a.trail if a.taint else ()
+    right = b.trail if b.taint else ()
+    if left and right and ORIGIN_REQUEST not in a.origins and ORIGIN_REQUEST in b.origins:
+        return right
+    return left or right
 
 
 class State:
@@ -1011,6 +1059,12 @@ class Flow:
     ) -> None:
         self._src = src
         self._emit_cb = emit
+        #: Record where taint comes from and how it moves (for finding
+        #: evidence). Off for runs that report nothing (helper summaries,
+        #: the regex tier's verdicts): there it would only cost time.
+        self._trails = emit is not None
+        #: The condition or validator call being applied, for "guard" hops.
+        self._guard_at: Any = None
         self._ctx = context
         self._cwes: frozenset[str] = TAINT_CWES | (context.cwes if context else frozenset())
         self.source_methods = source_methods
@@ -1170,7 +1224,18 @@ class Flow:
 
     def run_body(self, body, seeds: Iterable[str]) -> None:
         self._ensure_shared(body)
-        self._exec_block(body, State({n: TAINT for n in seeds}), 0)
+        self._exec_block(body, State({n: self._seed(body, n) for n in seeds}), 0)
+
+    def _seed(self, body, name: str) -> Val:
+        """A tainted parameter ``name`` of the function whose body is ``body``."""
+        fn = body.parent
+        params = fn.child_by_field_name("parameters") if fn is not None else None
+        if not self._trails or params is None:
+            return TAINT
+        for p in params.named_children:
+            if self._param_parts(p)[0] == name:
+                return self._hop(TAINT, p, "param", name)
+        return TAINT
 
     def function_returns_taint(self, fn_node) -> bool:
         """Whether ``fn_node`` returns an untrusted value with nothing seeded."""
@@ -1185,6 +1250,41 @@ class Flow:
         finally:
             self._fn_stack.pop()
         return any(v.taint for v in ctx.returns)
+
+    # --- evidence trails -----------------------------------------------------
+    def _snip(self, node, limit: int = 80) -> str:
+        """``node``'s source text on one line, cut to ``limit`` characters."""
+        raw = self._src[node.start_byte : min(node.end_byte, node.start_byte + 4 * limit)]
+        text = re.sub(r"\s+", " ", raw.decode("utf-8", "ignore")).strip()
+        return text if len(text) <= limit else text[: limit - 3] + "..."
+
+    def _hop(self, v: Val, node, kind: str, text: str, extra: Any = None) -> Val:
+        """``v`` with one more step of history at ``node``."""
+        row, col = node.start_point
+        hop: Hop = (node.start_byte, row + 1, col + 1, kind, text, extra)
+        return replace(v, trail=extend_trail(v.trail, hop))
+
+    def _trace(self, v: Val, node) -> Val:
+        """Give a tainted value that has no history a source at ``node``.
+
+        Every tainted value is built from another one (which carries its
+        trail) or comes from a source, so a value without a trail is the
+        source itself: ``request.args``, ``input()``. A source read further
+        (``request.args['q']``, ``request.args.get('q')``) is named in full.
+        """
+        trail = v.trail
+        if not trail:
+            return self._hop(v, node, "source", self._snip(node), ("expr", v.origins))
+        if (
+            len(trail) == 1
+            and trail[0][3] == "source"
+            and trail[0][0] == node.start_byte
+            and node.type in ("subscript", "call", "attribute")
+        ):
+            first = trail[0]
+            hop: Hop = (first[0], first[1], first[2], "source", self._snip(node), first[5])
+            return replace(v, trail=(hop,))
+        return v
 
     # --- helpers ------------------------------------------------------------
     def text(self, node) -> str:
@@ -1222,11 +1322,18 @@ class Flow:
         return TAINT
 
     def _emit(
-        self, sink_id: str, node, origin: str = ORIGIN_REQUEST, detail: str | None = None
+        self,
+        sink_id: str,
+        node,
+        origin: str = ORIGIN_REQUEST,
+        detail: str | None = None,
+        trail: tuple[Hop, ...] = (),
     ) -> None:
         if self._emit_cb is None or self._quiet:
             return
         extra: dict[str, Any] = {"detail": detail} if detail else {}
+        if trail:
+            extra["trail"] = trail
         if origin == ORIGIN_REQUEST:
             self._emit_cb(sink_id, node, **extra)
             return
@@ -1255,13 +1362,14 @@ class Flow:
             return False
         for origin in (ORIGIN_REQUEST, ORIGIN_ARCHIVE, ORIGIN_OPERATOR):
             if origin in origins:
-                self._emit(sink_id, node, origin, detail)
+                trail = next((v.trail for v in hits if origin in v.origins and v.trail), ())
+                self._emit(sink_id, node, origin, detail, trail)
                 return True
         shapes = LIBRARY_SINK_SHAPES.get(sink_id, frozenset())
         for v in hits:
             shape = {name for name, on in (("embed", v.embed), ("part", v.part)) if on}
             if (shape or {"whole"}) & shapes:
-                self._emit(sink_id, node, ORIGIN_API, detail)
+                self._emit(sink_id, node, ORIGIN_API, detail, v.trail)
                 return True
         return False
 
@@ -1425,6 +1533,8 @@ class Flow:
             name = self.text(target)
             if val.weak and SENSITIVE_RE.search(name):
                 self._emit("ast-weak-random", target)
+            if val.taint and self._trails:
+                val = self._hop(val, target, "step", f"assigned to {name[:60]}")
             st.vars[name] = val
             self._kill_prefix(st, name)
             return
@@ -1438,6 +1548,8 @@ class Flow:
                 if obj is not None:
                     self.ev(obj, st, 0)
                 return
+            if val.taint and self._trails:
+                val = self._hop(val, target, "step", f"assigned to {path[:60]}")
             st.vars[path] = val
             self._kill_prefix(st, path)
             return
@@ -1465,6 +1577,8 @@ class Flow:
             if path is None:
                 self.ev(base, st, 0)
                 return
+            if val.taint and self._trails:
+                val = self._hop(val, target, "step", f"stored in {self._snip(target, 60)}")
             st.vars[path] = self._store_elem(st.get(path), idx, val)
             return
         if t in (
@@ -1932,7 +2046,10 @@ class Flow:
             name, annotation, default = self._param_parts(p)
             if name is None or name in ("self", "cls"):
                 continue
-            out[name] = self._param_source(name, annotation, default, converters, api_route, public)
+            v = self._param_source(name, annotation, default, converters, api_route, public)
+            if v.taint and self._trails:
+                v = self._hop(v, p, "source", name, ("param", v.origins))
+            out[name] = v
         return out
 
     def _param_parts(self, p) -> tuple[str | None, str, Any]:
@@ -2014,7 +2131,7 @@ class Flow:
         if ctx.exits is not None:
             ctx.exits.append((v, named[0] if named else None, st.copy()))
         if ctx.route and v.tainted_for(SINK_CWES["ast-xss"]):
-            self._emit("ast-xss", node)
+            self._emit("ast-xss", node, trail=v.trail)
         elif ctx.api_owner is not None and v.api_only and "html" in v.flags:
             # A public function that returns HTML built around its caller's text.
             self._report("ast-xss", node, [v])
@@ -2056,6 +2173,13 @@ class Flow:
         # they are incomplete in general (absolute paths, other quote styles).
         atoms: list[tuple[Any, bool]] = []
         self._atoms(cond, truth, atoms)
+        saved, self._guard_at = self._guard_at, cond
+        try:
+            self._refine_atoms(atoms, st)
+        finally:
+            self._guard_at = saved
+
+    def _refine_atoms(self, atoms: list[tuple[Any, bool]], st: State) -> None:
         for node, holds in atoms:
             contained = self._path_contained(node, st, 0) if holds else None
             if contained is None and node.type == "comparison_operator":
@@ -2290,11 +2414,13 @@ class Flow:
             if p is not None:
                 self._clean(st, p, frozenset({CWE_REDIRECT}))
 
-    @staticmethod
-    def _clean(st: State, path: str, cwes: frozenset[str]) -> None:
+    def _clean(self, st: State, path: str, cwes: frozenset[str]) -> None:
         v = st.vars.get(path)
         if v is not None and v.taint:
-            st.vars[path] = replace(v, clean=v.clean | cwes)
+            v = replace(v, clean=v.clean | cwes)
+            if self._trails and self._guard_at is not None and cwes:
+                v = self._hop(v, self._guard_at, "guard", self._snip(self._guard_at, 60), cwes)
+            st.vars[path] = v
 
     # --- same-file helpers ----------------------------------------------------
     # A call to a function defined once in this file (``helper(x)``, or
@@ -2547,8 +2673,12 @@ class Flow:
             node = node.named_children[0]
         if node.type != "call" or not st.live:
             return
-        for path, guard in self._guarded_args(node, st):
-            self._clean(st, path, guard.after)
+        saved, self._guard_at = self._guard_at, node
+        try:
+            for path, guard in self._guarded_args(node, st):
+                self._clean(st, path, guard.after)
+        finally:
+            self._guard_at = saved
 
     # --- expressions --------------------------------------------------------
     def ev(self, node, st: State, depth: int) -> Val:
@@ -2558,7 +2688,8 @@ class Flow:
             return self._flat(node, st)
         handler = self._ev_table.get(node.type)
         if handler is not None:
-            return handler(node, st, depth + 1)
+            v = handler(node, st, depth + 1)
+            return self._trace(v, node) if v.taint and self._trails else v
         if node.type == "comment":
             return LIT
         vals = [self.ev(c, st, depth + 1) for c in node.named_children]
@@ -3004,7 +3135,7 @@ class Flow:
                 if not summ.taint:
                     return Val(lit=summ.lit, flags=summ.flags)
                 base = combine([a for a in args if a.taint])
-                return Val(
+                out = Val(
                     taint=True,
                     clean=base.clean | summ.clean,
                     src=base.src,
@@ -3012,7 +3143,11 @@ class Flow:
                     part=base.part or summ.part,
                     param=base.param,
                     flags=summ.flags,
+                    trail=base.trail or _OPAQUE_TRAIL,
                 )
+                if self._trails:
+                    out = self._hop(out, c.node, "step", f"returned by {helper[0][:40]}()")
+                return out
         if self._is_record_lookup(c):
             # A row looked up by a key from the request holds stored data, not
             # the key's text.
@@ -3166,6 +3301,7 @@ class Flow:
             src=v.src,
             embed=embed,
             part=part,
+            trail=v.trail,
         )
 
     def _helper_source_taint(self, name: str) -> Val:
@@ -3575,8 +3711,8 @@ class Flow:
                 self._flat_call(n, st)
             stack.extend(n.children)
         if not taint and api:
-            return Val(taint=True, src=frozenset({ORIGIN_API}))
-        return Val(taint=taint)
+            return Val(taint=True, src=frozenset({ORIGIN_API}), trail=_OPAQUE_TRAIL)
+        return Val(taint=taint, trail=_OPAQUE_TRAIL if taint else ())
 
     def _flat_call(self, node, st: State) -> None:
         fn = node.child_by_field_name("function")

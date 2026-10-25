@@ -80,8 +80,9 @@ TOOLS: list[dict[str, Any]] = [
             "Scan a local path for security vulnerabilities across code (SAST + "
             "taint), dependencies (CVEs), secrets, infrastructure-as-code, and "
             "LLM/AI usage (OWASP Top 10 for LLM Apps). Returns findings with "
-            "severity, CWE/OWASP mapping, location, and remediation. Read-only: it "
-            "never modifies the scanned files."
+            "severity, CWE/OWASP mapping, location, remediation, and evidence (a "
+            "grade, the source-to-sink path and steps to verify the finding). "
+            "Read-only: it never modifies the scanned files."
         ),
         "inputSchema": {
             "type": "object",
@@ -340,9 +341,31 @@ def _run_scan(arguments: dict[str, Any]) -> dict[str, Any]:
                 "cwe": f.cwe,
                 "owasp": f.owasp,
                 "remediation": f.remediation.summary if f.remediation else "",
+                "evidence": evidence_dict(f),
             }
             for f in shown
         ],
+    }
+
+
+def evidence_dict(f: Any) -> dict[str, Any] | None:
+    """A finding's evidence for an agent: grade, basis, path steps and how to verify.
+
+    The code and notes quote the scanned (possibly hostile) repository; they
+    are reduced to single lines with control characters escaped and secrets
+    masked, and are data for the agent to read, not instructions.
+    """
+    ev = f.evidence
+    if ev is None:
+        return None
+    return {
+        "grade": ev.grade,
+        "basis": ev.basis,
+        "path": [
+            {"path": s.path, "line": s.line, "role": s.role, "code": s.code, "note": s.note}
+            for s in ev.path
+        ],
+        "verify": list(ev.verify),
     }
 
 

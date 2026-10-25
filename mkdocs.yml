@@ -63,6 +63,7 @@ nav:
       - Quickstart: quickstart.md
       - Example finding: example-finding.md
       - Understanding scan results: understanding-results.md
+      - Evidence and grades: evidence.md
       - Scanners & coverage: scanners.md
       - Configuration: configuration.md
       - Triage & baselines: triage.md

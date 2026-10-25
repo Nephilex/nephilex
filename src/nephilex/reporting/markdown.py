@@ -109,6 +109,9 @@ class MarkdownReporter(Reporter):
             lines.append("**Business impact:** " + md_text(f.business_impact, multiline=True))
             lines.append("")
 
+        if f.evidence:
+            lines.append(self._evidence(f.evidence))
+
         if f.exploit:
             lines.append(self._exploit(f.exploit))
 
@@ -123,6 +126,33 @@ class MarkdownReporter(Reporter):
                 lines.append(f"**Suggested patch ({status}):**")
                 lines.extend(md_fence(f.remediation.patch.rstrip(), "diff"))
             lines.append("")
+        return "\n".join(lines)
+
+    @staticmethod
+    def _evidence(ev) -> str:
+        """Grade, basis, the path steps and how to verify, in a collapsed block.
+
+        Code and notes quote the scanned repository: code goes in code spans,
+        everything else through ``md_text``.
+        """
+        lines = [
+            f"<details><summary>Evidence: {md_text(ev.grade)}</summary>",
+            "",
+            md_text(ev.basis),
+            "",
+        ]
+        for i, s in enumerate(ev.path, start=1):
+            if s.role == "elided":
+                lines.append(f"{i}. _{md_text(s.note or 'steps left out')}_")
+                continue
+            code = f": {md_code(s.code)}" if s.code else ""
+            lines.append(
+                f"{i}. **{md_text(s.role)}** {md_code(s.as_ref())} {md_text(s.note)}{code}"
+            )
+        if ev.verify:
+            lines += ["", "**How to verify:**", ""]
+            lines += [f"- {md_text(v)}" for v in ev.verify]
+        lines += ["", "</details>", ""]
         return "\n".join(lines)
 
     @staticmethod
