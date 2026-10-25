@@ -8,6 +8,17 @@ include breaking changes, noted explicitly).
 ## [Unreleased]
 
 ### Added
+- **Python taint follows helpers imported from other files.** A call to a
+  function defined in another module of the same project (`from .utils
+  import safe_join_path`, `import pkg.paths as paths`, a name re-exported by a
+  package `__init__.py`, a static or class method, a method of a module-level
+  instance) is summarized like a same-file helper: a sanitizer clears the
+  taint, a pass-through keeps it, and a validator that raises or returns a
+  boolean clears the checked value on the success branch. Summaries cross at
+  most two files, each file is parsed once per scan, and the evidence names
+  the file and line where the helper is defined. The per-file cache of
+  `ast-python` is now also keyed by the files a file's calls resolve into.
+  See the taint section of `docs/scanners.md`.
 - **Evidence for each finding.** Every finding now has an `evidence` block: a
   grade (`confirmed`, `likely` or `possible`), one sentence saying what the
   grade rests on, the path from where the data comes from to where it is used
