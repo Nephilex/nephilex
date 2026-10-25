@@ -121,6 +121,15 @@ include breaking changes, noted explicitly).
 - JS/TS findings in example and demo code (`example/`, `samples/`, `demo/`)
   are reported one severity step lower and at low confidence, as findings in
   test code already were.
+- Python: the parameters of a Typer or Click command are command-line input,
+  not web request input. A `pathlib.Path(".")` default was mistaken for
+  FastAPI's `Path()` marker, so a Typer command such as
+  `def build(path: Annotated[Path, typer.Argument()] = Path("."))` was reported
+  as request-sourced path traversal. FastAPI markers now count only when they
+  come from `fastapi`, and command parameters are reported like `sys.argv`: at
+  low confidence with the tag `operator-input`, and not at all for SSRF or open
+  redirect. FastAPI `Query()`, `Annotated[str, Query()]` and path operation
+  parameters are still request sources.
 
 ## [0.11.0] - 2026-10-23
 

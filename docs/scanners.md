@@ -177,17 +177,27 @@ Flask, Django, aiohttp and Starlette request attributes), and parameters the
 web framework fills from the request: Flask route converters (`<name>`,
 `<path:name>`; not `int`, `float`, `uuid` or `any`), FastAPI parameters with a
 `Query()`, `Path()`, `Body()`, `Form()`, `File()`, `Header()` or `Cookie()`
-default, every parameter of a FastAPI path operation (`@app.get(...)`) except
-`Depends()` dependencies and numeric, boolean, UUID and date annotations,
+default or `Annotated[...]` metadata (the marker must come from `fastapi`:
+`Path(".")` from `pathlib` is a file path, and an `Annotated[...]` type alone
+is not request input), every parameter of a FastAPI path operation
+(`@app.get(...)`) except `Depends()` dependencies and numeric, boolean, UUID
+and date annotations,
 `UploadFile` uploads (`f.filename`, `await f.read()`), and any parameter
 annotated as the request object (`Request`, `HttpRequest`, `WebSocket`), whose
 `query_params`, `headers`, `cookies`, `url`, `json()`, `form()` and `body()` are
 sources. Member names read from a zip or tar archive (`namelist()`,
 `getnames()`, `ZipInfo.filename`, `TarInfo.name`/`linkname`) are sources for
 path traversal ("zip slip"), reported at medium confidence with the tag
-`archive-entry`. `sys.argv`, `os.environ` and `input()` are controlled by
-whoever runs the program: a finding whose only source is one of them (directly
-or through a same-file helper that reads them) is reported at low confidence
+`archive-entry`. `sys.argv`, `os.environ`, `input()` and the parameters of a
+Typer or Click command are controlled by whoever runs the program. A command
+is a function with a Typer or Click decorator (`@app.command()`,
+`@app.callback()`, `@click.command()`, `@click.group()`, `@click.argument()`,
+`@click.option()`), one registered as `app.command(...)(func)` or
+`typer.run(func)`, or one with a parameter declared as `typer.Argument()` or
+`typer.Option()` (as the default or inside `Annotated[...]`); its numeric and
+boolean parameters and its `Context` are not sources. A finding whose only
+source is one of these (directly or through a same-file helper that reads
+`sys.argv`, `os.environ` or `input()`) is reported at low confidence
 with the tag `operator-input` (it matters when another program passes
 untrusted data through the command line or the environment). For SSRF and
 open redirect such a value is not reported at all: a server URL taken from
