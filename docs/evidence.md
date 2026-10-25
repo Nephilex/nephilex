@@ -78,6 +78,7 @@ and the steps closest to the sink.
 
 The code, `app.py`:
 
+<!-- fmt: off -->
 ```python linenums="1"
 import sqlite3
 from flask import Flask, request
@@ -91,6 +92,7 @@ def search():
     cursor.execute(query)
     return 'ok'
 ```
+<!-- fmt: on -->
 
 Everything below was produced by scanning a folder holding only this file
 with `--no-ai`. Outputs are pasted as printed, trimmed only where marked.
