@@ -57,6 +57,46 @@ advisories and exploit signals; results are cached on disk with a TTL and degrad
 cleanly offline (a missing feed simply means no enrichment, never a failed scan).
 Only package names, versions, and CVE ids ever leave your machine.
 
+## Supply chain
+
+**Detects.** Dependencies that are dangerous independently of published CVEs:
+known-malicious packages, typosquats of popular names, and suspicious npm
+lifecycle scripts (`preinstall` / `postinstall` that run a shell, download code,
+or read credentials). The malicious-package intelligence is a bundled seed
+refreshed, best-effort, from the OSSF `malicious-packages` and OSV feeds.
+
+**Version-aware malicious matching.** A package name on the malicious list is
+only flagged at the versions that were actually compromised. The intel stores,
+per package, the affected versions as an exact list (OSV `affected[].versions`)
+and as `[introduced, fixed)` ranges (OSV `affected[].ranges`), compared with the
+right grammar per ecosystem: PEP 440 for PyPI and SemVer for npm and the others.
+
+- When the installed version is in the affected set, the finding is **Critical**,
+  high confidence, and names the affected versions.
+- When the installed version is pinned and outside the affected set, nothing is
+  reported. For example the npm `coa` compromise (Nov 2021) affects versions
+  `2.0.3, 2.0.4, 2.1.1, 2.1.3, 3.0.1, 3.1.3`, so a project pinned to the clean
+  `coa 2.0.2` is no longer flagged.
+- When the installed version cannot be confirmed (unpinned, a range or wildcard
+  spec, or unparseable), the name match is still reported, but as "version
+  unconfirmed" at **low confidence**, with text saying only some versions are
+  affected and that the version could not be confirmed.
+
+An intel entry with no version information keeps the original behaviour and
+matches every version. This is the safe default for name-only seed entries and
+for any feed record whose affected versions could not be parsed.
+
+**Does not.** Decide that a name-only entry is safe at some version: with no
+per-version intel, every version is treated as affected.
+
+**Limits.** Version comparison covers the exact-version and introduced/fixed
+shapes the feeds emit, not the full SemVer range grammar (`^`, `~`, `||`). A
+package.json range spec (`^2.0.0`, `2.x`, `*`, `latest`) has no single resolved
+version without a lockfile, so a malicious name pinned to a range is reported as
+version-unconfirmed rather than resolved or dropped; when a lockfile pins the
+same package, that exact version is used instead. Set `online_intel: false`
+under the `supply-chain` scanner options to use only the bundled seed.
+
 ## SAST (pattern rules)
 
 **Detects.** Dangerous code patterns across many languages: `shell=True`,

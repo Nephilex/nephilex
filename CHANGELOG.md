@@ -67,6 +67,16 @@ include breaking changes, noted explicitly).
   ETag and cache-key uses at low severity.
 
 ### Fixed
+- Supply chain: the `supply-chain.known-malicious` rule is now version-aware. A
+  package on the malicious-package list is flagged only at the versions that
+  were actually compromised, stored as exact versions and introduced/fixed
+  ranges (OSV format) and compared with PEP 440 for PyPI and SemVer for npm. A
+  clean pinned version is no longer labelled malicious: for example `coa 2.0.2`,
+  which predates the npm `coa` compromise (affected `2.0.3, 2.0.4, 2.1.1,
+  2.1.3, 3.0.1, 3.1.3`), no longer raises a Critical finding. When the installed
+  version cannot be confirmed, the name match is still reported, at low
+  confidence and marked version-unconfirmed. Name-only entries still match every
+  version.
 - Authorization: routes protected by project-wide authentication (a
   middleware, a global dependency or a before-request guard) are no longer
   reported as missing authorization. A guard covers only the HTTP methods it
