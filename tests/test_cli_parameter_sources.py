@@ -1,10 +1,11 @@
-"""Parameters of command-line commands are operator input, not request input.
+"""Parameters of command-line commands are not request input.
 
 Typer and Click fill a command's parameters from the command line, so the
-person running the command chooses them: the same as ``sys.argv``. They are
-reported at low confidence with the tag ``operator-input``, and not at all
-for SSRF or open redirect. FastAPI parameters stay request sources, and a
-``pathlib.Path`` default is not FastAPI's ``Path()`` marker.
+person running the command chooses them, on a machine they already control.
+Passing a path or a command to a command-line tool is its purpose, so these
+parameters are not taint sources and are not reported. FastAPI parameters stay
+request sources, and a ``pathlib.Path`` default is not FastAPI's ``Path()``
+marker.
 """
 
 from __future__ import annotations
@@ -32,13 +33,8 @@ def _findings(tmp_path, code: str, rule: str = "ast-path-traversal") -> list:
     return [f for f in registry.get_scanner("ast-python")().scan(ctx) if f.rule_id.endswith(rule)]
 
 
-def _operator_only(findings: list) -> bool:
-    return bool(findings) and all(
-        f.confidence == Confidence.LOW
-        and "operator-input" in f.tags
-        and f.metadata.get("source") == "operator"
-        for f in findings
-    )
+def _not_reported(findings: list) -> bool:
+    return not findings
 
 
 @pytest.mark.parametrize(
@@ -79,8 +75,8 @@ def _operator_only(findings: list) -> bool:
         "click-group-command",
     ],
 )
-def test_cli_parameters_are_operator_input(tmp_path, code):
-    assert _operator_only(_findings(tmp_path, code))
+def test_cli_parameters_are_not_reported(tmp_path, code):
+    assert _not_reported(_findings(tmp_path, code))
 
 
 @pytest.mark.parametrize(

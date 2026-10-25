@@ -2302,7 +2302,11 @@ class Flow:
                     break
         if _CLI_CONTEXT.search(base):
             return Val(param=True)  # click.Context / typer.Context
-        return LIT if _SAFE_ANNOTATION.match(base) else OPERATOR_TAINT
+        # Whoever runs a command already controls the machine it runs on, and
+        # passing a path or command to a command-line tool is its purpose, so a
+        # command parameter is not a taint source at all (reporting it, even at
+        # low confidence, flags nearly every command-line tool).
+        return LIT if _SAFE_ANNOTATION.match(base) else Val(param=True)
 
     @staticmethod
     def _route_converters(decorators: list[str]) -> dict[str, str]:

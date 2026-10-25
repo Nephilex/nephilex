@@ -126,9 +126,9 @@ include breaking changes, noted explicitly).
   FastAPI's `Path()` marker, so a Typer command such as
   `def build(path: Annotated[Path, typer.Argument()] = Path("."))` was reported
   as request-sourced path traversal. FastAPI markers now count only when they
-  come from `fastapi`, and command parameters are reported like `sys.argv`: at
-  low confidence with the tag `operator-input`, and not at all for SSRF or open
-  redirect. FastAPI `Query()`, `Annotated[str, Query()]` and path operation
+  come from `fastapi`, and the parameters of Typer and Click commands are not
+  taint sources: the person running a command chooses them on a machine they
+  already control. FastAPI `Query()`, `Annotated[str, Query()]` and path operation
   parameters are still request sources.
 
 ## [0.11.0] - 2026-10-23
