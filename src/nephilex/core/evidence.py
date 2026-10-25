@@ -50,6 +50,11 @@ MAX_PATH_STEPS = 12
 
 #: Scanners whose findings carry a recorded taint path.
 TAINT_SCANNERS = frozenset({"ast-python", "ast-python-xfile", "ast-js"})
+#: Rules of those scanners that do not follow data from a source (weak
+#: randomness, query text built from any non-constant, template settings).
+NON_TAINT_RULES = frozenset(
+    {"ast-sql-string-building", "ast-weak-random", "ast-jinja-autoescape-off"}
+)
 #: Scanners whose rules match exact code or configuration (not behaviour
 #: heuristics), so a high-confidence match of theirs is graded ``likely``.
 PRECISE_SCANNERS = frozenset(
@@ -214,8 +219,11 @@ def _origin(f: Finding) -> str:
 
 
 def _is_taint(f: Finding) -> bool:
-    return f.scanner in TAINT_SCANNERS and str(f.metadata.get("analysis", "")).startswith(
-        "taint-dataflow"
+    """A finding the taint engines report for data that flowed from a source."""
+    return (
+        f.scanner in TAINT_SCANNERS
+        and str(f.metadata.get("analysis", "")).startswith("taint-dataflow")
+        and f.rule_id.split(".", 1)[-1] not in NON_TAINT_RULES
     )
 
 

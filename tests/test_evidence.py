@@ -147,6 +147,8 @@ def _taint(**kw) -> Finding:
         ({"tags": [PUBLIC_API_TAG]}, "possible"),
         ({"tags": ["test-context"]}, "possible"),
         ({"evidence": None}, "possible"),  # no recorded source
+        # not a flow from a source: graded like any exact rule match
+        ({"evidence": None, "rule_id": "ast-python.ast-weak-random"}, "likely"),
         ({"metadata": {"analysis": "taint-dataflow", "source": "archive-entry"}}, "likely"),
         (
             {"scanner": "ast-js", "metadata": {"analysis": "taint-dataflow", "source_kind": "env"}},
@@ -158,7 +160,7 @@ def test_grades_for_taint_findings(kw, grade):
     f = _taint(**kw)
     ev = build_evidence(f)
     assert ev.grade == grade
-    if grade == "likely":
+    if grade == "likely" and "rule_id" not in kw:
         assert "no recognized sanitizer" in ev.basis
 
 
