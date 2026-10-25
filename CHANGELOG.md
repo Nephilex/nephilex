@@ -8,6 +8,19 @@ include breaking changes, noted explicitly).
 ## [Unreleased]
 
 ### Added
+- **Evidence for each finding.** Every finding now has an `evidence` block: a
+  grade (`confirmed`, `likely` or `possible`), one sentence saying what the
+  grade rests on, the path from where the data comes from to where it is used
+  (file, line, code and a note per step), and two to four steps to verify the
+  finding by reading the code. The Python and JavaScript/TypeScript taint
+  engines record the path, including the call site and the function in the
+  other file for cross-file Python flows; other scanners show the matched
+  line. The JSON report has the new field, SARIF results carry `codeFlows`
+  and `properties.grade`, the HTML and Markdown reports have an Evidence
+  section, the `nephilex scan` table shows the grade and a compact path, and
+  the MCP `nephilex_scan` tool returns it. Evidence only explains findings:
+  what is detected, severities, confidence and fingerprints are unchanged.
+  See `docs/evidence.md`.
 - **Python taint for path traversal, XSS, SSRF and code injection.** New
   sources (Flask route converters, FastAPI and Starlette parameters and
   requests, uploads, archive member names), sinks (HTTP clients, template
