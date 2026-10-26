@@ -17,9 +17,15 @@ from nephilex.supply_chain.versions import VersionRange, equals
 log = logging.getLogger("nephilex.supply_chain.intel")
 
 # Curated feeds (bundled seed + optional remote refresh). Tried in order.
+#
+# The OpenSSF malicious-packages repository has no aggregate file per ecosystem:
+# ``osv/malicious/<ecosystem>/`` holds one OSV record per package (checked
+# through the GitHub API on 2026-10-26), so the ``osv/malicious/npm.json`` URL
+# listed here before never existed. Those records are served by the OSV API,
+# which the dependency scanner queries for every pinned dependency, so known
+# malware in any ecosystem is reported there (see ``osv.is_malware_record``).
 _DEFAULT_FEEDS = (
     "https://raw.githubusercontent.com/nephilex/nephilex-intel/main/malicious-packages.json",
-    "https://raw.githubusercontent.com/ossf/malicious-packages/main/osv/malicious/npm.json",
 )
 _CACHE_TTL = 24 * 3600
 
