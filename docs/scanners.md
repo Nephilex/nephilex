@@ -33,7 +33,10 @@ a bounded amount of diff text (and says so if it truncates on a very large repo)
 **Detects.** Known-vulnerable dependencies using live [OSV](https://osv.dev)
 data, including transitive packages resolved from lockfiles across PyPI, npm, Go,
 Rust, Ruby, and PHP. With `--reachability` (experimental, off by default), a CVE
-in a Python or npm package your code never imports is marked lower priority.
+in a Python or npm package your code never imports is marked lower priority. A
+release that OSV lists as malware (a `MAL-` record) is not a vulnerable
+dependency: it is reported as a known malicious package (see
+[Supply chain](#supply-chain)).
 
 **Prioritizes with exploit signals.** Each CVE finding is enriched, best-effort,
 with two free feeds: **EPSS** (FIRST.org, the probability the CVE is exploited in
@@ -62,8 +65,25 @@ Only package names, versions, and CVE ids ever leave your machine.
 **Detects.** Dependencies that are dangerous independently of published CVEs:
 known-malicious packages, typosquats of popular names, and suspicious npm
 lifecycle scripts (`preinstall` / `postinstall` that run a shell, download code,
-or read credentials). The malicious-package intelligence is a bundled seed
-refreshed, best-effort, from the OSSF `malicious-packages` and OSV feeds.
+or read credentials). The malicious-package intelligence is a bundled seed,
+refreshed best-effort from the Nephilex intel feed.
+
+**Known malware from OSV.** OSV also serves the OpenSSF malicious-packages
+records (`MAL-` ids; GitHub's malware advisories are aliases of them). The
+OpenSSF repository has no single file per ecosystem to download, so those
+records reach Nephilex through the OSV query the dependency scanner makes for
+every pinned dependency, in every ecosystem. A malware record is reported as
+`supply-chain.known-malicious`: **Critical**, high confidence, CWE-506, "Known
+malicious package", with the advice to remove the package (no version is safe)
+and, if it was ever installed, to treat that environment as compromised and
+rotate its credentials. It never says "upgrade to a patched version", and CVE
+advisories for the same release are not listed next to it. When the supply-chain
+intelligence and OSV both know the package, the scan keeps one finding (the one
+that names the advisory) and records the other scanner on it.
+
+**Typosquats.** A name one edit away from a popular package is reported, unless
+the name is itself a popular or well-known package (`preact` next to `react`,
+`pipx` next to `pip`).
 
 **Version-aware malicious matching.** A package name on the malicious list is
 only flagged at the versions that were actually compromised. The intel stores,
@@ -543,11 +563,85 @@ as a rejection (only 401 and 403 are).
 
 ## Malicious code (malware)
 
-**Detects.** Shapes that point at a backdoor or a compromised repository:
-decode-then-exec payloads, `__import__` indirection to a shell, reverse shells,
-PHP webshells, cryptominers, remote scripts piped to a shell, encoded
-PowerShell, suspicious package lifecycle scripts, and credential or environment
-exfiltration.
+**Detects.** Shapes that point at a backdoor, a malicious package or a
+compromised repository. Two layers work together.
+
+*Behaviour of Python code*, read from the syntax tree (the standard library
+parser, so it needs no optional extra):
+
+| Rule | What it reports |
+| --- | --- |
+| `malware.obfuscated-exec` | `exec`, `eval` or `compile` of decoded data (base64, base85, ascii85, zlib and other decompressors, `marshal.loads`, `codecs` rot13, `bytes.fromhex`, character-code joins, reversed strings), or a builtin reached through `getattr`, `__import__`, a builtins dictionary or a computed name |
+| `malware.download-exec` | Downloaded content passed to `exec` or run as a process (the command itself, or what an interpreter is given), and a downloaded file that is then run |
+| `malware.credential-exfil` | The environment (a copy or dump of `os.environ`) or a credential file (`~/.ssh` keys, `~/.aws`, `~/.npmrc`, `~/.pypirc`, `.netrc`, browser profiles and wallets) reaching an HTTP body, a socket send or a DNS name |
+| `malware.host-beacon` | The host or user name sent over the network |
+| `malware.lolbin-launch` | A process launch of a Windows system binary that fetches or runs remote code (`regsvr32` with `/i:` and a URL, `mshta`, `rundll32` with `javascript:`, `certutil -urlcache`, `bitsadmin /transfer`, encoded PowerShell, a download handed to `iex`) |
+| `malware.python-backdoor-import` | A process launch reached through `__import__`, `getattr` or a computed name |
+| `malware.python-reverse-shell` | A socket wired to a shell process |
+| `malware.install-hook` | Other code that runs at install time (see below) and uses the network, runs processes or writes to start-up locations |
+| `malware.import-time-code` | Other top-level code in a package `__init__.py`, or code in a `.pth` file, that uses the network or runs processes or code |
+
+*Text rules* for every file type: reverse shells, PHP webshells, cryptominers,
+remote scripts piped to a shell or interpreter, encoded PowerShell and download
+cradles, Windows living-off-the-land launches, credential or environment
+exfiltration with `curl` or `wget`, and suspicious npm lifecycle scripts.
+
+**When code runs decides the severity.** Code in `setup.py` and in setuptools or
+distutils command classes (`install`, `develop`, `egg_info`, `build_py`,
+`build_ext` and the others) runs when pip installs or builds the package; a `.pth`
+file runs at every Python start; the top level of a package `__init__.py` runs on
+import. A function called from there runs then too. Values are followed through
+assignments in a function and through calls to functions in the same file
+(return values and parameters).
+
+- A combination that only malware needs (downloaded code executed, credentials
+  or the environment sent out, a living-off-the-land launch, obfuscated
+  execution) is **High**, and **Critical** with high confidence when it runs at
+  install, start-up or import time. Obfuscated execution is always Critical.
+- The host or user name sent out is Critical at install time, High at import
+  time and Medium with low confidence otherwise (telemetry does this too).
+- A single weak signal at install time is Low (a subprocess in a build step) or
+  Medium (a download); persistence writes (shell start-up files, autostart, cron,
+  `.pth`) are High.
+- A text-rule match inside a process or exec call that runs at install or
+  start-up time is raised to Critical, and to at least High at import time.
+
+For npm, the JavaScript that a lifecycle script runs (`node <file>` in
+`preinstall`, `install`, `postinstall` or `prepare`) and the package's `main`
+entry are checked for the same combinations: a download plus `eval`,
+`new Function` or `vm`, and the environment or credential files plus a send.
+They are Critical when npm runs them on install and High when the package loads.
+
+**Noise control.** A malware alarm has to be believable, so:
+
+- Documentation and package metadata are not scanned: README, CHANGELOG,
+  CONTRIBUTING, LICENSE and similar names, `*.md`, `*.rst`, `*.txt` and other
+  text formats, `PKG-INFO` and `METADATA`, and HTML pages under `docs/` or
+  `site/`. They describe commands; they do not run them.
+- In Python, docstrings, comments and regular-expression literals (arguments to
+  `re` functions, and strings that are clearly regex syntax) are not read by the
+  text rules, so a security tool's own detection patterns are not reported.
+- Test files are reported at Low with low confidence (`conftest.py` and
+  `setup.py` excepted: tools run them on their own). So are matches in the rule,
+  signature and attack-corpus files of security tools (directories or files
+  named `rules`, `signatures`, `patterns`, `corpus`, `payloads`, `probes` and
+  similar) and lines that are regular expressions.
+- A remote script piped to a shell is not reported when every URL is a well-known
+  installer (uv and ruff from astral.sh, rustup, nvm, Homebrew, bun, deno, pnpm,
+  Poetry, pyenv, SDKMAN, the Docker convenience script, NodeSource, the Google
+  Cloud SDK, pixi, mise, starship, Scoop, Chocolatey). Another fixed HTTPS host
+  is Medium; plain HTTP, an IP address or a variable destination is High. Text
+  without any URL, host or variable ("download and run, curl ... sh") is prose.
+- Encoded PowerShell needs the PowerShell command word or the full
+  `-EncodedCommand` flag, so `pip install -e <path>` and `docker run -e VAR=...`
+  are not reported.
+- A cryptominer needs a real indicator: the stratum protocol, a known miner
+  binary (`xmrig` and others), `--donate-level`, a browser-mining library or a
+  known mining-pool host. The word "miner" or "monero" is not enough.
+- A reverse shell needs an interactive shell wired to the socket. A shell
+  script probing a port through `/dev/tcp` is not one.
+- `malware.suspicious-postinstall` reads only the `scripts` of a `package.json`;
+  an `install` key in another JSON file is not an npm lifecycle script.
 
 `malware.data-exfil-env` needs evidence that data leaves the host. A `curl` or
 `wget` command is read word by word and reported when one of these holds:
@@ -569,9 +663,19 @@ command.
 
 A variable counts as a secret when its name contains a word such as `TOKEN`,
 `SECRET`, `PASSWORD`, `PASS`, `KEY`, `AUTH`, `SESSION` or `COOKIE`, and does not
-end in `URL`, `HOST`, `PORT`, `NAME` or similar. The Python form still reports
-`requests`, `httpx` or `urllib` calls on a literal URL with `os.environ`,
+end in `URL`, `HOST`, `PORT`, `NAME` or similar; a key that names a record
+(`ISSUE_KEY`, `CACHE_KEY`, `PRIMARY_KEY`) is not a secret. The Python form still
+reports `requests`, `httpx` or `urllib` calls on a literal URL with `os.environ`,
 `getenv` or `process.env` in the arguments.
+
+The grade follows what is sent. The environment, a credential file or a secret
+in the request body is **High**. A secret in the URL or in a header that is not a
+credential header is **Medium**, or Low when every destination is a fixed HTTPS
+host. A credential header sent to a literal plain-HTTP or public IP destination
+is Medium; sent to a destination held in a variable, which is how scripts and
+API documentation call their own services, it is Info. A credential file only
+counts when it is uploaded (`-d @file`, `-F field=@file`, `-T file`, a command
+substitution), not when its path is plain text in a query.
 
 **Does not.** Report a request that sends nothing: a readiness loop such as
 `curl --fail --max-time 15 "$url" >/dev/null`, `wget --spider "$READY_URL"` or a
@@ -589,14 +693,22 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/user
 ```
 
 Variables later in the path or query are fine.
-The same header is reported when the destination comes from a variable, uses
-plain `http://`, has an IP-literal host, or when the request also has a data
-or upload flag carrying a secret or the environment.
+The same header is reported (graded as above) when the destination comes from a
+variable, uses plain `http://`, has an IP-literal host, or when the request also
+has a data or upload flag carrying a secret or the environment.
 
-**Limits.** A command assembled in a variable or through a function, or a
-secret copied into a neutrally named variable first, is not followed. A
-credential header sent to a literal `https://` host the attacker controls is
-not reported; the scanner cannot tell the intended service from another host.
+**Limits.** The behaviour analysis follows values inside one file only, and
+over-approximates within a function (it does not track the order of
+statements). Python files the running interpreter cannot parse (Python 2, or
+syntax newer than the interpreter) and files over 1 MB fall back to the text
+rules. For npm, only the files a lifecycle script runs with `node` and the
+`main` entry are checked, by text, so a payload split across modules or loaded
+dynamically is not followed. In the shell form, a command assembled in a
+variable or through a function, or a secret copied into a neutrally named
+variable first, is not followed. A credential header sent to a literal `https://`
+host the attacker controls is not reported; the scanner cannot tell the intended
+service from another host. The well-known installer list is fixed; a vendor's
+own installer on another HTTPS host is reported at Medium.
 
 ## Agent config
 

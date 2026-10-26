@@ -26,15 +26,16 @@ Current results:
 | Domain | Recall | Precision | Vulnerable cases | Safe cases | False positives |
 | --- | --- | --- | --- | --- | --- |
 | secrets | 100% | 100% | 1 | 1 | 0 |
-| sast | 100% | 100% | 6 | 7 | 0 |
-| taint | 100% | 100% | 16 | 16 | 0 |
+| sast | 100% | 100% | 7 | 9 | 0 |
+| taint | 100% | 100% | 22 | 22 | 0 |
 | iac | 100% | 100% | 1 | 1 | 0 |
 | llm | 100% | 100% | 17 | 17 | 0 |
 | mcp | 100% | 100% | 7 | 7 | 0 |
-| **overall** | **100%** | **100%** | **48** | **49** | **0** |
+| malware | 100% | 100% | 4 | 5 | 0 |
+| **overall** | **100%** | **100%** | **59** | **62** | **0** |
 
 !!! warning "Read this number honestly"
-    This is a **small sanity-and-regression corpus** (48 vulnerable, 49 safe cases),
+    This is a **small sanity-and-regression corpus** (59 vulnerable, 62 safe cases),
     not a claim of 100% real-world accuracy. 100% here means Nephilex classifies
     every case in this set correctly, and the run **exits non-zero if it does
     not**, so a regression fails CI. On independent public datasets the
