@@ -42,6 +42,81 @@ CURL_PIPE_SHELL = (
 )
 CURL_PIPE_SHELL_RE = re.compile(CURL_PIPE_SHELL, re.IGNORECASE)
 
+#: (host, path prefix) of widely documented installer scripts that are meant to
+#: be piped into a shell (uv, rustup, nvm, Homebrew, bun, deno, pnpm, ...).
+KNOWN_INSTALLERS: tuple[tuple[str, str], ...] = (
+    ("astral.sh", "/"),  # uv and ruff, install.sh and install.ps1
+    ("sh.rustup.rs", "/"),
+    ("win.rustup.rs", "/"),
+    ("static.rust-lang.org", "/rustup/"),
+    ("raw.githubusercontent.com", "/nvm-sh/nvm/"),
+    ("raw.githubusercontent.com", "/homebrew/install/"),
+    ("bun.sh", "/install"),
+    ("bun.com", "/install"),
+    ("deno.land", "/install"),
+    ("deno.land", "/x/install/"),
+    ("dl.deno.land", "/"),
+    ("get.pnpm.io", "/"),
+    ("install.python-poetry.org", "/"),
+    ("pyenv.run", "/"),
+    ("raw.githubusercontent.com", "/pyenv/pyenv-installer/"),
+    ("get.sdkman.io", "/"),
+    ("get.docker.com", "/"),
+    ("deb.nodesource.com", "/setup_"),
+    ("rpm.nodesource.com", "/setup_"),
+    ("sdk.cloud.google.com", "/"),
+    ("pixi.sh", "/install."),
+    ("mise.run", "/"),
+    ("starship.rs", "/install.sh"),
+    ("get.scoop.sh", "/"),
+    ("community.chocolatey.org", "/install.ps1"),
+)
+#: URLs inside a command, and their parts.
+URL_IN_TEXT = re.compile(r"(?i)\b(?:https?|ftp)://[^\s|'\"`)<>]+")
+_URL_PARTS = re.compile(r"(?i)^(https?|ftp)://(?:[^/@\s]+@)?([^/:?#\s]+)(?::\d+)?([^?#\s]*)")
+_IPV4 = re.compile(r"^\d+(?:\.\d+){3}$")
+#: A scheme-less host argument (``iwr -useb get.scoop.sh | iex``).
+_BARE_HOST = re.compile(r"(?i)(?<![\w./$-])((?:[a-z0-9-]+\.)+[a-z]{2,})(/[^\s|'\"`)<>]*)?")
+
+
+def is_known_installer(url: str) -> bool:
+    """An HTTPS URL (or bare host) of a well-known installer script."""
+    m = _URL_PARTS.match(url)
+    if m is None:
+        bare = _BARE_HOST.fullmatch(url)
+        if bare is None:
+            return False
+        host, path = bare.group(1).lower(), (bare.group(2) or "/").lower()
+    else:
+        if m.group(1).lower() != "https":
+            return False
+        host, path = m.group(2).lower(), (m.group(3) or "/").lower()
+    return any(host == h and path.startswith(p) for h, p in KNOWN_INSTALLERS)
+
+
+def remote_script_source(command: str) -> str:
+    """Where a download-and-run command gets its script from.
+
+    ``"known"``: only well-known installers; ``"https"``: fixed HTTPS hosts;
+    ``"other"``: plain HTTP, an IP address, a variable or an unknown host;
+    ``"none"``: no URL, variable or host at all (prose such as "curl ... | sh").
+    """
+    urls = URL_IN_TEXT.findall(command)
+    if not urls:
+        hosts = [m.group(0) for m in _BARE_HOST.finditer(command)]
+        if hosts and all(is_known_installer(h) for h in hosts):
+            return "known"
+        if hosts or "$" in command or "`" in command or "%" in command:
+            return "other"
+        return "none"
+    if all(is_known_installer(u) for u in urls):
+        return "known"
+    for u in urls:
+        m = _URL_PARTS.match(u)
+        if m is None or m.group(1).lower() != "https" or _IPV4.match(m.group(2)) or "$" in u:
+            return "other"
+    return "https"
+
 
 def line_windows(line: str, max_len: int = MAX_SCAN_LINE) -> list[str]:
     """Return ``line`` itself, or overlapping windows of it if it is too long."""
