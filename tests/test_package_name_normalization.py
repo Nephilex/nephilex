@@ -7,6 +7,10 @@ popular package must not be reported as a typosquat of it.
 
 from __future__ import annotations
 
+import json
+
+import pytest
+
 from nephilex.scanners import supply_chain
 from nephilex.supply_chain import intel
 
@@ -41,6 +45,31 @@ def test_spelling_variant_is_not_a_typosquat(monkeypatch):
     assert supply_chain._typosquat_candidates("python-dateutll", "PyPI") == ["python-dateutil"]
     assert supply_chain._typosquat_candidates("lodahs", "npm") == []
     assert supply_chain._typosquat_candidates("lodas", "npm") == ["lodash"]
+
+
+@pytest.mark.parametrize(
+    ("name", "ecosystem"),
+    [("preact", "npm"), ("gaxios", "npm"), ("vuex", "npm"), ("pipx", "PyPI"), ("pyaml", "PyPI")],
+)
+def test_popular_packages_next_to_a_popular_name_are_not_typosquats(name, ecosystem):
+    # preact is one edit from react, but it is a widely used package itself.
+    assert supply_chain._typosquat_candidates(name, ecosystem) == []
+
+
+def test_a_real_typo_of_react_is_still_a_typosquat():
+    assert supply_chain._typosquat_candidates("reactt", "npm") == ["react"]
+
+
+def test_preact_in_a_lockfile_is_not_reported(tmp_path):
+    from nephilex.core.config import Config
+    from nephilex.core.plugin import ScannerContext
+    from nephilex.core.project import Project
+
+    lock = {"lockfileVersion": 3, "packages": {"node_modules/preact": {"version": "10.29.8"}}}
+    (tmp_path / "package-lock.json").write_text(json.dumps(lock), encoding="utf-8")
+    cfg = Config(scanner_options={"supply-chain": {"online_intel": False}})
+    ctx = ScannerContext(project=Project.from_path(tmp_path), config=cfg)
+    assert [f.rule_id for f in supply_chain.SupplyChainScanner().scan(ctx)] == []
 
 
 def test_levenshtein_is_shared():

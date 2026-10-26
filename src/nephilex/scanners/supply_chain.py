@@ -43,13 +43,32 @@ from nephilex.supply_chain.versions import is_exact
 
 
 @lru_cache(maxsize=1)
-def _load_popular() -> dict:
+def _load_supply_chain_data() -> dict:
     with (
         resources.files("nephilex.scanners.data")
         .joinpath("supply_chain.json")
         .open(encoding="utf-8") as fh
     ):
-        return json.load(fh).get("popular", {})
+        data = json.load(fh)
+    return data if isinstance(data, dict) else {}
+
+
+def _load_popular() -> dict:
+    return _load_supply_chain_data().get("popular", {})
+
+
+@lru_cache(maxsize=8)
+def _established(ecosystem: str) -> frozenset[str]:
+    """Normalized names that are real, widely used packages in their own right.
+
+    The popular list plus well-known packages one edit away from a popular name
+    (``preact`` next to ``react``, ``pipx`` next to ``pip``). A package on this
+    list is never reported as a typosquat of its neighbour.
+    """
+    data = _load_supply_chain_data()
+    names = [*data.get("popular", {}).get(ecosystem, [])]
+    names += data.get("popular_neighbours", {}).get(ecosystem, [])
+    return frozenset(normalize_name(ecosystem, n)[1] for n in names)
 
 
 def _typosquat_candidates(name: str, ecosystem: str) -> list[str]:
@@ -58,6 +77,8 @@ def _typosquat_candidates(name: str, ecosystem: str) -> list[str]:
     # Compare normalized names, so a PyPI spelling variant of a popular package
     # (python_dateutil for python-dateutil) is not mistaken for a typosquat.
     _, norm = normalize_name(ecosystem, name)
+    if norm in _established(ecosystem):
+        return hits
     for pkg in popular:
         _, other = normalize_name(ecosystem, pkg)
         if norm == other:
