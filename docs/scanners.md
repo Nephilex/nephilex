@@ -65,8 +65,11 @@ Only package names, versions, and CVE ids ever leave your machine.
 **Detects.** Dependencies that are dangerous independently of published CVEs:
 known-malicious packages, typosquats of popular names, and suspicious npm
 lifecycle scripts (`preinstall` / `postinstall` that run a shell, download code,
-or read credentials). The malicious-package intelligence is a bundled seed,
-refreshed best-effort from the Nephilex intel feed.
+or read credentials). The malicious-package intelligence is a list bundled with
+Nephilex. No remote feed is fetched by default; to merge your own list, set
+`NEPHILEX_INTEL_FEED` to one or more comma-separated HTTPS URLs serving a JSON
+file in the bundled format. Fresh known malware for pinned dependencies comes
+from OSV, described next.
 
 **Known malware from OSV.** OSV also serves the OpenSSF malicious-packages
 records (`MAL-` ids; GitHub's malware advisories are aliases of them). The

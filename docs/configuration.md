@@ -92,7 +92,7 @@ scanner_options:
     reachability: false       # experimental: imported/not-imported (Python + npm)
     symbol_reachability: false  # tier-2: Python symbol usage vs OSV hints
   supply-chain:
-    online_intel: true        # merge bundled + remote malicious-package feeds
+    online_intel: true        # fetch the feeds in NEPHILEX_INTEL_FEED, if any
   dependency-diff:
     ref: ""                   # git ref for PR diff (set by --diff / supply-chain)
     behavior: true            # npm registry metadata anomaly checks
@@ -261,6 +261,7 @@ Credentials for cloud providers and git hosts are read from the environment (see
 | `NEPHILEX_AI_TIMEOUT` / `NEPHILEX_AI_MAX_RETRIES` | per-call model timeout in seconds (default 60) and retries (default 2) |
 | `NEPHILEX_GIT_TIMEOUT` | timeout for git commands in seconds (default 300) |
 | `NEPHILEX_CACHE_DIR` | cache location for scan results and OSV data |
+| `NEPHILEX_INTEL_FEED` | comma-separated HTTPS URLs of your own malicious-package lists, merged with the bundled one (none by default) |
 | `NEPHILEX_DAST_URL` | target for dynamic checks (same as `--live-target`) |
 | `NEPHILEX_MCP_ROOTS` / `NEPHILEX_MCP_SCAN_TIMEOUT` | directories the MCP server may scan, and its scan timeout (default 600) |
 | `NEPHILEX_DASHBOARD_TOKEN` / `NEPHILEX_DASHBOARD_ALLOWED_HOSTS` / `NEPHILEX_DASHBOARD_MAX_SCANS` | dashboard access control and retention, see [Web dashboard](dashboard.md) |

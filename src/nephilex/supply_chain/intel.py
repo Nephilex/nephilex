@@ -5,6 +5,7 @@ from __future__ import annotations
 import contextlib
 import json
 import logging
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -16,7 +17,10 @@ from nephilex.supply_chain.versions import VersionRange, equals
 
 log = logging.getLogger("nephilex.supply_chain.intel")
 
-# Curated feeds (bundled seed + optional remote refresh). Tried in order.
+# Remote feeds refresh the bundled seed. None is published by default, so a
+# scan makes no feed request unless one is configured: the URL listed here
+# before (a ``nephilex-intel`` repository) never existed and returned 404 on
+# every online scan.
 #
 # The OpenSSF malicious-packages repository has no aggregate file per ecosystem:
 # ``osv/malicious/<ecosystem>/`` holds one OSV record per package (checked
@@ -24,10 +28,25 @@ log = logging.getLogger("nephilex.supply_chain.intel")
 # listed here before never existed. Those records are served by the OSV API,
 # which the dependency scanner queries for every pinned dependency, so known
 # malware in any ecosystem is reported there (see ``osv.is_malware_record``).
-_DEFAULT_FEEDS = (
-    "https://raw.githubusercontent.com/nephilex/nephilex-intel/main/malicious-packages.json",
-)
+#
+# A team that keeps its own list can set NEPHILEX_INTEL_FEED to one or more
+# comma-separated HTTPS URLs serving the bundled file's format.
+_FEED_ENV = "NEPHILEX_INTEL_FEED"
 _CACHE_TTL = 24 * 3600
+
+
+def _configured_feeds() -> tuple[str, ...]:
+    """HTTPS feed URLs from NEPHILEX_INTEL_FEED; other schemes are skipped."""
+    urls = []
+    for url in os.environ.get(_FEED_ENV, "").split(","):
+        url = url.strip()
+        if not url:
+            continue
+        if not url.lower().startswith("https://"):
+            log.warning("%s: skipping %s, only https:// feeds are fetched", _FEED_ENV, url)
+            continue
+        urls.append(url)
+    return tuple(urls)
 
 
 def normalize_name(ecosystem: str, name: str) -> tuple[str, str]:
@@ -314,8 +333,8 @@ def load_malicious_index(
     cached = _read_cache()
     if cached:
         merged.update(cached)
-    if online:
-        urls = (feed_url,) if feed_url else _DEFAULT_FEEDS
+    urls = (feed_url,) if feed_url else _configured_feeds()
+    if online and urls:
         remote = _fetch_remote(urls, timeout)
         if remote:
             merged.update(remote)

@@ -14,8 +14,8 @@ package, which an attacker can register later). That lookup only runs for
 registries Nephilex knows how to ask (npm, PyPI, crates.io); for any other
 ecosystem, or when the lookup fails, the answer is ``unknown``, never a guess.
 
-Network use: OSV, the intel feeds and the registry lookup all use the
-network. Set ``NEPHILEX_MCP_OFFLINE=1`` to keep the server offline; the bundled
+Network use: OSV, the registry lookup and any intel feed set in
+``NEPHILEX_INTEL_FEED`` all use the network. Set ``NEPHILEX_MCP_OFFLINE=1`` to keep the server offline; the bundled
 intel and typosquat checks still run and the rest report ``unknown``.
 """
 
