@@ -113,6 +113,10 @@ include breaking changes, noted explicitly).
   one finding.
 - Supply chain: `supply-chain.typosquat` no longer reports a package that is
   itself popular or well known (`preact` next to `react`, `pipx` next to `pip`).
+- Supply chain: an online scan no longer requests a `nephilex-intel`
+  malicious-package feed that was never published and returned 404 every time.
+  No remote feed is fetched by default; set `NEPHILEX_INTEL_FEED` to merge your
+  own list (HTTPS only).
 - Supply chain: the remote malicious-package feed no longer requests the OpenSSF
   `osv/malicious/npm.json` file, which does not exist; the OpenSSF records reach
   Nephilex through the OSV query of the dependency scanner instead.

@@ -213,6 +213,7 @@ vulnerability lookup is `not_checked`.
 - **Local paths only.** It does not clone remote repositories from an agent call.
 - **Network.** `nephilex_check_files`, `nephilex_check_snippet` and `nephilex_fix`
   never use the network. `nephilex_scan` uses it for dependency CVE lookups, and
-  `nephilex_check_package` for OSV, the malicious-package feeds and the registry.
+  `nephilex_check_package` for OSV, the registry and any malicious-package feed
+  set in `NEPHILEX_INTEL_FEED`.
   Set `NEPHILEX_MCP_OFFLINE=1` to keep `nephilex_check_package` offline: the
   bundled intel and typosquat checks still run, the rest report `unknown`.
