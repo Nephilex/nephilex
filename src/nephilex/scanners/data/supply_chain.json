@@ -23,5 +23,9 @@
       "django", "flask", "boto3", "cryptography", "pyyaml", "pytest", "click",
       "jinja2", "pillow", "sqlalchemy", "fastapi", "httpx", "pydantic"
     ]
+  },
+  "popular_neighbours": {
+    "npm": ["preact", "gaxios", "ext", "uid", "ulid", "vuex", "tslint"],
+    "PyPI": ["boto", "pipx", "pyaml"]
   }
 }

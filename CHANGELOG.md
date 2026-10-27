@@ -78,6 +78,44 @@ include breaking changes, noted explicitly).
   ETag and cache-key uses at low severity.
 
 ### Fixed
+- Malware: far fewer false alarms on ordinary projects. The rules no longer
+  read documentation and package metadata
+  (README, CHANGELOG, `*.md`, `*.rst`, `*.txt`, PKG-INFO, METADATA, LICENSE),
+  Python docstrings, comments or regex literals; test files and the rule and
+  corpus files of security tools are reported at Low; well-known installers
+  (uv, rustup, nvm, Homebrew, bun, deno, pnpm and others) piped to a shell are
+  not reported and another fixed HTTPS host is Medium; `powershell-encoded` no
+  longer matches `pip install -e <path>` or `docker run -e VAR`; `cryptominer`
+  needs a real miner indicator (stratum, a miner binary, a pool host), not the
+  word "miner"; `reverse-shell-bash` no longer reports `/dev/tcp` port probes;
+  `suspicious-postinstall` reads only `package.json` scripts; and
+  `data-exfil-env` grades a credential header sent to a variable destination
+  as Info instead of High.
+- Malware: real malicious-package behaviour is now detected. A new Python
+  behaviour analysis reports obfuscated execution (exec of base64, base85,
+  zlib, marshal, rot13 or hex data, or a builtin reached through `getattr` or a
+  computed name), downloaded code that is executed, credentials or the whole
+  environment sent over the network, host names sent out, Windows
+  living-off-the-land launches (regsvr32, mshta, rundll32, certutil, bitsadmin,
+  encoded PowerShell), and code that runs at install time (`setup.py`,
+  setuptools command classes), at start-up (`.pth` files) or on import (a
+  package `__init__.py`). These are Critical when they run on their own at
+  install, start-up or import time. The JavaScript an npm lifecycle script runs,
+  and the package's main entry, are checked for download-and-eval and
+  credential exfiltration. See the malware section of `docs/scanners.md`.
+- Dependencies: a release that OSV lists as malware (an OpenSSF `MAL-` record,
+  for example PyPI `netweavex` 1.1.1, MAL-2026-18328) was reported as a Medium
+  "Vulnerable dependency" with CWE-1104 and "Upgrade to a patched version". It is
+  now one Critical `supply-chain.known-malicious` finding with CWE-506 that says
+  to remove the package, that no version is safe, and that an environment that
+  installed it should be treated as compromised and its credentials rotated.
+  When the supply-chain intelligence reports the same package, the scan keeps
+  one finding.
+- Supply chain: `supply-chain.typosquat` no longer reports a package that is
+  itself popular or well known (`preact` next to `react`, `pipx` next to `pip`).
+- Supply chain: the remote malicious-package feed no longer requests the OpenSSF
+  `osv/malicious/npm.json` file, which does not exist; the OpenSSF records reach
+  Nephilex through the OSV query of the dependency scanner instead.
 - Supply chain: the `supply-chain.known-malicious` rule is now version-aware. A
   package on the malicious-package list is flagged only at the versions that
   were actually compromised, stored as exact versions and introduced/fixed

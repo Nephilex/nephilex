@@ -395,6 +395,9 @@ def _osv_to_dict(adv, ecosystem: str) -> dict:
         "ecosystem": ecosystem,
         "references": adv.references,
         "affected_symbols": list(getattr(adv, "affected_symbols", []) or []),
+        "malicious": bool(getattr(adv, "malicious", False)),
+        "aliases": list(getattr(adv, "aliases", []) or []),
+        "affected_versions": list(getattr(adv, "affected_versions", []) or []),
     }
 
 
@@ -522,6 +525,15 @@ class DependencyScanner(Scanner):
                     ]
                 else:
                     advisories = self._bundled_matches(ecosystem, pkg, version)
+                malicious = [a for a in advisories if a.get("malicious")]
+                if malicious:
+                    # Malware, not a vulnerability: one finding that says to
+                    # remove it. CVE advisories for the same release add nothing.
+                    counter += 1
+                    findings.append(
+                        self._malicious_finding(malicious, counter, path, pkg, version, ecosystem)
+                    )
+                    continue
                 for adv in _dedupe_by_cve(advisories):
                     counter += 1
                     finding = self._finding(adv, counter, path, pkg, version)
@@ -596,6 +608,80 @@ class DependencyScanner(Scanner):
             ):
                 out.append(adv)
         return out
+
+    def _malicious_finding(
+        self,
+        advisories: list[dict],
+        index: int,
+        path: str,
+        pkg: str,
+        version: str,
+        ecosystem: str,
+    ) -> Finding:
+        """A known-malicious package from OSV (``MAL-`` records): remove, never upgrade."""
+        ids = sorted({a["id"] for a in advisories} | {x for a in advisories for x in a["aliases"]})
+        references: list[str] = []
+        for a in advisories:
+            references.extend(r for r in a.get("references", []) if r and r not in references)
+        references.extend(f"https://osv.dev/vulnerability/{a['id']}" for a in advisories)
+        summary = advisories[0].get("summary") or f"Malicious code in {pkg}"
+        affected = sorted({v for a in advisories for v in a.get("affected_versions", [])})
+        shown = ", ".join(affected[:12]) + (" ..." if len(affected) > 12 else "")
+        return Finding(
+            id=f"{self.name}:malicious:{ids[0] if ids else pkg}:{index}",
+            rule_id="supply-chain.known-malicious",
+            scanner=self.name,
+            title=f"Known malicious package: {pkg} {version} ({', '.join(ids)})",
+            description=(
+                f"{summary}. OSV lists `{pkg}` ({ecosystem}) as malware, not as a "
+                f"vulnerable release, and the installed version `{version}` is affected"
+                + (f" (affected versions: {shown})" if shown else "")
+                + ". There is no safe version to upgrade to."
+            ),
+            location=Location(path=path, snippet=f"{pkg}=={version}"),
+            severity=Severity.CRITICAL,
+            confidence=Confidence.HIGH,
+            likelihood=Likelihood.ALMOST_CERTAIN,
+            cwe=["CWE-506"],
+            owasp=["A08:2021-Software and Data Integrity Failures"],
+            why_vulnerable=(
+                f"{pkg} is a malicious package: its code was published to harm whoever "
+                "installs or imports it, typically by stealing credentials or running a "
+                "remote payload."
+            ),
+            attacker_perspective=(
+                "The package's own code runs with the installing user's rights during "
+                "install or import; nothing has to be exploited."
+            ),
+            business_impact=(
+                "Compromise of developer machines, CI runners and every credential they hold."
+            ),
+            remediation=Remediation(
+                summary=(
+                    f"Remove {pkg}; no version is safe. If it was ever installed, treat that "
+                    "environment as compromised and rotate its credentials."
+                ),
+                guidance=(
+                    f"Delete {pkg} from the manifest and lock file and uninstall it. On every "
+                    "machine or CI runner that installed it, rotate tokens, keys and passwords "
+                    "it could read (environment variables, ~/.ssh, cloud and registry "
+                    "credentials), review what ran, and rebuild the environment from a clean "
+                    "image. Check how the dependency was introduced (a typo, a dependency of a "
+                    "dependency, an AI suggestion)."
+                ),
+                references=references[:8],
+            ),
+            tags=["dependency", "supply-chain", "malicious", ecosystem.lower()],
+            metadata={
+                "ecosystem": ecosystem,
+                "package": pkg,
+                "version": version,
+                "installed_version": version,
+                "version_confirmed": True,
+                "advisories": ids,
+                "affected_versions": shown,
+            },
+        )
 
     def _finding(self, adv: dict, index: int, path: str, pkg: str, version: str) -> Finding:
         sev = Severity.parse(adv.get("severity", "MEDIUM"))

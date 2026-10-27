@@ -78,6 +78,11 @@ class OSVAdvisory:
     cwe: list[str] = field(default_factory=list)
     references: list[str] = field(default_factory=list)
     affected_symbols: list[str] = field(default_factory=list)
+    #: The record reports malware (a ``MAL-`` id or alias), not a vulnerability:
+    #: there is no fixed version to upgrade to.
+    malicious: bool = False
+    aliases: list[str] = field(default_factory=list)
+    affected_versions: list[str] = field(default_factory=list)
 
 
 class OSVError(RuntimeError):
@@ -266,17 +271,49 @@ def _parse_vuln(vuln: dict, *, package: str = "") -> OSVAdvisory:
     from nephilex.analysis.symbol_reachability import extract_osv_symbols
 
     symbols = extract_osv_symbols(vuln, package)
+    malicious = is_malware_record(vuln)
 
     return OSVAdvisory(
         id=vid,
         summary=summary,
-        severity=_severity_of(vuln),
+        severity=Severity.CRITICAL if malicious else _severity_of(vuln),
         cve=cve,
-        fixed=_fixed_version(vuln),
-        cwe=cwe or ["CWE-1104"],
+        fixed=None if malicious else _fixed_version(vuln),
+        cwe=["CWE-506"] if malicious else (cwe or ["CWE-1104"]),
         references=refs[:5],
         affected_symbols=symbols,
+        malicious=malicious,
+        aliases=[a for a in aliases if isinstance(a, str)],
+        affected_versions=_affected_versions(vuln),
     )
+
+
+def is_malware_record(vuln: dict) -> bool:
+    """Whether an OSV record reports a malicious package rather than a vulnerability.
+
+    The OpenSSF malicious-packages records that OSV serves have ``MAL-`` ids
+    (GitHub's malware advisories are published as aliases of them), and carry
+    ``malicious-packages-origins`` in ``database_specific``.
+    """
+    ids = [vuln.get("id", ""), *(vuln.get("aliases") or [])]
+    if any(isinstance(i, str) and i.upper().startswith("MAL-") for i in ids):
+        return True
+    specific = vuln.get("database_specific")
+    if isinstance(specific, dict):
+        if "malicious-packages-origins" in specific:
+            return True
+        kind = specific.get("type")
+        if isinstance(kind, str) and kind.lower() == "malware":
+            return True
+    return False
+
+
+def _affected_versions(vuln: dict) -> list[str]:
+    out: list[str] = []
+    for affected in vuln.get("affected", []) or []:
+        if isinstance(affected, dict):
+            out.extend(str(v) for v in affected.get("versions", []) or [] if isinstance(v, str))
+    return out[:50]
 
 
 def _severity_of(vuln: dict) -> Severity:

@@ -243,6 +243,7 @@ class ScanEngine:
         result.findings = self._apply_allowlist(result.findings, self.config, events=audit_events)
         result.findings = self._prefer_ast(result.findings, result.scanners_run)
         result.findings = (dedupe or self._dedupe)(result.findings)
+        result.findings = self._merge_malicious_packages(result.findings)
         # Path-based context (internal paths, exposure, data classification)
         # adjusts severity/likelihood and records why on each finding.
         from nephilex.context import apply_context
@@ -913,6 +914,40 @@ class ScanEngine:
                 continue
             kept.append(f)
         return passthrough + kept
+
+    @staticmethod
+    def _merge_malicious_packages(findings: list[Finding]) -> list[Finding]:
+        """One finding per known-malicious package.
+
+        The supply-chain scanner (malicious-package intelligence) and the
+        dependency scanner (OSV ``MAL-`` records) can both report the same
+        package. Keep the stronger report (confidence, then severity, then the
+        one that names its advisories) and record the other scanner on it.
+        """
+        from nephilex.supply_chain.intel import normalize_name
+
+        groups: dict[tuple[str, str], list[Finding]] = {}
+        for f in findings:
+            if f.rule_id != "supply-chain.known-malicious":
+                continue
+            eco = str(f.metadata.get("ecosystem", ""))
+            pkg = str(f.metadata.get("package", ""))
+            if eco and pkg:
+                groups.setdefault(normalize_name(eco, pkg), []).append(f)
+        drop: set[int] = set()
+        for group in groups.values():
+            if len(group) < 2:
+                continue
+            best = max(
+                group,
+                key=lambda f: (f.confidence, f.severity, bool(f.metadata.get("advisories"))),
+            )
+            others = [f for f in group if f is not best]
+            reported_by = sorted({f.scanner for f in others} - {best.scanner})
+            if reported_by:
+                best.metadata["also_reported_by"] = reported_by
+            drop.update(id(f) for f in others)
+        return [f for f in findings if id(f) not in drop] if drop else findings
 
     # --- CI gating helper ---------------------------------------------------
     def fails_on_errors(self, result: ScanResult) -> bool:
