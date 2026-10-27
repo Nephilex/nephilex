@@ -1,0 +1,2546 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nephilex, the open-source AI security engineer. Unified, explainable security analysis across code, dependencies, secrets, IaC, and AI, with verified fixes.">
+      
+      
+      
+        <link rel="canonical" href="https://nephilex.github.io/nephilex/understanding-results/">
+      
+      
+        <link rel="prev" href="../example-finding/">
+      
+      
+        <link rel="next" href="../evidence/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/nephilex-favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Understanding scan results - Nephilex</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#understanding-your-scan-results" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nephilex" class="md-header__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nephilex
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Understanding scan results
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nephilex" class="md-nav__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    Nephilex
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-finding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example finding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding scan results
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding scan results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-secure-means-with-nephilex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "secure" means with Nephilex
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-summary-box-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The summary box (terminal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-score-0-to-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk score (0 to 100)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#severity-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Severity levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence grade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-different-users-know-they-are-ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How different users know they are "OK"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How different users know they are &#34;OK&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#developer-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Developer (terminal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-automatic-on-every-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD (automatic on every PR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-lead-nephilex-cloud-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team lead (Nephilex Cloud dashboard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-compliance-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security / compliance (export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drift-are-you-getting-better-or-worse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift: are you getting better or worse?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accepted-risk-when-a-finding-is-intentional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accepted risk (when a finding is intentional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-nephilex-scans-and-what-it-skips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Nephilex scans (and what it skips)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Nephilex scans (and what it skips)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scanned-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scanned by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skipped-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skipped automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure exclusions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist-am-i-secure-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical checklist: "Am I secure enough?"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-a-clean-oss-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: Clean OSS project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-b-app-with-open-high-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: App with open High issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-c-whole-monorepo-scanned-by-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario C: Whole monorepo scanned by mistake
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence and grades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners & coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage & baselines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using in your pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using in your pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing SARIF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infrastructure-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure scanning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy as code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration drift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fixing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixing & pull requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editors & AI assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server (AI agents)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deeper
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deeper
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM / AI security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attack-simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attack simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust and limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks & accuracy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How Nephilex compares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-secure-means-with-nephilex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "secure" means with Nephilex
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-summary-box-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The summary box (terminal)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-score-0-to-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk score (0 to 100)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#severity-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Severity levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-grade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence grade
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-different-users-know-they-are-ok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How different users know they are "OK"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How different users know they are &#34;OK&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#developer-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Developer (terminal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-automatic-on-every-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD (automatic on every PR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-lead-nephilex-cloud-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team lead (Nephilex Cloud dashboard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-compliance-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security / compliance (export)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drift-are-you-getting-better-or-worse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drift: are you getting better or worse?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accepted-risk-when-a-finding-is-intentional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accepted risk (when a finding is intentional)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-nephilex-scans-and-what-it-skips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Nephilex scans (and what it skips)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Nephilex scans (and what it skips)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scanned-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scanned by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skipped-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skipped automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure exclusions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist-am-i-secure-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical checklist: "Am I secure enough?"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-a-clean-oss-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: Clean OSS project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-b-app-with-open-high-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: App with open High issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-c-whole-monorepo-scanned-by-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario C: Whole monorepo scanned by mistake
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="understanding-your-scan-results">Understanding your scan results<a class="headerlink" href="#understanding-your-scan-results" title="Permanent link">&para;</a></h1>
+<p>Nephilex gives you <strong>measurable security signals</strong>, not a simple "secure / insecure"
+badge. This page explains every number and status a user sees (in the terminal,
+in CI, and in Nephilex Cloud) so you can decide whether your project meets <strong>your</strong>
+policy.</p>
+<div class="admonition tip">
+<p class="admonition-title">The one-minute version</p>
+<p>Run <code>nephilex scan . --fail-on high</code>. <strong>Exit code 0</strong> and <strong>zero Critical/High
+findings</strong> means you pass the most common team bar. Push to Nephilex Cloud to
+track whether posture <strong>improves or regresses</strong> over time.</p>
+</div>
+<hr />
+<h2 id="what-secure-means-with-nephilex">What "secure" means with Nephilex<a class="headerlink" href="#what-secure-means-with-nephilex" title="Permanent link">&para;</a></h2>
+<p>Security is <strong>posture</strong>, not perfection. Nephilex answers:</p>
+<blockquote>
+<p>"Given the checks we can run on this target, are there issues at or above the
+severity my team cares about, and are we getting better or worse?"</p>
+</blockquote>
+<p>A <strong>passing</strong> scan does <strong>not</strong> guarantee:</p>
+<ul>
+<li>No zero-day exploits</li>
+<li>No business-logic bugs visible only in production</li>
+<li>No social-engineering or physical attacks</li>
+<li>Complete coverage of every language and runtime</li>
+</ul>
+<p>A <strong>passing</strong> scan <strong>does</strong> mean:</p>
+<ul>
+<li>Nothing at/above your <code>--fail-on</code> threshold was found <strong>in the scanned paths</strong></li>
+<li>Your CI gate (if configured) stays green</li>
+<li>You have a recorded baseline to compare against on the next run</li>
+</ul>
+<p>Nephilex is explicit about this in every scan: findings are <strong>strong signals to
+review</strong>, not legal proof of safety.</p>
+<hr />
+<h2 id="the-summary-box-terminal">The summary box (terminal)<a class="headerlink" href="#the-summary-box-terminal" title="Permanent link">&para;</a></h2>
+<p>After every scan you see a box like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>╭──────────────────────────── Nephilex scan ────────────────────────────╮
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ my-app                                                             │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│ Aggregate risk: 44.9/100   Findings: 26                            │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│ Critical: 0 | High: 0 | Medium: 26 | Low: 0 | Info: 0            │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>╰────────────────────────────────────────────────────────────────────╯
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it means</th>
+<th>How to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Target name</strong></td>
+<td>Project or path scanned</td>
+<td>Groups history in the dashboard</td>
+</tr>
+<tr>
+<td><strong>Aggregate risk</strong></td>
+<td>Single 0 to 100 headline score</td>
+<td>Trend over time; <strong>lower is better</strong></td>
+</tr>
+<tr>
+<td><strong>Findings</strong></td>
+<td>Total count after filters</td>
+<td>Volume indicator, not the only metric</td>
+</tr>
+<tr>
+<td><strong>Critical / High / …</strong></td>
+<td>Count per severity band</td>
+<td>Most teams gate on <strong>Critical + High</strong></td>
+</tr>
+</tbody>
+</table>
+<p>If the scan fails your gate, the CLI prints:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Failing: findings at/above High.
+</code></pre></div>
+<p>and exits with code <strong>1</strong> (see <a href="#exit-codes">Exit codes</a>).</p>
+<p>After the findings table, Nephilex prints a <strong>Security posture</strong> panel summarizing
+pass/fail, what to fix first, and your risk score, so you do not have to
+interpret raw numbers alone.</p>
+<hr />
+<h2 id="risk-score-0-to-100">Risk score (0 to 100)<a class="headerlink" href="#risk-score-0-to-100" title="Permanent link">&para;</a></h2>
+<p>Each finding has its own risk score. The <strong>aggregate risk</strong> for the whole scan
+is computed from all findings:</p>
+<ul>
+<li>The <strong>worst finding sets the floor</strong>: one Critical dominates many Low items.</li>
+<li>Additional findings nudge the score up slightly (volume matters, but less than severity).</li>
+<li><strong>0</strong> = no findings. <strong>100</strong> = worst-case stack of issues.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Score range</th>
+<th>Typical meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0 to 20</strong></td>
+<td>Clean or only Low/Info noise</td>
+</tr>
+<tr>
+<td><strong>21 to 50</strong></td>
+<td>Medium issues present; review when convenient</td>
+</tr>
+<tr>
+<td><strong>51 to 80</strong></td>
+<td>High-severity issues; fix before release</td>
+</tr>
+<tr>
+<td><strong>81 to 100</strong></td>
+<td>Critical or many High issues; treat as urgent</td>
+</tr>
+</tbody>
+</table>
+<p>Compare <strong>your score to your last scan</strong>, not to an abstract "perfect 0". A
+team that went from 85 to 40 is improving even if 40 is not zero.</p>
+<hr />
+<h2 id="severity-levels">Severity levels<a class="headerlink" href="#severity-levels" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Meaning</th>
+<th>Typical examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Critical</strong></td>
+<td>Exploitable or actively dangerous</td>
+<td>Live secrets, RCE patterns, critical CVEs with known exploit</td>
+</tr>
+<tr>
+<td><strong>High</strong></td>
+<td>Serious; fix before merge/deploy</td>
+<td>High CVEs, SQL injection sinks, unsafe CI patterns</td>
+</tr>
+<tr>
+<td><strong>Medium</strong></td>
+<td>Worth fixing; may not block CI</td>
+<td>Unpinned GitHub Actions, weak hashes, medium CVEs</td>
+</tr>
+<tr>
+<td><strong>Low</strong></td>
+<td>Informational or lower-confidence</td>
+<td>Stale deps, style-level hygiene</td>
+</tr>
+<tr>
+<td><strong>Info</strong></td>
+<td>Awareness only</td>
+<td>Coverage notes, scan metadata</td>
+</tr>
+</tbody>
+</table>
+<p>Your <strong>gate</strong> is your choice. Common defaults:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Block on High and Critical (most teams)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--fail-on<span class="w"> </span>high
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Stricter: also block Medium</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--fail-on<span class="w"> </span>medium
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Report only: never fail the command</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.
+</code></pre></div>
+<p>Set a project default in <code>.nephilex.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">fail_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+</code></pre></div>
+<hr />
+<h2 id="evidence-grade">Evidence grade<a class="headerlink" href="#evidence-grade" title="Permanent link">&para;</a></h2>
+<p>Each finding also has an evidence grade: <code>confirmed</code> (proved, for example a
+live credential or an exactly pinned vulnerable version), <code>likely</code> (a traced
+flow from attacker-controlled input, or an exact high-confidence match) or
+<code>possible</code> (heuristic, low confidence, test code, operator input). It comes
+with the path from source to sink when one was recorded and steps to verify
+the finding by reading the code. The grade does not change severity, risk or
+any gate. See <a href="../evidence/">Evidence and grades</a>.</p>
+<hr />
+<h2 id="exit-codes">Exit codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h2>
+<p>Stable for scripts and CI:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>Scan finished; no finding at/above <code>--fail-on</code> (or no gate set)</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>Scan finished; at least one finding met the <code>--fail-on</code> threshold</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Target could not be resolved (bad path, clone failed, config error)</td>
+</tr>
+</tbody>
+</table>
+<p>Full CI details: <a href="../ci-cd/">CI/CD integration</a>.</p>
+<hr />
+<h2 id="how-different-users-know-they-are-ok">How different users know they are "OK"<a class="headerlink" href="#how-different-users-know-they-are-ok" title="Permanent link">&para;</a></h2>
+<h3 id="developer-terminal">Developer (terminal)<a class="headerlink" href="#developer-terminal" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--profile<span class="w"> </span>standard<span class="w"> </span>--fail-on<span class="w"> </span>high
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span><span class="w">   </span><span class="c1"># 0 = pass for today</span>
+</code></pre></div>
+<p>Also check the severity line: <strong>Critical: 0 | High: 0</strong>.</p>
+<p>Re-render for different readers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--audience<span class="w"> </span>dev<span class="w">      </span><span class="c1"># what to fix and where (default table)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--audience<span class="w"> </span><span class="nb">exec</span><span class="w">     </span><span class="c1"># business summary, top 5 risks</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>--audience<span class="w"> </span>auditor<span class="w">  </span><span class="c1"># CWE / OWASP taxonomy for evidence</span>
+</code></pre></div>
+<h3 id="cicd-automatic-on-every-pr">CI/CD (automatic on every PR)<a class="headerlink" href="#cicd-automatic-on-every-pr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nephilex/nephilex@v0.11.0</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">fail-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ci</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>CI status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green check</td>
+<td>No High+ findings in that commit</td>
+</tr>
+<tr>
+<td>Red build</td>
+<td>High or Critical present; merge blocked</td>
+</tr>
+</tbody>
+</table>
+<h3 id="team-lead-nephilex-cloud-dashboard">Team lead (Nephilex Cloud dashboard)<a class="headerlink" href="#team-lead-nephilex-cloud-dashboard" title="Permanent link">&para;</a></h3>
+<p>After <code>nephilex push</code>, open <strong>Dashboard &gt; Overview</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Widget</th>
+<th>"Good" signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Critical findings</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td><strong>Severity donut</strong></td>
+<td>No growing red/orange slice</td>
+</tr>
+<tr>
+<td><strong>Average risk score</strong></td>
+<td>Stable or <strong>decreasing</strong></td>
+</tr>
+<tr>
+<td><strong>Recent scans</strong></td>
+<td>Risk column not spiking</td>
+</tr>
+</tbody>
+</table>
+<p>Open <strong>Scan detail</strong> for one run:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>"Good" signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Risk score</strong></td>
+<td>Lower than previous scan on same target</td>
+</tr>
+<tr>
+<td><strong>Drift since previous scan</strong></td>
+<td><strong>New findings: 0</strong> (no regression)</td>
+</tr>
+<tr>
+<td><strong>Resolved</strong></td>
+<td>Increasing over time as you fix issues</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-compliance-export">Security / compliance (export)<a class="headerlink" href="#security-compliance-export" title="Permanent link">&para;</a></h3>
+<p>Paid Nephilex Cloud plans: <strong>Dashboard &gt; Compliance</strong> exports CSV/JSON with
+findings, severities, CWEs, and timestamps for auditors.</p>
+<hr />
+<h2 id="drift-are-you-getting-better-or-worse">Drift: are you getting better or worse?<a class="headerlink" href="#drift-are-you-getting-better-or-worse" title="Permanent link">&para;</a></h2>
+<p>One scan is a snapshot. <strong>Drift</strong> compares two snapshots:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>json<span class="w"> </span>-o<span class="w"> </span>before.json
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># … make changes …</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>nephilex<span class="w"> </span>scan<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>json<span class="w"> </span>-o<span class="w"> </span>after.json
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>nephilex<span class="w"> </span>drift<span class="w"> </span>before.json<span class="w"> </span>after.json<span class="w"> </span>--fail-on<span class="w"> </span>high
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Drift column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Added</strong></td>
+<td>New findings since last scan; investigate</td>
+</tr>
+<tr>
+<td><strong>Removed</strong></td>
+<td>Fixed since last scan; good</td>
+</tr>
+<tr>
+<td><strong>Severity changed</strong></td>
+<td>Same issue, different priority</td>
+</tr>
+</tbody>
+</table>
+<p>Continuous monitoring:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>nephilex<span class="w"> </span>watch<span class="w"> </span>.<span class="w"> </span>--interval<span class="w"> </span><span class="m">300</span><span class="w"> </span>--fail-on-drift<span class="w"> </span>high
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>nephilex<span class="w"> </span>agent<span class="w"> </span>--init<span class="w">   </span><span class="c1"># server paths; see agent.md</span>
+</code></pre></div>
+<p>Nephilex Cloud shows the same drift on each scan detail page automatically when
+you push consecutive scans for the same target.</p>
+<hr />
+<h2 id="accepted-risk-when-a-finding-is-intentional">Accepted risk (when a finding is intentional)<a class="headerlink" href="#accepted-risk-when-a-finding-is-intentional" title="Permanent link">&para;</a></h2>
+<p>Not every alert is a bug. Use:</p>
+<ul>
+<li><strong><code>allow:</code> in <code>.nephilex.yml</code></strong>: documented suppressions with optional expiry</li>
+<li><strong><code># nephilex-ignore:</code> comments</strong>: inline, with required reason</li>
+<li><strong>Dashboard &gt; Exceptions</strong> (Nephilex Cloud): org-wide VEX by fingerprint</li>
+</ul>
+<p>See <a href="../triage/">Triage &amp; baselines</a> for full syntax.</p>
+<p>A finding you <strong>accepted with a reason</strong> should not count against your posture
+once suppressed. A finding you <strong>ignored without documenting</strong> still counts.</p>
+<hr />
+<h2 id="what-nephilex-scans-and-what-it-skips">What Nephilex scans (and what it skips)<a class="headerlink" href="#what-nephilex-scans-and-what-it-skips" title="Permanent link">&para;</a></h2>
+<h3 id="scanned-by-default">Scanned by default<a class="headerlink" href="#scanned-by-default" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Application source, dependency manifests, lockfiles</li>
+<li>CI/CD workflow files, Docker/K8s/IaC when present</li>
+<li>Secrets and patterns in tracked project files</li>
+</ul>
+<h3 id="skipped-automatically">Skipped automatically<a class="headerlink" href="#skipped-automatically" title="Permanent link">&para;</a></h3>
+<p>Common noise paths: <code>node_modules/</code>, <code>.venv/</code>, <code>dist/</code>, <code>.git/</code>, and similar.</p>
+<h3 id="configure-exclusions">Configure exclusions<a class="headerlink" href="#configure-exclusions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># .nephilex.yml</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">exclude_paths</span><span class="p">:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"tests/fixtures/**"</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"vendor/**"</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Local secrets vs repository secrets</p>
+<p>In a git work tree Nephilex skips untracked files that git ignores, so a
+gitignored <code>.env</code> on your laptop is not scanned. Outside a git work tree,
+or with <code>--include-ignored</code>, Nephilex scans <strong>every file on disk</strong>, and a
+Critical finding in a local <code>.env</code> is <strong>not</strong> the same as a secret
+committed to git. Exclude local-only files in <code>.nephilex.yml</code>, or scan in CI
+where <code>.env</code> does not exist:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">exclude_paths</span><span class="p">:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">".env"</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">".env.*"</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="practical-checklist-am-i-secure-enough">Practical checklist: "Am I secure enough?"<a class="headerlink" href="#practical-checklist-am-i-secure-enough" title="Permanent link">&para;</a></h2>
+<p>Use this after every release candidate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>[ ] nephilex scan . --fail-on high          -&gt; exit 0
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>[ ] Critical count = 0, High count = 0   -&gt; in terminal summary
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>[ ] CI Nephilex job green on main branch
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>[ ] Dashboard: no new High+ drift since last deploy
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>[ ] Known false positives documented in allow: or Exceptions
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>[ ] Dependency CVEs reviewed (even if Medium/Low)
+</code></pre></div>
+<hr />
+<h2 id="example-scenarios">Example scenarios<a class="headerlink" href="#example-scenarios" title="Permanent link">&para;</a></h2>
+<h3 id="scenario-a-clean-oss-project">Scenario A: Clean OSS project<a class="headerlink" href="#scenario-a-clean-oss-project" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Aggregate risk: 44.9/100   Findings: 26
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Critical: 0 | High: 0 | Medium: 26
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Exit: 0
+</code></pre></div>
+<p><strong>Verdict:</strong> Passes <code>--fail-on high</code>. Medium items (e.g. unpinned GitHub Actions)
+are hygiene: fix when convenient, not release blockers unless you gate on Medium.</p>
+<h3 id="scenario-b-app-with-open-high-issues">Scenario B: App with open High issues<a class="headerlink" href="#scenario-b-app-with-open-high-issues" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Aggregate risk: 99.7/100   Findings: 47
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Critical: 1 | High: 18
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Failing: findings at/above High.
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Exit: 1
+</code></pre></div>
+<p><strong>Verdict:</strong> Does <strong>not</strong> meet the standard High gate. Triage Critical first,
+then High CVEs and secrets. Re-scan until exit 0.</p>
+<h3 id="scenario-c-whole-monorepo-scanned-by-mistake">Scenario C: Whole monorepo scanned by mistake<a class="headerlink" href="#scenario-c-whole-monorepo-scanned-by-mistake" title="Permanent link">&para;</a></h3>
+<p>Scanning a parent folder that contains benchmark apps, examples, and tests will
+inflate counts dramatically. <strong>Scan each deployable app separately</strong>, or use
+<code>exclude_paths</code> for non-production trees.</p>
+<hr />
+<h2 id="quick-reference">Quick reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Did I pass my policy?</td>
+<td>Exit code + <code>Failing:</code> line + Critical/High counts</td>
+</tr>
+<tr>
+<td>How bad is it overall?</td>
+<td>Aggregate risk score (trend, not absolute)</td>
+</tr>
+<tr>
+<td>What regressed?</td>
+<td><code>nephilex drift</code> or Cloud scan detail &gt; Drift</td>
+</tr>
+<tr>
+<td>What should I fix first?</td>
+<td>Table sorted by severity; <code>--audience exec</code> for top 5</td>
+</tr>
+<tr>
+<td>How do I reduce noise?</td>
+<td><a href="../triage/">Triage &amp; baselines</a></td>
+</tr>
+<tr>
+<td>How do I gate CI?</td>
+<td><a href="../ci-cd/">CI/CD integration</a></td>
+</tr>
+<tr>
+<td>Cloud history &amp; teams?</td>
+<td>Push with <code>nephilex push</code>; see Nephilex Cloud dashboard</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../evidence/">Evidence and grades</a>: why a finding was reported and how to check it</li>
+<li><a href="../triage/">Triage &amp; baselines</a>: baselines, allowlists, exclusions</li>
+<li><a href="../ci-cd/">CI/CD integration</a>: GitHub Action, exit codes, SARIF</li>
+<li><a href="../drift/">Drift detection</a>: compare scans over time</li>
+<li><a href="../dashboard/">Web dashboard</a>: local scan history (optional extra)</li>
+<li><a href="../scanners/">Scanners &amp; coverage</a>: what each scanner detects</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../example-finding/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Example finding">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Example finding
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../evidence/" class="md-footer__link md-footer__link--next" aria-label="Next: Evidence and grades">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Evidence and grades
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nephilex, Apache-2.0. The command is <code>nephilex</code>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.footer", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
