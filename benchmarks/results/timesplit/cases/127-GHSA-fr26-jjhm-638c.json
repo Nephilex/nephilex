@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-fr26-jjhm-638c",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "pyload-ng"
+  ],
+  "published_at": "2026-10-09T17:08:58Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-fr26-jjhm-638c",
+  "label_cwes": [22],
+  "repo": "pyload/pyload",
+  "fix_sha": "09eec1b431b6942a1917f094f2c77bfbf5637f60",
+  "parent_sha": "8d514bfffbf973292ee64d837f2bf8506f0b7f13",
+  "path_vulnerable": "src/pyload/plugins/extractors/UnTar.py",
+  "path_patched": "src/pyload/plugins/extractors/UnTar.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [12, 12],
+   [17, 17],
+   [63, 63],
+   [72, 73]
+  ],
+  "patched_lines": [
+   [12, 12],
+   [17, 20],
+   [66, 66],
+   [76, 77]
+  ],
+  "commit_url": "https://github.com/pyload/pyload/commit/09eec1b431b6942a1917f094f2c77bfbf5637f60",
+  "case_id": "127-GHSA-fr26-jjhm-638c",
+  "content": {
+   "vulnerable": {
+    "sha256": "fc6737387c74c8c52081d81312eea513c4caa2aed48f66e29be68aee6cc05777",
+    "bytes": 3275
+   },
+   "patched": {
+    "sha256": "0020931227fd556a44ec68be7b63e6c95a834b5ca3098dc5f27f48d4ff84093f",
+    "bytes": 3450
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

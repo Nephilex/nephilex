@@ -1,0 +1,88 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-526j-582w-7fm9",
+  "cve_id": "CVE-2026-62322",
+  "ecosystem": "pip",
+  "packages": [
+   "social-auth-core"
+  ],
+  "published_at": "2026-10-15T20:09:11Z",
+  "advisory_cwes": [352],
+  "html_url": "https://github.com/advisories/GHSA-526j-582w-7fm9",
+  "label_cwes": [352],
+  "repo": "python-social-auth/social-core",
+  "fix_sha": "5b3b90d07ebccc1f5b076445b27ea35ec059764b",
+  "parent_sha": "841e936479c1178435be0e140166e497efaeb7bd",
+  "path_vulnerable": "social_core/backends/line.py",
+  "path_patched": "social_core/backends/line.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [56, 57]
+  ],
+  "patched_lines": [
+   [57, 57]
+  ],
+  "commit_url": "https://github.com/python-social-auth/social-core/commit/5b3b90d07ebccc1f5b076445b27ea35ec059764b",
+  "case_id": "073-GHSA-526j-582w-7fm9",
+  "content": {
+   "vulnerable": {
+    "sha256": "0734ccd6ede4b7cdf15786ec11f2cef6a04e6b1ca6c51547dcbaf330a3571c1a",
+    "bytes": 3335
+   },
+   "patched": {
+    "sha256": "15867a40c1311069e0062e9014b2b2f75c2b0ad26124cf7e6141e91c6d636a52",
+    "bytes": 3365
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      19,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      20,
+      "secrets.high-entropy-string",
+      [798]
+     ]
+    ],
+    "patched": [
+     [
+      19,
+      "secrets.high-entropy-string",
+      [798]
+     ],
+     [
+      20,
+      "secrets.high-entropy-string",
+      [798]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

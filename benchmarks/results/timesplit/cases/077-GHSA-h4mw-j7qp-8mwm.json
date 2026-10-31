@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-h4mw-j7qp-8mwm",
+  "cve_id": "CVE-2026-96620",
+  "ecosystem": "pip",
+  "packages": [
+   "claude-agent-sdk"
+  ],
+  "published_at": "2026-10-16T19:44:37Z",
+  "advisory_cwes": [20, 78, 88],
+  "html_url": "https://github.com/advisories/GHSA-h4mw-j7qp-8mwm",
+  "label_cwes": [78, 88],
+  "repo": "anthropics/claude-agent-sdk-python",
+  "fix_sha": "347a1cb88d7652199399db1b7f914e0a459a6662",
+  "parent_sha": "af69c0125eb48978631c671d877d0a3c246d210d",
+  "path_vulnerable": "src/claude_agent_sdk/_internal/transport/subprocess_cli.py",
+  "path_patched": "src/claude_agent_sdk/_internal/transport/subprocess_cli.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [353, 353],
+   [356, 356]
+  ],
+  "patched_lines": [
+   [352, 356],
+   [358, 358],
+   [361, 361]
+  ],
+  "commit_url": "https://github.com/anthropics/claude-agent-sdk-python/commit/347a1cb88d7652199399db1b7f914e0a459a6662",
+  "case_id": "077-GHSA-h4mw-j7qp-8mwm",
+  "content": {
+   "vulnerable": {
+    "sha256": "d4125e626f9a34a7f89ff2de0888b31bf1f668ac0e04516bc26dbb05dad75078",
+    "bytes": 36915
+   },
+   "patched": {
+    "sha256": "37cff1724d41dd4d39c2951684c390fd893014f39d17f6c0f29ac5ec1a0aea45",
+    "bytes": 37296
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-98hj-9722-w3j8",
+  "cve_id": "CVE-2026-114128",
+  "ecosystem": "npm",
+  "packages": [
+   "astro"
+  ],
+  "published_at": "2026-10-22T16:30:26Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-98hj-9722-w3j8",
+  "label_cwes": [79],
+  "repo": "withastro/astro",
+  "fix_sha": "a548223607b9bb146d5d90ddda495343f9a2a739",
+  "parent_sha": "9870f95601690d9d98799b6fa78a0bc76165ee06",
+  "path_vulnerable": "packages/astro/src/runtime/server/jsx.ts",
+  "path_patched": "packages/astro/src/runtime/server/jsx.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [2, 3],
+   [210, 216]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [211, 217],
+   [219, 219]
+  ],
+  "commit_url": "https://github.com/withastro/astro/commit/a548223607b9bb146d5d90ddda495343f9a2a739",
+  "case_id": "243-GHSA-98hj-9722-w3j8",
+  "content": {
+   "vulnerable": {
+    "sha256": "67c5fc1d4bcf6cc2c06c70202402dbcf4cec3456e72d637099a6935cef6fdb26",
+    "bytes": 7450
+   },
+   "patched": {
+    "sha256": "80481a2468b31adaa5d841796988ef2cf251f2f10a5b2218d9ac77120899f4a3",
+    "bytes": 7645
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

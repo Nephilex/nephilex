@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3f7j-7jwc-fxfj",
+  "cve_id": "CVE-2026-116576",
+  "ecosystem": "npm",
+  "packages": [
+   "systeminformation"
+  ],
+  "published_at": "2026-10-28T22:42:49Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-3f7j-7jwc-fxfj",
+  "label_cwes": [78],
+  "repo": "sebhildebrandt/systeminformation",
+  "fix_sha": "5014c6d25cfce7363b937977327baa853cdba0bf",
+  "parent_sha": "52dda715fe83d5f630d54778ad8e5b147c0de3c8",
+  "path_vulnerable": "lib/util.js",
+  "path_patched": "lib/util.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [751, 752]
+  ],
+  "patched_lines": [
+   [752, 754]
+  ],
+  "commit_url": "https://github.com/sebhildebrandt/systeminformation/commit/5014c6d25cfce7363b937977327baa853cdba0bf",
+  "case_id": "276-GHSA-3f7j-7jwc-fxfj",
+  "content": {
+   "vulnerable": {
+    "sha256": "c996d8b2d151b57b16b0424d89dba84c74473cb9e44aa2172cf287855937453e",
+    "bytes": 69203
+   },
+   "patched": {
+    "sha256": "02b6ca1a0c37bef6a207583577d711f46f21875a7439463ba99426b3ebaa209d",
+    "bytes": 69395
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

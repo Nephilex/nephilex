@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8rc2-428q-7ww3",
+  "cve_id": "CVE-2026-118256",
+  "ecosystem": "npm",
+  "packages": [
+   "@intlify/core",
+   "@intlify/core-base",
+   "@intlify/vue-i18n-core",
+   "petite-vue-i18n",
+   "vue-i18n"
+  ],
+  "published_at": "2026-10-28T21:06:34Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-8rc2-428q-7ww3",
+  "label_cwes": [79],
+  "repo": "intlify/vue-i18n",
+  "fix_sha": "d657ce8f4b3b6b198a8f6e3d09e2b57a5d019fb8",
+  "parent_sha": "43391d20e7c85403cb59bdb21b5d542819f54042",
+  "path_vulnerable": "packages/core-base/src/translate.ts",
+  "path_patched": "packages/core-base/src/translate.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [819, 824]
+  ],
+  "patched_lines": [
+   [815, 815],
+   [820, 829]
+  ],
+  "commit_url": "https://github.com/intlify/vue-i18n/commit/d657ce8f4b3b6b198a8f6e3d09e2b57a5d019fb8",
+  "case_id": "152-GHSA-8rc2-428q-7ww3",
+  "content": {
+   "vulnerable": {
+    "sha256": "6fd36d61747d7ec343f40db3feeac1c8c8fbfe7a802ac7760c96f9778aa92815",
+    "bytes": 36813
+   },
+   "patched": {
+    "sha256": "f06a335bd46fd5b4177b140c23401d2166e8691924ec16b29df7e62e8e6ffda6",
+    "bytes": 37034
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

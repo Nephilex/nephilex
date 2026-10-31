@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6jp4-8v48-cc5v",
+  "cve_id": "CVE-2026-117601",
+  "ecosystem": "pip",
+  "packages": [
+   "electrum"
+  ],
+  "published_at": "2026-10-28T21:23:44Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v",
+  "label_cwes": [347],
+  "repo": "spesmilo/electrum",
+  "fix_sha": "90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "parent_sha": "e8c79fa662123217ac5eba6fa7d62fa53f46b563",
+  "path_vulnerable": "electrum/synchronizer.py",
+  "path_patched": "electrum/synchronizer.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [155, 156],
+   [243, 244]
+  ],
+  "patched_lines": [
+   [156, 157],
+   [246, 247]
+  ],
+  "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "case_id": "018-GHSA-6jp4-8v48-cc5v",
+  "content": {
+   "vulnerable": {
+    "sha256": "54ca63a014cf850fbc7d5872c51f10661c1cef16e1f4a7fda4210be4b30e36bd",
+    "bytes": 15680
+   },
+   "patched": {
+    "sha256": "27ddf5b2058fc0e64ab091c323f6a4d1e9d22e6b6ad745689679ce4c65ce77d4",
+    "bytes": 15865
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

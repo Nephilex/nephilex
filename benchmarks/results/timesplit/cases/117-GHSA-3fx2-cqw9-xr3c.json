@@ -1,0 +1,93 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3fx2-cqw9-xr3c",
+  "cve_id": "CVE-2026-118667",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph",
+   "langgraph-sdk"
+  ],
+  "published_at": "2026-10-28T21:05:47Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-3fx2-cqw9-xr3c",
+  "label_cwes": [22],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
+  "parent_sha": "2d942085e214ef6b99b6f54ed4d544a7c7c5ac56",
+  "path_vulnerable": "libs/sdk-py/langgraph_sdk/_async/stream.py",
+  "path_patched": "libs/sdk-py/langgraph_sdk/_async/stream.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [26, 27],
+   [154, 154],
+   [1905, 1905]
+  ],
+  "patched_lines": [
+   [27, 27],
+   [155, 155],
+   [1906, 1906]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
+  "case_id": "117-GHSA-3fx2-cqw9-xr3c",
+  "content": {
+   "vulnerable": {
+    "sha256": "49cb5176b4905cfc0acf5925b77b03aa54e79d05fbb8cb48725c5c2b0f68e1e7",
+    "bytes": 85440
+   },
+   "patched": {
+    "sha256": "2bcd95af558cb4fa2f9fea44c7d27c0ec82d03f1bf57b8f0822429c6a7396bcb",
+    "bytes": 85540
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      956,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      1996,
+      "logic.state-transition",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      957,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      1997,
+      "logic.state-transition",
+      [840]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

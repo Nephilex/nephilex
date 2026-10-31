@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-322m-ff4g-9vx9",
+  "cve_id": "CVE-2026-105647",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-10-07T20:35:32Z",
+  "advisory_cwes": [367, 918],
+  "html_url": "https://github.com/advisories/GHSA-322m-ff4g-9vx9",
+  "label_cwes": [918],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "3f8594eb53de883ac017545c358f59039cb152de",
+  "parent_sha": "20d3f792bf4a7c349ee56b746a067550d8684ff5",
+  "path_vulnerable": "ghost/core/core/server/services/oembed/oembed-service.js",
+  "path_patched": "ghost/core/core/server/services/oembed/oembed-service.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [396, 397],
+   [479, 480]
+  ],
+  "patched_lines": [
+   [397, 470],
+   [554, 555]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/3f8594eb53de883ac017545c358f59039cb152de",
+  "case_id": "281-GHSA-322m-ff4g-9vx9",
+  "content": {
+   "vulnerable": {
+    "sha256": "29b463fda351a29a456ad480f0afc12dd19f8e6584b99e508b23f3304bbb599d",
+    "bytes": 25439
+   },
+   "patched": {
+    "sha256": "7d9be3a4452549833088c0508f6a76d26dd6e4aabcb1d3199192004a6ec77029",
+    "bytes": 27892
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8qpj-27x8-pwpq",
+  "cve_id": "CVE-2026-10561",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow"
+  ],
+  "published_at": "2026-10-06T13:38:28Z",
+  "advisory_cwes": [94, 95, 266],
+  "html_url": "https://github.com/advisories/GHSA-8qpj-27x8-pwpq",
+  "label_cwes": [94, 95],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "2754c84aad1306f463db1c3bbb3e8ffbe85da77d",
+  "parent_sha": "11a18f78346d15f4cc269fa4558ee33b99f54368",
+  "path_vulnerable": "src/lfx/src/lfx/components/tools/python_repl.py",
+  "path_patched": "src/lfx/src/lfx/components/tools/python_repl.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [12, 12],
+   [80, 81]
+  ],
+  "patched_lines": [
+   [12, 12],
+   [81, 83]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/2754c84aad1306f463db1c3bbb3e8ffbe85da77d",
+  "case_id": "013-GHSA-8qpj-27x8-pwpq",
+  "content": {
+   "vulnerable": {
+    "sha256": "b15f1d388e03eb4adb9e98a950f6ddbb8643160106e5d43eef2a715a8fcf2ebe",
+    "bytes": 4204
+   },
+   "patched": {
+    "sha256": "8e9f47f2b23fe500fd3e76ffdadce0837732b98eae59e4479989f6d1cdac8b97",
+    "bytes": 4407
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

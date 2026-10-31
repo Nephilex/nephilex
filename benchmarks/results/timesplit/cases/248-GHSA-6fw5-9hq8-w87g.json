@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6fw5-9hq8-w87g",
+  "cve_id": "CVE-2026-103921",
+  "ecosystem": "npm",
+  "packages": [
+   "@graphql-tools/executor-legacy-ws"
+  ],
+  "published_at": "2026-10-05T22:56:56Z",
+  "advisory_cwes": [295],
+  "html_url": "https://github.com/advisories/GHSA-6fw5-9hq8-w87g",
+  "label_cwes": [295],
+  "repo": "ardatan/graphql-tools",
+  "fix_sha": "3831a0661514c91d99971052f983552556880402",
+  "parent_sha": "4efc4eff43a0f37faa8d6827a50749eceae8df05",
+  "path_vulnerable": "packages/loaders/url/src/index.ts",
+  "path_patched": "packages/loaders/url/src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [97, 98]
+  ],
+  "patched_lines": [
+   [98, 102]
+  ],
+  "commit_url": "https://github.com/ardatan/graphql-tools/commit/3831a0661514c91d99971052f983552556880402",
+  "case_id": "248-GHSA-6fw5-9hq8-w87g",
+  "content": {
+   "vulnerable": {
+    "sha256": "01707e5f425412f68c13bc578e85d97a938ea20786336e92398a964fd6a1ca09",
+    "bytes": 14930
+   },
+   "patched": {
+    "sha256": "678d9202256ee4337cb1a2f49ab867e26299ef8007cf2098cc0a4df79236fbb8",
+    "bytes": 15145
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

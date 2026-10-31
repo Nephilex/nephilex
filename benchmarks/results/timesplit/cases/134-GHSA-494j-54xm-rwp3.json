@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-494j-54xm-rwp3",
+  "cve_id": "CVE-2026-111063",
+  "ecosystem": "pip",
+  "packages": [
+   "aiohttp"
+  ],
+  "published_at": "2026-10-19T17:07:47Z",
+  "advisory_cwes": [311, 1004],
+  "html_url": "https://github.com/advisories/GHSA-494j-54xm-rwp3",
+  "label_cwes": [1004],
+  "repo": "aio-libs/aiohttp",
+  "fix_sha": "999c356d61e966faffa97b06ab0d0455226d36c5",
+  "parent_sha": "6d4e7b01f9b951aa084a75d7356e907d4ee80411",
+  "path_vulnerable": "aiohttp/cookiejar.py",
+  "path_patched": "aiohttp/cookiejar.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [491, 492]
+  ],
+  "patched_lines": [
+   [492, 494]
+  ],
+  "commit_url": "https://github.com/aio-libs/aiohttp/commit/999c356d61e966faffa97b06ab0d0455226d36c5",
+  "case_id": "134-GHSA-494j-54xm-rwp3",
+  "content": {
+   "vulnerable": {
+    "sha256": "b2e5388e3fb538f14eacea2b188a677b9a98b6e47dea1850ee7fb62fc33a3b8d",
+    "bytes": 26452
+   },
+   "patched": {
+    "sha256": "5d4e198c6c28b418ffcf78d397d7fe35bc57f86f7536c07834d81fc764a86a90",
+    "bytes": 26524
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

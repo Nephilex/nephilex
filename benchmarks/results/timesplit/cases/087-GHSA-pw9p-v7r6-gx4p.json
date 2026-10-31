@@ -1,0 +1,108 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pw9p-v7r6-gx4p",
+  "cve_id": "CVE-2026-116578",
+  "ecosystem": "pip",
+  "packages": [
+   "tornado"
+  ],
+  "published_at": "2026-10-28T22:43:45Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-pw9p-v7r6-gx4p",
+  "label_cwes": [601],
+  "repo": "tornadoweb/tornado",
+  "fix_sha": "940ea725bdd9bc68231d68a105eef17ea6e11233",
+  "parent_sha": "09591f65286a600c2196df9c33b792b889a6bccb",
+  "path_vulnerable": "tornado/web.py",
+  "path_patched": "tornado/web.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2824, 2825]
+  ],
+  "patched_lines": [
+   [2825, 2828]
+  ],
+  "commit_url": "https://github.com/tornadoweb/tornado/commit/940ea725bdd9bc68231d68a105eef17ea6e11233",
+  "case_id": "087-GHSA-pw9p-v7r6-gx4p",
+  "content": {
+   "vulnerable": {
+    "sha256": "d668cb6962afc888a2cef8437635505ccfb8576598e67c36204170a93dfe8c32",
+    "bytes": 161247
+   },
+   "patched": {
+    "sha256": "50bcbc86196b0578df13a2541930ff264fb5b1e2a2252d1b2fa04a9e5ace4bc5",
+    "bytes": 161438
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      1878,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      2172,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2200,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      3177,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      1878,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ],
+     [
+      2172,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      2200,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      3181,
+      "ast-python.ast-open-redirect",
+      [601]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

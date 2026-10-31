@@ -173,6 +173,18 @@ include breaking changes, noted explicitly).
   already control. FastAPI `Query()`, `Annotated[str, Query()]` and path operation
   parameters are still request sources.
 
+### Benchmarks
+
+- **Time-split test set, the honest headline for this release.** The detection
+  rules were frozen and measured on 292 real vulnerabilities (138 `pip`, 154
+  `npm`) disclosed after the rules were written (advisories published
+  2026-10-01 to 2026-10-29), none of which earlier sets had seen. Strict CWE
+  match: 7 of 292 detected (2.4% recall), 87.5% precision proxy. The number is
+  frozen and reproducible; it cannot be tuned. High precision, low recall:
+  Nephilex is usually right when it flags, strongest on command injection, and
+  still misses most path-traversal and cross-file XSS cases. See
+  `docs/benchmarks.md` and `benchmarks/results/timesplit/`.
+
 ## [0.11.0] - 2026-10-23
 
 ### Added

@@ -1,0 +1,134 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wqmh-qccw-pqwf",
+  "cve_id": "CVE-2026-53995",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-20T00:31:59Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-wqmh-qccw-pqwf",
+  "label_cwes": [22],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "31ff9e56f5038d61ec75344518912945f60dffec",
+  "parent_sha": "414111be96286d424a28e45275ade854240eaaa9",
+  "path_vulnerable": "mlflow/store/tracking/file_store.py",
+  "path_patched": "mlflow/store/tracking/file_store.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [125, 126],
+   [138, 139],
+   [1765, 1766],
+   [2178, 2179]
+  ],
+  "patched_lines": [
+   [126, 126],
+   [140, 152],
+   [1780, 1780],
+   [2194, 2195]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/31ff9e56f5038d61ec75344518912945f60dffec",
+  "case_id": "089-GHSA-wqmh-qccw-pqwf",
+  "content": {
+   "vulnerable": {
+    "sha256": "241a855c38aa070e97a850d5ec19a5a8b0252616c50c3b1fd568263c8cb5f074",
+    "bytes": 121333
+   },
+   "patched": {
+    "sha256": "4578de7adc2f17d41016390b64afe6e02da18ab91a7e5b0921862e99e9d0289e",
+    "bytes": 122227
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      661,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      662,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      663,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2062,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2063,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2064,
+      "logic.race-hint",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      675,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      676,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      677,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2077,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2078,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      2079,
+      "logic.race-hint",
+      [840]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

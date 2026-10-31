@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m65p-9j7q-6w33",
+  "cve_id": "CVE-2026-116690",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-27T21:26:56Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m65p-9j7q-6w33",
+  "label_cwes": [22],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "parent_sha": "7e90050109819dff7e0a0404cd12f3849c6fac10",
+  "path_vulnerable": "mlflow/server/js/src/experiment-tracking/pages/prompts/api.ts",
+  "path_patched": "mlflow/server/js/src/experiment-tracking/pages/prompts/api.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [114, 114]
+  ],
+  "patched_lines": [
+   [114, 116]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "case_id": "029-GHSA-m65p-9j7q-6w33",
+  "content": {
+   "vulnerable": {
+    "sha256": "f99972e5bd2a2e04196ee449a09cc50841131c2cb19f19e3e4266f800d4cb463",
+    "bytes": 6752
+   },
+   "patched": {
+    "sha256": "7246d48aa28a6225289ce12ba7a7993aad9e9a6e87bab20ac187f4e49ceffc74",
+    "bytes": 6932
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

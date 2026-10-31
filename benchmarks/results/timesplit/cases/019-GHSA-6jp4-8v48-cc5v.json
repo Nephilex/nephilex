@@ -1,0 +1,98 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6jp4-8v48-cc5v",
+  "cve_id": "CVE-2026-117601",
+  "ecosystem": "pip",
+  "packages": [
+   "electrum"
+  ],
+  "published_at": "2026-10-28T21:23:44Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v",
+  "label_cwes": [347],
+  "repo": "spesmilo/electrum",
+  "fix_sha": "90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "parent_sha": "e8c79fa662123217ac5eba6fa7d62fa53f46b563",
+  "path_vulnerable": "electrum/util.py",
+  "path_patched": "electrum/util.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [191, 192]
+  ],
+  "patched_lines": [
+   [192, 196]
+  ],
+  "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "case_id": "019-GHSA-6jp4-8v48-cc5v",
+  "content": {
+   "vulnerable": {
+    "sha256": "a8fcf4f1ef6c02dafbe0a8d4a38ed8f5457c7894c669d87e2891794b48633b36",
+    "bytes": 90541
+   },
+   "patched": {
+    "sha256": "8e25db28d71fb87eeea81cb2c8d209ef26a8d56bf5dba60fe392d2562c291d1a",
+    "bytes": 90675
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      2463,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2465,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2471,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ]
+    ],
+    "patched": [
+     [
+      2468,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2470,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ],
+     [
+      2476,
+      "ast-python.ast-weak-random",
+      [330, 338]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

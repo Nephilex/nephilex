@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6jp4-8v48-cc5v",
+  "cve_id": "CVE-2026-117601",
+  "ecosystem": "pip",
+  "packages": [
+   "electrum"
+  ],
+  "published_at": "2026-10-28T21:23:44Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v",
+  "label_cwes": [347],
+  "repo": "spesmilo/electrum",
+  "fix_sha": "90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "parent_sha": "e8c79fa662123217ac5eba6fa7d62fa53f46b563",
+  "path_vulnerable": "electrum/plugins/watchtower/watchtower.py",
+  "path_patched": "electrum/plugins/watchtower/watchtower.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [71, 71]
+  ],
+  "patched_lines": [
+   [71, 72]
+  ],
+  "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "case_id": "017-GHSA-6jp4-8v48-cc5v",
+  "content": {
+   "vulnerable": {
+    "sha256": "90b03cf3a218ee8ed8faa9100da05b5217d2a3fdc0e10adc53de4dd284bc0fbf",
+    "bytes": 13949
+   },
+   "patched": {
+    "sha256": "f9fbc15842fbc8ae51051ed66c5c8adc3808ab8bcca0553e7ab0f6d9c9b6f252",
+    "bytes": 14034
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

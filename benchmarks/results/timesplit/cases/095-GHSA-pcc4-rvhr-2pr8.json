@@ -1,0 +1,76 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pcc4-rvhr-2pr8",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "graphifyy"
+  ],
+  "published_at": "2026-10-19T16:51:36Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-pcc4-rvhr-2pr8",
+  "label_cwes": [22, 73],
+  "repo": "Graphify-Labs/graphify",
+  "fix_sha": "e1d9deed6a437f2c85458ef3c42519159f322b7b",
+  "parent_sha": "c66eebe25f77975781920ed8b7c187054411f7a3",
+  "path_vulnerable": "graphify/extractors/fortran.py",
+  "path_patched": "graphify/extractors/fortran.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [14, 23],
+   [28, 28],
+   [30, 34],
+   [36, 36],
+   [44, 44]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [12, 38],
+   [42, 52],
+   [56, 56],
+   [58, 58],
+   [61, 62],
+   [70, 70]
+  ],
+  "commit_url": "https://github.com/Graphify-Labs/graphify/commit/e1d9deed6a437f2c85458ef3c42519159f322b7b",
+  "case_id": "095-GHSA-pcc4-rvhr-2pr8",
+  "content": {
+   "vulnerable": {
+    "sha256": "f5d5ce712a6c71f50bbdce3f439bb07cd059f0892cf18fdf4ef844919bc2a128",
+    "bytes": 16086
+   },
+   "patched": {
+    "sha256": "b151c1bf6ee7b285bf88b55aecf5c3a5f89564df1681cda9c034e18b8828ed35",
+    "bytes": 17256
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

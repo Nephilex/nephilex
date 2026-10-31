@@ -1,0 +1,141 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r57g-mc79-8hj2",
+  "cve_id": "CVE-2026-113731",
+  "ecosystem": "pip",
+  "packages": [
+   "djust"
+  ],
+  "published_at": "2026-10-21T17:21:15Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-r57g-mc79-8hj2",
+  "label_cwes": [22],
+  "repo": "djust-org/djust",
+  "fix_sha": "45a5045793ebe7c9c2df86b0ad34275af6822619",
+  "parent_sha": "ce5b5151eb10658bf304468a31e6c6d338153258",
+  "path_vulnerable": "python/djust/mcp/server.py",
+  "path_patched": "python/djust/mcp/server.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [18, 18],
+   [26, 27],
+   [264, 264],
+   [296, 297],
+   [299, 302],
+   [314, 315],
+   [326, 326],
+   [363, 363],
+   [396, 397],
+   [410, 410]
+  ],
+  "patched_lines": [
+   [18, 18],
+   [27, 80],
+   [318, 319],
+   [347, 353],
+   [359, 362],
+   [374, 375],
+   [386, 386],
+   [423, 425],
+   [458, 475],
+   [488, 488]
+  ],
+  "commit_url": "https://github.com/djust-org/djust/commit/45a5045793ebe7c9c2df86b0ad34275af6822619",
+  "case_id": "096-GHSA-r57g-mc79-8hj2",
+  "content": {
+   "vulnerable": {
+    "sha256": "53e7adbbdb4273f29770c2a06a4ec813db6f98540fcfc6cf33af7585da39045f",
+    "bytes": 64981
+   },
+   "patched": {
+    "sha256": "0fc2db48a9645eaf318d1d0a0e16698149dee14d05855cf0153d30c51b8d02da",
+    "bytes": 68190
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      438,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ],
+     [
+      439,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ],
+     [
+      631,
+      "llm.tool-argument-to-sink",
+      [918]
+     ],
+     [
+      673,
+      "llm.tool-argument-to-sink",
+      [918]
+     ],
+     [
+      1438,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ]
+    ],
+    "patched": [
+     [
+      381,
+      "llm.tool-handler-exec",
+      [78]
+     ],
+     [
+      516,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ],
+     [
+      517,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ],
+     [
+      709,
+      "llm.tool-argument-to-sink",
+      [918]
+     ],
+     [
+      751,
+      "llm.tool-argument-to-sink",
+      [918]
+     ],
+     [
+      1516,
+      "llm.tool-argument-to-sink",
+      [22, 73]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

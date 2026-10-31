@@ -1,0 +1,150 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3f7j-7jwc-fxfj",
+  "cve_id": "CVE-2026-116576",
+  "ecosystem": "npm",
+  "packages": [
+   "systeminformation"
+  ],
+  "published_at": "2026-10-28T22:42:49Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-3f7j-7jwc-fxfj",
+  "label_cwes": [78],
+  "repo": "sebhildebrandt/systeminformation",
+  "fix_sha": "5014c6d25cfce7363b937977327baa853cdba0bf",
+  "parent_sha": "52dda715fe83d5f630d54778ad8e5b147c0de3c8",
+  "path_vulnerable": "lib/processes.js",
+  "path_patched": "lib/processes.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [24, 24],
+   [74, 74],
+   [158, 159],
+   [216, 217],
+   [220, 222],
+   [224, 225],
+   [231, 232],
+   [246, 259],
+   [270, 271],
+   [278, 279],
+   [282, 282],
+   [285, 285],
+   [292, 293],
+   [333, 337],
+   [351, 351],
+   [380, 380],
+   [387, 387],
+   [390, 395],
+   [486, 487],
+   [497, 497],
+   [499, 499],
+   [501, 503],
+   [583, 583],
+   [736, 736],
+   [738, 738],
+   [787, 787],
+   [836, 836],
+   [886, 886],
+   [889, 889],
+   [892, 892],
+   [899, 899],
+   [943, 943],
+   [1061, 1061],
+   [1064, 1064],
+   [1169, 1170],
+   [1256, 1256],
+   [1270, 1270],
+   [1388, 1388],
+   [1411, 1412],
+   [1420, 1420],
+   [1423, 1423],
+   [1426, 1426],
+   [1434, 1434]
+  ],
+  "patched_lines": [
+   [24, 24],
+   [74, 74],
+   [158, 159],
+   [216, 217],
+   [220, 220],
+   [222, 223],
+   [229, 229],
+   [243, 244],
+   [255, 256],
+   [263, 264],
+   [267, 267],
+   [270, 270],
+   [277, 278],
+   [318, 320],
+   [334, 334],
+   [363, 364],
+   [371, 371],
+   [374, 379],
+   [470, 475],
+   [485, 485],
+   [487, 487],
+   [489, 491],
+   [571, 571],
+   [724, 724],
+   [726, 726],
+   [775, 775],
+   [824, 824],
+   [874, 874],
+   [877, 877],
+   [880, 880],
+   [887, 887],
+   [931, 931],
+   [1049, 1049],
+   [1052, 1052],
+   [1157, 1158],
+   [1244, 1244],
+   [1258, 1258],
+   [1376, 1376],
+   [1399, 1400],
+   [1408, 1408],
+   [1411, 1411],
+   [1414, 1414],
+   [1422, 1422]
+  ],
+  "commit_url": "https://github.com/sebhildebrandt/systeminformation/commit/5014c6d25cfce7363b937977327baa853cdba0bf",
+  "case_id": "275-GHSA-3f7j-7jwc-fxfj",
+  "content": {
+   "vulnerable": {
+    "sha256": "3a2bfbddb0b102ec6f2b5f0882b615d125771e66573c42ae43baa15ad7e438f4",
+    "bytes": 55935
+   },
+   "patched": {
+    "sha256": "441c0b97978e0fa6e9964e879fc57cc40df9111e5918a96371209009fa852f6a",
+    "bytes": 55637
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

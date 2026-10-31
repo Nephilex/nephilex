@@ -1,0 +1,77 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2cmg-v53w-8xfp",
+  "cve_id": "CVE-2026-106560",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/plugin-scaffolder-backend-module-confluence-to-markdown"
+  ],
+  "published_at": "2026-10-07T18:02:59Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-2cmg-v53w-8xfp",
+  "label_cwes": [22],
+  "repo": "backstage/backstage",
+  "fix_sha": "5f0000c1d0af05571e357926b3fa33a453337ff0",
+  "parent_sha": "a7d995f11a5d27f0efbdbe8bb6c21b06988c79c9",
+  "path_vulnerable": "plugins/scaffolder-backend-module-confluence-to-markdown/src/actions/confluence/confluenceToMarkdown.ts",
+  "path_patched": "plugins/scaffolder-backend-module-confluence-to-markdown/src/actions/confluence/confluenceToMarkdown.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [36, 36],
+   [93, 93],
+   [106, 107],
+   [128, 128],
+   [133, 133],
+   [135, 135],
+   [181, 184]
+  ],
+  "patched_lines": [
+   [36, 39],
+   [96, 96],
+   [110, 112],
+   [134, 134],
+   [139, 139],
+   [186, 189]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/5f0000c1d0af05571e357926b3fa33a453337ff0",
+  "case_id": "200-GHSA-2cmg-v53w-8xfp",
+  "content": {
+   "vulnerable": {
+    "sha256": "8ec068589cfddb3a5575e962e3428b6761d9932a7eeece1314495d9191787907",
+    "bytes": 6966
+   },
+   "patched": {
+    "sha256": "583ea6bba9b53e32a658661a55e2f4789b83073a2e2882752dd0ff0d37b80861",
+    "bytes": 7112
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

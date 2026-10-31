@@ -1,0 +1,67 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8mcx-5rqc-vhmf",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "dulwich"
+  ],
+  "published_at": "2026-10-02T19:14:21Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-8mcx-5rqc-vhmf",
+  "label_cwes": [22],
+  "repo": "jelmer/dulwich",
+  "fix_sha": "4ca77f9f470742ba246cd6fa07beb6d735045664",
+  "parent_sha": "d55b456efc7f5d31091388e853de01749e6e0933",
+  "path_vulnerable": "dulwich/porcelain/__init__.py",
+  "path_patched": "dulwich/porcelain/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [636, 638]
+  ],
+  "patched_lines": [
+   [631, 631],
+   [637, 643]
+  ],
+  "commit_url": "https://github.com/jelmer/dulwich/commit/4ca77f9f470742ba246cd6fa07beb6d735045664",
+  "case_id": "022-GHSA-8mcx-5rqc-vhmf",
+  "content": {
+   "vulnerable": {
+    "sha256": "235807ae1d734b3a0fb886ad151d94fd40f99a54e9070962328b31ad5b66a52e",
+    "bytes": 336192
+   },
+   "patched": {
+    "sha256": "329eabfd2bd714a4c9aa70d4749451837a14e05a5c29a12910e17f5f432f30e6",
+    "bytes": 336330
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

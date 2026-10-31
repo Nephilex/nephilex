@@ -1,0 +1,73 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7vg8-29qx-jgj8",
+  "cve_id": "CVE-2026-105867",
+  "ecosystem": "npm",
+  "packages": [
+   "@payloadcms/storage-s3"
+  ],
+  "published_at": "2026-10-07T20:28:59Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-7vg8-29qx-jgj8",
+  "label_cwes": [639],
+  "repo": "payloadcms/payload",
+  "fix_sha": "2df8238fbf17edfce335c399b90bf524ba9906a2",
+  "parent_sha": "36fa9af73dd04fa59f4b4a06d11454538c4c1409",
+  "path_vulnerable": "packages/storage-s3/src/client/S3ClientUploadHandler.ts",
+  "path_patched": "packages/storage-s3/src/client/S3ClientUploadHandler.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [44, 45],
+   [48, 49],
+   [57, 57],
+   [59, 59]
+  ],
+  "patched_lines": [
+   [45, 45],
+   [50, 50],
+   [59, 59],
+   [61, 61],
+   [65, 68]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/2df8238fbf17edfce335c399b90bf524ba9906a2",
+  "case_id": "205-GHSA-7vg8-29qx-jgj8",
+  "content": {
+   "vulnerable": {
+    "sha256": "2941094c5329f1ef61c0365f8e0daadd55702d0b2c24798d9af23d6964a6690f",
+    "bytes": 1685
+   },
+   "patched": {
+    "sha256": "c92522da83326d900d35acea82b556c7a0459c0cf3549e19bdb616105407e223",
+    "bytes": 1779
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

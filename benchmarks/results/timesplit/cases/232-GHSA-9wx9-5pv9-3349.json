@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-9wx9-5pv9-3349",
+  "cve_id": "CVE-2026-116582",
+  "ecosystem": "npm",
+  "packages": [
+   "seroval"
+  ],
+  "published_at": "2026-10-28T21:17:31Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-9wx9-5pv9-3349",
+  "label_cwes": [79],
+  "repo": "lxsmnsyc/seroval",
+  "fix_sha": "f94ee0b63936dae954ff50d5b5e8ea7cb9b284e6",
+  "parent_sha": "0e44d4ccd714a7f90316590f4c8db36dced8235c",
+  "path_vulnerable": "packages/seroval/src/core/context/serializer.ts",
+  "path_patched": "packages/seroval/src/core/context/serializer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [881, 882]
+  ],
+  "patched_lines": [
+   [882, 888]
+  ],
+  "commit_url": "https://github.com/lxsmnsyc/seroval/commit/f94ee0b63936dae954ff50d5b5e8ea7cb9b284e6",
+  "case_id": "232-GHSA-9wx9-5pv9-3349",
+  "content": {
+   "vulnerable": {
+    "sha256": "c48c0c8ab1176d69bee47315c1de92ced392572b5e0231b92134a7c423bae0c3",
+    "bytes": 41882
+   },
+   "patched": {
+    "sha256": "998ef051bc86cb6437155b3cf6d2e0075fe2cfaa86858eeae2767b67fc24c624",
+    "bytes": 42253
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

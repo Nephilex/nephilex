@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rjpf-7pf5-q54x",
+  "cve_id": "CVE-2026-46438",
+  "ecosystem": "pip",
+  "packages": [
+   "wger"
+  ],
+  "published_at": "2026-10-07T13:59:17Z",
+  "advisory_cwes": [639, 862],
+  "html_url": "https://github.com/advisories/GHSA-rjpf-7pf5-q54x",
+  "label_cwes": [639],
+  "repo": "wger-project/wger",
+  "fix_sha": "b29cf178651bbcc243d21673932e32bd42017893",
+  "parent_sha": "67fbf067a60d341cc5c6227257e3013ec31220e0",
+  "path_vulnerable": "wger/manager/models/slot_entry.py",
+  "path_patched": "wger/manager/models/slot_entry.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [367, 367]
+  ],
+  "patched_lines": [
+   [367, 371]
+  ],
+  "commit_url": "https://github.com/wger-project/wger/commit/b29cf178651bbcc243d21673932e32bd42017893",
+  "case_id": "054-GHSA-rjpf-7pf5-q54x",
+  "content": {
+   "vulnerable": {
+    "sha256": "a4d9adcb721d488ace3e67335534242db80ec737b95ed70149f9d5a979a8b33f",
+    "bytes": 20972
+   },
+   "patched": {
+    "sha256": "c18f33b3a2970714b2e1de41ceb3425f57d1d7105bd6113dbed713c74f1cb9ed",
+    "bytes": 21293
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

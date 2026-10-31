@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-26p8-2jq9-3vq9",
+  "cve_id": "CVE-2026-116692",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-27T21:26:32Z",
+  "advisory_cwes": [94, 470],
+  "html_url": "https://github.com/advisories/GHSA-26p8-2jq9-3vq9",
+  "label_cwes": [94],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "a732443e695c3c677680c54320efc394c81654ab",
+  "parent_sha": "395db9deef3d7487511eed8df85f77aedd799de1",
+  "path_vulnerable": "mlflow/genai/scorers/base.py",
+  "path_patched": "mlflow/genai/scorers/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [579, 582],
+   [591, 592],
+   [604, 605]
+  ],
+  "patched_lines": [
+   [579, 582],
+   [592, 606],
+   [620, 624]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/a732443e695c3c677680c54320efc394c81654ab",
+  "case_id": "129-GHSA-26p8-2jq9-3vq9",
+  "content": {
+   "vulnerable": {
+    "sha256": "d9ab93a2cd7464b30018d36f0225a3d6b5a4ed67c78f5a31ca9674ab31fd9088",
+    "bytes": 78513
+   },
+   "patched": {
+    "sha256": "5b8ff8b295098e8b86d84bae69317a5fab5164d1932d325fa63a1826985e3b76",
+    "bytes": 80024
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

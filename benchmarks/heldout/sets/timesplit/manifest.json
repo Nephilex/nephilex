@@ -562,7 +562,17 @@
     [104, 128]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/d4bb776884aba9aa3132f54773f420853cf7afe4",
-   "case_id": "001-GHSA-p944-4xh2-x776"
+   "case_id": "001-GHSA-p944-4xh2-x776",
+   "content": {
+    "vulnerable": {
+     "sha256": "fe9d66ecc81d6e3f1689d51063333f42ae35efad91d7f59ec40addac70e9cfdf",
+     "bytes": 2418
+    },
+    "patched": {
+     "sha256": "c2b60fd0df987060cf682b58825bf617e6037bfa1122d021bb79d2d15761e08a",
+     "bytes": 5258
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-p944-4xh2-x776",
@@ -593,7 +603,17 @@
     [404, 404]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/d4bb776884aba9aa3132f54773f420853cf7afe4",
-   "case_id": "002-GHSA-p944-4xh2-x776"
+   "case_id": "002-GHSA-p944-4xh2-x776",
+   "content": {
+    "vulnerable": {
+     "sha256": "94f960f0c5a7598fbd72464f7367d7ba8b8deb4eee01be80fbce048b00ee0226",
+     "bytes": 34162
+    },
+    "patched": {
+     "sha256": "26af433afbadac649222426ce6f577f81949f67a4348daaf706c6b0b186b503b",
+     "bytes": 34532
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pc36-qwjq-x68c",
@@ -639,7 +659,17 @@
     [1141, 1149]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/5e469137f275ffc443306a30d12a3a45bceb80fb",
-   "case_id": "003-GHSA-pc36-qwjq-x68c"
+   "case_id": "003-GHSA-pc36-qwjq-x68c",
+   "content": {
+    "vulnerable": {
+     "sha256": "c623d5dcf4b627958ba09121eaab8faf4485a5a29307d8075724f377fca56cc6",
+     "bytes": 204940
+    },
+    "patched": {
+     "sha256": "abd2d99e48e9daa40785b133a17c82612a94f8ca947317b33f9d713195113947",
+     "bytes": 208953
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pc36-qwjq-x68c",
@@ -694,7 +724,17 @@
     [454, 454]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/5e469137f275ffc443306a30d12a3a45bceb80fb",
-   "case_id": "004-GHSA-pc36-qwjq-x68c"
+   "case_id": "004-GHSA-pc36-qwjq-x68c",
+   "content": {
+    "vulnerable": {
+     "sha256": "3979f8a1d310f26f23118bc0e45e4fd205fdd6b713e4008740d850c14faa9ea7",
+     "bytes": 10063
+    },
+    "patched": {
+     "sha256": "734fe5b4550d77cecb6a574df057d9211dda9437f2d7d90608eb30dd09c1de1c",
+     "bytes": 18259
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pc36-qwjq-x68c",
@@ -725,7 +765,17 @@
     [1513, 1513]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/5e469137f275ffc443306a30d12a3a45bceb80fb",
-   "case_id": "005-GHSA-pc36-qwjq-x68c"
+   "case_id": "005-GHSA-pc36-qwjq-x68c",
+   "content": {
+    "vulnerable": {
+     "sha256": "f49dd72f8c7a90a1fd54b1d3bd86b0c872281c8b04c627b8dc3133f8a276802b",
+     "bytes": 73957
+    },
+    "patched": {
+     "sha256": "dd0d924be4897f24a0c21491c039099b989799d4bd32bf753bf4127f3d88918e",
+     "bytes": 74668
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pc36-qwjq-x68c",
@@ -759,7 +809,17 @@
     [194, 205]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/5e469137f275ffc443306a30d12a3a45bceb80fb",
-   "case_id": "006-GHSA-pc36-qwjq-x68c"
+   "case_id": "006-GHSA-pc36-qwjq-x68c",
+   "content": {
+    "vulnerable": {
+     "sha256": "ae7f1c65b18eddc72c7ad832d243e3ff07b5268162d74e1b01eab7807c4d2e21",
+     "bytes": 27924
+    },
+    "patched": {
+     "sha256": "6a0872e85a90b4c55b0de909f8ba88eb7bf163e3cdaa43dbed9bb050a3bef457",
+     "bytes": 29215
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4hmc-cfm3-w43c",
@@ -785,7 +845,17 @@
     [1252, 1252]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
-   "case_id": "007-GHSA-4hmc-cfm3-w43c"
+   "case_id": "007-GHSA-4hmc-cfm3-w43c",
+   "content": {
+    "vulnerable": {
+     "sha256": "a8ef55594ac5ac5d6374d95d9fd9fb3a695b18473d1cd5e7397f51786f96e190",
+     "bytes": 67533
+    },
+    "patched": {
+     "sha256": "a4c12c062885919cb4b947fd6a43a56d7871955fbe77451c984139ecc715e9e6",
+     "bytes": 67561
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4hmc-cfm3-w43c",
@@ -830,7 +900,17 @@
     [414, 417]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
-   "case_id": "008-GHSA-4hmc-cfm3-w43c"
+   "case_id": "008-GHSA-4hmc-cfm3-w43c",
+   "content": {
+    "vulnerable": {
+     "sha256": "3899d621e2c5bb9eaf79a21eaa5a17251cb321d705ccc0d64d5f7a914e79919b",
+     "bytes": 16908
+    },
+    "patched": {
+     "sha256": "2b7dbd9898dae67f35cb1cf277fe7eba526c51f32a83a1cbebe9cee161d02fd2",
+     "bytes": 20749
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4hmc-cfm3-w43c",
@@ -872,7 +952,17 @@
     [275, 275]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
-   "case_id": "009-GHSA-4hmc-cfm3-w43c"
+   "case_id": "009-GHSA-4hmc-cfm3-w43c",
+   "content": {
+    "vulnerable": {
+     "sha256": "2c63c32431a1c6037f9f78be6dc4a6eade5024c3601002ac094b6f4d7f451b67",
+     "bytes": 11979
+    },
+    "patched": {
+     "sha256": "0e739e1b111a9149fa5247bf6541477d0e7ee20452b4eb4bac27aa55e020332e",
+     "bytes": 11634
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4hmc-cfm3-w43c",
@@ -912,7 +1002,17 @@
     [261, 261]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
-   "case_id": "010-GHSA-4hmc-cfm3-w43c"
+   "case_id": "010-GHSA-4hmc-cfm3-w43c",
+   "content": {
+    "vulnerable": {
+     "sha256": "39f62b37bf1ad1a8ff342612e6a5f414f90bcc8a6d7b33faefc0116bac8086f4",
+     "bytes": 8326
+    },
+    "patched": {
+     "sha256": "25566079298ece2a53a39b2f54ccf8304c522427950983a221c076be1bd83437",
+     "bytes": 10993
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w889-685w-c8fh",
@@ -938,7 +1038,17 @@
     [106, 109]
    ],
    "commit_url": "https://github.com/python-pillow/Pillow/commit/a2c363141da31a265dd536c945677db4b64f3ec9",
-   "case_id": "011-GHSA-w889-685w-c8fh"
+   "case_id": "011-GHSA-w889-685w-c8fh",
+   "content": {
+    "vulnerable": {
+     "sha256": "a0b552acf4edf1a0f6e0bd4f8461402ff277750c2e0c997adfa5e9efa4eaafb1",
+     "bytes": 16875
+    },
+    "patched": {
+     "sha256": "86bba6b605f03157b0854b5107ed2f680e9271fbc0c36f60019e1fef3c63dd22",
+     "bytes": 17080
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cf6m-vc3m-7cgm",
@@ -966,7 +1076,17 @@
     [86, 88]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/cb6f7508dda83ead9c3e4417e96e4b5bd9a260c3",
-   "case_id": "012-GHSA-cf6m-vc3m-7cgm"
+   "case_id": "012-GHSA-cf6m-vc3m-7cgm",
+   "content": {
+    "vulnerable": {
+     "sha256": "816b43d998cd986a4ecc3413532867bb28487bc2fd337e8689bf852dc23a35ac",
+     "bytes": 10789
+    },
+    "patched": {
+     "sha256": "e662498d6210261733a119e3629ea9e3c02a72d1399e3284e4db31e13e0a6607",
+     "bytes": 10942
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8qpj-27x8-pwpq",
@@ -994,7 +1114,17 @@
     [81, 83]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/2754c84aad1306f463db1c3bbb3e8ffbe85da77d",
-   "case_id": "013-GHSA-8qpj-27x8-pwpq"
+   "case_id": "013-GHSA-8qpj-27x8-pwpq",
+   "content": {
+    "vulnerable": {
+     "sha256": "b15f1d388e03eb4adb9e98a950f6ddbb8643160106e5d43eef2a715a8fcf2ebe",
+     "bytes": 4204
+    },
+    "patched": {
+     "sha256": "8e9f47f2b23fe500fd3e76ffdadce0837732b98eae59e4479989f6d1cdac8b97",
+     "bytes": 4407
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8qpj-27x8-pwpq",
@@ -1022,7 +1152,17 @@
     [81, 83]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/2754c84aad1306f463db1c3bbb3e8ffbe85da77d",
-   "case_id": "014-GHSA-8qpj-27x8-pwpq"
+   "case_id": "014-GHSA-8qpj-27x8-pwpq",
+   "content": {
+    "vulnerable": {
+     "sha256": "b92cf9819227c40d95235286d26cc546f5c1ff2074452fe666d6a57040f0ef10",
+     "bytes": 4440
+    },
+    "patched": {
+     "sha256": "d5130284a8c68817dc5e54661e823eb98abc2fe7999dd819a6b202dc96d0ec75",
+     "bytes": 4664
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8qpj-27x8-pwpq",
@@ -1048,7 +1188,17 @@
     [149, 205]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/2754c84aad1306f463db1c3bbb3e8ffbe85da77d",
-   "case_id": "015-GHSA-8qpj-27x8-pwpq"
+   "case_id": "015-GHSA-8qpj-27x8-pwpq",
+   "content": {
+    "vulnerable": {
+     "sha256": "ed2832e83a9c1b82cdc59d0d6aaa93c1778cb658be461a45e14eedab949f6bbb",
+     "bytes": 6988
+    },
+    "patched": {
+     "sha256": "06f7a0379331bcffdfb15eafcc99912871422b55bd1836f85dc8617c79e864b7",
+     "bytes": 9823
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6jp4-8v48-cc5v",
@@ -1099,7 +1249,17 @@
     [739, 752]
    ],
    "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
-   "case_id": "016-GHSA-6jp4-8v48-cc5v"
+   "case_id": "016-GHSA-6jp4-8v48-cc5v",
+   "content": {
+    "vulnerable": {
+     "sha256": "118d1dd96a0bee7b1c9fbd066818b5c6f909724a80842a8c3dfce5fd8bd8e896",
+     "bytes": 48569
+    },
+    "patched": {
+     "sha256": "90925db360a217c5c36be2cb51f907b578b18f5bb93f4a45dc7d1215d824227f",
+     "bytes": 52756
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6jp4-8v48-cc5v",
@@ -1125,7 +1285,17 @@
     [71, 72]
    ],
    "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
-   "case_id": "017-GHSA-6jp4-8v48-cc5v"
+   "case_id": "017-GHSA-6jp4-8v48-cc5v",
+   "content": {
+    "vulnerable": {
+     "sha256": "90b03cf3a218ee8ed8faa9100da05b5217d2a3fdc0e10adc53de4dd284bc0fbf",
+     "bytes": 13949
+    },
+    "patched": {
+     "sha256": "f9fbc15842fbc8ae51051ed66c5c8adc3808ab8bcca0553e7ab0f6d9c9b6f252",
+     "bytes": 14034
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6jp4-8v48-cc5v",
@@ -1153,7 +1323,17 @@
     [246, 247]
    ],
    "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
-   "case_id": "018-GHSA-6jp4-8v48-cc5v"
+   "case_id": "018-GHSA-6jp4-8v48-cc5v",
+   "content": {
+    "vulnerable": {
+     "sha256": "54ca63a014cf850fbc7d5872c51f10661c1cef16e1f4a7fda4210be4b30e36bd",
+     "bytes": 15680
+    },
+    "patched": {
+     "sha256": "27ddf5b2058fc0e64ab091c323f6a4d1e9d22e6b6ad745689679ce4c65ce77d4",
+     "bytes": 15865
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6jp4-8v48-cc5v",
@@ -1179,7 +1359,17 @@
     [192, 196]
    ],
    "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
-   "case_id": "019-GHSA-6jp4-8v48-cc5v"
+   "case_id": "019-GHSA-6jp4-8v48-cc5v",
+   "content": {
+    "vulnerable": {
+     "sha256": "a8fcf4f1ef6c02dafbe0a8d4a38ed8f5457c7894c669d87e2891794b48633b36",
+     "bytes": 90541
+    },
+    "patched": {
+     "sha256": "8e25db28d71fb87eeea81cb2c8d209ef26a8d56bf5dba60fe392d2562c291d1a",
+     "bytes": 90675
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6jp4-8v48-cc5v",
@@ -1213,7 +1403,17 @@
     [2612, 2657]
    ],
    "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
-   "case_id": "020-GHSA-6jp4-8v48-cc5v"
+   "case_id": "020-GHSA-6jp4-8v48-cc5v",
+   "content": {
+    "vulnerable": {
+     "sha256": "a8a5ee26251813abd6f7b57da2b283cfc84ad2e548738603b44b355d0cd32c28",
+     "bytes": 208558
+    },
+    "patched": {
+     "sha256": "b46640dfad763c489b480416717d5723be67475b30fae47fdef01d1c46b82021",
+     "bytes": 211094
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8mcx-5rqc-vhmf",
@@ -1241,7 +1441,17 @@
     [2187, 2191]
    ],
    "commit_url": "https://github.com/jelmer/dulwich/commit/4ca77f9f470742ba246cd6fa07beb6d735045664",
-   "case_id": "021-GHSA-8mcx-5rqc-vhmf"
+   "case_id": "021-GHSA-8mcx-5rqc-vhmf",
+   "content": {
+    "vulnerable": {
+     "sha256": "b47f477bd17dffbc24dbad157aa1f6f386b8f7e34d675c5d0dd9c0542d370e9d",
+     "bytes": 119251
+    },
+    "patched": {
+     "sha256": "5636c7eb8a23376d34997d143e10257803f568a9c42aabe4d22608bc546582c6",
+     "bytes": 119898
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8mcx-5rqc-vhmf",
@@ -1268,7 +1478,17 @@
     [637, 643]
    ],
    "commit_url": "https://github.com/jelmer/dulwich/commit/4ca77f9f470742ba246cd6fa07beb6d735045664",
-   "case_id": "022-GHSA-8mcx-5rqc-vhmf"
+   "case_id": "022-GHSA-8mcx-5rqc-vhmf",
+   "content": {
+    "vulnerable": {
+     "sha256": "235807ae1d734b3a0fb886ad151d94fd40f99a54e9070962328b31ad5b66a52e",
+     "bytes": 336192
+    },
+    "patched": {
+     "sha256": "329eabfd2bd714a4c9aa70d4749451837a14e05a5c29a12910e17f5f432f30e6",
+     "bytes": 336330
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7587-9684-52r6",
@@ -1322,7 +1542,17 @@
     [585, 588]
    ],
    "commit_url": "https://github.com/mem0ai/mem0/commit/a2ffca32660537b7b304305f36774ae2a13452cb",
-   "case_id": "023-GHSA-7587-9684-52r6"
+   "case_id": "023-GHSA-7587-9684-52r6",
+   "content": {
+    "vulnerable": {
+     "sha256": "201a0beac295637c88d26b4a9f4490dfdcdf3ea6871927b4551bfe202f040113",
+     "bytes": 33331
+    },
+    "patched": {
+     "sha256": "b82d44e11875cb4cdab8a085582a02252078b41b9755611f8658488d8dcf114f",
+     "bytes": 35450
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8rjx-v5ww-45pp",
@@ -1350,7 +1580,17 @@
     [38, 42]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/602b26623a724827ff171bf11fef4ad186d01f74",
-   "case_id": "024-GHSA-8rjx-v5ww-45pp"
+   "case_id": "024-GHSA-8rjx-v5ww-45pp",
+   "content": {
+    "vulnerable": {
+     "sha256": "60762f1e8421c22712c1c6001b3bbfaa06963e79e0d9f128e656f520de8f2942",
+     "bytes": 2918
+    },
+    "patched": {
+     "sha256": "1861f7f5f11117f48b331e41edd442f1ad8e59156a8842f8dc93cb7424232b5d",
+     "bytes": 2885
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8rjx-v5ww-45pp",
@@ -1378,7 +1618,17 @@
     [88, 103]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/602b26623a724827ff171bf11fef4ad186d01f74",
-   "case_id": "025-GHSA-8rjx-v5ww-45pp"
+   "case_id": "025-GHSA-8rjx-v5ww-45pp",
+   "content": {
+    "vulnerable": {
+     "sha256": "7de9138534d9526a114d1534d8e0af10d170bfbb1bcaf78434c5e07061a7ba59",
+     "bytes": 3668
+    },
+    "patched": {
+     "sha256": "5e5c3ced9af79a70ae1f3943f379c8c686186ccc2ccbd809a9105b3ca2ef465c",
+     "bytes": 4450
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jj7h-c3hg-m23x",
@@ -1408,7 +1658,17 @@
     [20, 41]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/95ad1f90acf0c7b9cf2a8f25e6eb3f1135b8dc70",
-   "case_id": "026-GHSA-jj7h-c3hg-m23x"
+   "case_id": "026-GHSA-jj7h-c3hg-m23x",
+   "content": {
+    "vulnerable": {
+     "sha256": "147c37efc2bea1ac4976a94946042070ebb386e49b3b126ca5b8f9b3f499b7c1",
+     "bytes": 545
+    },
+    "patched": {
+     "sha256": "3281d063eaad38f8f376b2db433d66ba784a55d31942711bd9c84ab360261825",
+     "bytes": 953
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m65p-9j7q-6w33",
@@ -1434,7 +1694,17 @@
     [8, 18]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
-   "case_id": "027-GHSA-m65p-9j7q-6w33"
+   "case_id": "027-GHSA-m65p-9j7q-6w33",
+   "content": {
+    "vulnerable": {
+     "sha256": "f193ab406a5ca77e50b4c88f59ae3db3cad458f4aa7da39946e84d041be1dcf9",
+     "bytes": 1136
+    },
+    "patched": {
+     "sha256": "4a3f5d83c6a742138c6151e411dc23981fdea171cb73e7b3ef81516d656503a8",
+     "bytes": 1745
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m65p-9j7q-6w33",
@@ -1468,7 +1738,17 @@
     [3231, 3234]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
-   "case_id": "028-GHSA-m65p-9j7q-6w33"
+   "case_id": "028-GHSA-m65p-9j7q-6w33",
+   "content": {
+    "vulnerable": {
+     "sha256": "da57d1bafea4ba0d5c9d1433233fef0c3f6b4af4a4edde209dc48249b2a7884f",
+     "bytes": 316195
+    },
+    "patched": {
+     "sha256": "2705c98a272ba51517f845aee27ccac0a46cc0e8eb12ef99385f0bdb4bdfb85d",
+     "bytes": 316720
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m65p-9j7q-6w33",
@@ -1494,7 +1774,17 @@
     [114, 116]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
-   "case_id": "029-GHSA-m65p-9j7q-6w33"
+   "case_id": "029-GHSA-m65p-9j7q-6w33",
+   "content": {
+    "vulnerable": {
+     "sha256": "f99972e5bd2a2e04196ee449a09cc50841131c2cb19f19e3e4266f800d4cb463",
+     "bytes": 6752
+    },
+    "patched": {
+     "sha256": "7246d48aa28a6225289ce12ba7a7993aad9e9a6e87bab20ac187f4e49ceffc74",
+     "bytes": 6932
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m65p-9j7q-6w33",
@@ -1522,7 +1812,17 @@
     [825, 825]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
-   "case_id": "030-GHSA-m65p-9j7q-6w33"
+   "case_id": "030-GHSA-m65p-9j7q-6w33",
+   "content": {
+    "vulnerable": {
+     "sha256": "0e77e1e301cd733c3d973ac33da3d08b335391b7efcf7c70eed5107d45681d2a",
+     "bytes": 48103
+    },
+    "patched": {
+     "sha256": "8c9fd506eb3684342113b3d8de4846d621312ea60ee25e463f0b2358f11f1b40",
+     "bytes": 48159
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m65p-9j7q-6w33",
@@ -1550,7 +1850,17 @@
     [823, 823]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
-   "case_id": "031-GHSA-m65p-9j7q-6w33"
+   "case_id": "031-GHSA-m65p-9j7q-6w33",
+   "content": {
+    "vulnerable": {
+     "sha256": "d70ff84cef32c11c6f978e2574f13753edecaeb7c971f9bc57f0163418341e69",
+     "bytes": 277300
+    },
+    "patched": {
+     "sha256": "630000a6a0eb4cf2185fa22b3079695e65a56219cbf39fd991e7c0140036b331",
+     "bytes": 277352
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
@@ -1580,7 +1890,17 @@
     [87, 87]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
-   "case_id": "032-GHSA-7vr2-2fgp-9w7p"
+   "case_id": "032-GHSA-7vr2-2fgp-9w7p",
+   "content": {
+    "vulnerable": {
+     "sha256": "d1745da71a4513162d957b1ef5900ce818fedba7e064e1c7050749a13765d5e7",
+     "bytes": 2744
+    },
+    "patched": {
+     "sha256": "beefde651c979063a3ffef3f7b51de644014f97b4a6b913f7699c82c4f42dad7",
+     "bytes": 2924
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
@@ -1611,7 +1931,17 @@
     [263, 264]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
-   "case_id": "033-GHSA-7vr2-2fgp-9w7p"
+   "case_id": "033-GHSA-7vr2-2fgp-9w7p",
+   "content": {
+    "vulnerable": {
+     "sha256": "bfb093bc9d42315c45f8a2efa57446d6a80e76e1e4c33c7840914d9ae2983874",
+     "bytes": 10231
+    },
+    "patched": {
+     "sha256": "76055a9a9b9ad0da18fb2ae7c81314f533efc98ad8b060fbd77a7fa6be59eb19",
+     "bytes": 10169
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
@@ -1641,7 +1971,17 @@
     [76, 76]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
-   "case_id": "034-GHSA-7vr2-2fgp-9w7p"
+   "case_id": "034-GHSA-7vr2-2fgp-9w7p",
+   "content": {
+    "vulnerable": {
+     "sha256": "ce285138d77c34841505af0f49d3b6085e4b74332dd1afe14bb9ce06ba864bf4",
+     "bytes": 3445
+    },
+    "patched": {
+     "sha256": "57de50410b13d934a4836ee6e157d6fe8e44b5701bd73cb08a067a5b2e93e521",
+     "bytes": 3421
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
@@ -1669,7 +2009,17 @@
     [117, 117]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
-   "case_id": "035-GHSA-7vr2-2fgp-9w7p"
+   "case_id": "035-GHSA-7vr2-2fgp-9w7p",
+   "content": {
+    "vulnerable": {
+     "sha256": "b9e39ffb2c3ab229a70bcef163a32a06f0d645ed0fcef268db7481acdc29b80f",
+     "bytes": 7013
+    },
+    "patched": {
+     "sha256": "f7ff221f13c16a1af1487fcb033119d63c05494ae8c2d11429db14beb5b4236a",
+     "bytes": 6997
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2658-85cv-9wwq",
@@ -1706,7 +2056,17 @@
     [402, 402]
    ],
    "commit_url": "https://github.com/mljar/mercury/commit/c798a85924e6614c6fea7afe5a560e4554a1d09b",
-   "case_id": "036-GHSA-2658-85cv-9wwq"
+   "case_id": "036-GHSA-2658-85cv-9wwq",
+   "content": {
+    "vulnerable": {
+     "sha256": "214e9f7aade79e1489943a386267c0183f166b9e2f590510c78125e603e0d98e",
+     "bytes": 15327
+    },
+    "patched": {
+     "sha256": "5169aaea32856a31a9ee537c2523d4cfbfa8eab7d092aae960da06f6d0fb6071",
+     "bytes": 16032
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2658-85cv-9wwq",
@@ -1747,7 +2107,17 @@
     [274, 274]
    ],
    "commit_url": "https://github.com/mljar/mercury/commit/c798a85924e6614c6fea7afe5a560e4554a1d09b",
-   "case_id": "037-GHSA-2658-85cv-9wwq"
+   "case_id": "037-GHSA-2658-85cv-9wwq",
+   "content": {
+    "vulnerable": {
+     "sha256": "8fff8bd63fd1a6cff4f456c7c02889fdada2facd00fb0cdad45d1428b4b64ed8",
+     "bytes": 8931
+    },
+    "patched": {
+     "sha256": "7dca24fabc687b7c176ee08e9304f0d24cc4e9929401ad70a635f82088dfa5c7",
+     "bytes": 10253
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3jqq-pw4j-pqcj",
@@ -1774,7 +2144,17 @@
     [570, 570]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/985a3223cd77fd4f991cd90066342a90711d70f6",
-   "case_id": "038-GHSA-3jqq-pw4j-pqcj"
+   "case_id": "038-GHSA-3jqq-pw4j-pqcj",
+   "content": {
+    "vulnerable": {
+     "sha256": "b11ade526663283cbcb8a3490bdfb410a0426e75119a0772883a16afdf7b532c",
+     "bytes": 19771
+    },
+    "patched": {
+     "sha256": "bfffea2cc3c6256a3eac7f246949a2c3adce85b08eefbf3c37d424c56bee5140",
+     "bytes": 19772
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2phq-3phc-84px",
@@ -1804,7 +2184,17 @@
     [257, 259]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/ee17d0d869203ef9a35ad73358a4987bba14b1fc",
-   "case_id": "039-GHSA-2phq-3phc-84px"
+   "case_id": "039-GHSA-2phq-3phc-84px",
+   "content": {
+    "vulnerable": {
+     "sha256": "950bbe9032caa04665bd43c551a8b37688a5e5cb4891606e8909a4fc361db163",
+     "bytes": 10055
+    },
+    "patched": {
+     "sha256": "6b530c21d8b66a9017a297026daa9beafb785893783916775da6a2e4ada71338",
+     "bytes": 10312
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2phq-3phc-84px",
@@ -1830,7 +2220,17 @@
     [117, 117]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/ee17d0d869203ef9a35ad73358a4987bba14b1fc",
-   "case_id": "040-GHSA-2phq-3phc-84px"
+   "case_id": "040-GHSA-2phq-3phc-84px",
+   "content": {
+    "vulnerable": {
+     "sha256": "d3b596fae2efa8f1fffcf03c2cc05eb13989413c9bc9d042f8d9688198e16c98",
+     "bytes": 5391
+    },
+    "patched": {
+     "sha256": "b975356ab30e6bb00d1ac932d93b315de0cf5a9b366dbfe5dbb2e5dfc5f2330f",
+     "bytes": 5448
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cm62-gvxx-vmxx",
@@ -1862,7 +2262,17 @@
     [278, 282]
    ],
    "commit_url": "https://github.com/jelmer/dulwich/commit/40a542cb02f9ac39a9eeac1193472903098698f9",
-   "case_id": "041-GHSA-cm62-gvxx-vmxx"
+   "case_id": "041-GHSA-cm62-gvxx-vmxx",
+   "content": {
+    "vulnerable": {
+     "sha256": "c77bf00ca748331bd792455626342fabdbf87a140a4c3549007aef65f0531018",
+     "bytes": 13738
+    },
+    "patched": {
+     "sha256": "9f02dbd899111a6d7feee20b1490d43862554a1589c4be783617beabf1be31a3",
+     "bytes": 15614
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-ph72-cqr5-qpp7",
@@ -1894,7 +2304,17 @@
     [228, 241]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/1970f3ed4be7fa8620e4ddc4a12c36a8384cfc27",
-   "case_id": "042-GHSA-ph72-cqr5-qpp7"
+   "case_id": "042-GHSA-ph72-cqr5-qpp7",
+   "content": {
+    "vulnerable": {
+     "sha256": "297e246bdf9e4f7eb7b957abbae9953978918caa99ae270bba63c38570390621",
+     "bytes": 19336
+    },
+    "patched": {
+     "sha256": "9282bb6a8949655f633355bbe9057ae9150ff891be8109090efbf939b124e02a",
+     "bytes": 21627
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-vgf9-9mxx-hq54",
@@ -1922,7 +2342,17 @@
     [113, 113]
    ],
    "commit_url": "https://github.com/QueueForge/ClickMigrate/commit/6b1f2c0202630a82252b3331aa57e64327e112b6",
-   "case_id": "043-GHSA-vgf9-9mxx-hq54"
+   "case_id": "043-GHSA-vgf9-9mxx-hq54",
+   "content": {
+    "vulnerable": {
+     "sha256": "eccd9327571c3d875101f8b656ec0e9ce44c92f2e6d825573ed2a561c7913d8e",
+     "bytes": 4114
+    },
+    "patched": {
+     "sha256": "b676ff85c22ca81b5451d8f5991c88cec2007f1b51ce15b17b83618463c7824a",
+     "bytes": 4154
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6v38-4h7w-rj9h",
@@ -1948,7 +2378,17 @@
     [207, 211]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/6c11a02da8730914cea08ec195f1108a40dc6733",
-   "case_id": "044-GHSA-6v38-4h7w-rj9h"
+   "case_id": "044-GHSA-6v38-4h7w-rj9h",
+   "content": {
+    "vulnerable": {
+     "sha256": "89b282aa8c555a3b91c8dba6cad898f0a474af6d50c8e9d23ba3aa468369b6d7",
+     "bytes": 13736
+    },
+    "patched": {
+     "sha256": "b0a4318e13c6bafbaf893a4413a9b0ddeca45b5ec6c898eb0b1cc72074e3f7f4",
+     "bytes": 13885
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x3q2-h9hx-4r4j",
@@ -1983,7 +2423,17 @@
     [317, 322]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/38b6fa0a465d46fdacbbec333f50fa19c4f6b342",
-   "case_id": "045-GHSA-x3q2-h9hx-4r4j"
+   "case_id": "045-GHSA-x3q2-h9hx-4r4j",
+   "content": {
+    "vulnerable": {
+     "sha256": "6462e0b055bcca9d70ee4125b61b0fe7e80fb407b939a353d1baaadf06cf7c11",
+     "bytes": 10315
+    },
+    "patched": {
+     "sha256": "f0cccd6623e84e61965b2679b7ee6dcc0dbca1112ac656d62f9fa9716fda3e14",
+     "bytes": 13470
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x3q2-h9hx-4r4j",
@@ -2012,7 +2462,17 @@
     [558, 558]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/38b6fa0a465d46fdacbbec333f50fa19c4f6b342",
-   "case_id": "046-GHSA-x3q2-h9hx-4r4j"
+   "case_id": "046-GHSA-x3q2-h9hx-4r4j",
+   "content": {
+    "vulnerable": {
+     "sha256": "6a0872e85a90b4c55b0de909f8ba88eb7bf163e3cdaa43dbed9bb050a3bef457",
+     "bytes": 29215
+    },
+    "patched": {
+     "sha256": "18795fe14f5101655840c63b9438bbef42351048cae79200421960d6488e1656",
+     "bytes": 29582
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v5mq-3xhg-98m9",
@@ -2038,7 +2498,17 @@
     [1, 1]
    ],
    "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
-   "case_id": "047-GHSA-v5mq-3xhg-98m9"
+   "case_id": "047-GHSA-v5mq-3xhg-98m9",
+   "content": {
+    "vulnerable": {
+     "sha256": "17e4a64cef7d3efdb5bd27f9b8b238953c87a1e688c2e403d2ab8eae61702b5c",
+     "bytes": 43
+    },
+    "patched": {
+     "sha256": "b3584c0d0828b912a7df803a3c5167fcc0c9a84090c091f10b5b87ab8d1a0fad",
+     "bytes": 43
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v5mq-3xhg-98m9",
@@ -2082,7 +2552,17 @@
     [157, 157]
    ],
    "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
-   "case_id": "048-GHSA-v5mq-3xhg-98m9"
+   "case_id": "048-GHSA-v5mq-3xhg-98m9",
+   "content": {
+    "vulnerable": {
+     "sha256": "d58298372f42ab75299c2dfbead71aebdb985c15a9e0f457c2407f3172c4b0a9",
+     "bytes": 25065
+    },
+    "patched": {
+     "sha256": "fd8437515d85a68495b61653f9bf4a7a182a8767c8b88d5543d3a927a4d3d0d1",
+     "bytes": 26637
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v5mq-3xhg-98m9",
@@ -2112,7 +2592,17 @@
     [335, 344]
    ],
    "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
-   "case_id": "049-GHSA-v5mq-3xhg-98m9"
+   "case_id": "049-GHSA-v5mq-3xhg-98m9",
+   "content": {
+    "vulnerable": {
+     "sha256": "ef33a7c0dfbe356b5179c0e2535b108977344ce59910704cb9dbe8e5aacfe804",
+     "bytes": 11148
+    },
+    "patched": {
+     "sha256": "eb3ef0f81ac1797c444e500f0c71c1a9e6484c5e0ea69ea0064cea9a1eda984b",
+     "bytes": 12761
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v5mq-3xhg-98m9",
@@ -2150,7 +2640,17 @@
     [585, 590]
    ],
    "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
-   "case_id": "050-GHSA-v5mq-3xhg-98m9"
+   "case_id": "050-GHSA-v5mq-3xhg-98m9",
+   "content": {
+    "vulnerable": {
+     "sha256": "a2b58f8aa4d47e717801a158cf21fbff8d281ef0f06fbb6df8ab6059dd47b9da",
+     "bytes": 24104
+    },
+    "patched": {
+     "sha256": "aa9e449e449893c41186cb4c58e5692b395d439faffea71537ce205ece57d5dc",
+     "bytes": 24670
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xmj3-9gf7-h52w",
@@ -2178,7 +2678,17 @@
     [294, 294]
    ],
    "commit_url": "https://github.com/pypa/setuptools/commit/6d07b8d17890dda58d944ac51e58f54af92d52af",
-   "case_id": "051-GHSA-xmj3-9gf7-h52w"
+   "case_id": "051-GHSA-xmj3-9gf7-h52w",
+   "content": {
+    "vulnerable": {
+     "sha256": "4ea62eda3c94c91e05e8e16f6b77e65557de10f972b72fd6aba9e030360b12fe",
+     "bytes": 9529
+    },
+    "patched": {
+     "sha256": "4e0482ab9dfc5be0d29f6d4f82e8c523f77262bfaac0bb036413e02c77496a98",
+     "bytes": 11121
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rjpf-7pf5-q54x",
@@ -2206,7 +2716,17 @@
     [316, 321]
    ],
    "commit_url": "https://github.com/wger-project/wger/commit/b29cf178651bbcc243d21673932e32bd42017893",
-   "case_id": "052-GHSA-rjpf-7pf5-q54x"
+   "case_id": "052-GHSA-rjpf-7pf5-q54x",
+   "content": {
+    "vulnerable": {
+     "sha256": "aa8c229262e53ddab6c1decc9637b76ac47e0537ff5bcb18de70b043395efc45",
+     "bytes": 17614
+    },
+    "patched": {
+     "sha256": "2a717e33eaca0c9c261e98cee57bae64760d7050e730781dfd402b32dd890c62",
+     "bytes": 17740
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rjpf-7pf5-q54x",
@@ -2232,7 +2752,17 @@
     [255, 258]
    ],
    "commit_url": "https://github.com/wger-project/wger/commit/b29cf178651bbcc243d21673932e32bd42017893",
-   "case_id": "053-GHSA-rjpf-7pf5-q54x"
+   "case_id": "053-GHSA-rjpf-7pf5-q54x",
+   "content": {
+    "vulnerable": {
+     "sha256": "60e625ece80ba7646e356b6b42099f503b3d8884f0200c9b24bfcaab9c4096f4",
+     "bytes": 7751
+    },
+    "patched": {
+     "sha256": "2c725f375a57586a07624c394837ffa74f1117dd94884b383a43d0de3b4ea850",
+     "bytes": 7907
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rjpf-7pf5-q54x",
@@ -2258,7 +2788,17 @@
     [367, 371]
    ],
    "commit_url": "https://github.com/wger-project/wger/commit/b29cf178651bbcc243d21673932e32bd42017893",
-   "case_id": "054-GHSA-rjpf-7pf5-q54x"
+   "case_id": "054-GHSA-rjpf-7pf5-q54x",
+   "content": {
+    "vulnerable": {
+     "sha256": "a4d9adcb721d488ace3e67335534242db80ec737b95ed70149f9d5a979a8b33f",
+     "bytes": 20972
+    },
+    "patched": {
+     "sha256": "c18f33b3a2970714b2e1de41ceb3425f57d1d7105bd6113dbed713c74f1cb9ed",
+     "bytes": 21293
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w794-rj3p-xv45",
@@ -2292,7 +2832,17 @@
     [29, 31]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/eba285edf1dd4a33bf23a9cb8113c991fcdf3d1d",
-   "case_id": "055-GHSA-w794-rj3p-xv45"
+   "case_id": "055-GHSA-w794-rj3p-xv45",
+   "content": {
+    "vulnerable": {
+     "sha256": "ae751763f4385103f1d8f55f6b0cd2ce7f91408d42e9d69417fa67d114dd707e",
+     "bytes": 11097
+    },
+    "patched": {
+     "sha256": "07fd661719ac4c4490553a99d8f285d14ff260a797d78a20daea6ec07c663610",
+     "bytes": 1076
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w794-rj3p-xv45",
@@ -2333,7 +2883,17 @@
     [2218, 2218]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/eba285edf1dd4a33bf23a9cb8113c991fcdf3d1d",
-   "case_id": "056-GHSA-w794-rj3p-xv45"
+   "case_id": "056-GHSA-w794-rj3p-xv45",
+   "content": {
+    "vulnerable": {
+     "sha256": "31cea67860f930a0563e0b96e12101ea0a2f1ce0efc5e5bde8d2906d5c1dc82c",
+     "bytes": 108095
+    },
+    "patched": {
+     "sha256": "fb4e97b0616d8e3a7ad9741e5f08649d55aeb904b562b80278233adb3431d83e",
+     "bytes": 106204
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w794-rj3p-xv45",
@@ -2365,7 +2925,17 @@
     [48, 55]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/eba285edf1dd4a33bf23a9cb8113c991fcdf3d1d",
-   "case_id": "057-GHSA-w794-rj3p-xv45"
+   "case_id": "057-GHSA-w794-rj3p-xv45",
+   "content": {
+    "vulnerable": {
+     "sha256": "a185e946ee8fa455361b15c454120f1fd677c2af94773e6f1c834b0cd7ba93ae",
+     "bytes": 1966
+    },
+    "patched": {
+     "sha256": "1b84e30b652f0c0c88e1ee14211bbf52e1ccf179b420b55692f7a08cbda57375",
+     "bytes": 2611
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2v95-h47v-g4x9",
@@ -2391,7 +2961,17 @@
     [24, 25]
    ],
    "commit_url": "https://github.com/indico/indico/commit/44540e70ab4e20a12f14ddba5218a33749a86736",
-   "case_id": "058-GHSA-2v95-h47v-g4x9"
+   "case_id": "058-GHSA-2v95-h47v-g4x9",
+   "content": {
+    "vulnerable": {
+     "sha256": "5873947d6f25db8f39440b092532ba6b8e7e1c3910501b9c2469452dfdc25ed4",
+     "bytes": 4051
+    },
+    "patched": {
+     "sha256": "ba4e9750151500c0bce18ebb28746735644e71e66bb0b79572fa6245caab7f33",
+     "bytes": 4091
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hhxq-47xx-j5xx",
@@ -2433,7 +3013,17 @@
     [226, 226]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/e3cea6fa10a50fa29cf1fdddd772458fba076d5f",
-   "case_id": "059-GHSA-hhxq-47xx-j5xx"
+   "case_id": "059-GHSA-hhxq-47xx-j5xx",
+   "content": {
+    "vulnerable": {
+     "sha256": "afad5de434bea019c37c1b018069bb8e860da77725493084d0cbd55f5eda466b",
+     "bytes": 10422
+    },
+    "patched": {
+     "sha256": "c314adeda6ed7229f2f8a4d22522ed0f22d5a9ff16f5847c35cb0e94736b84b7",
+     "bytes": 11018
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x78j-v8h9-3j2q",
@@ -2467,7 +3057,17 @@
     [87, 96]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/d721ff140ce4afdc2a9b76751e4584e25d9fbea6",
-   "case_id": "060-GHSA-x78j-v8h9-3j2q"
+   "case_id": "060-GHSA-x78j-v8h9-3j2q",
+   "content": {
+    "vulnerable": {
+     "sha256": "5f7d9b4d657d8ab9ed53448e177f5b79056b6ceeb44bb9ebc30049154629244b",
+     "bytes": 1031
+    },
+    "patched": {
+     "sha256": "946f76715d641eff75def11a0d7eea6df6f0dc61d8edb7929a075cae15dbccc5",
+     "bytes": 4664
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x78j-v8h9-3j2q",
@@ -2498,7 +3098,17 @@
     [79, 80]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/d721ff140ce4afdc2a9b76751e4584e25d9fbea6",
-   "case_id": "061-GHSA-x78j-v8h9-3j2q"
+   "case_id": "061-GHSA-x78j-v8h9-3j2q",
+   "content": {
+    "vulnerable": {
+     "sha256": "32c8ebb58a294aec723234f38d1893fc12e770026aadb21746d978407d35df95",
+     "bytes": 3300
+    },
+    "patched": {
+     "sha256": "3b32e71ec811128987e88a7a63820fae670280c6399f50627bdc1444e726b524",
+     "bytes": 2670
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-gq48-pqfc-9p58",
@@ -2531,7 +3141,17 @@
     [1070, 1070]
    ],
    "commit_url": "https://github.com/gitpython-developers/GitPython/commit/24b6f95d4b90ab1483fb601c736ac6e7c059cd61",
-   "case_id": "062-GHSA-gq48-pqfc-9p58"
+   "case_id": "062-GHSA-gq48-pqfc-9p58",
+   "content": {
+    "vulnerable": {
+     "sha256": "a4355d49e0b75c7c7e74d33ac70ff9550f940c977848c99da40eb41e034b189c",
+     "bytes": 67544
+    },
+    "patched": {
+     "sha256": "c9f17e956487e95f6877a7d06c0fd2a6d985cfa33b3cb453e2c82872c48a2089",
+     "bytes": 68115
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c978-59m8-c77v",
@@ -2563,7 +3183,17 @@
     [44, 79]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/2519941bed33ee0d3ac99277f67913e439e476a9",
-   "case_id": "063-GHSA-c978-59m8-c77v"
+   "case_id": "063-GHSA-c978-59m8-c77v",
+   "content": {
+    "vulnerable": {
+     "sha256": "e2eaf8965a6e828d3a667c2ae95ca7efd380cddfe4fabf74787e389544cf45fe",
+     "bytes": 6080
+    },
+    "patched": {
+     "sha256": "7868cb0e0a655f6770554ebe6f621508d9b1f94c536bcf802f75125de96dfb6b",
+     "bytes": 8242
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c978-59m8-c77v",
@@ -2595,7 +3225,17 @@
     [280, 280]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/2519941bed33ee0d3ac99277f67913e439e476a9",
-   "case_id": "064-GHSA-c978-59m8-c77v"
+   "case_id": "064-GHSA-c978-59m8-c77v",
+   "content": {
+    "vulnerable": {
+     "sha256": "832911a5f2c688d025c0b027b30778898dfd1cd1ebcb30dd6007a590b6057135",
+     "bytes": 11391
+    },
+    "patched": {
+     "sha256": "57f9e8aea51d16778babc2dcb85cbc77dcd42cfcc73944e7ef019e908cdf2fb3",
+     "bytes": 12124
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6966-vjj6-99xv",
@@ -2633,7 +3273,17 @@
     [311, 311]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/1a10a7da5ff655849b21581c2633b46483ae0be9",
-   "case_id": "065-GHSA-6966-vjj6-99xv"
+   "case_id": "065-GHSA-6966-vjj6-99xv",
+   "content": {
+    "vulnerable": {
+     "sha256": "c27f0b5709de47a3f1256b49e3d053cd838478049010a7e690dc27080eb357fd",
+     "bytes": 8820
+    },
+    "patched": {
+     "sha256": "9e64f3c91a1fb20929a995b7cc942493b9e801bd9fb746fae48deff21aabc3c5",
+     "bytes": 10089
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6966-vjj6-99xv",
@@ -2673,7 +3323,17 @@
     [3110, 3135]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/1a10a7da5ff655849b21581c2633b46483ae0be9",
-   "case_id": "066-GHSA-6966-vjj6-99xv"
+   "case_id": "066-GHSA-6966-vjj6-99xv",
+   "content": {
+    "vulnerable": {
+     "sha256": "4349d6b1449e5f24408f5f0c65e6aeff312e2fbc70ed8dc192d5fb14ae56c0d7",
+     "bytes": 112459
+    },
+    "patched": {
+     "sha256": "94de3826662c10ffaaaaeb631bfebed9f33edc6e3034a867edea2fae3c0e1894",
+     "bytes": 113808
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qr6x-7v33-6qmg",
@@ -2707,7 +3367,17 @@
     [412, 412]
    ],
    "commit_url": "https://github.com/danielgatis/rembg/commit/b2758c6b39bb2b02df90a03128110339476984d3",
-   "case_id": "067-GHSA-qr6x-7v33-6qmg"
+   "case_id": "067-GHSA-qr6x-7v33-6qmg",
+   "content": {
+    "vulnerable": {
+     "sha256": "c7f5cf40b69cd33b0adc0a5ce74d9c8534f24e8b8f80799378710e003731f917",
+     "bytes": 13158
+    },
+    "patched": {
+     "sha256": "524bccb7b54acd3979d025e0451334e7a9d0d7e4cd4ce81007b8c1822b827b7d",
+     "bytes": 15532
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4xhp-xg4w-8ppm",
@@ -2778,7 +3448,17 @@
     [1687, 1687]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/6ee9965adfc364b3696a67c825ec2f0d9cee4311",
-   "case_id": "068-GHSA-4xhp-xg4w-8ppm"
+   "case_id": "068-GHSA-4xhp-xg4w-8ppm",
+   "content": {
+    "vulnerable": {
+     "sha256": "f441cbbc229099bd65185b46fddf868a8de651aceffe358f22f6bc64b20d9f70",
+     "bytes": 67331
+    },
+    "patched": {
+     "sha256": "0d4bd5cdccd5e5db05d8f14e21f71eb08391c4d059b298e7a65740bb1c5f8754",
+     "bytes": 68966
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4xhp-xg4w-8ppm",
@@ -2808,7 +3488,17 @@
     [177, 177]
    ],
    "commit_url": "https://github.com/docling-project/docling/commit/6ee9965adfc364b3696a67c825ec2f0d9cee4311",
-   "case_id": "069-GHSA-4xhp-xg4w-8ppm"
+   "case_id": "069-GHSA-4xhp-xg4w-8ppm",
+   "content": {
+    "vulnerable": {
+     "sha256": "379e23d098cae33e9dcc02f690e924b8d7305bfdc4252a4c51761d62cbbd0e94",
+     "bytes": 10247
+    },
+    "patched": {
+     "sha256": "171272377c2be1a35cba332b42f68fcb0cea84c4669187e7da3088d4d86fd086",
+     "bytes": 9980
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pxh4-856f-4h89",
@@ -2834,7 +3524,17 @@
     [431, 434]
    ],
    "commit_url": "https://github.com/jpadilla/pyjwt/commit/af8181ca0bec5e6b372fbba9afbe23702b787ceb",
-   "case_id": "070-GHSA-pxh4-856f-4h89"
+   "case_id": "070-GHSA-pxh4-856f-4h89",
+   "content": {
+    "vulnerable": {
+     "sha256": "8b2b87d59a52248e174f70bdffb51be26b3808a8c4dc83d5ef655fb3960abb3f",
+     "bytes": 38325
+    },
+    "patched": {
+     "sha256": "75cb456b41071a4ba95c2c23309b73a67541b4c69784451f1ebf93715e0f88b0",
+     "bytes": 38452
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5fqc-mrg8-w798",
@@ -2865,7 +3565,17 @@
     [210, 224]
    ],
    "commit_url": "https://github.com/jelmer/dulwich/commit/9571ac60b851fce228dae7ededb380c6ce9b3fb8",
-   "case_id": "071-GHSA-5fqc-mrg8-w798"
+   "case_id": "071-GHSA-5fqc-mrg8-w798",
+   "content": {
+    "vulnerable": {
+     "sha256": "eb6c04cd8c8ba9f39afebe5ea1160acbd493de90e4a05efc0bde41ee4ae2e997",
+     "bytes": 20857
+    },
+    "patched": {
+     "sha256": "83f7bec1301b5683b9b33e12f28671879e3c511292b0d1f646dc0293ceff2295",
+     "bytes": 21095
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5fqc-mrg8-w798",
@@ -2893,7 +3603,17 @@
     [1778, 1811]
    ],
    "commit_url": "https://github.com/jelmer/dulwich/commit/9571ac60b851fce228dae7ededb380c6ce9b3fb8",
-   "case_id": "072-GHSA-5fqc-mrg8-w798"
+   "case_id": "072-GHSA-5fqc-mrg8-w798",
+   "content": {
+    "vulnerable": {
+     "sha256": "18ca2c867fa763ba03a3070474ec5de94300942ad3d3a9444c5132355ede0b4e",
+     "bytes": 116522
+    },
+    "patched": {
+     "sha256": "8275fc88e11920f5a8710e86d978f77aa16a9eab60d16e958d1961e9a5e70bb0",
+     "bytes": 117452
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-526j-582w-7fm9",
@@ -2919,7 +3639,17 @@
     [57, 57]
    ],
    "commit_url": "https://github.com/python-social-auth/social-core/commit/5b3b90d07ebccc1f5b076445b27ea35ec059764b",
-   "case_id": "073-GHSA-526j-582w-7fm9"
+   "case_id": "073-GHSA-526j-582w-7fm9",
+   "content": {
+    "vulnerable": {
+     "sha256": "0734ccd6ede4b7cdf15786ec11f2cef6a04e6b1ca6c51547dcbaf330a3571c1a",
+     "bytes": 3335
+    },
+    "patched": {
+     "sha256": "15867a40c1311069e0062e9014b2b2f75c2b0ad26124cf7e6141e91c6d636a52",
+     "bytes": 3365
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3325-v43h-43rv",
@@ -2945,7 +3675,17 @@
     [557, 559]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/9e1951e57da499ca66ef5e0caf68e71ad2e3d1a5",
-   "case_id": "074-GHSA-3325-v43h-43rv"
+   "case_id": "074-GHSA-3325-v43h-43rv",
+   "content": {
+    "vulnerable": {
+     "sha256": "6c058fea187635cb337ed1ad19c43099cd506191a01a965ec49cca59d720b1ec",
+     "bytes": 27627
+    },
+    "patched": {
+     "sha256": "b62fac747e02b977d3b6be3240b6e412d8d1fc1ed5d93cf08af2ab1f1ccf2211",
+     "bytes": 27710
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3325-v43h-43rv",
@@ -2978,7 +3718,17 @@
     [562, 562]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/9e1951e57da499ca66ef5e0caf68e71ad2e3d1a5",
-   "case_id": "075-GHSA-3325-v43h-43rv"
+   "case_id": "075-GHSA-3325-v43h-43rv",
+   "content": {
+    "vulnerable": {
+     "sha256": "7e62ac6daa749fcc2d2d85a8a664604159a12876395d94c72e99dfd703eed448",
+     "bytes": 23364
+    },
+    "patched": {
+     "sha256": "24290910af3b63cd0fd1af366d9dc859d28eab7cd931841fda8969e809e4c608",
+     "bytes": 23818
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3325-v43h-43rv",
@@ -3004,7 +3754,17 @@
     [124, 128]
    ],
    "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/9e1951e57da499ca66ef5e0caf68e71ad2e3d1a5",
-   "case_id": "076-GHSA-3325-v43h-43rv"
+   "case_id": "076-GHSA-3325-v43h-43rv",
+   "content": {
+    "vulnerable": {
+     "sha256": "a66d6f7d2b2aff0d58aeac39c6d4f6ae1cd122612c972773e43bd6ca977dff1f",
+     "bytes": 5291
+    },
+    "patched": {
+     "sha256": "1c2c901f6f35b03f78e2b97c39d92de1fd994af2da9ab363ff861c05bb2fc025",
+     "bytes": 5515
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-h4mw-j7qp-8mwm",
@@ -3033,7 +3793,17 @@
     [361, 361]
    ],
    "commit_url": "https://github.com/anthropics/claude-agent-sdk-python/commit/347a1cb88d7652199399db1b7f914e0a459a6662",
-   "case_id": "077-GHSA-h4mw-j7qp-8mwm"
+   "case_id": "077-GHSA-h4mw-j7qp-8mwm",
+   "content": {
+    "vulnerable": {
+     "sha256": "d4125e626f9a34a7f89ff2de0888b31bf1f668ac0e04516bc26dbb05dad75078",
+     "bytes": 36915
+    },
+    "patched": {
+     "sha256": "37cff1724d41dd4d39c2951684c390fd893014f39d17f6c0f29ac5ec1a0aea45",
+     "bytes": 37296
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6757-hggm-hp2w",
@@ -3101,7 +3871,17 @@
     [784, 784]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
-   "case_id": "078-GHSA-6757-hggm-hp2w"
+   "case_id": "078-GHSA-6757-hggm-hp2w",
+   "content": {
+    "vulnerable": {
+     "sha256": "3cbf9918752290263c58638fcd2c6901f0edb61cd1db7b14cfc2a0a94c49bd23",
+     "bytes": 28115
+    },
+    "patched": {
+     "sha256": "db610ba3c0578bd90ef56b41fe468a9cac2d191818205e82292e0af76d2a18bc",
+     "bytes": 33012
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6757-hggm-hp2w",
@@ -3131,7 +3911,17 @@
     [222, 223]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
-   "case_id": "079-GHSA-6757-hggm-hp2w"
+   "case_id": "079-GHSA-6757-hggm-hp2w",
+   "content": {
+    "vulnerable": {
+     "sha256": "6695429d237a664859b1104cd3ea735eef1d4e6bbca061f0de7cf07603752513",
+     "bytes": 24744
+    },
+    "patched": {
+     "sha256": "85417a6d395673993172cc2b81263bf3ebca57ca1bc416e6506e8e830b8eb722",
+     "bytes": 25555
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6757-hggm-hp2w",
@@ -3157,7 +3947,17 @@
     [359, 366]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
-   "case_id": "080-GHSA-6757-hggm-hp2w"
+   "case_id": "080-GHSA-6757-hggm-hp2w",
+   "content": {
+    "vulnerable": {
+     "sha256": "510d17e566557a19b0f72299cdec2da74a64489ce97e008754d714c6dd335114",
+     "bytes": 15462
+    },
+    "patched": {
+     "sha256": "4473c97940c5ca67cd64485900eeb2b6d16a8ca835517f6981fa86a27a768745",
+     "bytes": 15683
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6757-hggm-hp2w",
@@ -3201,7 +4001,17 @@
     [311, 318]
    ],
    "commit_url": "https://github.com/vllm-project/vllm/commit/3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
-   "case_id": "081-GHSA-6757-hggm-hp2w"
+   "case_id": "081-GHSA-6757-hggm-hp2w",
+   "content": {
+    "vulnerable": {
+     "sha256": "74a09792e3580e1d71761e059967112d0c3a7bf54cbdde31f102a6b2451be0df",
+     "bytes": 8960
+    },
+    "patched": {
+     "sha256": "64ac86a4a4579d68064d5aa4b045a54d4bee3d71ff6549faa630cb3915a4874d",
+     "bytes": 10710
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2wqp-q3c6-ccj5",
@@ -3237,7 +4047,17 @@
     [7336, 7336]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/bac30b4148c4f40045b4d4db07ae60ab3838803f",
-   "case_id": "082-GHSA-2wqp-q3c6-ccj5"
+   "case_id": "082-GHSA-2wqp-q3c6-ccj5",
+   "content": {
+    "vulnerable": {
+     "sha256": "2705c98a272ba51517f845aee27ccac0a46cc0e8eb12ef99385f0bdb4bdfb85d",
+     "bytes": 316720
+    },
+    "patched": {
+     "sha256": "364948cbcf90d3179dc410df48284498873707e61e08400ba4c499343fa16806",
+     "bytes": 316895
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2wqp-q3c6-ccj5",
@@ -3265,7 +4085,17 @@
     [1122, 1184]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/bac30b4148c4f40045b4d4db07ae60ab3838803f",
-   "case_id": "083-GHSA-2wqp-q3c6-ccj5"
+   "case_id": "083-GHSA-2wqp-q3c6-ccj5",
+   "content": {
+    "vulnerable": {
+     "sha256": "a5a978b77c39fa923951c65bbb95b61be27f1817cea83663c6b545874c61975b",
+     "bytes": 50143
+    },
+    "patched": {
+     "sha256": "38f14961a4f5795a1873d769aa89f22c402af5f5042cd306727075c612ff736d",
+     "bytes": 53403
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-556j-vv39-8rqv",
@@ -3291,7 +4121,17 @@
     [6, 17]
    ],
    "commit_url": "https://github.com/masci/banks/commit/23ed13e50b4e217693fa5f9c30943fac8a41582f",
-   "case_id": "084-GHSA-556j-vv39-8rqv"
+   "case_id": "084-GHSA-556j-vv39-8rqv",
+   "content": {
+    "vulnerable": {
+     "sha256": "e08068a715ecb45665882bd28ceb93bab4906f7d95cb6e845ce3e198d6781eeb",
+     "bytes": 334
+    },
+    "patched": {
+     "sha256": "5402bc2f8578613dd632607df1021d7181de68b687cfbc686c66ef9b9bc13fdc",
+     "bytes": 707
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-556j-vv39-8rqv",
@@ -3338,7 +4178,17 @@
     [237, 237]
    ],
    "commit_url": "https://github.com/masci/banks/commit/23ed13e50b4e217693fa5f9c30943fac8a41582f",
-   "case_id": "085-GHSA-556j-vv39-8rqv"
+   "case_id": "085-GHSA-556j-vv39-8rqv",
+   "content": {
+    "vulnerable": {
+     "sha256": "ba978ec4e129762ddbb3804ccca17f0dd2e75e76fecd43478229a97c02e357ea",
+     "bytes": 7146
+    },
+    "patched": {
+     "sha256": "3aacee2a4afa7c79c7b01ff6f93d60529199eab82605a817b4a16d33177d0f44",
+     "bytes": 9686
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-vmxc-h2x2-jmf3",
@@ -3372,7 +4222,17 @@
     [297, 298]
    ],
    "commit_url": "https://github.com/pydantic/pydantic-ai/commit/02157e1b87bd45d3f2e111ce07afdf89f9fb0e5b",
-   "case_id": "086-GHSA-vmxc-h2x2-jmf3"
+   "case_id": "086-GHSA-vmxc-h2x2-jmf3",
+   "content": {
+    "vulnerable": {
+     "sha256": "0d055ba89b3131b8400b28ea35e50978be86f6c2d585f566c1e5b70e52f41516",
+     "bytes": 36677
+    },
+    "patched": {
+     "sha256": "30cebdae84f003bde4b7819715d76f50541119770c8cadad124f722a049a036b",
+     "bytes": 37607
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pw9p-v7r6-gx4p",
@@ -3398,7 +4258,17 @@
     [2825, 2828]
    ],
    "commit_url": "https://github.com/tornadoweb/tornado/commit/940ea725bdd9bc68231d68a105eef17ea6e11233",
-   "case_id": "087-GHSA-pw9p-v7r6-gx4p"
+   "case_id": "087-GHSA-pw9p-v7r6-gx4p",
+   "content": {
+    "vulnerable": {
+     "sha256": "d668cb6962afc888a2cef8437635505ccfb8576598e67c36204170a93dfe8c32",
+     "bytes": 161247
+    },
+    "patched": {
+     "sha256": "50bcbc86196b0578df13a2541930ff264fb5b1e2a2252d1b2fa04a9e5ace4bc5",
+     "bytes": 161438
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rwrf-2pqf-9j8j",
@@ -3427,7 +4297,17 @@
     [446, 448]
    ],
    "commit_url": "https://github.com/modelcontextprotocol/python-sdk/commit/5ebdfed4060d8e5b11b8e2348f86bad4d1fb8836",
-   "case_id": "088-GHSA-rwrf-2pqf-9j8j"
+   "case_id": "088-GHSA-rwrf-2pqf-9j8j",
+   "content": {
+    "vulnerable": {
+     "sha256": "92f812af17983f5a36b4703b065216cc49252fc59dbd04b753286fa78580b07a",
+     "bytes": 24633
+    },
+    "patched": {
+     "sha256": "7606a75a9b65cfa21df57901df600a80fdf4bab10ef0bb92abe6aa1cc0db35c9",
+     "bytes": 25111
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-wqmh-qccw-pqwf",
@@ -3459,7 +4339,17 @@
     [2194, 2195]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/31ff9e56f5038d61ec75344518912945f60dffec",
-   "case_id": "089-GHSA-wqmh-qccw-pqwf"
+   "case_id": "089-GHSA-wqmh-qccw-pqwf",
+   "content": {
+    "vulnerable": {
+     "sha256": "241a855c38aa070e97a850d5ec19a5a8b0252616c50c3b1fd568263c8cb5f074",
+     "bytes": 121333
+    },
+    "patched": {
+     "sha256": "4578de7adc2f17d41016390b64afe6e02da18ab91a7e5b0921862e99e9d0289e",
+     "bytes": 122227
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
@@ -3510,7 +4400,17 @@
     [208, 217]
    ],
    "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
-   "case_id": "090-GHSA-w5f2-9q9c-ff4h"
+   "case_id": "090-GHSA-w5f2-9q9c-ff4h",
+   "content": {
+    "vulnerable": {
+     "sha256": "407f43cb8d225271f65750cd2ff175b717f4e59a720791c5360d2c9f19c3525a",
+     "bytes": 6215
+    },
+    "patched": {
+     "sha256": "ed1caaa0422bb9ecbd5307ce8b73f3d119e1533e42aa9aeba87fc43180cf8e72",
+     "bytes": 8004
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
@@ -3540,7 +4440,17 @@
     [155, 175]
    ],
    "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
-   "case_id": "091-GHSA-w5f2-9q9c-ff4h"
+   "case_id": "091-GHSA-w5f2-9q9c-ff4h",
+   "content": {
+    "vulnerable": {
+     "sha256": "b2c768742a0eda8cb0b596e366ae6a31e03c634fd0071b62c92f3da987f5d8e0",
+     "bytes": 17629
+    },
+    "patched": {
+     "sha256": "a1740a85526fd8e544d6cd34c9f59a2d6428b515bc5af2670143ecff28839dd7",
+     "bytes": 18477
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
@@ -3584,7 +4494,17 @@
     [711, 711]
    ],
    "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
-   "case_id": "092-GHSA-w5f2-9q9c-ff4h"
+   "case_id": "092-GHSA-w5f2-9q9c-ff4h",
+   "content": {
+    "vulnerable": {
+     "sha256": "7e41baa2a317899bd6ae33d58a2783a71888cdcffd6f64d25aa451fed887f978",
+     "bytes": 36177
+    },
+    "patched": {
+     "sha256": "7d71ae184b24e4cf96f410e08255430318f8a5b647aa123937b33be8abae54e1",
+     "bytes": 39005
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
@@ -3612,7 +4532,17 @@
     [269, 283]
    ],
    "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
-   "case_id": "093-GHSA-w5f2-9q9c-ff4h"
+   "case_id": "093-GHSA-w5f2-9q9c-ff4h",
+   "content": {
+    "vulnerable": {
+     "sha256": "b647872b3c9ed0aa4bafc688f29918d5d614ecc61451368477e67254329d6913",
+     "bytes": 11937
+    },
+    "patched": {
+     "sha256": "c0bf8c944e05c49114415369b9cb7e313d2df73d94a5542e18cb0bd2172c56f1",
+     "bytes": 12642
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
@@ -3640,7 +4570,17 @@
     [123, 162]
    ],
    "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
-   "case_id": "094-GHSA-w5f2-9q9c-ff4h"
+   "case_id": "094-GHSA-w5f2-9q9c-ff4h",
+   "content": {
+    "vulnerable": {
+     "sha256": "57f95fddb921402a1b5602877066cd717be1d31c9f5eb4cafa0ed56fea551f1b",
+     "bytes": 6246
+    },
+    "patched": {
+     "sha256": "bc33fb6df2b4938b9a6080e1d93b26037899d7a1101f350049443eb0f4b2b8bd",
+     "bytes": 7771
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pcc4-rvhr-2pr8",
@@ -3676,7 +4616,17 @@
     [70, 70]
    ],
    "commit_url": "https://github.com/Graphify-Labs/graphify/commit/e1d9deed6a437f2c85458ef3c42519159f322b7b",
-   "case_id": "095-GHSA-pcc4-rvhr-2pr8"
+   "case_id": "095-GHSA-pcc4-rvhr-2pr8",
+   "content": {
+    "vulnerable": {
+     "sha256": "f5d5ce712a6c71f50bbdce3f439bb07cd059f0892cf18fdf4ef844919bc2a128",
+     "bytes": 16086
+    },
+    "patched": {
+     "sha256": "b151c1bf6ee7b285bf88b55aecf5c3a5f89564df1681cda9c034e18b8828ed35",
+     "bytes": 17256
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r57g-mc79-8hj2",
@@ -3720,7 +4670,17 @@
     [488, 488]
    ],
    "commit_url": "https://github.com/djust-org/djust/commit/45a5045793ebe7c9c2df86b0ad34275af6822619",
-   "case_id": "096-GHSA-r57g-mc79-8hj2"
+   "case_id": "096-GHSA-r57g-mc79-8hj2",
+   "content": {
+    "vulnerable": {
+     "sha256": "53e7adbbdb4273f29770c2a06a4ec813db6f98540fcfc6cf33af7585da39045f",
+     "bytes": 64981
+    },
+    "patched": {
+     "sha256": "0fc2db48a9645eaf318d1d0a0e16698149dee14d05855cf0153d30c51b8d02da",
+     "bytes": 68190
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-phv8-wgjp-g4p9",
@@ -3748,7 +4708,17 @@
     [525, 527]
    ],
    "commit_url": "https://github.com/9001/copyparty/commit/b331bb1c8c8cc306b91e4d94221969335a7a3e86",
-   "case_id": "097-GHSA-phv8-wgjp-g4p9"
+   "case_id": "097-GHSA-phv8-wgjp-g4p9",
+   "content": {
+    "vulnerable": {
+     "sha256": "869e962dc7254026fa4d600f1e243e927603fe7a296d0c7e884d8cd861b2b463",
+     "bytes": 20851
+    },
+    "patched": {
+     "sha256": "5b301be1232675d937310d1c90353f3d8bd0b44c4fa33a68444dfdc631bc6406",
+     "bytes": 21050
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5j9r-fx4x-rpvg",
@@ -3779,7 +4749,17 @@
     [198, 198]
    ],
    "commit_url": "https://github.com/rucio/rucio/commit/64c0e6a6a93ae88427ff3b7d77532ce08c8a69ec",
-   "case_id": "098-GHSA-5j9r-fx4x-rpvg"
+   "case_id": "098-GHSA-5j9r-fx4x-rpvg",
+   "content": {
+    "vulnerable": {
+     "sha256": "6eb7d09a7c6b43bc0b7130890a1276d196279f78252666ed804281ca76e45c28",
+     "bytes": 8219
+    },
+    "patched": {
+     "sha256": "3b5bf75437de2f4c282801726ed7a8595d08ddc5d08fcb3bfef0b4e1c2a5ee98",
+     "bytes": 8201
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
@@ -3805,7 +4785,17 @@
     [85, 86]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
-   "case_id": "099-GHSA-x4rv-c3wx-4cr8"
+   "case_id": "099-GHSA-x4rv-c3wx-4cr8",
+   "content": {
+    "vulnerable": {
+     "sha256": "7bd9c68922d10d6bbf3874364995aafd900ead39f53adab1b975da0fcf8c4dc8",
+     "bytes": 4553
+    },
+    "patched": {
+     "sha256": "e71c505a379c5cff4990c91d32f2910dbb59981bcb27955a6d96d58280fb29b4",
+     "bytes": 4404
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
@@ -3833,7 +4823,17 @@
     [84, 85]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
-   "case_id": "100-GHSA-x4rv-c3wx-4cr8"
+   "case_id": "100-GHSA-x4rv-c3wx-4cr8",
+   "content": {
+    "vulnerable": {
+     "sha256": "aa412e4400327bf38c33b6a3a75c2af55ced485c8bd8011000cc5a5506338c43",
+     "bytes": 4336
+    },
+    "patched": {
+     "sha256": "5bdf3938f654ae5d3407121656324d35c383d3c9c83336d34cc4c5e8fc5b5aa2",
+     "bytes": 4342
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
@@ -3881,7 +4881,17 @@
     [339, 339]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
-   "case_id": "101-GHSA-x4rv-c3wx-4cr8"
+   "case_id": "101-GHSA-x4rv-c3wx-4cr8",
+   "content": {
+    "vulnerable": {
+     "sha256": "dc1f581aa4ee1e5587ad2fea4bab4175270593966a911adaba4512f248fefb6a",
+     "bytes": 11785
+    },
+    "patched": {
+     "sha256": "2e32c84273b5b819ca9cc49237d3f64a16e5f9f129289fe3f44010c789ed8c41",
+     "bytes": 16002
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
@@ -3909,7 +4919,17 @@
     [24, 24]
    ],
    "commit_url": "https://github.com/authlib/authlib/commit/891e3f10ae5989176211f8be35dcc7cd40aa92c6",
-   "case_id": "102-GHSA-x4rv-c3wx-4cr8"
+   "case_id": "102-GHSA-x4rv-c3wx-4cr8",
+   "content": {
+    "vulnerable": {
+     "sha256": "552cf34836f91c8ac51e78e92d0f2ac318312c79cea9a09b1ec2cb9e575b9cee",
+     "bytes": 863
+    },
+    "patched": {
+     "sha256": "0e63ff142f5bb46086880badb9c2c8fcceba32e733feb9c75c8b790240acc883",
+     "bytes": 967
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-f9j4-qggq-h239",
@@ -3939,7 +4959,17 @@
     [1131, 1136]
    ],
    "commit_url": "https://github.com/gitpython-developers/GitPython/commit/790bb3164948625ffb043d2a162425d55923fe9a",
-   "case_id": "103-GHSA-f9j4-qggq-h239"
+   "case_id": "103-GHSA-f9j4-qggq-h239",
+   "content": {
+    "vulnerable": {
+     "sha256": "786ae9c5d3a31b208720d845fce76efd362729a6aa9acfd7a7771a9f8132c1c4",
+     "bytes": 46995
+    },
+    "patched": {
+     "sha256": "bec59938f5e427df00caf6bee78f6e8887d70c2d2b11cc044ce68e7ebbab0697",
+     "bytes": 47568
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-23mf-xhv8-69c2",
@@ -3965,7 +4995,17 @@
     [286, 286]
    ],
    "commit_url": "https://github.com/gitpython-developers/GitPython/commit/8da65080849a56a2fc9f3e7817bbf0524e8397d5",
-   "case_id": "104-GHSA-23mf-xhv8-69c2"
+   "case_id": "104-GHSA-23mf-xhv8-69c2",
+   "content": {
+    "vulnerable": {
+     "sha256": "437559b79326114c25b41a411c999c01933d818cc27a400a80ca4994fadbb6d9",
+     "bytes": 11309
+    },
+    "patched": {
+     "sha256": "8e1bd14b30bd7b7c764002d1ecb6762bbfe8212f5701b760100f5f0b0cd50b87",
+     "bytes": 11313
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-47c3-hpmg-7j6p",
@@ -3991,7 +5031,17 @@
     [403, 405]
    ],
    "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
-   "case_id": "105-GHSA-47c3-hpmg-7j6p"
+   "case_id": "105-GHSA-47c3-hpmg-7j6p",
+   "content": {
+    "vulnerable": {
+     "sha256": "8874d94c4ee3b8a398c27f3f29e2565054a50720dd9c351bb7f2e24d560bdfb6",
+     "bytes": 23327
+    },
+    "patched": {
+     "sha256": "0a1c5ed83e94049450f8244312eb638861d032897aeb19380b56e6f50ef7e093",
+     "bytes": 23213
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-47c3-hpmg-7j6p",
@@ -4018,7 +5068,17 @@
     [393, 393]
    ],
    "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
-   "case_id": "106-GHSA-47c3-hpmg-7j6p"
+   "case_id": "106-GHSA-47c3-hpmg-7j6p",
+   "content": {
+    "vulnerable": {
+     "sha256": "5842939ab0aa29f0bb7fee3d2c4cb1a0d094676fc6da600348add027babef0ce",
+     "bytes": 28281
+    },
+    "patched": {
+     "sha256": "dcd7b357ba3b85034b6274b82248668f5f3a828dc70b7f39d915bf2b4fa6c91d",
+     "bytes": 28452
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-47c3-hpmg-7j6p",
@@ -4046,7 +5106,17 @@
     [24, 27]
    ],
    "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
-   "case_id": "107-GHSA-47c3-hpmg-7j6p"
+   "case_id": "107-GHSA-47c3-hpmg-7j6p",
+   "content": {
+    "vulnerable": {
+     "sha256": "6ccbfd8a39bf7dc82cbb8c95b87cf0aba1beb47563fca60740ec0fce54f6df41",
+     "bytes": 547
+    },
+    "patched": {
+     "sha256": "6709cdc251db730490da4fb770688df6ac83becc155c34fa07ef8e6d9865846d",
+     "bytes": 1279
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-47c3-hpmg-7j6p",
@@ -4090,7 +5160,17 @@
     [301, 309]
    ],
    "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
-   "case_id": "108-GHSA-47c3-hpmg-7j6p"
+   "case_id": "108-GHSA-47c3-hpmg-7j6p",
+   "content": {
+    "vulnerable": {
+     "sha256": "ee1df61d58b0037976fb79153142d77e3847a3d1176972bbd9821a80b49fba69",
+     "bytes": 14829
+    },
+    "patched": {
+     "sha256": "e77c1d225ce0ca09ac61656fa94ee8dbf83c17c3183f2b38f7c8623ac1f69b65",
+     "bytes": 17094
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-47c3-hpmg-7j6p",
@@ -4118,7 +5198,17 @@
     [262, 262]
    ],
    "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
-   "case_id": "109-GHSA-47c3-hpmg-7j6p"
+   "case_id": "109-GHSA-47c3-hpmg-7j6p",
+   "content": {
+    "vulnerable": {
+     "sha256": "89b646706757372716b806575ce69e292fc29a2b6ea299b974cc47a8dd2c69b3",
+     "bytes": 8585
+    },
+    "patched": {
+     "sha256": "7d172e8b0343f3a94609f16ee790575bf72507666aed9be6cf4fcfd8307ca180",
+     "bytes": 9368
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hhww-mrg2-969h",
@@ -4220,7 +5310,17 @@
     [347, 347]
    ],
    "commit_url": "https://github.com/BerriAI/litellm/commit/13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
-   "case_id": "110-GHSA-hhww-mrg2-969h"
+   "case_id": "110-GHSA-hhww-mrg2-969h",
+   "content": {
+    "vulnerable": {
+     "sha256": "6ed51de0c72d228944f2a3c042dbd2a9acda17f706a130c28daaac0b92f37880",
+     "bytes": 8948
+    },
+    "patched": {
+     "sha256": "606c5cc3e9a073b638a9d40b706769d19b99c5301dd970bb5f177fad7cf9023e",
+     "bytes": 11867
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hhww-mrg2-969h",
@@ -4252,7 +5352,17 @@
     [4159, 4160]
    ],
    "commit_url": "https://github.com/BerriAI/litellm/commit/13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
-   "case_id": "111-GHSA-hhww-mrg2-969h"
+   "case_id": "111-GHSA-hhww-mrg2-969h",
+   "content": {
+    "vulnerable": {
+     "sha256": "e2f04dd7bc5eb5ff084dea0fcde5dc9abba219d4a83c6b359959cdb7a2747932",
+     "bytes": 168288
+    },
+    "patched": {
+     "sha256": "d7ab94d483e2a5b09c8f1522f43c48d81cc1e37513d6112376729114ee0fcc3f",
+     "bytes": 169150
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pjvx-prjx-h659",
@@ -4278,7 +5388,17 @@
     [117, 132]
    ],
    "commit_url": "https://github.com/jupyter/nbconvert/commit/ce4bd99aec31d81d759fa8eeb8643179392ec66f",
-   "case_id": "112-GHSA-pjvx-prjx-h659"
+   "case_id": "112-GHSA-pjvx-prjx-h659",
+   "content": {
+    "vulnerable": {
+     "sha256": "00ef95946be33a9bbc2af0dc0e12e94172d906328d310dd9fecdcdad6a3e6481",
+     "bytes": 6445
+    },
+    "patched": {
+     "sha256": "54ee866be69b7f7465bcc8c81c8c8a71a6aa1c6ea3350c543d03d0ebf20902f9",
+     "bytes": 7213
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-394h-qwmc-48pf",
@@ -4304,7 +5424,17 @@
     [20, 21]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/e5fc2e6e189a877ff559af288919e3525d13e5e0",
-   "case_id": "113-GHSA-394h-qwmc-48pf"
+   "case_id": "113-GHSA-394h-qwmc-48pf",
+   "content": {
+    "vulnerable": {
+     "sha256": "64007fccdc7966ebcb380a4276629165ce1f7e3dbe64d8fd7820aad8c278f70d",
+     "bytes": 966
+    },
+    "patched": {
+     "sha256": "8a77123f4dbdfc78dc96178e02701904a2f6a373ddbc297e993a69f2249041e2",
+     "bytes": 964
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-j92p-c242-7hfx",
@@ -4330,7 +5460,17 @@
     [34, 38]
    ],
    "commit_url": "https://github.com/pyload/pyload/commit/e80c940cd604e60d93e3164429d4fc4aac54468d",
-   "case_id": "114-GHSA-j92p-c242-7hfx"
+   "case_id": "114-GHSA-j92p-c242-7hfx",
+   "content": {
+    "vulnerable": {
+     "sha256": "0517ecb01459b82721a34219228867eaf0b7e29105b378581d948398fd8b90ed",
+     "bytes": 15941
+    },
+    "patched": {
+     "sha256": "ffbc74dc8009136985b4c61015fcb04547d2142892cd72c22c0a45b92dd817e5",
+     "bytes": 16173
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-j92p-c242-7hfx",
@@ -4357,7 +5497,17 @@
     [14, 14]
    ],
    "commit_url": "https://github.com/pyload/pyload/commit/e80c940cd604e60d93e3164429d4fc4aac54468d",
-   "case_id": "115-GHSA-j92p-c242-7hfx"
+   "case_id": "115-GHSA-j92p-c242-7hfx",
+   "content": {
+    "vulnerable": {
+     "sha256": "3e71593029be59ee5695e68723688ab463c95ae975c244584437468b6513e7c5",
+     "bytes": 1137
+    },
+    "patched": {
+     "sha256": "a506a7ee5a442154ba45e173db1f9411270c5d779e32cce69c2b932df8287269",
+     "bytes": 964
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w584-2h2r-2hvf",
@@ -4389,7 +5539,17 @@
     [75, 75]
    ],
    "commit_url": "https://github.com/langflow-ai/langflow/commit/e7c33dbaade20b5295c7fa26bf83cc1ff68fba02",
-   "case_id": "116-GHSA-w584-2h2r-2hvf"
+   "case_id": "116-GHSA-w584-2h2r-2hvf",
+   "content": {
+    "vulnerable": {
+     "sha256": "efbe444ca3b0aa6b299dcb78bc3d370c710f30e449d2445c6ed1b58b9b3bb382",
+     "bytes": 21431
+    },
+    "patched": {
+     "sha256": "876d0f7709ce8a717c464033f4cb477844af9c2231cd88648d0bb4ba7e8d6b44",
+     "bytes": 20185
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3fx2-cqw9-xr3c",
@@ -4420,7 +5580,17 @@
     [1906, 1906]
    ],
    "commit_url": "https://github.com/langchain-ai/langgraph/commit/d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
-   "case_id": "117-GHSA-3fx2-cqw9-xr3c"
+   "case_id": "117-GHSA-3fx2-cqw9-xr3c",
+   "content": {
+    "vulnerable": {
+     "sha256": "49cb5176b4905cfc0acf5925b77b03aa54e79d05fbb8cb48725c5c2b0f68e1e7",
+     "bytes": 85440
+    },
+    "patched": {
+     "sha256": "2bcd95af558cb4fa2f9fea44c7d27c0ec82d03f1bf57b8f0822429c6a7396bcb",
+     "bytes": 85540
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3fx2-cqw9-xr3c",
@@ -4451,7 +5621,17 @@
     [1556, 1556]
    ],
    "commit_url": "https://github.com/langchain-ai/langgraph/commit/d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
-   "case_id": "118-GHSA-3fx2-cqw9-xr3c"
+   "case_id": "118-GHSA-3fx2-cqw9-xr3c",
+   "content": {
+    "vulnerable": {
+     "sha256": "9bc979f63282e6ab82595b249aa7c6963f271667b20434f2daded92f972885aa",
+     "bytes": 67082
+    },
+    "patched": {
+     "sha256": "9ce8850338d44335225244e3d40d8c41c667a1d65abd26bae7dc5b8dafb359d7",
+     "bytes": 67182
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-h4xc-3qfq-jf93",
@@ -4482,7 +5662,17 @@
     [205, 213]
    ],
    "commit_url": "https://github.com/pydantic/pydantic-ai/commit/d2690201a1834005d382dbf5c47e0ed94ef8bf46",
-   "case_id": "119-GHSA-h4xc-3qfq-jf93"
+   "case_id": "119-GHSA-h4xc-3qfq-jf93",
+   "content": {
+    "vulnerable": {
+     "sha256": "9f77d5f4dcbcaead9b7b4138dfb0096879580a26fd84d8981102de66a78187dc",
+     "bytes": 9419
+    },
+    "patched": {
+     "sha256": "93e4e8c9a827ebcb56a47d4da19d9f9b11bda2ac5feb6daf12c835390c5326f6",
+     "bytes": 11629
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-22qq-2fwx-7p67",
@@ -4519,7 +5709,17 @@
     [96, 97]
    ],
    "commit_url": "https://github.com/pylint-dev/pylint/commit/58c87cffca9de2b3e89aa07b89686cbc90cfea2d",
-   "case_id": "120-GHSA-22qq-2fwx-7p67"
+   "case_id": "120-GHSA-22qq-2fwx-7p67",
+   "content": {
+    "vulnerable": {
+     "sha256": "99d3433d9070616270d7b7bbff542f004fe5f36eca9c97f100be827d2a09db1c",
+     "bytes": 2424
+    },
+    "patched": {
+     "sha256": "f379881e1f40bc573381b078189dd725a8f80f065deb7f69a8602faf1542d6ab",
+     "bytes": 3424
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c947-3pg5-gm8q",
@@ -4545,7 +5745,17 @@
     [18, 23]
    ],
    "commit_url": "https://github.com/pypa/virtualenv/commit/3bddeaf8d02c3ee7f576503efb082f8f494cfcab",
-   "case_id": "121-GHSA-c947-3pg5-gm8q"
+   "case_id": "121-GHSA-c947-3pg5-gm8q",
+   "content": {
+    "vulnerable": {
+     "sha256": "00abb1d6aa381dd6fd136b05c29bb37f3096ff65e9c3c176ed5cec784e1f31dd",
+     "bytes": 793
+    },
+    "patched": {
+     "sha256": "4e9e773134b45a50f2237928de8e4f4a161d325e06cfa7999cd59193a5f1c630",
+     "bytes": 1092
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-77xj-x4rm-935c",
@@ -4574,7 +5784,17 @@
     [395, 398]
    ],
    "commit_url": "https://github.com/datamodel-code-generator/datamodel-code-generator/commit/5e94b8f4203198798ec66b8e48217f70af69a0dc",
-   "case_id": "122-GHSA-77xj-x4rm-935c"
+   "case_id": "122-GHSA-77xj-x4rm-935c",
+   "content": {
+    "vulnerable": {
+     "sha256": "deccf4473cd7e8e190204431854fc3f0c3ea2588ec7a0cc7acb84744d025bbf3",
+     "bytes": 38444
+    },
+    "patched": {
+     "sha256": "9f37f337302d00fdfc625c489d813631a3dcea6bfe362d947fae94a2edf33ccc",
+     "bytes": 38852
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cw24-x4mj-fw3q",
@@ -4602,7 +5822,17 @@
     [94, 94]
    ],
    "commit_url": "https://github.com/indico/indico/commit/d4c8c7127176efa4cb53c64119ca8ee2b551be18",
-   "case_id": "123-GHSA-cw24-x4mj-fw3q"
+   "case_id": "123-GHSA-cw24-x4mj-fw3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "1ecf020be86324aed97dffa838519b3bb141f8ee1555f3c69d96932b689b2b87",
+     "bytes": 10252
+    },
+    "patched": {
+     "sha256": "1a758d2a8147cf45c1f6d454da33bb1510366d52924903aa092d5b7d53e3820f",
+     "bytes": 10264
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cw24-x4mj-fw3q",
@@ -4630,7 +5860,17 @@
     [204, 204]
    ],
    "commit_url": "https://github.com/indico/indico/commit/d4c8c7127176efa4cb53c64119ca8ee2b551be18",
-   "case_id": "124-GHSA-cw24-x4mj-fw3q"
+   "case_id": "124-GHSA-cw24-x4mj-fw3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "5b5b0bedcbf85a1ece3533c30d56575f95ddc161364df7cce04d1d36417318b6",
+     "bytes": 11672
+    },
+    "patched": {
+     "sha256": "fb05aa06004539105038074dfb88cb13330fed18d41d7c38f6c0712e4a35e392",
+     "bytes": 11684
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cw24-x4mj-fw3q",
@@ -4661,7 +5901,17 @@
     [34, 38]
    ],
    "commit_url": "https://github.com/indico/indico/commit/d4c8c7127176efa4cb53c64119ca8ee2b551be18",
-   "case_id": "125-GHSA-cw24-x4mj-fw3q"
+   "case_id": "125-GHSA-cw24-x4mj-fw3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "b744de73878e716ebb971ed09e2f6dfaac5954f52a4e76838f6ddd05ea9d6a87",
+     "bytes": 819
+    },
+    "patched": {
+     "sha256": "b407efa1d66f35d216ae82449a20da1ca53411a3c362980ae051ce3c9d75fb58",
+     "bytes": 1165
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cw24-x4mj-fw3q",
@@ -4687,7 +5937,17 @@
     [233, 234]
    ],
    "commit_url": "https://github.com/indico/indico/commit/d4c8c7127176efa4cb53c64119ca8ee2b551be18",
-   "case_id": "126-GHSA-cw24-x4mj-fw3q"
+   "case_id": "126-GHSA-cw24-x4mj-fw3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "a569cdda83718b0d9e09eb12b3a6562e5b28944d6be66984b7e6c28be29e7b41",
+     "bytes": 8639
+    },
+    "patched": {
+     "sha256": "6a0be90d2891a313a88c2e3613c601ed4f46454899ec6dc1dbb47ab659c81841",
+     "bytes": 8822
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-fr26-jjhm-638c",
@@ -4719,7 +5979,17 @@
     [76, 77]
    ],
    "commit_url": "https://github.com/pyload/pyload/commit/09eec1b431b6942a1917f094f2c77bfbf5637f60",
-   "case_id": "127-GHSA-fr26-jjhm-638c"
+   "case_id": "127-GHSA-fr26-jjhm-638c",
+   "content": {
+    "vulnerable": {
+     "sha256": "fc6737387c74c8c52081d81312eea513c4caa2aed48f66e29be68aee6cc05777",
+     "bytes": 3275
+    },
+    "patched": {
+     "sha256": "0020931227fd556a44ec68be7b63e6c95a834b5ca3098dc5f27f48d4ff84093f",
+     "bytes": 3450
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-j456-xh4h-cpf2",
@@ -4751,7 +6021,17 @@
     [246, 254]
    ],
    "commit_url": "https://github.com/nltk/nltk/commit/6a17606293fe9d3ea1006f99dd3fed2e2b25d519",
-   "case_id": "128-GHSA-j456-xh4h-cpf2"
+   "case_id": "128-GHSA-j456-xh4h-cpf2",
+   "content": {
+    "vulnerable": {
+     "sha256": "9356c0e419d258dc121f6fce23f9cbe8adc5387d079a3fd2ff713ccb16ff8e02",
+     "bytes": 16003
+    },
+    "patched": {
+     "sha256": "addb41f72d086d04570698c703d2778529fe13bf212b90e30cb87dc482f1d2d7",
+     "bytes": 17085
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-26p8-2jq9-3vq9",
@@ -4781,7 +6061,17 @@
     [620, 624]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/a732443e695c3c677680c54320efc394c81654ab",
-   "case_id": "129-GHSA-26p8-2jq9-3vq9"
+   "case_id": "129-GHSA-26p8-2jq9-3vq9",
+   "content": {
+    "vulnerable": {
+     "sha256": "d9ab93a2cd7464b30018d36f0225a3d6b5a4ed67c78f5a31ca9674ab31fd9088",
+     "bytes": 78513
+    },
+    "patched": {
+     "sha256": "5b8ff8b295098e8b86d84bae69317a5fab5164d1932d325fa63a1826985e3b76",
+     "bytes": 80024
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-26p8-2jq9-3vq9",
@@ -4810,7 +6100,17 @@
     [63, 63]
    ],
    "commit_url": "https://github.com/mlflow/mlflow/commit/a732443e695c3c677680c54320efc394c81654ab",
-   "case_id": "130-GHSA-26p8-2jq9-3vq9"
+   "case_id": "130-GHSA-26p8-2jq9-3vq9",
+   "content": {
+    "vulnerable": {
+     "sha256": "184c630899932c9c160955c0ad4c6f64312cdb426f2c9c65c986e2881ee1c52e",
+     "bytes": 11981
+    },
+    "patched": {
+     "sha256": "5d711b7b09fec33e6f0a6cf1f7787d59444fa788686167ba5d8c4b0b28f0cce2",
+     "bytes": 12875
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5639-2j2p-m4mx",
@@ -4838,7 +6138,17 @@
     [269, 274]
    ],
    "commit_url": "https://github.com/sqlalchemy/mako/commit/000ed85e4e48771eff460bf4fc721fb43de80e08",
-   "case_id": "131-GHSA-5639-2j2p-m4mx"
+   "case_id": "131-GHSA-5639-2j2p-m4mx",
+   "content": {
+    "vulnerable": {
+     "sha256": "869cb055b2aa13f173626bb2ee86768c8d3eb7ad081a374f09cdde554341424d",
+     "bytes": 28869
+    },
+    "patched": {
+     "sha256": "bb81d4621716ab7bd2d12bce0cb64e3dd3092d1fa5c0712ab0b2b8f27db8951c",
+     "bytes": 29234
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xpf3-p7gm-7756",
@@ -4874,7 +6184,17 @@
     [60, 77]
    ],
    "commit_url": "https://github.com/blacklanternsecurity/bbot/commit/3bc8d3a96f34f312853c9fcf8decee2a4e905f26",
-   "case_id": "132-GHSA-xpf3-p7gm-7756"
+   "case_id": "132-GHSA-xpf3-p7gm-7756",
+   "content": {
+    "vulnerable": {
+     "sha256": "34b9beb8280a1495d7652e0a911aa05e8c58000b70df81f7f72613ce80f382d0",
+     "bytes": 13939
+    },
+    "patched": {
+     "sha256": "c3d78f47bdebf42260874894936d88ffc81ad01bed8a45ea4a3dadee571bc218",
+     "bytes": 3431
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xpf3-p7gm-7756",
@@ -4901,7 +6221,17 @@
     [115, 124]
    ],
    "commit_url": "https://github.com/blacklanternsecurity/bbot/commit/a3f1a2292e2b0a553827c6175b761abe28807735",
-   "case_id": "133-GHSA-xpf3-p7gm-7756"
+   "case_id": "133-GHSA-xpf3-p7gm-7756",
+   "content": {
+    "vulnerable": {
+     "sha256": "ee22b91258d69221c5125031e668f6f145acc7f77531c76ab580a57c622adf14",
+     "bytes": 7400
+    },
+    "patched": {
+     "sha256": "098bbe8434fce39066c56b6748f096b16a2c3e17a87ba5979f13c21bcb965c44",
+     "bytes": 8004
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-494j-54xm-rwp3",
@@ -4927,7 +6257,17 @@
     [492, 494]
    ],
    "commit_url": "https://github.com/aio-libs/aiohttp/commit/999c356d61e966faffa97b06ab0d0455226d36c5",
-   "case_id": "134-GHSA-494j-54xm-rwp3"
+   "case_id": "134-GHSA-494j-54xm-rwp3",
+   "content": {
+    "vulnerable": {
+     "sha256": "b2e5388e3fb538f14eacea2b188a677b9a98b6e47dea1850ee7fb62fc33a3b8d",
+     "bytes": 26452
+    },
+    "patched": {
+     "sha256": "5d4e198c6c28b418ffcf78d397d7fe35bc57f86f7536c07834d81fc764a86a90",
+     "bytes": 26524
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-27vj-qcqg-25rc",
@@ -4953,7 +6293,17 @@
     [239, 240]
    ],
    "commit_url": "https://github.com/fsspec/filesystem_spec/commit/86438783f93b1398ef245b92f0e6063b445b611c",
-   "case_id": "135-GHSA-27vj-qcqg-25rc"
+   "case_id": "135-GHSA-27vj-qcqg-25rc",
+   "content": {
+    "vulnerable": {
+     "sha256": "755657bdc081d0867a3c21b4fad83d86a441cd831e12fca3caa10870c1e83ad6",
+     "bytes": 37697
+    },
+    "patched": {
+     "sha256": "36ed8d80492b6e354a6d49c53f29f2a367e5d523696661173cc177b0f971f96a",
+     "bytes": 37721
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-27vj-qcqg-25rc",
@@ -4986,7 +6336,17 @@
     [60, 61]
    ],
    "commit_url": "https://github.com/fsspec/filesystem_spec/commit/86438783f93b1398ef245b92f0e6063b445b611c",
-   "case_id": "136-GHSA-27vj-qcqg-25rc"
+   "case_id": "136-GHSA-27vj-qcqg-25rc",
+   "content": {
+    "vulnerable": {
+     "sha256": "fc018e7f2e3abc80ec792ede41193b22098a31b2a1124b0ebfd3ee5bb2e8e580",
+     "bytes": 8502
+    },
+    "patched": {
+     "sha256": "10f850576ee580f958444629ac3113d6f70c79dd79a5534c8adf936b5963a321",
+     "bytes": 7942
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-27vj-qcqg-25rc",
@@ -5012,7 +6372,17 @@
     [444, 447]
    ],
    "commit_url": "https://github.com/fsspec/filesystem_spec/commit/86438783f93b1398ef245b92f0e6063b445b611c",
-   "case_id": "137-GHSA-27vj-qcqg-25rc"
+   "case_id": "137-GHSA-27vj-qcqg-25rc",
+   "content": {
+    "vulnerable": {
+     "sha256": "d5cbef0ba28158e6fca41569734d716af55b10f5ced71b2066f3c3ec7ef733d9",
+     "bytes": 16217
+    },
+    "patched": {
+     "sha256": "c87b8b50636641de69502b7dbe95e57903698cea48659c15640d3c61ab905385",
+     "bytes": 16249
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-27vj-qcqg-25rc",
@@ -5052,7 +6422,17 @@
     [1103, 1105]
    ],
    "commit_url": "https://github.com/fsspec/filesystem_spec/commit/86438783f93b1398ef245b92f0e6063b445b611c",
-   "case_id": "138-GHSA-27vj-qcqg-25rc"
+   "case_id": "138-GHSA-27vj-qcqg-25rc",
+   "content": {
+    "vulnerable": {
+     "sha256": "f3134b700937fe8660f0d032b0ff06bb2e481bd26ce86d9b055be5c88942b5b3",
+     "bytes": 49372
+    },
+    "patched": {
+     "sha256": "60a2f33c117a6cba4e9c763d88cd0c47924b1918b9081eb1d5c58880c6fa0218",
+     "bytes": 49974
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8wpc-h4q6-8fxv",
@@ -5081,7 +6461,17 @@
     [527, 537]
    ],
    "commit_url": "https://github.com/nearform/fast-jwt/commit/e22a151e83bf6d5e54e281216982d204d5665534",
-   "case_id": "139-GHSA-8wpc-h4q6-8fxv"
+   "case_id": "139-GHSA-8wpc-h4q6-8fxv",
+   "content": {
+    "vulnerable": {
+     "sha256": "95dfc09c102c001bcd4f7eb4f5bdf8572aaf5febe268c192972d78c06e219704",
+     "bytes": 19113
+    },
+    "patched": {
+     "sha256": "db565a05d0625c788debf142a8852172591d0a4ee3a4def2e0d5e2dd50af05d0",
+     "bytes": 20268
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qx66-fv34-fjm8",
@@ -5113,7 +6503,17 @@
     [41, 48]
    ],
    "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
-   "case_id": "140-GHSA-qx66-fv34-fjm8"
+   "case_id": "140-GHSA-qx66-fv34-fjm8",
+   "content": {
+    "vulnerable": {
+     "sha256": "808b61d758867e7b6b7e73255d55b7f1778e6b106820c506df610681e8eded80",
+     "bytes": 4063
+    },
+    "patched": {
+     "sha256": "92b343b28241a111b3e0040342da8d045a8ed4882b2d7f9c75a65ad94fd2ccb7",
+     "bytes": 4443
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qx66-fv34-fjm8",
@@ -5142,7 +6542,17 @@
     [189, 190]
    ],
    "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
-   "case_id": "141-GHSA-qx66-fv34-fjm8"
+   "case_id": "141-GHSA-qx66-fv34-fjm8",
+   "content": {
+    "vulnerable": {
+     "sha256": "6ad1562d7e6997d6c617f289a85fcd07b7db8aafbe0ecd3fae112879069e4788",
+     "bytes": 25456
+    },
+    "patched": {
+     "sha256": "313c70e8cd76a1c81f437abf3a6b93866ea172c4f983e3698402f027d59229da",
+     "bytes": 25525
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qx66-fv34-fjm8",
@@ -5184,7 +6594,17 @@
     [161, 169]
    ],
    "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
-   "case_id": "142-GHSA-qx66-fv34-fjm8"
+   "case_id": "142-GHSA-qx66-fv34-fjm8",
+   "content": {
+    "vulnerable": {
+     "sha256": "891f8cea9a0374de666f613b2cb135a117fe8184947e45771cf8011a858fd800",
+     "bytes": 11721
+    },
+    "patched": {
+     "sha256": "bbdbb2373580907e0b41da0d0099c2fe741121fcd8a964a814afc1aea410e812",
+     "bytes": 12462
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qx66-fv34-fjm8",
@@ -5213,7 +6633,17 @@
     [21, 31]
    ],
    "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
-   "case_id": "143-GHSA-qx66-fv34-fjm8"
+   "case_id": "143-GHSA-qx66-fv34-fjm8",
+   "content": {
+    "vulnerable": {
+     "sha256": "dc64e42e0b6789435762ba4b91c73ad51f060c790f6c1e9321507254a6b2cba2",
+     "bytes": 1104
+    },
+    "patched": {
+     "sha256": "638bd866ed4bc1e9d0197dad24121e55fc220b3b5be0dc70a12f1dc411458784",
+     "bytes": 1311
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qx66-fv34-fjm8",
@@ -5253,7 +6683,17 @@
     [533, 534]
    ],
    "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
-   "case_id": "144-GHSA-qx66-fv34-fjm8"
+   "case_id": "144-GHSA-qx66-fv34-fjm8",
+   "content": {
+    "vulnerable": {
+     "sha256": "b69c83820005ebfc5ba075fb007aeb41f2eae51e2a87d539cc023374697fa20d",
+     "bytes": 15641
+    },
+    "patched": {
+     "sha256": "8dfd30cf2d4b74bcad991b4799f19ab8b0a421bee6d59d8f4f23cb74f9e3c4ac",
+     "bytes": 15827
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v6pj-gxxw-phfw",
@@ -5281,7 +6721,17 @@
     [166, 166]
    ],
    "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/144b8f4ef29539a9fb4b75d972b9dcdac4088b4e",
-   "case_id": "145-GHSA-v6pj-gxxw-phfw"
+   "case_id": "145-GHSA-v6pj-gxxw-phfw",
+   "content": {
+    "vulnerable": {
+     "sha256": "e4c4534c4b860447ec4daabe1b60059fcd915206daf8862c003a5afc87fb8a42",
+     "bytes": 8852
+    },
+    "patched": {
+     "sha256": "361ba9ccc8d8b9e6fe63c862e27568d7c8f8adf939d7b498c7116b4537087935",
+     "bytes": 9438
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v6pj-gxxw-phfw",
@@ -5307,7 +6757,17 @@
     [229, 229]
    ],
    "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/144b8f4ef29539a9fb4b75d972b9dcdac4088b4e",
-   "case_id": "146-GHSA-v6pj-gxxw-phfw"
+   "case_id": "146-GHSA-v6pj-gxxw-phfw",
+   "content": {
+    "vulnerable": {
+     "sha256": "3e0c3c143a346cefee5508f7a595a2267c60bc9f10b76836ae1caa8bcd0ce9de",
+     "bytes": 12751
+    },
+    "patched": {
+     "sha256": "93634a74b0d68d551ae50e12713e90c15af900c1fec1a9f718bb7bda5e031e0e",
+     "bytes": 12761
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v6pj-gxxw-phfw",
@@ -5333,7 +6793,17 @@
     [219, 220]
    ],
    "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/144b8f4ef29539a9fb4b75d972b9dcdac4088b4e",
-   "case_id": "147-GHSA-v6pj-gxxw-phfw"
+   "case_id": "147-GHSA-v6pj-gxxw-phfw",
+   "content": {
+    "vulnerable": {
+     "sha256": "99b6cbdeb0148ccf58b1f14e017c5d89a0a78e615dc3a0510bc5c15b9eeee2de",
+     "bytes": 8925
+    },
+    "patched": {
+     "sha256": "660284e98b1e85cebb54234e59c10eae3ac9b2a826990554cd0493d672677b79",
+     "bytes": 8945
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-9jhj-wvmw-cfx5",
@@ -5361,7 +6831,17 @@
     [94, 96]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/042c3d4e4e9d73b2ae3aa76b22cb45d48f1e35b7",
-   "case_id": "148-GHSA-9jhj-wvmw-cfx5"
+   "case_id": "148-GHSA-9jhj-wvmw-cfx5",
+   "content": {
+    "vulnerable": {
+     "sha256": "90188303943c13eecddd40a0b1027d00d95c0964a548dadbb8fcc7ee34b29234",
+     "bytes": 13377
+    },
+    "patched": {
+     "sha256": "24d0a6f50d0daf288c97cc7d046aa760255296a56077d300af386ddeff1783a8",
+     "bytes": 13520
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-9jhj-wvmw-cfx5",
@@ -5389,7 +6869,17 @@
     [176, 183]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/042c3d4e4e9d73b2ae3aa76b22cb45d48f1e35b7",
-   "case_id": "149-GHSA-9jhj-wvmw-cfx5"
+   "case_id": "149-GHSA-9jhj-wvmw-cfx5",
+   "content": {
+    "vulnerable": {
+     "sha256": "7b02d4101df37c5dae1c1ab43708c99b244f922342869116b5b5e7e4378210a1",
+     "bytes": 6555
+    },
+    "patched": {
+     "sha256": "30e2e3939f557cdd7930a5366d822ec9f192d5f2806d4bd5fcec36606874a6e2",
+     "bytes": 7078
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-mpr7-6m5w-76rw",
@@ -5419,7 +6909,17 @@
     [209, 209]
    ],
    "commit_url": "https://github.com/withastro/astro/commit/0b4dc3a211910b589d3805ab4dfedf11b0e712bb",
-   "case_id": "150-GHSA-mpr7-6m5w-76rw"
+   "case_id": "150-GHSA-mpr7-6m5w-76rw",
+   "content": {
+    "vulnerable": {
+     "sha256": "d9e8e35f6755f65b06cf826a5011a137b5a6450f835af72e481dd573e1e7357f",
+     "bytes": 8484
+    },
+    "patched": {
+     "sha256": "9ca357ffe7cae7b8110169c92ada76eff731f7abab23ea0ac9c317a2e671aff0",
+     "bytes": 8860
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-9ghw-48h5-v2w5",
@@ -5445,7 +6945,17 @@
     [351, 362]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/233287d0ce3133e41549bf92a7470c940a41753c",
-   "case_id": "151-GHSA-9ghw-48h5-v2w5"
+   "case_id": "151-GHSA-9ghw-48h5-v2w5",
+   "content": {
+    "vulnerable": {
+     "sha256": "856982472b6b4e64686adcbc72c0e132bf82669b688249419c32ce974ad08fd4",
+     "bytes": 10991
+    },
+    "patched": {
+     "sha256": "d7f460a75feb7f6327e2471f3a0fa51a1424c126abbb5008106c38031305d0d9",
+     "bytes": 11336
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8rc2-428q-7ww3",
@@ -5476,7 +6986,17 @@
     [820, 829]
    ],
    "commit_url": "https://github.com/intlify/vue-i18n/commit/d657ce8f4b3b6b198a8f6e3d09e2b57a5d019fb8",
-   "case_id": "152-GHSA-8rc2-428q-7ww3"
+   "case_id": "152-GHSA-8rc2-428q-7ww3",
+   "content": {
+    "vulnerable": {
+     "sha256": "6fd36d61747d7ec343f40db3feeac1c8c8fbfe7a802ac7760c96f9778aa92815",
+     "bytes": 36813
+    },
+    "patched": {
+     "sha256": "f06a335bd46fd5b4177b140c23401d2166e8691924ec16b29df7e62e8e6ffda6",
+     "bytes": 37034
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-347q-26qq-h2p6",
@@ -5506,7 +7026,17 @@
     [248, 261]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/b41fe3f2c399cef058e6b487782a0b2263e86c03",
-   "case_id": "153-GHSA-347q-26qq-h2p6"
+   "case_id": "153-GHSA-347q-26qq-h2p6",
+   "content": {
+    "vulnerable": {
+     "sha256": "7c7557febcb312dce65215b2d0346d41e472d4f2798b3a6bbfdebdf43cc75503",
+     "bytes": 24493
+    },
+    "patched": {
+     "sha256": "f62f49e94e57c01b86ca6b2bfba10ecad963570f2163f2d15a97f2c517832579",
+     "bytes": 25378
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r5mf-4r5x-q78f",
@@ -5533,7 +7063,17 @@
     [286, 287]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/61c2bd8a607785fdade72cce20e8faf1de7eee15",
-   "case_id": "154-GHSA-r5mf-4r5x-q78f"
+   "case_id": "154-GHSA-r5mf-4r5x-q78f",
+   "content": {
+    "vulnerable": {
+     "sha256": "a4bdbb6088d3f96c75c2ca16545a05fe1c50e2071ec8a0a8ce1dec264761c064",
+     "bytes": 11627
+    },
+    "patched": {
+     "sha256": "705ad2ce765ff9de849360b9b332bac11dde4ddd7de083c86e4052a90cc4cb57",
+     "bytes": 10435
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r5mf-4r5x-q78f",
@@ -5569,7 +7109,17 @@
     [85, 85]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/61c2bd8a607785fdade72cce20e8faf1de7eee15",
-   "case_id": "155-GHSA-r5mf-4r5x-q78f"
+   "case_id": "155-GHSA-r5mf-4r5x-q78f",
+   "content": {
+    "vulnerable": {
+     "sha256": "addb06320e951e507e42cbe988ac8eeeb3203756578b343d3b883d284603b911",
+     "bytes": 1902
+    },
+    "patched": {
+     "sha256": "2a47a672746807ebb25c1f1c6f93b282e1d40b43bccc8a381b2f91ca176f1ee2",
+     "bytes": 1888
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r5mf-4r5x-q78f",
@@ -5598,7 +7148,17 @@
     [64, 64]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/61c2bd8a607785fdade72cce20e8faf1de7eee15",
-   "case_id": "156-GHSA-r5mf-4r5x-q78f"
+   "case_id": "156-GHSA-r5mf-4r5x-q78f",
+   "content": {
+    "vulnerable": {
+     "sha256": "97edc2e4209ef0f79055ccf9a364619d6176ec99bba2aa7c9eef9b1eb55268a0",
+     "bytes": 1242
+    },
+    "patched": {
+     "sha256": "e6def91e68e7b0c4d81cb81a93347fd96e66423efdf2b2a979a1021ad2f15bfd",
+     "bytes": 1508
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvq9-wjp8-hwqf",
@@ -5626,7 +7186,17 @@
     [27, 29]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/07e028862b25d0b9251bf3cafb92be2d35285f85",
-   "case_id": "157-GHSA-xvq9-wjp8-hwqf"
+   "case_id": "157-GHSA-xvq9-wjp8-hwqf",
+   "content": {
+    "vulnerable": {
+     "sha256": "1c82ca7a89c544f381a774672e2546e6276137fd943e54f15e83a1843851b526",
+     "bytes": 13307
+    },
+    "patched": {
+     "sha256": "90188303943c13eecddd40a0b1027d00d95c0964a548dadbb8fcc7ee34b29234",
+     "bytes": 13377
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvq9-wjp8-hwqf",
@@ -5656,7 +7226,17 @@
     [68, 73]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/07e028862b25d0b9251bf3cafb92be2d35285f85",
-   "case_id": "158-GHSA-xvq9-wjp8-hwqf"
+   "case_id": "158-GHSA-xvq9-wjp8-hwqf",
+   "content": {
+    "vulnerable": {
+     "sha256": "e31fe3103589e0ce98c1a134b10bdb87eed7c655e31562f6516af8bda1bef3be",
+     "bytes": 5883
+    },
+    "patched": {
+     "sha256": "7b02d4101df37c5dae1c1ab43708c99b244f922342869116b5b5e7e4378210a1",
+     "bytes": 6555
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hrvq-x7jp-36xv",
@@ -5687,7 +7267,17 @@
     [172, 174]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/38cd82a0c05e8212e538bdb87ccb198d6504e58f",
-   "case_id": "159-GHSA-hrvq-x7jp-36xv"
+   "case_id": "159-GHSA-hrvq-x7jp-36xv",
+   "content": {
+    "vulnerable": {
+     "sha256": "5fd6a1ade4d6bf280ea4c28d2f686bb603366927c4e6f70c826873c886f3c242",
+     "bytes": 20929
+    },
+    "patched": {
+     "sha256": "415d1e2467e497548b6a8725e9f95090458bac05390d65e8ba2dbe6163208732",
+     "bytes": 21602
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hrvq-x7jp-36xv",
@@ -5713,7 +7303,17 @@
     [24, 40]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/38cd82a0c05e8212e538bdb87ccb198d6504e58f",
-   "case_id": "160-GHSA-hrvq-x7jp-36xv"
+   "case_id": "160-GHSA-hrvq-x7jp-36xv",
+   "content": {
+    "vulnerable": {
+     "sha256": "5b6eabf93af7a99fdc1397523f1dd88273afe344ba65529ad3c1283efa5f44c3",
+     "bytes": 1458
+    },
+    "patched": {
+     "sha256": "32fde59cdbc3730a754cd4d80f0318cb034e7cd6ddb5de438a3cc53382da34fd",
+     "bytes": 2008
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-hrvq-x7jp-36xv",
@@ -5746,7 +7346,17 @@
     [115, 115]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/95474ab457e8e1dbdbefad29040c166105a8fb90",
-   "case_id": "161-GHSA-hrvq-x7jp-36xv"
+   "case_id": "161-GHSA-hrvq-x7jp-36xv",
+   "content": {
+    "vulnerable": {
+     "sha256": "c6d8e6455cfa64d96eff1997229df750d54ada4e2943352a7e2d01cd4fac043f",
+     "bytes": 7210
+    },
+    "patched": {
+     "sha256": "5e191dcf0c3ea7a165b7f58aad32c77bed16c41079c4d4c5d1c584bce5bd5105",
+     "bytes": 6839
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-83rm-6c8r-g728",
@@ -5779,7 +7389,17 @@
     [158, 169]
    ],
    "commit_url": "https://github.com/intlify/vue-i18n/commit/43391d20e7c85403cb59bdb21b5d542819f54042",
-   "case_id": "162-GHSA-83rm-6c8r-g728"
+   "case_id": "162-GHSA-83rm-6c8r-g728",
+   "content": {
+    "vulnerable": {
+     "sha256": "49741b6df90b3b8119355233be8c0df1e79398c6209e3bc00dcb8a15e3fd52df",
+     "bytes": 5069
+    },
+    "patched": {
+     "sha256": "04ef8710d84e1003d9f48e14ead133478d81a04461ec7850a00124d5e7971dd0",
+     "bytes": 5793
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-35rr-xwfh-x789",
@@ -5809,7 +7429,17 @@
     [356, 357]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
-   "case_id": "163-GHSA-35rr-xwfh-x789"
+   "case_id": "163-GHSA-35rr-xwfh-x789",
+   "content": {
+    "vulnerable": {
+     "sha256": "73598d58e615e81ba26082318ea74ff4fe8b1d9765f3e744533d01744f09b164",
+     "bytes": 85717
+    },
+    "patched": {
+     "sha256": "3f4f582c0f6dd66ebc710aa17d239575d8b85025433eb98a1327ff69bdeb78a5",
+     "bytes": 85082
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-35rr-xwfh-x789",
@@ -5840,7 +7470,17 @@
     [586, 587]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
-   "case_id": "164-GHSA-35rr-xwfh-x789"
+   "case_id": "164-GHSA-35rr-xwfh-x789",
+   "content": {
+    "vulnerable": {
+     "sha256": "338933568de15f24c38c0eabfe7e534b5492c4536f78d4e5b3b906aa2f2b9811",
+     "bytes": 25044
+    },
+    "patched": {
+     "sha256": "ee1eed2da0ebd5b3b5e4a0531c52d7835d966e64970566425950da8680beb820",
+     "bytes": 24831
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-35rr-xwfh-x789",
@@ -5866,7 +7506,17 @@
     [268, 268]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
-   "case_id": "165-GHSA-35rr-xwfh-x789"
+   "case_id": "165-GHSA-35rr-xwfh-x789",
+   "content": {
+    "vulnerable": {
+     "sha256": "22ac1a2f70d8485dd9ac0686b039be7888ff275b5955782c46d0ef8d626c68f4",
+     "bytes": 7424
+    },
+    "patched": {
+     "sha256": "212a08c265a6f3d17ab6094c5e2d0063dab3b055736d5a34c486a262aaff9db6",
+     "bytes": 7420
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xp26-3454-mjgp",
@@ -5900,7 +7550,17 @@
     [483, 485]
    ],
    "commit_url": "https://github.com/vitest-dev/vitest/commit/15cc006aa9f8683dc5f7e895d011fa7dc751ce35",
-   "case_id": "166-GHSA-xp26-3454-mjgp"
+   "case_id": "166-GHSA-xp26-3454-mjgp",
+   "content": {
+    "vulnerable": {
+     "sha256": "eee05b74e2e748885fabfb1ea1fd16311fda71bdda2b5d2e787e9354cba0c338",
+     "bytes": 20960
+    },
+    "patched": {
+     "sha256": "9ec2e9f3524b351980094489c1bf34de2159b896944a60392732a0c84000403e",
+     "bytes": 21055
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xp26-3454-mjgp",
@@ -5935,7 +7595,17 @@
     [123, 124]
    ],
    "commit_url": "https://github.com/vitest-dev/vitest/commit/15cc006aa9f8683dc5f7e895d011fa7dc751ce35",
-   "case_id": "167-GHSA-xp26-3454-mjgp"
+   "case_id": "167-GHSA-xp26-3454-mjgp",
+   "content": {
+    "vulnerable": {
+     "sha256": "0d5f9d20ff90dcf43f7af902bbb5791ae6c8f65f3f1ea77c4585e8ed0d6c81cd",
+     "bytes": 4257
+    },
+    "patched": {
+     "sha256": "159d50a248563c454c079ff7f319f48226e997b716da7a57da77867e5df70033",
+     "bytes": 4333
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xp26-3454-mjgp",
@@ -5965,7 +7635,17 @@
     [27, 27]
    ],
    "commit_url": "https://github.com/vitest-dev/vitest/commit/15cc006aa9f8683dc5f7e895d011fa7dc751ce35",
-   "case_id": "168-GHSA-xp26-3454-mjgp"
+   "case_id": "168-GHSA-xp26-3454-mjgp",
+   "content": {
+    "vulnerable": {
+     "sha256": "e0d3875a88ca2581c2432b92b4c3f981c3b2c92f7db426a1836d0e4b3ea511da",
+     "bytes": 885
+    },
+    "patched": {
+     "sha256": "e11b990c9322c1e24c39de77ab54430be1d32e29064a7cb4342c1ce91d046373",
+     "bytes": 941
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w658-mh9p-ww8f",
@@ -6002,7 +7682,17 @@
     [285, 348]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/3214dc8f15d4a08a2fd07a72a8fe4d00aeac0db4",
-   "case_id": "169-GHSA-w658-mh9p-ww8f"
+   "case_id": "169-GHSA-w658-mh9p-ww8f",
+   "content": {
+    "vulnerable": {
+     "sha256": "8558afb9bd0d96e24c96b852c959ad9eeb5f710c93f3f8427910851f2b454bda",
+     "bytes": 7122
+    },
+    "patched": {
+     "sha256": "fd4914efac95ec0891a963ec0dec3d691de69a2664e2c7eb345ee96027675c46",
+     "bytes": 10695
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-75qf-886x-5xf2",
@@ -6032,7 +7722,17 @@
     [173, 173]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/506c2c11bce3ed9d1f8f50de5d6474b16e43a65e",
-   "case_id": "170-GHSA-75qf-886x-5xf2"
+   "case_id": "170-GHSA-75qf-886x-5xf2",
+   "content": {
+    "vulnerable": {
+     "sha256": "aa02f8d372dc134d00dd9bcff772368862bd64bc627398da52d0f5e03fb56843",
+     "bytes": 6580
+    },
+    "patched": {
+     "sha256": "e2724f869cf139b409828ef986865102a8fa2f4c1aaa8680e6a07ca6f85df5b6",
+     "bytes": 6647
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8575-cr6v-7jh4",
@@ -6064,7 +7764,17 @@
     [465, 477]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/80686226d23df56749f6b7ebb484850a8eba8072",
-   "case_id": "171-GHSA-8575-cr6v-7jh4"
+   "case_id": "171-GHSA-8575-cr6v-7jh4",
+   "content": {
+    "vulnerable": {
+     "sha256": "44a132cd7e6c7d819c9acd580b4783cbd4f96cc32f5d8df88c49e49a0a07bbdb",
+     "bytes": 14252
+    },
+    "patched": {
+     "sha256": "b3bcfd168f0c4c3704d0e1d7618deba8fa3b67a9d18e96d34e38003ed30f3ae1",
+     "bytes": 15059
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r825-w8mm-5pxw",
@@ -6094,7 +7804,17 @@
     [19, 19]
    ],
    "commit_url": "https://github.com/vitejs/launch-editor/commit/f6e6701bb1f16f2dd242b321374f1b6cca6eb6d4",
-   "case_id": "172-GHSA-r825-w8mm-5pxw"
+   "case_id": "172-GHSA-r825-w8mm-5pxw",
+   "content": {
+    "vulnerable": {
+     "sha256": "5949bec99fc058df02ed698fc9ac258839c3215df3174f57ae815f7a86263939",
+     "bytes": 2686
+    },
+    "patched": {
+     "sha256": "66d992a728fdfedb49bc133749dc2a14528b188c3fa85378e441638a8d822404",
+     "bytes": 2730
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rq7h-c2jc-7f22",
@@ -6123,7 +7843,17 @@
     [590, 592]
    ],
    "commit_url": "https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa",
-   "case_id": "173-GHSA-rq7h-c2jc-7f22"
+   "case_id": "173-GHSA-rq7h-c2jc-7f22",
+   "content": {
+    "vulnerable": {
+     "sha256": "04a08f5cca0fbb0561f5714aa0393aeef85a51f692caa05d7cf423e66d36b1b1",
+     "bytes": 39547
+    },
+    "patched": {
+     "sha256": "a84df82813bd8d3c54afea2f9e58c9dc341930b9e79d4f0299a3d712fc1d29ac",
+     "bytes": 39369
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rq7h-c2jc-7f22",
@@ -6152,7 +7882,17 @@
     [42, 46]
    ],
    "commit_url": "https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa",
-   "case_id": "174-GHSA-rq7h-c2jc-7f22"
+   "case_id": "174-GHSA-rq7h-c2jc-7f22",
+   "content": {
+    "vulnerable": {
+     "sha256": "89f3e7dc60a727fd4c75d8c3888edc7d1cffdd5c3ada54681b6f2a8fa653cb0f",
+     "bytes": 1030
+    },
+    "patched": {
+     "sha256": "355a3e5ba1f8ae43acdf83c37504304d3e242e2ab453ce857570fd750bee1efb",
+     "bytes": 1129
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rq7h-c2jc-7f22",
@@ -6181,7 +7921,17 @@
     [25, 25]
    ],
    "commit_url": "https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa",
-   "case_id": "175-GHSA-rq7h-c2jc-7f22"
+   "case_id": "175-GHSA-rq7h-c2jc-7f22",
+   "content": {
+    "vulnerable": {
+     "sha256": "6907b132940d579e4073a17de268ce547fad682877f526b027b5a966c4356dd3",
+     "bytes": 599
+    },
+    "patched": {
+     "sha256": "02828cdd4751097590cc86bf3e416449c1601d333dc90f815fa0f4ba037a48f4",
+     "bytes": 681
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rq7h-c2jc-7f22",
@@ -6210,7 +7960,17 @@
     [38, 42]
    ],
    "commit_url": "https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa",
-   "case_id": "176-GHSA-rq7h-c2jc-7f22"
+   "case_id": "176-GHSA-rq7h-c2jc-7f22",
+   "content": {
+    "vulnerable": {
+     "sha256": "171b3a02def9e453bdfbebf96a64f525cd138f4a058a029e9a63a61dc81c3a12",
+     "bytes": 961
+    },
+    "patched": {
+     "sha256": "8f2f3106ce6570567838aac0d33cad7d5751176dc4107abcc2a3fa57426ebe68",
+     "bytes": 1060
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-vhhq-m2gm-rwc9",
@@ -6244,7 +8004,17 @@
     [683, 684]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/cdd4daeec839215540221122763c7a17cd478abc",
-   "case_id": "177-GHSA-vhhq-m2gm-rwc9"
+   "case_id": "177-GHSA-vhhq-m2gm-rwc9",
+   "content": {
+    "vulnerable": {
+     "sha256": "a557badcc5d8619770f2d677a95047c64d0c663a47b8eed837c55573ccd7dd8a",
+     "bytes": 22236
+    },
+    "patched": {
+     "sha256": "de1a39fd812800a22292f19ce654847e8d05b0d7872a708c6be89f512be3ebac",
+     "bytes": 22367
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-gfjp-2p8f-94qv",
@@ -6273,7 +8043,17 @@
     [24, 35]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/58669d5c8b898f8b69c1287c2779b29ecc7eb918",
-   "case_id": "178-GHSA-gfjp-2p8f-94qv"
+   "case_id": "178-GHSA-gfjp-2p8f-94qv",
+   "content": {
+    "vulnerable": {
+     "sha256": "11d395b866d30c10833c5b2fd09d3bb8a6aa27c528640eaf49317572a494bb5b",
+     "bytes": 708
+    },
+    "patched": {
+     "sha256": "b60cfeb8989690868e79f2396559e7cdc2cf4b329e94ebef468db5e67439a1cd",
+     "bytes": 1359
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-gfjp-2p8f-94qv",
@@ -6303,7 +8083,17 @@
     [286, 286]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/58669d5c8b898f8b69c1287c2779b29ecc7eb918",
-   "case_id": "179-GHSA-gfjp-2p8f-94qv"
+   "case_id": "179-GHSA-gfjp-2p8f-94qv",
+   "content": {
+    "vulnerable": {
+     "sha256": "225778b05db3b5fbef7d03d88e41ecb52e335ea47b1fc04f6ba44997d89f6828",
+     "bytes": 11213
+    },
+    "patched": {
+     "sha256": "abe2d78fd78c5a89fcc07061569e34e9c7e8c4ae625db2f79a2fe4fd261dac0f",
+     "bytes": 11807
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r3rv-jm3r-62q2",
@@ -6349,7 +8139,17 @@
     [679, 685]
    ],
    "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/6995c8cf8e51b2ad055de63dcaa4094eebbef5ce",
-   "case_id": "180-GHSA-r3rv-jm3r-62q2"
+   "case_id": "180-GHSA-r3rv-jm3r-62q2",
+   "content": {
+    "vulnerable": {
+     "sha256": "8cd232ff390f602b8b32f4be9baf65fd55d3fdc4183f47abbf97e19c196bdedf",
+     "bytes": 25272
+    },
+    "patched": {
+     "sha256": "6cc0f97ce6d7267f8701bb9aad494bffaf8342829e50f01bac451f8067069f6b",
+     "bytes": 27016
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r3rv-jm3r-62q2",
@@ -6392,7 +8192,17 @@
     [258, 259]
    ],
    "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/6995c8cf8e51b2ad055de63dcaa4094eebbef5ce",
-   "case_id": "181-GHSA-r3rv-jm3r-62q2"
+   "case_id": "181-GHSA-r3rv-jm3r-62q2",
+   "content": {
+    "vulnerable": {
+     "sha256": "d625926775aaf8880a24dbe7739d6827c2646261b9714e1673d0987c6f2c730a",
+     "bytes": 8074
+    },
+    "patched": {
+     "sha256": "04fbd4b86c47fb21f5ca55cbb090c2dc65253d63575eef4383eb8f65178eaff9",
+     "bytes": 8750
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvh9-35w9-42m4",
@@ -6423,7 +8233,17 @@
     [84, 88]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
-   "case_id": "182-GHSA-xvh9-35w9-42m4"
+   "case_id": "182-GHSA-xvh9-35w9-42m4",
+   "content": {
+    "vulnerable": {
+     "sha256": "87305437f2add313ccc90638b44d29306ffc88c148709fdcddc64ee2017055d5",
+     "bytes": 13770
+    },
+    "patched": {
+     "sha256": "1939f974246fd8f09a7c2acfe8ce13ccfadee4f6eaa96178bb428ac620340ec1",
+     "bytes": 13962
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvh9-35w9-42m4",
@@ -6454,7 +8274,17 @@
     [51, 54]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
-   "case_id": "183-GHSA-xvh9-35w9-42m4"
+   "case_id": "183-GHSA-xvh9-35w9-42m4",
+   "content": {
+    "vulnerable": {
+     "sha256": "d005a1c9772bad3a30f790b979c7154ac2ab1149caa935426c6cf90bb5f16e10",
+     "bytes": 8349
+    },
+    "patched": {
+     "sha256": "50e24ace598abef4ebb153fa329eb721f97806323962e11c1c41f739bb8207e0",
+     "bytes": 8535
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvh9-35w9-42m4",
@@ -6482,7 +8312,17 @@
     [31, 53]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
-   "case_id": "184-GHSA-xvh9-35w9-42m4"
+   "case_id": "184-GHSA-xvh9-35w9-42m4",
+   "content": {
+    "vulnerable": {
+     "sha256": "f99094e09d293dfd85df0e108233ab1cbb649925a4082707dfe7955204004184",
+     "bytes": 2029
+    },
+    "patched": {
+     "sha256": "a318d5a8ca5d0af27eea0227b9646c74c9fd5370f8b0f4cc44dc2778c27203ff",
+     "bytes": 2710
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvh9-35w9-42m4",
@@ -6514,7 +8354,17 @@
     [269, 278]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
-   "case_id": "185-GHSA-xvh9-35w9-42m4"
+   "case_id": "185-GHSA-xvh9-35w9-42m4",
+   "content": {
+    "vulnerable": {
+     "sha256": "7116bafc622bc922f75392d2ea575db3dae01d2eb5c45040809a7b8d96a93b77",
+     "bytes": 8078
+    },
+    "patched": {
+     "sha256": "2f45e142cd120e1d0e7dd8eeecbf7299b5e6a557922035d817fd034c6b475983",
+     "bytes": 8791
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xvh9-35w9-42m4",
@@ -6546,7 +8396,17 @@
     [259, 270]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
-   "case_id": "186-GHSA-xvh9-35w9-42m4"
+   "case_id": "186-GHSA-xvh9-35w9-42m4",
+   "content": {
+    "vulnerable": {
+     "sha256": "41bdbf663df5fc24936911b73fb803abee7e1ae12e54dcb6a22f2b9dc0255362",
+     "bytes": 7662
+    },
+    "patched": {
+     "sha256": "5da7c178cae931bb7a5c9f17806122596759fe4028e1566694926b235570fdaf",
+     "bytes": 8307
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q6mq-ch85-c8mm",
@@ -6578,7 +8438,17 @@
     [140, 140]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
-   "case_id": "187-GHSA-q6mq-ch85-c8mm"
+   "case_id": "187-GHSA-q6mq-ch85-c8mm",
+   "content": {
+    "vulnerable": {
+     "sha256": "73a6ff49af6d96f558d9c3356b45966dd95d84b98ed4a5742f02efe76bbdd436",
+     "bytes": 3771
+    },
+    "patched": {
+     "sha256": "0c046287d0ec072481f325ab26ce6054107d7a9135f64779b9501b0aa6e7267a",
+     "bytes": 4125
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q6mq-ch85-c8mm",
@@ -6622,7 +8492,17 @@
     [254, 257]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
-   "case_id": "188-GHSA-q6mq-ch85-c8mm"
+   "case_id": "188-GHSA-q6mq-ch85-c8mm",
+   "content": {
+    "vulnerable": {
+     "sha256": "0cfa061db0093763bfece44a3f5e9116ec3f7d527e18e707915b63fdbe09a8b1",
+     "bytes": 24912
+    },
+    "patched": {
+     "sha256": "c74409d86c1ca1fb549cd58ddaf2783105f8c52710c93945b46a3776313f7510",
+     "bytes": 25324
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q6mq-ch85-c8mm",
@@ -6652,7 +8532,17 @@
     [299, 329]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
-   "case_id": "189-GHSA-q6mq-ch85-c8mm"
+   "case_id": "189-GHSA-q6mq-ch85-c8mm",
+   "content": {
+    "vulnerable": {
+     "sha256": "ee83ca4972dab0401cfb658e6da04d2834c237cfafe42e52aeda578e3e4640c0",
+     "bytes": 11674
+    },
+    "patched": {
+     "sha256": "edab5376999448a751493f5a16de2810cfcce56057b68534b002eacf19ccdc69",
+     "bytes": 12843
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q6mq-ch85-c8mm",
@@ -6686,7 +8576,17 @@
     [41, 44]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
-   "case_id": "190-GHSA-q6mq-ch85-c8mm"
+   "case_id": "190-GHSA-q6mq-ch85-c8mm",
+   "content": {
+    "vulnerable": {
+     "sha256": "71c81831af3c01f76bc07bb3aa5de75b624f5db7f249b4f4427e3944f08f1560",
+     "bytes": 1053
+    },
+    "patched": {
+     "sha256": "b1dca1de7a4eb85cad66fc77790ceade1d655712cde7efb7fa77c0b98c2823ed",
+     "bytes": 1478
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q6mq-ch85-c8mm",
@@ -6721,7 +8621,17 @@
     [69, 111]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
-   "case_id": "191-GHSA-q6mq-ch85-c8mm"
+   "case_id": "191-GHSA-q6mq-ch85-c8mm",
+   "content": {
+    "vulnerable": {
+     "sha256": "11b723fa78575c36934cb7ca8acab228252538b879403f153ccdcab609e6d565",
+     "bytes": 1645
+    },
+    "patched": {
+     "sha256": "1f6220cdbecf2efe6f6b77c62b8c60ba284e2972f2599898a72fd3ec30abe177",
+     "bytes": 2921
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c6gr-qvv4-5v3f",
@@ -6893,7 +8803,17 @@
     [3311, 3324]
    ],
    "commit_url": "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
-   "case_id": "192-GHSA-c6gr-qvv4-5v3f"
+   "case_id": "192-GHSA-c6gr-qvv4-5v3f",
+   "content": {
+    "vulnerable": {
+     "sha256": "8989c72ac4a4286b98f432f083a466266c976873c4382632fd60faaaaf1bfd98",
+     "bytes": 121644
+    },
+    "patched": {
+     "sha256": "204ff31c5c71ac9da67bb3bfda85fb3bc27c070144efbe74f2f014c937cc2082",
+     "bytes": 119728
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c6gr-qvv4-5v3f",
@@ -6925,7 +8845,17 @@
     [368, 368]
    ],
    "commit_url": "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
-   "case_id": "193-GHSA-c6gr-qvv4-5v3f"
+   "case_id": "193-GHSA-c6gr-qvv4-5v3f",
+   "content": {
+    "vulnerable": {
+     "sha256": "396f7fa8ddc7c96932b8ed48a463a3f2762571063fbb746fa22213a4b83a42ac",
+     "bytes": 8360
+    },
+    "patched": {
+     "sha256": "c7cb3c3a37f304be6b52b6ea076ade726d773daf78bde33e6492f104c19d949d",
+     "bytes": 9477
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5m6h-8g35-p3m7",
@@ -6951,7 +8881,17 @@
     [19, 22]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/91271c38859bec51e154b60c24497a637ce903d7",
-   "case_id": "194-GHSA-5m6h-8g35-p3m7"
+   "case_id": "194-GHSA-5m6h-8g35-p3m7",
+   "content": {
+    "vulnerable": {
+     "sha256": "385b6426f015a548171dc12d6305807d3ac12d3c4b3c8cc97a53c2c02f80212a",
+     "bytes": 1627
+    },
+    "patched": {
+     "sha256": "3f49ddcbb51fe12e033619662b7e40398eaadb7e928bb96384bce390a681dc74",
+     "bytes": 1714
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5m6h-8g35-p3m7",
@@ -6979,7 +8919,17 @@
     [16, 17]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/91271c38859bec51e154b60c24497a637ce903d7",
-   "case_id": "195-GHSA-5m6h-8g35-p3m7"
+   "case_id": "195-GHSA-5m6h-8g35-p3m7",
+   "content": {
+    "vulnerable": {
+     "sha256": "597f20972d6387d8104713c23b71131733e9d401b81cf5a281bc4446f277c3ad",
+     "bytes": 2780
+    },
+    "patched": {
+     "sha256": "75965a78c62d4c44bda01e770b43d76e0616cfe8c86ad817d93e30af3aae3786",
+     "bytes": 2729
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5m6h-8g35-p3m7",
@@ -7012,7 +8962,17 @@
     [270, 279]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/91271c38859bec51e154b60c24497a637ce903d7",
-   "case_id": "196-GHSA-5m6h-8g35-p3m7"
+   "case_id": "196-GHSA-5m6h-8g35-p3m7",
+   "content": {
+    "vulnerable": {
+     "sha256": "033a28fdc48a420b6a5aa320c30d9e11eca204b431cca98e8cffcf90979725ed",
+     "bytes": 9003
+    },
+    "patched": {
+     "sha256": "de10c49a68157fbd086d20aeb15b25bfb777045f59d507a5d5fa796ce5fdefba",
+     "bytes": 9433
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5m6h-8g35-p3m7",
@@ -7044,7 +9004,17 @@
     [95, 95]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/91271c38859bec51e154b60c24497a637ce903d7",
-   "case_id": "197-GHSA-5m6h-8g35-p3m7"
+   "case_id": "197-GHSA-5m6h-8g35-p3m7",
+   "content": {
+    "vulnerable": {
+     "sha256": "5c8f5f8e5a90426ee2abfe2dd977818e685d35d328b21613aec0e69e1865e183",
+     "bytes": 3203
+    },
+    "patched": {
+     "sha256": "2645ee7be4b99f821f68625c38ff6e5b196f88cc1f6b78818176ae7bae39cd00",
+     "bytes": 3209
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-5m6h-8g35-p3m7",
@@ -7076,7 +9046,17 @@
     [164, 164]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/91271c38859bec51e154b60c24497a637ce903d7",
-   "case_id": "198-GHSA-5m6h-8g35-p3m7"
+   "case_id": "198-GHSA-5m6h-8g35-p3m7",
+   "content": {
+    "vulnerable": {
+     "sha256": "6607f5a3920153ddbe979da5ec280297e9d698401d7db971daa1ffbaa4dd3b6b",
+     "bytes": 7477
+    },
+    "patched": {
+     "sha256": "cec1322bc7d6c6b6b7e30412519831a1a24860edef185bc96127832de5acc24b",
+     "bytes": 7482
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-647f-g98j-qq25",
@@ -7119,7 +9099,17 @@
     [1757, 1766]
    ],
    "commit_url": "https://github.com/patriksimek/vm2/commit/315786904c416be68ff2517b86fb9d71fa6761db",
-   "case_id": "199-GHSA-647f-g98j-qq25"
+   "case_id": "199-GHSA-647f-g98j-qq25",
+   "content": {
+    "vulnerable": {
+     "sha256": "ba93d04df0008b6cf3b24497eae333cb7be3d24220f77130fe2ad16c614206ec",
+     "bytes": 116738
+    },
+    "patched": {
+     "sha256": "227079c6c92a100e7d79d78a621b29a75e92fc0dce3469e6d784c7c06101ec6a",
+     "bytes": 123752
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2cmg-v53w-8xfp",
@@ -7156,7 +9146,17 @@
     [186, 189]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/5f0000c1d0af05571e357926b3fa33a453337ff0",
-   "case_id": "200-GHSA-2cmg-v53w-8xfp"
+   "case_id": "200-GHSA-2cmg-v53w-8xfp",
+   "content": {
+    "vulnerable": {
+     "sha256": "8ec068589cfddb3a5575e962e3428b6761d9932a7eeece1314495d9191787907",
+     "bytes": 6966
+    },
+    "patched": {
+     "sha256": "583ea6bba9b53e32a658661a55e2f4789b83073a2e2882752dd0ff0d37b80861",
+     "bytes": 7112
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2cmg-v53w-8xfp",
@@ -7188,7 +9188,17 @@
     [175, 175]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/5f0000c1d0af05571e357926b3fa33a453337ff0",
-   "case_id": "201-GHSA-2cmg-v53w-8xfp"
+   "case_id": "201-GHSA-2cmg-v53w-8xfp",
+   "content": {
+    "vulnerable": {
+     "sha256": "e2724f869cf139b409828ef986865102a8fa2f4c1aaa8680e6a07ca6f85df5b6",
+     "bytes": 6647
+    },
+    "patched": {
+     "sha256": "5a1e11ad80508f0eb9a2302637820c5bc502f3cff263ee97a9309debbef3c202",
+     "bytes": 6668
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-m5mm-p8h7-m29v",
@@ -7216,7 +9226,17 @@
     [45, 45]
    ],
    "commit_url": "https://github.com/yahoo/serialize-javascript/commit/2864b3c6260a3bfd52d2db3e70d1a079de108a61",
-   "case_id": "202-GHSA-m5mm-p8h7-m29v"
+   "case_id": "202-GHSA-m5mm-p8h7-m29v",
+   "content": {
+    "vulnerable": {
+     "sha256": "606ddb759394538d457428c4280e1f4f9fe62c7f8e1de3ea63542162cd19ab94",
+     "bytes": 14677
+    },
+    "patched": {
+     "sha256": "c00618d44bdb41ce23446de3fc92b16be86884b40fe4159233600a681707f342",
+     "bytes": 14974
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7g7c-h8rr-7p6q",
@@ -7244,7 +9264,17 @@
     [165, 171]
    ],
    "commit_url": "https://github.com/angular/angular-cli/commit/645e41a47d21b7651837a4250de99af0509626e2",
-   "case_id": "203-GHSA-7g7c-h8rr-7p6q"
+   "case_id": "203-GHSA-7g7c-h8rr-7p6q",
+   "content": {
+    "vulnerable": {
+     "sha256": "a0129f2655559ab13e3290c1e0247d132fd748ad92758dda2ccdebb07a3c909c",
+     "bytes": 8365
+    },
+    "patched": {
+     "sha256": "3ff1f73237d375f413e008e7d7827a996ec709a7362f54c01158b2c4b4494dc2",
+     "bytes": 8503
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7mfx-xg57-53c9",
@@ -7272,7 +9302,17 @@
     [298, 311]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/40ecc4c2e88b0218125b0a3405d1f6315b321974",
-   "case_id": "204-GHSA-7mfx-xg57-53c9"
+   "case_id": "204-GHSA-7mfx-xg57-53c9",
+   "content": {
+    "vulnerable": {
+     "sha256": "b52cd6e796fabf95605c8b767ff0651c9bce857854f96593d1a78e3a3deb0ece",
+     "bytes": 11785
+    },
+    "patched": {
+     "sha256": "044741caa07de7767c453837e2f6c597986e8b9a2a831c2fc49aea5084b0a984",
+     "bytes": 11941
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vg8-29qx-jgj8",
@@ -7305,7 +9345,17 @@
     [65, 68]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/2df8238fbf17edfce335c399b90bf524ba9906a2",
-   "case_id": "205-GHSA-7vg8-29qx-jgj8"
+   "case_id": "205-GHSA-7vg8-29qx-jgj8",
+   "content": {
+    "vulnerable": {
+     "sha256": "2941094c5329f1ef61c0365f8e0daadd55702d0b2c24798d9af23d6964a6690f",
+     "bytes": 1685
+    },
+    "patched": {
+     "sha256": "c92522da83326d900d35acea82b556c7a0459c0cf3549e19bdb616105407e223",
+     "bytes": 1779
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7vg8-29qx-jgj8",
@@ -7333,7 +9383,17 @@
     [107, 111]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/2df8238fbf17edfce335c399b90bf524ba9906a2",
-   "case_id": "206-GHSA-7vg8-29qx-jgj8"
+   "case_id": "206-GHSA-7vg8-29qx-jgj8",
+   "content": {
+    "vulnerable": {
+     "sha256": "d6fe91ffedb65ca6b55d7b793174531f666133944e3e5308872aa6eabddefaf6",
+     "bytes": 2918
+    },
+    "patched": {
+     "sha256": "67f5c2f536acb0e9dbaa3b796c1f157eda7a82f0a5727d24d1db0402d8f7c9ba",
+     "bytes": 3078
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w2vw-w76x-qr89",
@@ -7371,7 +9431,17 @@
     [498, 499]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/11ab38573478172109bb5306cb30ca4af246caf0",
-   "case_id": "207-GHSA-w2vw-w76x-qr89"
+   "case_id": "207-GHSA-w2vw-w76x-qr89",
+   "content": {
+    "vulnerable": {
+     "sha256": "9cff0694b54a388466f54a28890af694acf4bd216934c91111c8f7f635aaab17",
+     "bytes": 17080
+    },
+    "patched": {
+     "sha256": "f675167986d8753ee3b00d8100addafb1f1b6a9ab1d0d564179b77410af11457",
+     "bytes": 17318
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w2vw-w76x-qr89",
@@ -7402,7 +9472,17 @@
     [200, 200]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/11ab38573478172109bb5306cb30ca4af246caf0",
-   "case_id": "208-GHSA-w2vw-w76x-qr89"
+   "case_id": "208-GHSA-w2vw-w76x-qr89",
+   "content": {
+    "vulnerable": {
+     "sha256": "d830d110c57defce7757a2aa9a325a7bafb4cfd0e566f9ebd8432299e65e70f9",
+     "bytes": 6406
+    },
+    "patched": {
+     "sha256": "748e12a1d67510ce3a3c53fd80b6fd153b291c89d02f05030733c502c6698d49",
+     "bytes": 6626
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w2vw-w76x-qr89",
@@ -7444,7 +9524,17 @@
     [330, 334]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/11ab38573478172109bb5306cb30ca4af246caf0",
-   "case_id": "209-GHSA-w2vw-w76x-qr89"
+   "case_id": "209-GHSA-w2vw-w76x-qr89",
+   "content": {
+    "vulnerable": {
+     "sha256": "29676ce28c25e95a2e8d756dfed3425e2483c836de978308085b651029bda591",
+     "bytes": 9505
+    },
+    "patched": {
+     "sha256": "94e5f4cd4411dd85d26e3b720415821cf9d48b4a8bccd2e43de842db7279d3e6",
+     "bytes": 9564
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-w2vw-w76x-qr89",
@@ -7527,7 +9617,17 @@
     [260, 261]
    ],
    "commit_url": "https://github.com/nrwl/nx/commit/c12850ce7b364db08e325c13541641d754db7123",
-   "case_id": "210-GHSA-w2vw-w76x-qr89"
+   "case_id": "210-GHSA-w2vw-w76x-qr89",
+   "content": {
+    "vulnerable": {
+     "sha256": "bec5468da0b1b54a6d2a4f35c8c02b776347276fa5f9d7212f92ed8c34850168",
+     "bytes": 15667
+    },
+    "patched": {
+     "sha256": "ea05939c8d28e47d99ce2a8f7a1c1a9d1e6c57ff70cbe11e5c002e6908bc99b6",
+     "bytes": 15243
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2rqm-h6hv-g79v",
@@ -7553,7 +9653,17 @@
     [2, 2]
    ],
    "commit_url": "https://github.com/GitHubNewbie0/odf-kit/commit/1424227d1ca2716a249b623d1456575ff0331dcc",
-   "case_id": "211-GHSA-2rqm-h6hv-g79v"
+   "case_id": "211-GHSA-2rqm-h6hv-g79v",
+   "content": {
+    "vulnerable": {
+     "sha256": "52aba83e00b38f26b4aa462701651aba5969d54d98886bbdbc3eb9f9e4eed653",
+     "bytes": 532
+    },
+    "patched": {
+     "sha256": "9f1f79e48e8c8f8c3df2f4ad95cf8b7afc350cb40669222fb44e3862ea0ec2ea",
+     "bytes": 628
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2rqm-h6hv-g79v",
@@ -7583,7 +9693,17 @@
     [97, 97]
    ],
    "commit_url": "https://github.com/GitHubNewbie0/odf-kit/commit/1424227d1ca2716a249b623d1456575ff0331dcc",
-   "case_id": "212-GHSA-2rqm-h6hv-g79v"
+   "case_id": "212-GHSA-2rqm-h6hv-g79v",
+   "content": {
+    "vulnerable": {
+     "sha256": "3b86abf1a9862ea4245208d76701b72dbe03e1478d737b3f84d86b18f6ded262",
+     "bytes": 7153
+    },
+    "patched": {
+     "sha256": "5231e60b60dee7447bac6ec72872418027c2b7c6ec01c88c60c0332700613589",
+     "bytes": 7228
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8r5x-fm3f-whwj",
@@ -7613,7 +9733,17 @@
     [34, 35]
    ],
    "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
-   "case_id": "213-GHSA-8r5x-fm3f-whwj"
+   "case_id": "213-GHSA-8r5x-fm3f-whwj",
+   "content": {
+    "vulnerable": {
+     "sha256": "b98504b717c701f5aa32de8930e0d211b9707efe8f79c4160deb9b5aeb7504bc",
+     "bytes": 2515
+    },
+    "patched": {
+     "sha256": "a21a57bff908da3b28f3373aaa2d35f154f925d20d9b5d0b45d0e0bf9e822d24",
+     "bytes": 821
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8r5x-fm3f-whwj",
@@ -7673,7 +9803,17 @@
     [595, 704]
    ],
    "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
-   "case_id": "214-GHSA-8r5x-fm3f-whwj"
+   "case_id": "214-GHSA-8r5x-fm3f-whwj",
+   "content": {
+    "vulnerable": {
+     "sha256": "f0c973c2c4b2f10b70275c205b9c26a72bf75cb12eb156ef0a3fc3f9fd486184",
+     "bytes": 15217
+    },
+    "patched": {
+     "sha256": "dfd6880723b6d5ce8e9b6b2c7345abfafe20ec18677778d8a860ef5bae83a324",
+     "bytes": 20367
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8r5x-fm3f-whwj",
@@ -7703,7 +9843,17 @@
     [1312, 1312]
    ],
    "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
-   "case_id": "215-GHSA-8r5x-fm3f-whwj"
+   "case_id": "215-GHSA-8r5x-fm3f-whwj",
+   "content": {
+    "vulnerable": {
+     "sha256": "09327fcbfc4c14fc9efaf13a326c946e974cb6c466da08a37f8013a9cb9cff78",
+     "bytes": 34852
+    },
+    "patched": {
+     "sha256": "67f16c56687c5d1458c25bda67a8df8b710f907107570c2483a420db087cc971",
+     "bytes": 35320
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8r5x-fm3f-whwj",
@@ -7732,7 +9882,17 @@
     [24, 27]
    ],
    "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
-   "case_id": "216-GHSA-8r5x-fm3f-whwj"
+   "case_id": "216-GHSA-8r5x-fm3f-whwj",
+   "content": {
+    "vulnerable": {
+     "sha256": "3846fb7ab596513bcd4cff783097fa8ace98a9eedbfbabc52cdb8713a14809bf",
+     "bytes": 1544
+    },
+    "patched": {
+     "sha256": "3f51f530a6ae0459ed103b0ab87b1760f9942be4c8c08784bf927e3f1e5ad2ac",
+     "bytes": 1703
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pqg4-j6r4-53mv",
@@ -7761,7 +9921,17 @@
     [60, 60]
    ],
    "commit_url": "https://github.com/ljharb/shell-quote/commit/6002b2ed90c6b83095eb272b6b0adaf3a172b0bc",
-   "case_id": "217-GHSA-pqg4-j6r4-53mv"
+   "case_id": "217-GHSA-pqg4-j6r4-53mv",
+   "content": {
+    "vulnerable": {
+     "sha256": "254c83bb5c04c3ac972e72d9fd1945dce08d812a0fc49dba7480313615daa061",
+     "bytes": 1758
+    },
+    "patched": {
+     "sha256": "8cc7b9dbde6f7736dd78b5517a38f13d284572aa1d45a46ff4e64cfb9ea35916",
+     "bytes": 1970
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7rv5-mrxv-xcr9",
@@ -7792,7 +9962,17 @@
     [33, 33]
    ],
    "commit_url": "https://github.com/lxsmnsyc/seroval/commit/3edc78b495ea0d6bd498143e5b3e56996607c5f2",
-   "case_id": "218-GHSA-7rv5-mrxv-xcr9"
+   "case_id": "218-GHSA-7rv5-mrxv-xcr9",
+   "content": {
+    "vulnerable": {
+     "sha256": "063117fc5c27de3f1f8512c3d6df1ed4c376af9073525d7aa0cb6194083625fb",
+     "bytes": 1260
+    },
+    "patched": {
+     "sha256": "8beea1bae9ed75e795d78e9a2063c282d72eb36fa088997cbd7bb608a4534c02",
+     "bytes": 1759
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7rv5-mrxv-xcr9",
@@ -7828,7 +10008,17 @@
     [105, 105]
    ],
    "commit_url": "https://github.com/lxsmnsyc/seroval/commit/3edc78b495ea0d6bd498143e5b3e56996607c5f2",
-   "case_id": "219-GHSA-7rv5-mrxv-xcr9"
+   "case_id": "219-GHSA-7rv5-mrxv-xcr9",
+   "content": {
+    "vulnerable": {
+     "sha256": "5af7e70ef2f3d63926fb457fa0e79c6636412f21d977404b2da40d682dd69bda",
+     "bytes": 1964
+    },
+    "patched": {
+     "sha256": "7f925446a5bad8ba1273b1dc2e136fa00f264ba6541e0d9d56fe93b3a68bf0e3",
+     "bytes": 4191
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-7rv5-mrxv-xcr9",
@@ -7865,7 +10055,17 @@
     [866, 867]
    ],
    "commit_url": "https://github.com/lxsmnsyc/seroval/commit/50926b3ee198fb757e6ce3aa70efeed38d931c8d",
-   "case_id": "220-GHSA-7rv5-mrxv-xcr9"
+   "case_id": "220-GHSA-7rv5-mrxv-xcr9",
+   "content": {
+    "vulnerable": {
+     "sha256": "dbee2c03aade19d2306a9f8c8d945a1242f09dd2db41e32b90235de4c6966bb5",
+     "bytes": 28196
+    },
+    "patched": {
+     "sha256": "5bb426b5710df56b2e8e53084339777745abff01c0fe342e26c704b3fd15ccb8",
+     "bytes": 27750
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8w7q-29mw-gf5c",
@@ -7891,7 +10091,17 @@
     [313, 335]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/02cd7cdbb18b687446277b5602adaee7f1d53cbb",
-   "case_id": "221-GHSA-8w7q-29mw-gf5c"
+   "case_id": "221-GHSA-8w7q-29mw-gf5c",
+   "content": {
+    "vulnerable": {
+     "sha256": "613821e9ed924d1f71b339f7cc8e3f0ea211ee8120ee81a7bfbf063efb83fb47",
+     "bytes": 15375
+    },
+    "patched": {
+     "sha256": "fff5528a20538d9366c727f75a96b9b7d575b7be1ca3efd58b7371eef28fb0d5",
+     "bytes": 15876
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-8w7q-29mw-gf5c",
@@ -7921,7 +10131,17 @@
     [358, 375]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/02cd7cdbb18b687446277b5602adaee7f1d53cbb",
-   "case_id": "222-GHSA-8w7q-29mw-gf5c"
+   "case_id": "222-GHSA-8w7q-29mw-gf5c",
+   "content": {
+    "vulnerable": {
+     "sha256": "f588a476110e6552996e8e704f1ea3b6f0f53dd8b486b2cd63fec0c478b06c84",
+     "bytes": 10127
+    },
+    "patched": {
+     "sha256": "6f76ac2fdd132b68ec6c5e2f444eeba76c82dd32dc169758c05fd0bbdc852c63",
+     "bytes": 12547
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r488-j9vj-wx3q",
@@ -7947,7 +10167,17 @@
     [113, 113]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/333b82b9f3e685fed6826c2e3270da79df8336c6",
-   "case_id": "223-GHSA-r488-j9vj-wx3q"
+   "case_id": "223-GHSA-r488-j9vj-wx3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "79da24948a674b822441f9712b3c51c38be99dbd0115a44cdb07738b6d775580",
+     "bytes": 4382
+    },
+    "patched": {
+     "sha256": "72b639fe75198ba5cfb19402622780316079c3a937dd1516ec76a172cbc6c96f",
+     "bytes": 4400
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r488-j9vj-wx3q",
@@ -7973,7 +10203,17 @@
     [221, 221]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/333b82b9f3e685fed6826c2e3270da79df8336c6",
-   "case_id": "224-GHSA-r488-j9vj-wx3q"
+   "case_id": "224-GHSA-r488-j9vj-wx3q",
+   "content": {
+    "vulnerable": {
+     "sha256": "466b387256e67278ea2ca8c17eac44d8c5f1c757ef282d8d71f25806b252a8ef",
+     "bytes": 10633
+    },
+    "patched": {
+     "sha256": "69b48da82890a446f3340654719ffcfe64a5e9a38afc30846824106ce7dd6542",
+     "bytes": 10671
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-grj7-r4jv-pw9j",
@@ -8001,7 +10241,17 @@
     [647, 647]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/98d3652cdc4f66fbccbbb8b4184ecd8f647f74de",
-   "case_id": "225-GHSA-grj7-r4jv-pw9j"
+   "case_id": "225-GHSA-grj7-r4jv-pw9j",
+   "content": {
+    "vulnerable": {
+     "sha256": "47948f4d21819f57161c8057db4c7211d2df34839665d430e886ead8748dd4de",
+     "bytes": 21583
+    },
+    "patched": {
+     "sha256": "21878e84b2e5866261679c6de3d312fd4c9b3d1cb6830b60cd919a70c9f30cfc",
+     "bytes": 21827
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-qmw3-745m-w99g",
@@ -8053,7 +10303,17 @@
     [484, 497]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/32723a0fe4e12ed80535fc65d5331765c55aa91b",
-   "case_id": "226-GHSA-qmw3-745m-w99g"
+   "case_id": "226-GHSA-qmw3-745m-w99g",
+   "content": {
+    "vulnerable": {
+     "sha256": "4517d4dd644dd48c31993e28b5291bd9428b55882590c190166dd95772d70ac0",
+     "bytes": 16600
+    },
+    "patched": {
+     "sha256": "215b1b00c06e0b6cea76ed06008d0be2004498ecafc102fd8c4bcb17f39fcaf7",
+     "bytes": 17849
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pfhg-q3qv-9q6r",
@@ -8085,7 +10345,17 @@
     [109, 109]
    ],
    "commit_url": "https://github.com/sveltejs/kit/commit/91aae3547c6cd2935d79c09a53e27c740100000a",
-   "case_id": "227-GHSA-pfhg-q3qv-9q6r"
+   "case_id": "227-GHSA-pfhg-q3qv-9q6r",
+   "content": {
+    "vulnerable": {
+     "sha256": "a82e309ac968d403c5e6c9a6de8cceb03a8e3012220c2a119771e74f955dd597",
+     "bytes": 9215
+    },
+    "patched": {
+     "sha256": "cbcf40c8710e45bdb8ca22c0a98cd411aa596d1c6e988441c44c33a9de00c40c",
+     "bytes": 9374
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pfhg-q3qv-9q6r",
@@ -8111,7 +10381,17 @@
     [3020, 3021]
    ],
    "commit_url": "https://github.com/sveltejs/kit/commit/91aae3547c6cd2935d79c09a53e27c740100000a",
-   "case_id": "228-GHSA-pfhg-q3qv-9q6r"
+   "case_id": "228-GHSA-pfhg-q3qv-9q6r",
+   "content": {
+    "vulnerable": {
+     "sha256": "9e94ef99b78ac318d6aa38eb6f6fa38421a7501bcd6b93795defe6e7246b77e0",
+     "bytes": 113166
+    },
+    "patched": {
+     "sha256": "b3ae9744e7b24063f2d3607d7f43fca7d372b628d634e476ada2b3ae4ad1b305",
+     "bytes": 113209
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pfhg-q3qv-9q6r",
@@ -8137,7 +10417,17 @@
     [84, 88]
    ],
    "commit_url": "https://github.com/sveltejs/kit/commit/91aae3547c6cd2935d79c09a53e27c740100000a",
-   "case_id": "229-GHSA-pfhg-q3qv-9q6r"
+   "case_id": "229-GHSA-pfhg-q3qv-9q6r",
+   "content": {
+    "vulnerable": {
+     "sha256": "c1a62099b742b56cddab19180494e1f304a21863111cd2762be5225e32c6f800",
+     "bytes": 8317
+    },
+    "patched": {
+     "sha256": "0f00f6f178904159c844a0eee6deacb124f80979c025f0ac0f94e195153de5b7",
+     "bytes": 8492
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6hgp-fmhr-mrg4",
@@ -8168,7 +10458,17 @@
     [159, 175]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/45b74403acafbe9f621c4a343506721d9129e991",
-   "case_id": "230-GHSA-6hgp-fmhr-mrg4"
+   "case_id": "230-GHSA-6hgp-fmhr-mrg4",
+   "content": {
+    "vulnerable": {
+     "sha256": "d3cea9b94e8de330aa5f120b04d0597c8f807a2136fd4c0195a1b4b2242a6a2b",
+     "bytes": 3791
+    },
+    "patched": {
+     "sha256": "47562bdfe11a067a51fe523347f4bb22477c17cf40d088eb209c0149a9b88a55",
+     "bytes": 4336
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6hgp-fmhr-mrg4",
@@ -8195,7 +10495,17 @@
     [57, 57]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/45b74403acafbe9f621c4a343506721d9129e991",
-   "case_id": "231-GHSA-6hgp-fmhr-mrg4"
+   "case_id": "231-GHSA-6hgp-fmhr-mrg4",
+   "content": {
+    "vulnerable": {
+     "sha256": "e754a007888c4d068cd7d7cc671a5addcc5089e4bea984804ba4f3c59c247e98",
+     "bytes": 3182
+    },
+    "patched": {
+     "sha256": "7105b5233be962d3792f8b15b4db662898c2fc84a5c007490fcbde167d6981ff",
+     "bytes": 3151
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-9wx9-5pv9-3349",
@@ -8221,7 +10531,17 @@
     [882, 888]
    ],
    "commit_url": "https://github.com/lxsmnsyc/seroval/commit/f94ee0b63936dae954ff50d5b5e8ea7cb9b284e6",
-   "case_id": "232-GHSA-9wx9-5pv9-3349"
+   "case_id": "232-GHSA-9wx9-5pv9-3349",
+   "content": {
+    "vulnerable": {
+     "sha256": "c48c0c8ab1176d69bee47315c1de92ced392572b5e0231b92134a7c423bae0c3",
+     "bytes": 41882
+    },
+    "patched": {
+     "sha256": "998ef051bc86cb6437155b3cf6d2e0075fe2cfaa86858eeae2767b67fc24c624",
+     "bytes": 42253
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-f7v3-xhm6-w245",
@@ -8252,7 +10572,17 @@
     [341, 355]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/017ace52d9b327ededc6704cf17799c875ae0f29",
-   "case_id": "233-GHSA-f7v3-xhm6-w245"
+   "case_id": "233-GHSA-f7v3-xhm6-w245",
+   "content": {
+    "vulnerable": {
+     "sha256": "6f76ac2fdd132b68ec6c5e2f444eeba76c82dd32dc169758c05fd0bbdc852c63",
+     "bytes": 12547
+    },
+    "patched": {
+     "sha256": "e5ef7bc732bebfbe8b1124a8dd59c6222a333a8c74c14c5b0c13cd82433a9b33",
+     "bytes": 13614
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2p8c-gr87-2676",
@@ -8284,7 +10614,17 @@
     [648, 648]
    ],
    "commit_url": "https://github.com/electron/electron/commit/079b9b1594ee62c336adc3aa430d4c1cf62bd51e",
-   "case_id": "234-GHSA-2p8c-gr87-2676"
+   "case_id": "234-GHSA-2p8c-gr87-2676",
+   "content": {
+    "vulnerable": {
+     "sha256": "12eaaec584e1255c6fc7ba0c7b83bdaecb6ccd631dcba8b2c44d1a8cf41ac176",
+     "bytes": 31610
+    },
+    "patched": {
+     "sha256": "7f14b4bdc2a521479e0029cb1fa30ba5670e9adc7eaf76359571d3aa5a17a420",
+     "bytes": 31732
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2p8c-gr87-2676",
@@ -8314,7 +10654,17 @@
     [101, 111]
    ],
    "commit_url": "https://github.com/electron/electron/commit/079b9b1594ee62c336adc3aa430d4c1cf62bd51e",
-   "case_id": "235-GHSA-2p8c-gr87-2676"
+   "case_id": "235-GHSA-2p8c-gr87-2676",
+   "content": {
+    "vulnerable": {
+     "sha256": "0e7655b8becb8ddacf7836b8bef244c846f6ccbcab3782a535d64ac80954f48c",
+     "bytes": 7247
+    },
+    "patched": {
+     "sha256": "e0913c045bab42f71aa4ed176c8b226ff5b17d9243dd0e174e28fb418d0e0bc2",
+     "bytes": 7549
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2m5v-pch6-74hx",
@@ -8342,7 +10692,17 @@
     [44, 48]
    ],
    "commit_url": "https://github.com/nodejs/undici/commit/04cb74b1db131ff8f5b4557dce811cbf5f4664b4",
-   "case_id": "236-GHSA-2m5v-pch6-74hx"
+   "case_id": "236-GHSA-2m5v-pch6-74hx",
+   "content": {
+    "vulnerable": {
+     "sha256": "7cbf227ccf6337e109ce567ebef036a6bab04eb81b3de3645adee5256aa79bf6",
+     "bytes": 4735
+    },
+    "patched": {
+     "sha256": "1b05aeaae1a23bcde54c200211d6292991b30f3a8c39c2dfca3efaa439caf5d7",
+     "bytes": 4819
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-g2v6-rqmx-r4w6",
@@ -8368,7 +10728,17 @@
     [36, 36]
    ],
    "commit_url": "https://github.com/vuejs/core/commit/a2b40db9a83b36ed9da3a16403cf8f040262d73f",
-   "case_id": "237-GHSA-g2v6-rqmx-r4w6"
+   "case_id": "237-GHSA-g2v6-rqmx-r4w6",
+   "content": {
+    "vulnerable": {
+     "sha256": "3fd029832b234d045b596c730fb63103a9dc15c31eab680da8e38ec47931dd63",
+     "bytes": 7904
+    },
+    "patched": {
+     "sha256": "40638faef48f0be9dd51c5bd29fb6194b85b70a707026010e8ae5a6d2ba25c70",
+     "bytes": 7910
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pq96-jpmf-w254",
@@ -8414,7 +10784,17 @@
     [275, 275]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/11505afe5b5218f2c468f130181815b898fd1e40",
-   "case_id": "238-GHSA-pq96-jpmf-w254"
+   "case_id": "238-GHSA-pq96-jpmf-w254",
+   "content": {
+    "vulnerable": {
+     "sha256": "aa5bb945346d94028a8848ed52819d84238804b93fbaf7112622155bb042c636",
+     "bytes": 6232
+    },
+    "patched": {
+     "sha256": "7df750afba24412d9b161f273be5d4223e3c5774ee6d106261d91103e42c3855",
+     "bytes": 7309
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q344-5v34-gm84",
@@ -8448,7 +10828,17 @@
     [68, 73]
    ],
    "commit_url": "https://github.com/SylphxAI/anymd/commit/4c35f72862d729301e3912ab8c8317d2828cf4c2",
-   "case_id": "239-GHSA-q344-5v34-gm84"
+   "case_id": "239-GHSA-q344-5v34-gm84",
+   "content": {
+    "vulnerable": {
+     "sha256": "622ce557a5b195c0c53efde2b002ac8b07a0805787180fa19864e3e29e800685",
+     "bytes": 2901
+    },
+    "patched": {
+     "sha256": "ebdb39ec4f6d63889ac3f48241e85b268c27ce7886ab10ee7a8502ff11c224b0",
+     "bytes": 3792
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-q344-5v34-gm84",
@@ -8496,7 +10886,17 @@
     [227, 248]
    ],
    "commit_url": "https://github.com/SylphxAI/anymd/commit/4c35f72862d729301e3912ab8c8317d2828cf4c2",
-   "case_id": "240-GHSA-q344-5v34-gm84"
+   "case_id": "240-GHSA-q344-5v34-gm84",
+   "content": {
+    "vulnerable": {
+     "sha256": "6b3730e15afca8a9937a6b5ffb682204487ec6cdfa95a87e2dc96f3180c832e6",
+     "bytes": 7474
+    },
+    "patched": {
+     "sha256": "7f6aa39002d56a49422b5cb77fffc0e7be13f64614b77f18f100b4047d84b7e2",
+     "bytes": 9939
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-c42q-qvc3-j6vg",
@@ -8524,7 +10924,17 @@
     [76, 77]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/5295e077f0d279c35686a0e481a15e33a4877e3b",
-   "case_id": "241-GHSA-c42q-qvc3-j6vg"
+   "case_id": "241-GHSA-c42q-qvc3-j6vg",
+   "content": {
+    "vulnerable": {
+     "sha256": "4e9dd60878dc1d4cdba67510d08d957668740fc02a65ed8388170ecdc7654a9d",
+     "bytes": 3938
+    },
+    "patched": {
+     "sha256": "5b0eeb921b39de2f2f2e3aa61cdd45ac7c44d33bdccf767265bf731c6745048d",
+     "bytes": 4021
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rcqf-f6h2-ccg9",
@@ -8550,7 +10960,17 @@
     [487, 487]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/e65f8c21b9974dcccfa1c600a375d836acef4a7d",
-   "case_id": "242-GHSA-rcqf-f6h2-ccg9"
+   "case_id": "242-GHSA-rcqf-f6h2-ccg9",
+   "content": {
+    "vulnerable": {
+     "sha256": "3d93e19c286f2aa348bca035cb1ad60a0313cbb103a00376b0201d7c9f0be9eb",
+     "bytes": 22295
+    },
+    "patched": {
+     "sha256": "409935a936990b2f346f039d332071715eb166543525254e5cc04eaf161e596f",
+     "bytes": 22297
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-98hj-9722-w3j8",
@@ -8579,7 +10999,17 @@
     [219, 219]
    ],
    "commit_url": "https://github.com/withastro/astro/commit/a548223607b9bb146d5d90ddda495343f9a2a739",
-   "case_id": "243-GHSA-98hj-9722-w3j8"
+   "case_id": "243-GHSA-98hj-9722-w3j8",
+   "content": {
+    "vulnerable": {
+     "sha256": "67c5fc1d4bcf6cc2c06c70202402dbcf4cec3456e72d637099a6935cef6fdb26",
+     "bytes": 7450
+    },
+    "patched": {
+     "sha256": "80481a2468b31adaa5d841796988ef2cf251f2f10a5b2218d9ac77120899f4a3",
+     "bytes": 7645
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-98hj-9722-w3j8",
@@ -8607,7 +11037,17 @@
     [205, 211]
    ],
    "commit_url": "https://github.com/withastro/astro/commit/a548223607b9bb146d5d90ddda495343f9a2a739",
-   "case_id": "244-GHSA-98hj-9722-w3j8"
+   "case_id": "244-GHSA-98hj-9722-w3j8",
+   "content": {
+    "vulnerable": {
+     "sha256": "3cf7479fefa4bd686d5dfeac9ae7647b292dc33d585fd25f4f783c6a8f5d6d7d",
+     "bytes": 12400
+    },
+    "patched": {
+     "sha256": "a95366d9a675664635a701ed13dd8d2df0e8196e816f3d2ca103f905ac8a2bc8",
+     "bytes": 12712
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-98hj-9722-w3j8",
@@ -8635,7 +11075,17 @@
     [162, 166]
    ],
    "commit_url": "https://github.com/withastro/astro/commit/a548223607b9bb146d5d90ddda495343f9a2a739",
-   "case_id": "245-GHSA-98hj-9722-w3j8"
+   "case_id": "245-GHSA-98hj-9722-w3j8",
+   "content": {
+    "vulnerable": {
+     "sha256": "06ca65b4777e3457276328a0aa10393a7597cf4a06c424a727bcb8e5f2b61706",
+     "bytes": 6617
+    },
+    "patched": {
+     "sha256": "bc4b41a92b9fe6f257bd4be1b2bdcea852e1d5579f6f190a0d0c0638b4329e04",
+     "bytes": 6733
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-98hj-9722-w3j8",
@@ -8663,7 +11113,17 @@
     [105, 111]
    ],
    "commit_url": "https://github.com/withastro/astro/commit/a548223607b9bb146d5d90ddda495343f9a2a739",
-   "case_id": "246-GHSA-98hj-9722-w3j8"
+   "case_id": "246-GHSA-98hj-9722-w3j8",
+   "content": {
+    "vulnerable": {
+     "sha256": "85e2213c4728206a8f11d0358e7c67a6ca41d72fda936882dfcdd337ef10cf1f",
+     "bytes": 7057
+    },
+    "patched": {
+     "sha256": "a5654905e1355161a0f7f0d2df97248c16590636ebac38a92b6cef05b81091d4",
+     "bytes": 7252
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6fw5-9hq8-w87g",
@@ -8691,7 +11151,17 @@
     [46, 46]
    ],
    "commit_url": "https://github.com/ardatan/graphql-tools/commit/3831a0661514c91d99971052f983552556880402",
-   "case_id": "247-GHSA-6fw5-9hq8-w87g"
+   "case_id": "247-GHSA-6fw5-9hq8-w87g",
+   "content": {
+    "vulnerable": {
+     "sha256": "b1c9f93b0d9f0d68d76f34af312c6210e4ba9d434a943446cecfd2cc26470bae",
+     "bytes": 5472
+    },
+    "patched": {
+     "sha256": "129cca4a25b344a27c0f5f620aafef73133c6cba2200cb75c704696b7fc85a01",
+     "bytes": 5772
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6fw5-9hq8-w87g",
@@ -8717,7 +11187,17 @@
     [98, 102]
    ],
    "commit_url": "https://github.com/ardatan/graphql-tools/commit/3831a0661514c91d99971052f983552556880402",
-   "case_id": "248-GHSA-6fw5-9hq8-w87g"
+   "case_id": "248-GHSA-6fw5-9hq8-w87g",
+   "content": {
+    "vulnerable": {
+     "sha256": "01707e5f425412f68c13bc578e85d97a938ea20786336e92398a964fd6a1ca09",
+     "bytes": 14930
+    },
+    "patched": {
+     "sha256": "678d9202256ee4337cb1a2f49ab867e26299ef8007cf2098cc0a4df79236fbb8",
+     "bytes": 15145
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-g3jj-5cmm-3hxx",
@@ -8751,7 +11231,17 @@
     [217, 218]
    ],
    "commit_url": "https://github.com/nearform/fast-jwt/commit/10f9591349199ed2ab9fa1748ce92cdca697f6cf",
-   "case_id": "249-GHSA-g3jj-5cmm-3hxx"
+   "case_id": "249-GHSA-g3jj-5cmm-3hxx",
+   "content": {
+    "vulnerable": {
+     "sha256": "5f4b90f11b334403ee138b8c8bba46c79d6fbe41591c799d3d02e551be9ed340",
+     "bytes": 12128
+    },
+    "patched": {
+     "sha256": "4ff56804ad46a22d4ca9f56bd6a83b839b27b8d7e0cb768ed83cf509aeef80f2",
+     "bytes": 13895
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-p223-2wr2-j562",
@@ -8785,7 +11275,17 @@
     [85, 85]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/6b74418f628fa633c2f297e5919a9f91b383dc11",
-   "case_id": "250-GHSA-p223-2wr2-j562"
+   "case_id": "250-GHSA-p223-2wr2-j562",
+   "content": {
+    "vulnerable": {
+     "sha256": "6d83925f7e1183f938fd4cee5e750e656b091417c2376f1ed14bb92c750d472d",
+     "bytes": 1715
+    },
+    "patched": {
+     "sha256": "9cbe23f2589e2f7b520fb83116a46720f894bd99da2e021cdd0ba8841e2a5615",
+     "bytes": 2592
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-p223-2wr2-j562",
@@ -8813,7 +11313,17 @@
     [105, 105]
    ],
    "commit_url": "https://github.com/payloadcms/payload/commit/6b74418f628fa633c2f297e5919a9f91b383dc11",
-   "case_id": "251-GHSA-p223-2wr2-j562"
+   "case_id": "251-GHSA-p223-2wr2-j562",
+   "content": {
+    "vulnerable": {
+     "sha256": "db30c581e39017efeb63f91f57deb79b8cb14a3dafc246db8983f6836c00bb0c",
+     "bytes": 9002
+    },
+    "patched": {
+     "sha256": "67ea953895a954e3a2d925221aa064c1e362be6f812b896775167b6eb7b85458",
+     "bytes": 9109
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4mfg-r38w-w8fg",
@@ -8839,7 +11349,17 @@
     [151, 152]
    ],
    "commit_url": "https://github.com/starman69/mcp-sanitizer/commit/200685889b073f7470859b0941b67b7f46255f09",
-   "case_id": "252-GHSA-4mfg-r38w-w8fg"
+   "case_id": "252-GHSA-4mfg-r38w-w8fg",
+   "content": {
+    "vulnerable": {
+     "sha256": "554f35a015fc1206540936f474b83f7741f0832699dac527960e4555708c8602",
+     "bytes": 10940
+    },
+    "patched": {
+     "sha256": "f151eee8d27ce3bbd4929c714c0113d594eb06ff4f69fb46a4ab01faefed9f2b",
+     "bytes": 10900
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4mfg-r38w-w8fg",
@@ -8873,7 +11393,17 @@
     [422, 423]
    ],
    "commit_url": "https://github.com/starman69/mcp-sanitizer/commit/200685889b073f7470859b0941b67b7f46255f09",
-   "case_id": "253-GHSA-4mfg-r38w-w8fg"
+   "case_id": "253-GHSA-4mfg-r38w-w8fg",
+   "content": {
+    "vulnerable": {
+     "sha256": "6af39e1f44f541a84178fac4a664ac72287a71d4b3130959a0d9c9f3b97f1fc9",
+     "bytes": 19242
+    },
+    "patched": {
+     "sha256": "c32eb4c837bdc257f461a4ebdce1c79d646cdc1705174b480c7fc83ef91bd2ef",
+     "bytes": 19044
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-4mfg-r38w-w8fg",
@@ -8916,7 +11446,17 @@
     [392, 411]
    ],
    "commit_url": "https://github.com/starman69/mcp-sanitizer/commit/200685889b073f7470859b0941b67b7f46255f09",
-   "case_id": "254-GHSA-4mfg-r38w-w8fg"
+   "case_id": "254-GHSA-4mfg-r38w-w8fg",
+   "content": {
+    "vulnerable": {
+     "sha256": "984ac0b7d1aec8232b5286159489af38aea4bb9c62d0eea598f9d57754c4a4cd",
+     "bytes": 15549
+    },
+    "patched": {
+     "sha256": "7b9666190c296cf9f5d0fb103d7349f80eed4bd9424044d2bcaf4c06990e21d9",
+     "bytes": 20645
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x6jw-m9v5-85vh",
@@ -8942,7 +11482,17 @@
     [91, 106]
    ],
    "commit_url": "https://github.com/steveukx/git-js/commit/d762810c13b331ff1e5eb24c0b434646d2a8d1b3",
-   "case_id": "255-GHSA-x6jw-m9v5-85vh"
+   "case_id": "255-GHSA-x6jw-m9v5-85vh",
+   "content": {
+    "vulnerable": {
+     "sha256": "c9c1f2daf86b229bea4ae09034c2e53b3c292bd685f1e0af6c96dd282c83002a",
+     "bytes": 3153
+    },
+    "patched": {
+     "sha256": "b3f74cceb1b5411d873611be090a13bd95cc7fd469ee1f1ba00b60f9d8e57c6c",
+     "bytes": 3722
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x6jw-m9v5-85vh",
@@ -8968,7 +11518,17 @@
     [71, 72]
    ],
    "commit_url": "https://github.com/steveukx/git-js/commit/d762810c13b331ff1e5eb24c0b434646d2a8d1b3",
-   "case_id": "256-GHSA-x6jw-m9v5-85vh"
+   "case_id": "256-GHSA-x6jw-m9v5-85vh",
+   "content": {
+    "vulnerable": {
+     "sha256": "86afc87dd8d560de3a5ac0e0d532cd11744e34e8a48b1f8784dc4c2876273d06",
+     "bytes": 3510
+    },
+    "patched": {
+     "sha256": "a4acd66d8cd85808371fd0a210c699016b31217d02791b996025068d61582960",
+     "bytes": 3670
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x6jw-m9v5-85vh",
@@ -8994,7 +11554,17 @@
     [72, 73]
    ],
    "commit_url": "https://github.com/steveukx/git-js/commit/d762810c13b331ff1e5eb24c0b434646d2a8d1b3",
-   "case_id": "257-GHSA-x6jw-m9v5-85vh"
+   "case_id": "257-GHSA-x6jw-m9v5-85vh",
+   "content": {
+    "vulnerable": {
+     "sha256": "1653992dedbf6ec393009c9be3348620cd8223c8fa937e2304f393ce1e5b2320",
+     "bytes": 2774
+    },
+    "patched": {
+     "sha256": "cec7c865ff5d652e20045d3c69b13580bfeb0952c4bc9843da67e500603874d3",
+     "bytes": 2971
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-587h-7wmj-h5pm",
@@ -9026,7 +11596,17 @@
     [58, 58]
    ],
    "commit_url": "https://github.com/vitejs/launch-editor/commit/f13cd835d4b8e860b1d4d080ad8a490cc2463679",
-   "case_id": "258-GHSA-587h-7wmj-h5pm"
+   "case_id": "258-GHSA-587h-7wmj-h5pm",
+   "content": {
+    "vulnerable": {
+     "sha256": "ae7061ed8e732cbda616af1d308255c5ff80d6099446d4fad6be651a726394ae",
+     "bytes": 3796
+    },
+    "patched": {
+     "sha256": "9afa7449100c506c5651de859a35dcfd9859ab16d24e03673663fcd50bbaf9a4",
+     "bytes": 3407
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6wfj-92cw-88vg",
@@ -9057,7 +11637,17 @@
     [45, 46]
    ],
    "commit_url": "https://github.com/danday74/git-diff/commit/bfd727b6cf1daa671c3528d1d681f55b70e8fb19",
-   "case_id": "259-GHSA-6wfj-92cw-88vg"
+   "case_id": "259-GHSA-6wfj-92cw-88vg",
+   "content": {
+    "vulnerable": {
+     "sha256": "c85a240ca61b71c96625315a000a9aeac3ad469bb814fcec6a7ad590e7c7563f",
+     "bytes": 3156
+    },
+    "patched": {
+     "sha256": "5d2363b840ca5fa439774a3bd3d414afd4c8942622cb740c21f0c00fa75235cd",
+     "bytes": 3834
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-ww5h-9m49-7xx4",
@@ -9102,7 +11692,17 @@
     [190, 192]
    ],
    "commit_url": "https://github.com/nearform/fast-jwt/commit/d96bbc6c5336055a6dbfa318fdbab01197264cfa",
-   "case_id": "260-GHSA-ww5h-9m49-7xx4"
+   "case_id": "260-GHSA-ww5h-9m49-7xx4",
+   "content": {
+    "vulnerable": {
+     "sha256": "fbed3cb6680f15867aa6cd61ab95fa376dee81e61bc4e65a382faf384c4b4a65",
+     "bytes": 10279
+    },
+    "patched": {
+     "sha256": "5f4b90f11b334403ee138b8c8bba46c79d6fbe41591c799d3d02e551be9ed340",
+     "bytes": 12128
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pwhx-cvv3-qj5c",
@@ -9128,7 +11728,17 @@
     [55, 55]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/d030d414d39e15de79bf36e4c728d57205e71dde",
-   "case_id": "261-GHSA-pwhx-cvv3-qj5c"
+   "case_id": "261-GHSA-pwhx-cvv3-qj5c",
+   "content": {
+    "vulnerable": {
+     "sha256": "247c1a70c8bde9f8a3422222c0f2bfc208493fd346ddf6e6d2e863578102fbd2",
+     "bytes": 1652
+    },
+    "patched": {
+     "sha256": "3517251a951c30ceaba9f27858224ad678fdce28632a18caf5ec9a5356f065e6",
+     "bytes": 1666
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-pwhx-cvv3-qj5c",
@@ -9156,7 +11766,17 @@
     [376, 381]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/d030d414d39e15de79bf36e4c728d57205e71dde",
-   "case_id": "262-GHSA-pwhx-cvv3-qj5c"
+   "case_id": "262-GHSA-pwhx-cvv3-qj5c",
+   "content": {
+    "vulnerable": {
+     "sha256": "e6f757cb5ee08c5786f437071337bc74bef53223d4fcaec1542f49e4e1748792",
+     "bytes": 13666
+    },
+    "patched": {
+     "sha256": "3762cc27862f0fcee002bd790aa5ee62a0788e29904352cc158595e5a618f7d8",
+     "bytes": 13775
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r7f2-6fj8-6fg2",
@@ -9199,7 +11819,17 @@
     [118, 118]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/20d3f792bf4a7c349ee56b746a067550d8684ff5",
-   "case_id": "263-GHSA-r7f2-6fj8-6fg2"
+   "case_id": "263-GHSA-r7f2-6fj8-6fg2",
+   "content": {
+    "vulnerable": {
+     "sha256": "7a995313a07a2a8417e1f1cfa212434cc52765dabe1f7ee1fc967a820a9197f4",
+     "bytes": 9852
+    },
+    "patched": {
+     "sha256": "b647f498497cd23b6f286c27c9f37abeeb8dabee07e90a8c9bc17231a8051ce2",
+     "bytes": 8442
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-rg9r-hr7g-5gc2",
@@ -9227,7 +11857,17 @@
     [302, 305]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/bf6bbf7326ada7d96d7b2c4ebc4a71546106f311",
-   "case_id": "264-GHSA-rg9r-hr7g-5gc2"
+   "case_id": "264-GHSA-rg9r-hr7g-5gc2",
+   "content": {
+    "vulnerable": {
+     "sha256": "c2e8ac5df6bafe3dd0b46dccb4160f02e31b5c2ea4a0e00ed83a49cf87512764",
+     "bytes": 11399
+    },
+    "patched": {
+     "sha256": "b52cd6e796fabf95605c8b767ff0651c9bce857854f96593d1a78e3a3deb0ece",
+     "bytes": 11785
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x34j-47hf-4xg7",
@@ -9258,7 +11898,17 @@
     [210, 210]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
-   "case_id": "265-GHSA-x34j-47hf-4xg7"
+   "case_id": "265-GHSA-x34j-47hf-4xg7",
+   "content": {
+    "vulnerable": {
+     "sha256": "97a62bf876beace659c5e16066548470045a17a4085a049376f5103037226084",
+     "bytes": 32580
+    },
+    "patched": {
+     "sha256": "b2b37b1086bc75247b240ad1620bdcbcd24ddbd9d371570e466eba622496221c",
+     "bytes": 32525
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x34j-47hf-4xg7",
@@ -9289,7 +11939,17 @@
     [17, 18]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
-   "case_id": "266-GHSA-x34j-47hf-4xg7"
+   "case_id": "266-GHSA-x34j-47hf-4xg7",
+   "content": {
+    "vulnerable": {
+     "sha256": "874b5d9e1aaaffd6ed59bb6d3803062bc092b285e37e76d2b6b1516139150414",
+     "bytes": 1665
+    },
+    "patched": {
+     "sha256": "c6e1ceadb3c2da3dfef95f80104a190366ffc0c3dfad0961dd6f3e6d1e987e14",
+     "bytes": 1731
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x34j-47hf-4xg7",
@@ -9321,7 +11981,17 @@
     [181, 192]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
-   "case_id": "267-GHSA-x34j-47hf-4xg7"
+   "case_id": "267-GHSA-x34j-47hf-4xg7",
+   "content": {
+    "vulnerable": {
+     "sha256": "5bea64214dc372c501fff1021a94848b3d609223b4a57fc71b8d13a9efab108b",
+     "bytes": 14325
+    },
+    "patched": {
+     "sha256": "b5a7c7f8969eba3d1554dc392152d9a1c6c6871fade44d74a5fb02c11340b7c2",
+     "bytes": 14823
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-x34j-47hf-4xg7",
@@ -9349,7 +12019,17 @@
     [26, 30]
    ],
    "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
-   "case_id": "268-GHSA-x34j-47hf-4xg7"
+   "case_id": "268-GHSA-x34j-47hf-4xg7",
+   "content": {
+    "vulnerable": {
+     "sha256": "2b3cc95f14f40ca476c9dc7d89e8d1da11bb6979e5619158ce9bde2fa8cc9ed8",
+     "bytes": 1768
+    },
+    "patched": {
+     "sha256": "a5541dc0755d53c86f9c701be623a0681aa1833990e1169a7e716c5838a63a8d",
+     "bytes": 1931
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-g8rx-f7m5-7794",
@@ -9376,7 +12056,17 @@
     [391, 391]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/818528e112c36167d76187e9e63fb518399c4dd2",
-   "case_id": "269-GHSA-g8rx-f7m5-7794"
+   "case_id": "269-GHSA-g8rx-f7m5-7794",
+   "content": {
+    "vulnerable": {
+     "sha256": "6d65b5e2864ed3b44e05ca29c5d26bf61e1570695ecb0123eb47688983d2a20a",
+     "bytes": 10699
+    },
+    "patched": {
+     "sha256": "fe47e7f2c2c2b4e01654d92581e27e4ccec83416dde655bd96b986f555b47174",
+     "bytes": 10674
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-g8rx-f7m5-7794",
@@ -9403,7 +12093,17 @@
     [453, 453]
    ],
    "commit_url": "https://github.com/backstage/backstage/commit/818528e112c36167d76187e9e63fb518399c4dd2",
-   "case_id": "270-GHSA-g8rx-f7m5-7794"
+   "case_id": "270-GHSA-g8rx-f7m5-7794",
+   "content": {
+    "vulnerable": {
+     "sha256": "785b5ea7d5a0accd476c2ddd5bc9c5ac58a51882137ffe32908961f38ccabcd4",
+     "bytes": 12708
+    },
+    "patched": {
+     "sha256": "2a3011846bcd292520882685bfcd25985b91334abb3984013355b2f7b2dcdeab",
+     "bytes": 12683
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-9jrq-w75r-8gcw",
@@ -9436,7 +12136,17 @@
     [211, 217]
    ],
    "commit_url": "https://github.com/vitejs/vite/commit/7dafd8e56f152403a3230608fa4005273c2e9e17",
-   "case_id": "271-GHSA-9jrq-w75r-8gcw"
+   "case_id": "271-GHSA-9jrq-w75r-8gcw",
+   "content": {
+    "vulnerable": {
+     "sha256": "7348279215b09e5317367130695f9be3a7d4f2936623a833a8f8830dd923bb79",
+     "bytes": 18448
+    },
+    "patched": {
+     "sha256": "a390d446afaf0ecd1bcd22827624328525429f7621e877bc5b4a779a6551f307",
+     "bytes": 18922
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-v5rq-49vh-5v5c",
@@ -9462,7 +12172,17 @@
     [25, 25]
    ],
    "commit_url": "https://github.com/steveukx/git-js/commit/68874c239f0c7a87f4a68c3d2c4a0d7c75bb27f4",
-   "case_id": "272-GHSA-v5rq-49vh-5v5c"
+   "case_id": "272-GHSA-v5rq-49vh-5v5c",
+   "content": {
+    "vulnerable": {
+     "sha256": "4109937cb72ff1fb73cc015181f0f1780f3f7488f38097c66f8567dac9d7eea3",
+     "bytes": 2848
+    },
+    "patched": {
+     "sha256": "02402dc4dfe26c4b487dfe8aea152db789070622fe1c2ad0320f99c060dd7984",
+     "bytes": 2882
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-59h8-w5q6-mfmp",
@@ -9492,7 +12212,17 @@
     [12, 13]
    ],
    "commit_url": "https://github.com/triggerdotdev/trigger.dev/commit/73d966ad226548b5f96fb5b4fc6fa607a3b7b8f8",
-   "case_id": "273-GHSA-59h8-w5q6-mfmp"
+   "case_id": "273-GHSA-59h8-w5q6-mfmp",
+   "content": {
+    "vulnerable": {
+     "sha256": "8e2a71ce92979dbfe1025e42d87d6d483783f3f74075dd89c2f4ad68e1c8e706",
+     "bytes": 4871
+    },
+    "patched": {
+     "sha256": "1d6ce3f5502bf8b0adb1672bd92452e823065e6c5f793cb0231bd6a96030956d",
+     "bytes": 2804
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-r5wg-q8fc-p6w2",
@@ -9527,7 +12257,17 @@
     [1004, 1004]
    ],
    "commit_url": "https://github.com/highcharts/highcharts/commit/1e8ded84d52191883965641b863cf0c73eb759aa",
-   "case_id": "274-GHSA-r5wg-q8fc-p6w2"
+   "case_id": "274-GHSA-r5wg-q8fc-p6w2",
+   "content": {
+    "vulnerable": {
+     "sha256": "124c841c3e31718b793670c34d1bca36301c18d2f96bc01ec11430b09e29a9a3",
+     "bytes": 37078
+    },
+    "patched": {
+     "sha256": "72c0445f2d9b6e11c0ffe5275e068b18bb6757ec22b46255320f6e9d8e99baec",
+     "bytes": 37082
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3f7j-7jwc-fxfj",
@@ -9637,7 +12377,17 @@
     [1422, 1422]
    ],
    "commit_url": "https://github.com/sebhildebrandt/systeminformation/commit/5014c6d25cfce7363b937977327baa853cdba0bf",
-   "case_id": "275-GHSA-3f7j-7jwc-fxfj"
+   "case_id": "275-GHSA-3f7j-7jwc-fxfj",
+   "content": {
+    "vulnerable": {
+     "sha256": "3a2bfbddb0b102ec6f2b5f0882b615d125771e66573c42ae43baa15ad7e438f4",
+     "bytes": 55935
+    },
+    "patched": {
+     "sha256": "441c0b97978e0fa6e9964e879fc57cc40df9111e5918a96371209009fa852f6a",
+     "bytes": 55637
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3f7j-7jwc-fxfj",
@@ -9663,7 +12413,17 @@
     [752, 754]
    ],
    "commit_url": "https://github.com/sebhildebrandt/systeminformation/commit/5014c6d25cfce7363b937977327baa853cdba0bf",
-   "case_id": "276-GHSA-3f7j-7jwc-fxfj"
+   "case_id": "276-GHSA-3f7j-7jwc-fxfj",
+   "content": {
+    "vulnerable": {
+     "sha256": "c996d8b2d151b57b16b0424d89dba84c74473cb9e44aa2172cf287855937453e",
+     "bytes": 69203
+    },
+    "patched": {
+     "sha256": "02b6ca1a0c37bef6a207583577d711f46f21875a7439463ba99426b3ebaa209d",
+     "bytes": 69395
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-cjq9-62q9-8jv4",
@@ -9714,7 +12474,17 @@
     [1277, 1279]
    ],
    "commit_url": "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
-   "case_id": "277-GHSA-cjq9-62q9-8jv4"
+   "case_id": "277-GHSA-cjq9-62q9-8jv4",
+   "content": {
+    "vulnerable": {
+     "sha256": "8533cc00fe55faea6056c8a11ccc09aba6d75f9db1ffd852575b4431e43adf82",
+     "bytes": 35966
+    },
+    "patched": {
+     "sha256": "edaa7dbedaf3c96e85cfb9fee51f71d6d5db6d945bdff1551902151b544f15cc",
+     "bytes": 45206
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-xfq5-w38q-pc2x",
@@ -9742,7 +12512,17 @@
     [203, 204]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/493565e99451a0f52330b1f6b979254a4a39e5d0",
-   "case_id": "278-GHSA-xfq5-w38q-pc2x"
+   "case_id": "278-GHSA-xfq5-w38q-pc2x",
+   "content": {
+    "vulnerable": {
+     "sha256": "a241ca370c974a8124ed437ad27db2cfd75a91469821c446e0a5520f1c60c46d",
+     "bytes": 15030
+    },
+    "patched": {
+     "sha256": "c603d9d34740aa2a15d7e45bca4290ff4fc0248b83aed43659ddb7565c9c50cc",
+     "bytes": 15157
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3cmx-xjww-583x",
@@ -9768,7 +12548,17 @@
     [17, 17]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/b0eef9efd425055c554787cef7f878de33bbf510",
-   "case_id": "279-GHSA-3cmx-xjww-583x"
+   "case_id": "279-GHSA-3cmx-xjww-583x",
+   "content": {
+    "vulnerable": {
+     "sha256": "24d0a6f50d0daf288c97cc7d046aa760255296a56077d300af386ddeff1783a8",
+     "bytes": 13520
+    },
+    "patched": {
+     "sha256": "17737d614639772529f0938b9b2ed5c4de3b3b7982f8b913f4bad56460b87c95",
+     "bytes": 13523
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-3cmx-xjww-583x",
@@ -9796,7 +12586,17 @@
     [40, 44]
    ],
    "commit_url": "https://github.com/i18next/i18next-http-backend/commit/b0eef9efd425055c554787cef7f878de33bbf510",
-   "case_id": "280-GHSA-3cmx-xjww-583x"
+   "case_id": "280-GHSA-3cmx-xjww-583x",
+   "content": {
+    "vulnerable": {
+     "sha256": "30e2e3939f557cdd7930a5366d822ec9f192d5f2806d4bd5fcec36606874a6e2",
+     "bytes": 7078
+    },
+    "patched": {
+     "sha256": "4d986293c9b426b6cf0b86f171a3a76f69ec820e1d60fe1f3604b2d9f0c3fdaf",
+     "bytes": 7348
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-322m-ff4g-9vx9",
@@ -9824,7 +12624,17 @@
     [554, 555]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/3f8594eb53de883ac017545c358f59039cb152de",
-   "case_id": "281-GHSA-322m-ff4g-9vx9"
+   "case_id": "281-GHSA-322m-ff4g-9vx9",
+   "content": {
+    "vulnerable": {
+     "sha256": "29b463fda351a29a456ad480f0afc12dd19f8e6584b99e508b23f3304bbb599d",
+     "bytes": 25439
+    },
+    "patched": {
+     "sha256": "7d9be3a4452549833088c0508f6a76d26dd6e4aabcb1d3199192004a6ec77029",
+     "bytes": 27892
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-2m6q-8v3h-jqww",
@@ -9852,7 +12662,17 @@
     [153, 153]
    ],
    "commit_url": "https://github.com/adonisjs/http-server/commit/4548a0631ce2ef1618f04c7b41465be42cad2f7d",
-   "case_id": "282-GHSA-2m6q-8v3h-jqww"
+   "case_id": "282-GHSA-2m6q-8v3h-jqww",
+   "content": {
+    "vulnerable": {
+     "sha256": "c12f62a37ae55cafec2abd25174010eca507d33a898ebc1748d8e127d5ced9d9",
+     "bytes": 4906
+    },
+    "patched": {
+     "sha256": "a7dfc724780f9ee44ad24cd774fadeefed503d3d89beba6942f43a2508fe7811",
+     "bytes": 5000
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6688-9rhm-gjv2",
@@ -9883,7 +12703,17 @@
     [84, 84]
    ],
    "commit_url": "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
-   "case_id": "283-GHSA-6688-9rhm-gjv2"
+   "case_id": "283-GHSA-6688-9rhm-gjv2",
+   "content": {
+    "vulnerable": {
+     "sha256": "ce7411af4851985737978db41b0558ace2bd3e1d160ca21c51f3f9ec0eac2161",
+     "bytes": 1384
+    },
+    "patched": {
+     "sha256": "3490f563f8040713779c1ffce32f53462bc13648c775f05646d76ca61857d73d",
+     "bytes": 3199
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6688-9rhm-gjv2",
@@ -9925,7 +12755,17 @@
     [3124, 3130]
    ],
    "commit_url": "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
-   "case_id": "284-GHSA-6688-9rhm-gjv2"
+   "case_id": "284-GHSA-6688-9rhm-gjv2",
+   "content": {
+    "vulnerable": {
+     "sha256": "541e15c2d98c45e27e5af1e4ef622eb6bb667fa0bce6b9f9fdf9db1cd059b55f",
+     "bytes": 118868
+    },
+    "patched": {
+     "sha256": "8989c72ac4a4286b98f432f083a466266c976873c4382632fd60faaaaf1bfd98",
+     "bytes": 121644
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-6688-9rhm-gjv2",
@@ -9974,7 +12814,17 @@
     [155, 156]
    ],
    "commit_url": "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
-   "case_id": "285-GHSA-6688-9rhm-gjv2"
+   "case_id": "285-GHSA-6688-9rhm-gjv2",
+   "content": {
+    "vulnerable": {
+     "sha256": "88f3d0944f836a4027a19f8bdc0cf16fc26b996cd1f1358547da7d3d0a209cae",
+     "bytes": 3219
+    },
+    "patched": {
+     "sha256": "b2627c4ef923b4ebb2b487c603da23f3e55b5905fddaaec00e75e683374f9a30",
+     "bytes": 4401
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-354h-gmhv-mr9c",
@@ -10004,7 +12854,17 @@
     [134, 134]
    ],
    "commit_url": "https://github.com/TryGhost/Ghost/commit/815962dd2760e55c5dc8d0fb7fac732a7634566f",
-   "case_id": "286-GHSA-354h-gmhv-mr9c"
+   "case_id": "286-GHSA-354h-gmhv-mr9c",
+   "content": {
+    "vulnerable": {
+     "sha256": "5e13e97cde1ef4308d23141a098505630392d3f57350caaf66f84f37a2b8e2da",
+     "bytes": 5170
+    },
+    "patched": {
+     "sha256": "11249eaf99e26361951e1563a2393b3bd5373ce6526d682df96a26b760cb49eb",
+     "bytes": 5466
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-wmpw-j6qv-mw88",
@@ -10035,7 +12895,17 @@
     [72, 73]
    ],
    "commit_url": "https://github.com/quasarframework/quasar/commit/87c89a80ec84f1eb7dbe258e5367161b0598ceb3",
-   "case_id": "287-GHSA-wmpw-j6qv-mw88"
+   "case_id": "287-GHSA-wmpw-j6qv-mw88",
+   "content": {
+    "vulnerable": {
+     "sha256": "174203e493ac4533b673f68d593449c97692f9bda9c1297955100b75a42fb3ad",
+     "bytes": 979
+    },
+    "patched": {
+     "sha256": "442acc228ec152d7cb362c09f77125fb625cdd43daf7ab058cadc0159fd806d2",
+     "bytes": 1982
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
@@ -10084,7 +12954,17 @@
     [570, 570]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
-   "case_id": "288-GHSA-jjm6-p2m9-9w4x"
+   "case_id": "288-GHSA-jjm6-p2m9-9w4x",
+   "content": {
+    "vulnerable": {
+     "sha256": "204d7e690949e5b45b14c9bc6c20e892293e2993a682fd4bf2fb84198b5d0cfb",
+     "bytes": 31435
+    },
+    "patched": {
+     "sha256": "a21ea37c19001289d1ed58dacd0c3a14856df198b1772eb74b08af1f3caa4099",
+     "bytes": 30855
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
@@ -10120,7 +13000,17 @@
     [234, 235]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
-   "case_id": "289-GHSA-jjm6-p2m9-9w4x"
+   "case_id": "289-GHSA-jjm6-p2m9-9w4x",
+   "content": {
+    "vulnerable": {
+     "sha256": "e3298750b514840320d22b199335abc0d30101b2ae4cb0e40a1f4fa800821fc2",
+     "bytes": 17602
+    },
+    "patched": {
+     "sha256": "2fa912f42fd1730001f7654b43c37c124748885e1a179b41e41a0045ef6e3710",
+     "bytes": 17444
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
@@ -10148,7 +13038,17 @@
     [11, 11]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
-   "case_id": "290-GHSA-jjm6-p2m9-9w4x"
+   "case_id": "290-GHSA-jjm6-p2m9-9w4x",
+   "content": {
+    "vulnerable": {
+     "sha256": "9d5a2acc8296e1fa91a5d9073c135a9038bf81ce350f345c920a672bb9559e12",
+     "bytes": 676
+    },
+    "patched": {
+     "sha256": "750c2f4bc232bf8e74839695b87153404102b7bbf2a5e7bf35716810cd8caf2e",
+     "bytes": 661
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
@@ -10199,7 +13099,17 @@
     [266, 266]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
-   "case_id": "291-GHSA-jjm6-p2m9-9w4x"
+   "case_id": "291-GHSA-jjm6-p2m9-9w4x",
+   "content": {
+    "vulnerable": {
+     "sha256": "0450630197d6888097e2fc9c2fea3e2bc68066422a77da7ca025adcb20e754e1",
+     "bytes": 12691
+    },
+    "patched": {
+     "sha256": "8f2a172287b56b04b35c756002bc2f278c2b0584e94bb612c2fe9cb2d742502b",
+     "bytes": 14097
+    }
+   }
   },
   {
    "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
@@ -10225,7 +13135,17 @@
     [2, 51]
    ],
    "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
-   "case_id": "292-GHSA-jjm6-p2m9-9w4x"
+   "case_id": "292-GHSA-jjm6-p2m9-9w4x",
+   "content": {
+    "vulnerable": {
+     "sha256": "38d218c512e2b67fd46f61b1efde61c3570e1dec1d60558124c1e1084339ad53",
+     "bytes": 1515
+    },
+    "patched": {
+     "sha256": "02d91f4ea35b1a45aa2a4fe2bd99f37c98b295773ba91e74932676bbdf3f0d7d",
+     "bytes": 3361
+    }
+   }
   }
  ],
  "excluded_advisories": [
@@ -23119,5 +26039,9 @@
    "path": "test/nuxt/universal/router.test.ts",
    "reason": "test file"
   }
- ]
+ ],
+ "fetch": {
+  "fetched_at": "2026-10-30T23:07:37+00:00",
+  "excluded_cases": {}
+ }
 }

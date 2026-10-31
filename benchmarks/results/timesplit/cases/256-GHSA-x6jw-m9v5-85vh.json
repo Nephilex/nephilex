@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x6jw-m9v5-85vh",
+  "cve_id": "CVE-2026-102828",
+  "ecosystem": "npm",
+  "packages": [
+   "simple-git"
+  ],
+  "published_at": "2026-10-05T23:48:14Z",
+  "advisory_cwes": [78, 184],
+  "html_url": "https://github.com/advisories/GHSA-x6jw-m9v5-85vh",
+  "label_cwes": [78],
+  "repo": "steveukx/git-js",
+  "fix_sha": "d762810c13b331ff1e5eb24c0b434646d2a8d1b3",
+  "parent_sha": "76f308ed445013d8dd973bc515e7815b59426e3e",
+  "path_vulnerable": "packages/argv-parser/src/vulnerabilities/detect-vulnerable-config-writes.ts",
+  "path_patched": "packages/argv-parser/src/vulnerabilities/detect-vulnerable-config-writes.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [70, 71]
+  ],
+  "patched_lines": [
+   [71, 72]
+  ],
+  "commit_url": "https://github.com/steveukx/git-js/commit/d762810c13b331ff1e5eb24c0b434646d2a8d1b3",
+  "case_id": "256-GHSA-x6jw-m9v5-85vh",
+  "content": {
+   "vulnerable": {
+    "sha256": "86afc87dd8d560de3a5ac0e0d532cd11744e34e8a48b1f8784dc4c2876273d06",
+    "bytes": 3510
+   },
+   "patched": {
+    "sha256": "a4acd66d8cd85808371fd0a210c699016b31217d02791b996025068d61582960",
+    "bytes": 3670
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-59h8-w5q6-mfmp",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "trigger.dev"
+  ],
+  "published_at": "2026-10-02T22:39:57Z",
+  "advisory_cwes": [306],
+  "html_url": "https://github.com/advisories/GHSA-59h8-w5q6-mfmp",
+  "label_cwes": [306],
+  "repo": "triggerdotdev/trigger.dev",
+  "fix_sha": "73d966ad226548b5f96fb5b4fc6fa607a3b7b8f8",
+  "parent_sha": "051d7080d64514ac8ae76b99c5f52e0f66b2950a",
+  "path_vulnerable": "apps/webapp/app/routes/realtime.v1.streams.$runId.$streamId.ts",
+  "path_patched": "apps/webapp/app/routes/realtime.v1.streams.$runId.$streamId.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [8, 8],
+   [15, 83]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [6, 7],
+   [12, 13]
+  ],
+  "commit_url": "https://github.com/triggerdotdev/trigger.dev/commit/73d966ad226548b5f96fb5b4fc6fa607a3b7b8f8",
+  "case_id": "273-GHSA-59h8-w5q6-mfmp",
+  "content": {
+   "vulnerable": {
+    "sha256": "8e2a71ce92979dbfe1025e42d87d6d483783f3f74075dd89c2f4ad68e1c8e706",
+    "bytes": 4871
+   },
+   "patched": {
+    "sha256": "1d6ce3f5502bf8b0adb1672bd92452e823065e6c5f793cb0231bd6a96030956d",
+    "bytes": 2804
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

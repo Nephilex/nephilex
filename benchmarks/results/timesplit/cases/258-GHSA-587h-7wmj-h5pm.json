@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-587h-7wmj-h5pm",
+  "cve_id": "CVE-2026-112942",
+  "ecosystem": "npm",
+  "packages": [
+   "launch-editor",
+   "vite",
+   "vite-plus"
+  ],
+  "published_at": "2026-10-20T19:48:25Z",
+  "advisory_cwes": [77],
+  "html_url": "https://github.com/advisories/GHSA-587h-7wmj-h5pm",
+  "label_cwes": [77],
+  "repo": "vitejs/launch-editor",
+  "fix_sha": "f13cd835d4b8e860b1d4d080ad8a490cc2463679",
+  "parent_sha": "f6e6701bb1f16f2dd242b321374f1b6cca6eb6d4",
+  "path_vulnerable": "packages/launch-editor/index.js",
+  "path_patched": "packages/launch-editor/index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [18, 19],
+   [45, 62],
+   [75, 75]
+  ],
+  "patched_lines": [
+   [19, 19],
+   [45, 46],
+   [58, 58]
+  ],
+  "commit_url": "https://github.com/vitejs/launch-editor/commit/f13cd835d4b8e860b1d4d080ad8a490cc2463679",
+  "case_id": "258-GHSA-587h-7wmj-h5pm",
+  "content": {
+   "vulnerable": {
+    "sha256": "ae7061ed8e732cbda616af1d308255c5ff80d6099446d4fad6be651a726394ae",
+    "bytes": 3796
+   },
+   "patched": {
+    "sha256": "9afa7449100c506c5651de859a35dcfd9859ab16d24e03673663fcd50bbaf9a4",
+    "bytes": 3407
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

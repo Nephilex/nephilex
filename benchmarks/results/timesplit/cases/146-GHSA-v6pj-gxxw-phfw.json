@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-v6pj-gxxw-phfw",
+  "cve_id": "CVE-2026-107384",
+  "ecosystem": "npm",
+  "packages": [
+   "mariadb"
+  ],
+  "published_at": "2026-10-08T19:42:23Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-v6pj-gxxw-phfw",
+  "label_cwes": [89],
+  "repo": "mariadb-corporation/mariadb-connector-nodejs",
+  "fix_sha": "144b8f4ef29539a9fb4b75d972b9dcdac4088b4e",
+  "parent_sha": "7670d90949307e735c0ae148d80b3776478a599d",
+  "path_vulnerable": "lib/cmd/query.js",
+  "path_patched": "lib/cmd/query.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [229, 229]
+  ],
+  "patched_lines": [
+   [229, 229]
+  ],
+  "commit_url": "https://github.com/mariadb-corporation/mariadb-connector-nodejs/commit/144b8f4ef29539a9fb4b75d972b9dcdac4088b4e",
+  "case_id": "146-GHSA-v6pj-gxxw-phfw",
+  "content": {
+   "vulnerable": {
+    "sha256": "3e0c3c143a346cefee5508f7a595a2267c60bc9f10b76836ae1caa8bcd0ce9de",
+    "bytes": 12751
+   },
+   "patched": {
+    "sha256": "93634a74b0d68d551ae50e12713e90c15af900c1fec1a9f718bb7bda5e031e0e",
+    "bytes": 12761
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

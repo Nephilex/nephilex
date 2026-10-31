@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rcqf-f6h2-ccg9",
+  "cve_id": "CVE-2026-118252",
+  "ecosystem": "npm",
+  "packages": [
+   "@highcharts/dashboards"
+  ],
+  "published_at": "2026-10-28T19:56:57Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-rcqf-f6h2-ccg9",
+  "label_cwes": [79],
+  "repo": "highcharts/highcharts",
+  "fix_sha": "e65f8c21b9974dcccfa1c600a375d836acef4a7d",
+  "parent_sha": "4f2f35dfca96316494899c6c7fc286a89f0052e9",
+  "path_vulnerable": "ts/Dashboards/EditMode/SidebarPopup.ts",
+  "path_patched": "ts/Dashboards/EditMode/SidebarPopup.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [487, 487]
+  ],
+  "patched_lines": [
+   [487, 487]
+  ],
+  "commit_url": "https://github.com/highcharts/highcharts/commit/e65f8c21b9974dcccfa1c600a375d836acef4a7d",
+  "case_id": "242-GHSA-rcqf-f6h2-ccg9",
+  "content": {
+   "vulnerable": {
+    "sha256": "3d93e19c286f2aa348bca035cb1ad60a0313cbb103a00376b0201d7c9f0be9eb",
+    "bytes": 22295
+   },
+   "patched": {
+    "sha256": "409935a936990b2f346f039d332071715eb166543525254e5cc04eaf161e596f",
+    "bytes": 22297
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

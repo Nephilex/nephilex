@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2v95-h47v-g4x9",
+  "cve_id": "CVE-2026-107394",
+  "ecosystem": "pip",
+  "packages": [
+   "indico"
+  ],
+  "published_at": "2026-10-08T22:09:55Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-2v95-h47v-g4x9",
+  "label_cwes": [918],
+  "repo": "indico/indico",
+  "fix_sha": "44540e70ab4e20a12f14ddba5218a33749a86736",
+  "parent_sha": "d7a07ccc7001915f049479f8ab51fd86baae8f82",
+  "path_vulnerable": "indico/util/network.py",
+  "path_patched": "indico/util/network.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [23, 24]
+  ],
+  "patched_lines": [
+   [24, 25]
+  ],
+  "commit_url": "https://github.com/indico/indico/commit/44540e70ab4e20a12f14ddba5218a33749a86736",
+  "case_id": "058-GHSA-2v95-h47v-g4x9",
+  "content": {
+   "vulnerable": {
+    "sha256": "5873947d6f25db8f39440b092532ba6b8e7e1c3910501b9c2469452dfdc25ed4",
+    "bytes": 4051
+   },
+   "patched": {
+    "sha256": "ba4e9750151500c0bce18ebb28746735644e71e66bb0b79572fa6245caab7f33",
+    "bytes": 4091
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

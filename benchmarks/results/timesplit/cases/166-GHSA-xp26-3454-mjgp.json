@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xp26-3454-mjgp",
+  "cve_id": "CVE-2026-112950",
+  "ecosystem": "npm",
+  "packages": [
+   "@vitest/mocker"
+  ],
+  "published_at": "2026-10-21T19:48:38Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-xp26-3454-mjgp",
+  "label_cwes": [22],
+  "repo": "vitest-dev/vitest",
+  "fix_sha": "15cc006aa9f8683dc5f7e895d011fa7dc751ce35",
+  "parent_sha": "5dbebe9e3b8758fe97d233eb9718a3664cd0b9c3",
+  "path_vulnerable": "packages/browser/src/node/rpc.ts",
+  "path_patched": "packages/browser/src/node/rpc.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [34, 35],
+   [296, 296],
+   [307, 307],
+   [317, 317],
+   [482, 483]
+  ],
+  "patched_lines": [
+   [35, 35],
+   [297, 297],
+   [308, 308],
+   [318, 318],
+   [483, 485]
+  ],
+  "commit_url": "https://github.com/vitest-dev/vitest/commit/15cc006aa9f8683dc5f7e895d011fa7dc751ce35",
+  "case_id": "166-GHSA-xp26-3454-mjgp",
+  "content": {
+   "vulnerable": {
+    "sha256": "eee05b74e2e748885fabfb1ea1fd16311fda71bdda2b5d2e787e9354cba0c338",
+    "bytes": 20960
+   },
+   "patched": {
+    "sha256": "9ec2e9f3524b351980094489c1bf34de2159b896944a60392732a0c84000403e",
+    "bytes": 21055
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

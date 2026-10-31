@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7mfx-xg57-53c9",
+  "cve_id": "CVE-2026-106490",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/plugin-techdocs-backend"
+  ],
+  "published_at": "2026-10-07T18:00:00Z",
+  "advisory_cwes": [22, 23],
+  "html_url": "https://github.com/advisories/GHSA-7mfx-xg57-53c9",
+  "label_cwes": [22, 23],
+  "repo": "backstage/backstage",
+  "fix_sha": "40ecc4c2e88b0218125b0a3405d1f6315b321974",
+  "parent_sha": "0253c50673f2832b0b1e9f73348186434e7bd09e",
+  "path_vulnerable": "plugins/techdocs-backend/src/service/router.ts",
+  "path_patched": "plugins/techdocs-backend/src/service/router.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [47, 53],
+   [302, 305]
+  ],
+  "patched_lines": [
+   [46, 47],
+   [298, 311]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/40ecc4c2e88b0218125b0a3405d1f6315b321974",
+  "case_id": "204-GHSA-7mfx-xg57-53c9",
+  "content": {
+   "vulnerable": {
+    "sha256": "b52cd6e796fabf95605c8b767ff0651c9bce857854f96593d1a78e3a3deb0ece",
+    "bytes": 11785
+   },
+   "patched": {
+    "sha256": "044741caa07de7767c453837e2f6c597986e8b9a2a831c2fc49aea5084b0a984",
+    "bytes": 11941
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

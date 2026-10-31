@@ -1,0 +1,83 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r7f2-6fj8-6fg2",
+  "cve_id": "CVE-2026-105648",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-10-07T20:35:27Z",
+  "advisory_cwes": [184, 918],
+  "html_url": "https://github.com/advisories/GHSA-r7f2-6fj8-6fg2",
+  "label_cwes": [918],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "20d3f792bf4a7c349ee56b746a067550d8684ff5",
+  "parent_sha": "69432300f032d05ddb68885bcc209f23378cec22",
+  "path_vulnerable": "ghost/core/core/server/lib/request-external.js",
+  "path_patched": "ghost/core/core/server/lib/request-external.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [14, 15],
+   [48, 50],
+   [52, 63],
+   [67, 67],
+   [69, 72],
+   [74, 108],
+   [110, 110],
+   [119, 125],
+   [129, 182]
+  ],
+  "patched_lines": [
+   [15, 15],
+   [48, 50],
+   [52, 56],
+   [58, 59],
+   [63, 69],
+   [71, 73],
+   [75, 96],
+   [98, 99],
+   [108, 114],
+   [118, 118]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/20d3f792bf4a7c349ee56b746a067550d8684ff5",
+  "case_id": "263-GHSA-r7f2-6fj8-6fg2",
+  "content": {
+   "vulnerable": {
+    "sha256": "7a995313a07a2a8417e1f1cfa212434cc52765dabe1f7ee1fc967a820a9197f4",
+    "bytes": 9852
+   },
+   "patched": {
+    "sha256": "b647f498497cd23b6f286c27c9f37abeeb8dabee07e90a8c9bc17231a8051ce2",
+    "bytes": 8442
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

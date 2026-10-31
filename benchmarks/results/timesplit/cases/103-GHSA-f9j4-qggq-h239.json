@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-f9j4-qggq-h239",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "GitPython"
+  ],
+  "published_at": "2026-10-27T15:26:50Z",
+  "advisory_cwes": [78, 88],
+  "html_url": "https://github.com/advisories/GHSA-f9j4-qggq-h239",
+  "label_cwes": [78, 88],
+  "repo": "gitpython-developers/GitPython",
+  "fix_sha": "790bb3164948625ffb043d2a162425d55923fe9a",
+  "parent_sha": "cf43820496e3d3eb7356f0a91a273107b3a65a6c",
+  "path_vulnerable": "git/remote.py",
+  "path_patched": "git/remote.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [17, 17],
+   [1104, 1104],
+   [1129, 1130]
+  ],
+  "patched_lines": [
+   [17, 17],
+   [1104, 1105],
+   [1131, 1136]
+  ],
+  "commit_url": "https://github.com/gitpython-developers/GitPython/commit/790bb3164948625ffb043d2a162425d55923fe9a",
+  "case_id": "103-GHSA-f9j4-qggq-h239",
+  "content": {
+   "vulnerable": {
+    "sha256": "786ae9c5d3a31b208720d845fce76efd362729a6aa9acfd7a7771a9f8132c1c4",
+    "bytes": 46995
+   },
+   "patched": {
+    "sha256": "bec59938f5e427df00caf6bee78f6e8887d70c2d2b11cc044ce68e7ebbab0697",
+    "bytes": 47568
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

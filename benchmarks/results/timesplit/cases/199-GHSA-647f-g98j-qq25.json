@@ -1,0 +1,83 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-647f-g98j-qq25",
+  "cve_id": "CVE-2026-92937",
+  "ecosystem": "npm",
+  "packages": [
+   "vm2"
+  ],
+  "published_at": "2026-10-01T15:32:10Z",
+  "advisory_cwes": [94, 693],
+  "html_url": "https://github.com/advisories/GHSA-647f-g98j-qq25",
+  "label_cwes": [94],
+  "repo": "patriksimek/vm2",
+  "fix_sha": "315786904c416be68ff2517b86fb9d71fa6761db",
+  "parent_sha": "54b54b74a382577f0bcd0538c5bf99acdcd7f53b",
+  "path_vulnerable": "lib/bridge.js",
+  "path_patched": "lib/bridge.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [673, 674],
+   [834, 834],
+   [836, 836],
+   [915, 920],
+   [922, 922],
+   [924, 944],
+   [949, 959],
+   [961, 967],
+   [969, 969],
+   [1623, 1634]
+  ],
+  "patched_lines": [
+   [674, 682],
+   [843, 846],
+   [848, 851],
+   [925, 934],
+   [940, 1004],
+   [1007, 1007],
+   [1012, 1060],
+   [1062, 1102],
+   [1757, 1766]
+  ],
+  "commit_url": "https://github.com/patriksimek/vm2/commit/315786904c416be68ff2517b86fb9d71fa6761db",
+  "case_id": "199-GHSA-647f-g98j-qq25",
+  "content": {
+   "vulnerable": {
+    "sha256": "ba93d04df0008b6cf3b24497eae333cb7be3d24220f77130fe2ad16c614206ec",
+    "bytes": 116738
+   },
+   "patched": {
+    "sha256": "227079c6c92a100e7d79d78a621b29a75e92fc0dce3469e6d784c7c06101ec6a",
+    "bytes": 123752
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

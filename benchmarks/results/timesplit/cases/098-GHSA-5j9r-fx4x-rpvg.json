@@ -1,0 +1,77 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5j9r-fx4x-rpvg",
+  "cve_id": "CVE-2026-58273",
+  "ecosystem": "pip",
+  "packages": [
+   "rucio"
+  ],
+  "published_at": "2026-10-28T19:50:05Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-5j9r-fx4x-rpvg",
+  "label_cwes": [639],
+  "repo": "rucio/rucio",
+  "fix_sha": "64c0e6a6a93ae88427ff3b7d77532ce08c8a69ec",
+  "parent_sha": "e1aca4f47021b7ed5b647e37e11c1816e2b56777",
+  "path_vulnerable": "lib/rucio/web/rest/flaskapi/v1/credentials.py",
+  "path_patched": "lib/rucio/web/rest/flaskapi/v1/credentials.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [164, 165],
+   [167, 168],
+   [194, 194],
+   [197, 197]
+  ],
+  "patched_lines": [
+   [165, 169],
+   [195, 195],
+   [198, 198]
+  ],
+  "commit_url": "https://github.com/rucio/rucio/commit/64c0e6a6a93ae88427ff3b7d77532ce08c8a69ec",
+  "case_id": "098-GHSA-5j9r-fx4x-rpvg",
+  "content": {
+   "vulnerable": {
+    "sha256": "6eb7d09a7c6b43bc0b7130890a1276d196279f78252666ed804281ca76e45c28",
+    "bytes": 8219
+   },
+   "patched": {
+    "sha256": "3b5bf75437de2f4c282801726ed7a8595d08ddc5d08fcb3bfef0b4e1c2a5ee98",
+    "bytes": 8201
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      165,
+      "logic.quantity-from-request",
+      [840]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

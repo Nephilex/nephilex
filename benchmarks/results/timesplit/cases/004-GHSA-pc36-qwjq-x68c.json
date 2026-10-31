@@ -1,0 +1,95 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pc36-qwjq-x68c",
+  "cve_id": "CVE-2026-105743",
+  "ecosystem": "pip",
+  "packages": [
+   "docling",
+   "docling-slim"
+  ],
+  "published_at": "2026-10-07T20:42:19Z",
+  "advisory_cwes": [367, 918],
+  "html_url": "https://github.com/advisories/GHSA-pc36-qwjq-x68c",
+  "label_cwes": [918],
+  "repo": "docling-project/docling",
+  "fix_sha": "5e469137f275ffc443306a30d12a3a45bceb80fb",
+  "parent_sha": "efaf9edd61363ef7239a49ba8e6b349ee219268f",
+  "path_vulnerable": "docling/backend/utils/image_resource_loader.py",
+  "path_patched": "docling/backend/utils/image_resource_loader.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [21, 22],
+   [35, 35],
+   [37, 39],
+   [46, 46],
+   [48, 49],
+   [54, 74],
+   [93, 94],
+   [100, 101],
+   [168, 168],
+   [184, 185],
+   [193, 245]
+  ],
+  "patched_lines": [
+   [13, 13],
+   [20, 21],
+   [24, 25],
+   [27, 27],
+   [29, 29],
+   [33, 33],
+   [40, 127],
+   [129, 129],
+   [131, 134],
+   [141, 141],
+   [143, 151],
+   [153, 163],
+   [166, 243],
+   [245, 252],
+   [272, 272],
+   [280, 285],
+   [353, 354],
+   [371, 445],
+   [454, 454]
+  ],
+  "commit_url": "https://github.com/docling-project/docling/commit/5e469137f275ffc443306a30d12a3a45bceb80fb",
+  "case_id": "004-GHSA-pc36-qwjq-x68c",
+  "content": {
+   "vulnerable": {
+    "sha256": "3979f8a1d310f26f23118bc0e45e4fd205fdd6b713e4008740d850c14faa9ea7",
+    "bytes": 10063
+   },
+   "patched": {
+    "sha256": "734fe5b4550d77cecb6a574df057d9211dda9437f2d7d90608eb30dd09c1de1c",
+    "bytes": 18259
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

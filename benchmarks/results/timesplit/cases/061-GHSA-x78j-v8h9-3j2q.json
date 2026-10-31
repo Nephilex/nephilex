@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x78j-v8h9-3j2q",
+  "cve_id": "CVE-2026-102937",
+  "ecosystem": "pip",
+  "packages": [
+   "virtualenv"
+  ],
+  "published_at": "2026-10-01T15:08:29Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-x78j-v8h9-3j2q",
+  "label_cwes": [78],
+  "repo": "pypa/virtualenv",
+  "fix_sha": "d721ff140ce4afdc2a9b76751e4584e25d9fbea6",
+  "parent_sha": "087a2ef8bd3aa15b562a3558b1068f603e50f77a",
+  "path_vulnerable": "src/virtualenv/create/pyenv_cfg.py",
+  "path_patched": "src/virtualenv/create/pyenv_cfg.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [6, 6],
+   [13, 28],
+   [67, 67],
+   [94, 100]
+  ],
+  "patched_lines": [
+   [6, 8],
+   [53, 53],
+   [79, 80]
+  ],
+  "commit_url": "https://github.com/pypa/virtualenv/commit/d721ff140ce4afdc2a9b76751e4584e25d9fbea6",
+  "case_id": "061-GHSA-x78j-v8h9-3j2q",
+  "content": {
+   "vulnerable": {
+    "sha256": "32c8ebb58a294aec723234f38d1893fc12e770026aadb21746d978407d35df95",
+    "bytes": 3300
+   },
+   "patched": {
+    "sha256": "3b32e71ec811128987e88a7a63820fae670280c6399f50627bdc1444e726b524",
+    "bytes": 2670
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

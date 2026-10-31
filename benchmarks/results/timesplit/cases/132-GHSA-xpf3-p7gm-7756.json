@@ -1,0 +1,76 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xpf3-p7gm-7756",
+  "cve_id": "CVE-2026-14966",
+  "ecosystem": "pip",
+  "packages": [
+   "bbot"
+  ],
+  "published_at": "2026-10-14T19:34:31Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-xpf3-p7gm-7756",
+  "label_cwes": [22],
+  "repo": "blacklanternsecurity/bbot",
+  "fix_sha": "3bc8d3a96f34f312853c9fcf8decee2a4e905f26",
+  "parent_sha": "2fb395900a0ba9550d1a8e7d32cdcdd3430afeda",
+  "path_vulnerable": "bbot/modules/internal/extract.py",
+  "path_patched": "bbot/modules/internal/extract.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [1, 15],
+   [29, 29],
+   [33, 63],
+   [76, 76],
+   [79, 79],
+   [83, 84],
+   [98, 382]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [15, 15],
+   [19, 28],
+   [46, 46],
+   [60, 77]
+  ],
+  "commit_url": "https://github.com/blacklanternsecurity/bbot/commit/3bc8d3a96f34f312853c9fcf8decee2a4e905f26",
+  "case_id": "132-GHSA-xpf3-p7gm-7756",
+  "content": {
+   "vulnerable": {
+    "sha256": "34b9beb8280a1495d7652e0a911aa05e8c58000b70df81f7f72613ce80f382d0",
+    "bytes": 13939
+   },
+   "patched": {
+    "sha256": "c3d78f47bdebf42260874894936d88ffc81ad01bed8a45ea4a3dadee571bc218",
+    "bytes": 3431
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

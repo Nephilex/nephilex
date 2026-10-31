@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-qr6x-7v33-6qmg",
+  "cve_id": "CVE-2026-115924",
+  "ecosystem": "pip",
+  "packages": [
+   "rembg"
+  ],
+  "published_at": "2026-10-27T14:45:36Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-qr6x-7v33-6qmg",
+  "label_cwes": [22],
+  "repo": "danielgatis/rembg",
+  "fix_sha": "b2758c6b39bb2b02df90a03128110339476984d3",
+  "parent_sha": "17820f0ffd3ca11e2907d2a3ffef3abded5c9f0f",
+  "path_vulnerable": "rembg/sessions/sam.py",
+  "path_patched": "rembg/sessions/sam.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [126, 127],
+   [314, 314],
+   [343, 343],
+   [351, 351],
+   [365, 365]
+  ],
+  "patched_lines": [
+   [127, 162],
+   [350, 361],
+   [390, 390],
+   [398, 398],
+   [412, 412]
+  ],
+  "commit_url": "https://github.com/danielgatis/rembg/commit/b2758c6b39bb2b02df90a03128110339476984d3",
+  "case_id": "067-GHSA-qr6x-7v33-6qmg",
+  "content": {
+   "vulnerable": {
+    "sha256": "c7f5cf40b69cd33b0adc0a5ce74d9c8534f24e8b8f80799378710e003731f917",
+    "bytes": 13158
+   },
+   "patched": {
+    "sha256": "524bccb7b54acd3979d025e0451334e7a9d0d7e4cd4ce81007b8c1822b827b7d",
+    "bytes": 15532
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

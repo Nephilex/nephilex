@@ -1,0 +1,88 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-j92p-c242-7hfx",
+  "cve_id": "CVE-2026-75597",
+  "ecosystem": "pip",
+  "packages": [
+   "pyload-ng"
+  ],
+  "published_at": "2026-10-09T16:40:30Z",
+  "advisory_cwes": [209, 306],
+  "html_url": "https://github.com/advisories/GHSA-j92p-c242-7hfx",
+  "label_cwes": [306],
+  "repo": "pyload/pyload",
+  "fix_sha": "e80c940cd604e60d93e3164429d4fc4aac54468d",
+  "parent_sha": "87b39714e7f86f5f43e803d991228e0fe20d5459",
+  "path_vulnerable": "src/pyload/webui/app/blueprints/app_blueprint.py",
+  "path_patched": "src/pyload/webui/app/blueprints/app_blueprint.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [33, 34]
+  ],
+  "patched_lines": [
+   [34, 38]
+  ],
+  "commit_url": "https://github.com/pyload/pyload/commit/e80c940cd604e60d93e3164429d4fc4aac54468d",
+  "case_id": "114-GHSA-j92p-c242-7hfx",
+  "content": {
+   "vulnerable": {
+    "sha256": "0517ecb01459b82721a34219228867eaf0b7e29105b378581d948398fd8b90ed",
+    "bytes": 15941
+   },
+   "patched": {
+    "sha256": "ffbc74dc8009136985b4c61015fcb04547d2142892cd72c22c0a45b92dd817e5",
+    "bytes": 16173
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      206,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      336,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      211,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      341,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

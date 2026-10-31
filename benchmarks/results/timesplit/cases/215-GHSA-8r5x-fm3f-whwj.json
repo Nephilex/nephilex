@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8r5x-fm3f-whwj",
+  "cve_id": "CVE-2026-106446",
+  "ecosystem": "npm",
+  "packages": [
+   "handlebars"
+  ],
+  "published_at": "2026-10-08T17:52:32Z",
+  "advisory_cwes": [94, 843],
+  "html_url": "https://github.com/advisories/GHSA-8r5x-fm3f-whwj",
+  "label_cwes": [94],
+  "repo": "handlebars-lang/handlebars.js",
+  "fix_sha": "703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+  "parent_sha": "0fcf25c63038b43e78e17adbf029cf073e80554d",
+  "path_vulnerable": "lib/handlebars/compiler/javascript-compiler.js",
+  "path_patched": "lib/handlebars/compiler/javascript-compiler.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [1227, 1227],
+   [1278, 1279],
+   [1298, 1298]
+  ],
+  "patched_lines": [
+   [1227, 1227],
+   [1279, 1292],
+   [1312, 1312]
+  ],
+  "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+  "case_id": "215-GHSA-8r5x-fm3f-whwj",
+  "content": {
+   "vulnerable": {
+    "sha256": "09327fcbfc4c14fc9efaf13a326c946e974cb6c466da08a37f8013a9cb9cff78",
+    "bytes": 34852
+   },
+   "patched": {
+    "sha256": "67f16c56687c5d1458c25bda67a8df8b710f907107570c2483a420db087cc971",
+    "bytes": 35320
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

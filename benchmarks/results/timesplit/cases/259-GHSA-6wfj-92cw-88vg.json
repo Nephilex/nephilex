@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6wfj-92cw-88vg",
+  "cve_id": "CVE-2026-110634",
+  "ecosystem": "npm",
+  "packages": [
+   "git-diff"
+  ],
+  "published_at": "2026-10-14T15:32:27Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-6wfj-92cw-88vg",
+  "label_cwes": [78],
+  "repo": "danday74/git-diff",
+  "fix_sha": "bfd727b6cf1daa671c3528d1d681f55b70e8fb19",
+  "parent_sha": "39a229007b748fb1f08e3f0e29ea515ea0844ce2",
+  "path_vulnerable": "js/gitDiffReal/generateDiff/index.js",
+  "path_patched": "js/gitDiffReal/generateDiff/index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [3, 4],
+   [25, 27],
+   [29, 30]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [20, 20],
+   [27, 43],
+   [45, 46]
+  ],
+  "commit_url": "https://github.com/danday74/git-diff/commit/bfd727b6cf1daa671c3528d1d681f55b70e8fb19",
+  "case_id": "259-GHSA-6wfj-92cw-88vg",
+  "content": {
+   "vulnerable": {
+    "sha256": "c85a240ca61b71c96625315a000a9aeac3ad469bb814fcec6a7ad590e7c7563f",
+    "bytes": 3156
+   },
+   "patched": {
+    "sha256": "5d2363b840ca5fa439774a3bd3d414afd4c8942622cb740c21f0c00fa75235cd",
+    "bytes": 3834
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

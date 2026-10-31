@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-mpr7-6m5w-76rw",
+  "cve_id": "CVE-2026-114127",
+  "ecosystem": "npm",
+  "packages": [
+   "astro"
+  ],
+  "published_at": "2026-10-22T16:29:28Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-mpr7-6m5w-76rw",
+  "label_cwes": [79],
+  "repo": "withastro/astro",
+  "fix_sha": "0b4dc3a211910b589d3805ab4dfedf11b0e712bb",
+  "parent_sha": "aaf14c39c2e97862e3b6f7565c62bfc57d5e6cc9",
+  "path_vulnerable": "packages/astro/src/runtime/server/transition.ts",
+  "path_patched": "packages/astro/src/runtime/server/transition.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [197, 197],
+   [199, 199]
+  ],
+  "patched_lines": [
+   [194, 202],
+   [204, 204],
+   [207, 207],
+   [209, 209]
+  ],
+  "commit_url": "https://github.com/withastro/astro/commit/0b4dc3a211910b589d3805ab4dfedf11b0e712bb",
+  "case_id": "150-GHSA-mpr7-6m5w-76rw",
+  "content": {
+   "vulnerable": {
+    "sha256": "d9e8e35f6755f65b06cf826a5011a137b5a6450f835af72e481dd573e1e7357f",
+    "bytes": 8484
+   },
+   "patched": {
+    "sha256": "9ca357ffe7cae7b8110169c92ada76eff731f7abab23ea0ac9c317a2e671aff0",
+    "bytes": 8860
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

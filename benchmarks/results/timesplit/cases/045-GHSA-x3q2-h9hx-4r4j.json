@@ -1,0 +1,87 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x3q2-h9hx-4r4j",
+  "cve_id": "CVE-2026-105744",
+  "ecosystem": "pip",
+  "packages": [
+   "docling",
+   "docling-slim"
+  ],
+  "published_at": "2026-10-07T20:42:05Z",
+  "advisory_cwes": [22, 73, 1188],
+  "html_url": "https://github.com/advisories/GHSA-x3q2-h9hx-4r4j",
+  "label_cwes": [22, 73],
+  "repo": "docling-project/docling",
+  "fix_sha": "38b6fa0a465d46fdacbbec333f50fa19c4f6b342",
+  "parent_sha": "5e469137f275ffc443306a30d12a3a45bceb80fb",
+  "path_vulnerable": "docling/backend/latex/engines/tectonic.py",
+  "path_patched": "docling/backend/latex/engines/tectonic.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [60, 60],
+   [98, 99],
+   [213, 214],
+   [246, 250]
+  ],
+  "patched_lines": [
+   [57, 68],
+   [72, 72],
+   [74, 82],
+   [120, 154],
+   [270, 284],
+   [317, 322]
+  ],
+  "commit_url": "https://github.com/docling-project/docling/commit/38b6fa0a465d46fdacbbec333f50fa19c4f6b342",
+  "case_id": "045-GHSA-x3q2-h9hx-4r4j",
+  "content": {
+   "vulnerable": {
+    "sha256": "6462e0b055bcca9d70ee4125b61b0fe7e80fb407b939a353d1baaadf06cf7c11",
+    "bytes": 10315
+   },
+   "patched": {
+    "sha256": "f0cccd6623e84e61965b2679b7ee6dcc0dbca1112ac656d62f9fa9716fda3e14",
+    "bytes": 13470
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      89,
+      "malware.curl-pipe-shell",
+      [494, 506]
+     ]
+    ],
+    "patched": [
+     [
+      110,
+      "malware.curl-pipe-shell",
+      [494, 506]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

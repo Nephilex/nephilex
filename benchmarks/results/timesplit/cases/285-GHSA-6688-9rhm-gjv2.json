@@ -1,0 +1,89 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6688-9rhm-gjv2",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "dompurify"
+  ],
+  "published_at": "2026-10-05T23:43:53Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-6688-9rhm-gjv2",
+  "label_cwes": [79],
+  "repo": "cure53/DOMPurify",
+  "fix_sha": "b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+  "parent_sha": "1d7460c4f8a27be825c11b1c9d346d79db32c1e5",
+  "path_vulnerable": "typescript/verify.js",
+  "path_patched": "typescript/verify.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [46, 46],
+   [49, 49],
+   [54, 54],
+   [60, 60],
+   [70, 71],
+   [80, 80],
+   [82, 82],
+   [89, 89],
+   [96, 96],
+   [103, 103],
+   [118, 118]
+  ],
+  "patched_lines": [
+   [39, 67],
+   [75, 78],
+   [81, 84],
+   [89, 89],
+   [95, 95],
+   [102, 102],
+   [106, 107],
+   [116, 116],
+   [118, 118],
+   [125, 125],
+   [132, 132],
+   [137, 137],
+   [140, 140],
+   [155, 156]
+  ],
+  "commit_url": "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+  "case_id": "285-GHSA-6688-9rhm-gjv2",
+  "content": {
+   "vulnerable": {
+    "sha256": "88f3d0944f836a4027a19f8bdc0cf16fc26b996cd1f1358547da7d3d0a209cae",
+    "bytes": 3219
+   },
+   "patched": {
+    "sha256": "b2627c4ef923b4ebb2b487c603da23f3e55b5905fddaaec00e75e683374f9a30",
+    "bytes": 4401
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

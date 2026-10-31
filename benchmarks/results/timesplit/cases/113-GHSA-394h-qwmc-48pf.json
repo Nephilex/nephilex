@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-394h-qwmc-48pf",
+  "cve_id": "CVE-2026-113718",
+  "ecosystem": "pip",
+  "packages": [
+   "virtualenv"
+  ],
+  "published_at": "2026-10-23T22:24:43Z",
+  "advisory_cwes": [94],
+  "html_url": "https://github.com/advisories/GHSA-394h-qwmc-48pf",
+  "label_cwes": [94],
+  "repo": "pypa/virtualenv",
+  "fix_sha": "e5fc2e6e189a877ff559af288919e3525d13e5e0",
+  "parent_sha": "f61b6ac872d6f4cd68914abad2b9c769e27ef6c2",
+  "path_vulnerable": "src/virtualenv/activation/xonsh/__init__.py",
+  "path_patched": "src/virtualenv/activation/xonsh/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [20, 21]
+  ],
+  "patched_lines": [
+   [20, 21]
+  ],
+  "commit_url": "https://github.com/pypa/virtualenv/commit/e5fc2e6e189a877ff559af288919e3525d13e5e0",
+  "case_id": "113-GHSA-394h-qwmc-48pf",
+  "content": {
+   "vulnerable": {
+    "sha256": "64007fccdc7966ebcb380a4276629165ce1f7e3dbe64d8fd7820aad8c278f70d",
+    "bytes": 966
+   },
+   "patched": {
+    "sha256": "8a77123f4dbdfc78dc96178e02701904a2f6a373ddbc297e993a69f2249041e2",
+    "bytes": 964
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

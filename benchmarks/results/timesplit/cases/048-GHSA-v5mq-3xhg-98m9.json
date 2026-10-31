@@ -1,0 +1,84 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-v5mq-3xhg-98m9",
+  "cve_id": "CVE-2026-104250",
+  "ecosystem": "pip",
+  "packages": [
+   "unstructured"
+  ],
+  "published_at": "2026-10-15T20:16:18Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-v5mq-3xhg-98m9",
+  "label_cwes": [79],
+  "repo": "Unstructured-IO/unstructured",
+  "fix_sha": "cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
+  "parent_sha": "445c95735c4045057f51f399bc04c657751923bd",
+  "path_vulnerable": "unstructured/documents/ontology.py",
+  "path_patched": "unstructured/documents/ontology.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [17, 18],
+   [25, 26],
+   [82, 83],
+   [89, 89],
+   [108, 108],
+   [115, 115],
+   [117, 117],
+   [125, 126],
+   [130, 130],
+   [132, 132]
+  ],
+  "patched_lines": [
+   [18, 18],
+   [27, 28],
+   [85, 89],
+   [95, 95],
+   [114, 125],
+   [132, 137],
+   [139, 140],
+   [148, 151],
+   [155, 155],
+   [157, 157]
+  ],
+  "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
+  "case_id": "048-GHSA-v5mq-3xhg-98m9",
+  "content": {
+   "vulnerable": {
+    "sha256": "d58298372f42ab75299c2dfbead71aebdb985c15a9e0f457c2407f3172c4b0a9",
+    "bytes": 25065
+   },
+   "patched": {
+    "sha256": "fd8437515d85a68495b61653f9bf4a7a182a8767c8b88d5543d3a927a4d3d0d1",
+    "bytes": 26637
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

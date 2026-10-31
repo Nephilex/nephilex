@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6jp4-8v48-cc5v",
+  "cve_id": "CVE-2026-117601",
+  "ecosystem": "pip",
+  "packages": [
+   "electrum"
+  ],
+  "published_at": "2026-10-28T21:23:44Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v",
+  "label_cwes": [347],
+  "repo": "spesmilo/electrum",
+  "fix_sha": "90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "parent_sha": "e8c79fa662123217ac5eba6fa7d62fa53f46b563",
+  "path_vulnerable": "electrum/wallet.py",
+  "path_patched": "electrum/wallet.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [63, 63],
+   [73, 73],
+   [86, 86],
+   [429, 429],
+   [2607, 2608]
+  ],
+  "patched_lines": [
+   [63, 65],
+   [75, 76],
+   [89, 89],
+   [432, 433],
+   [2612, 2657]
+  ],
+  "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "case_id": "020-GHSA-6jp4-8v48-cc5v",
+  "content": {
+   "vulnerable": {
+    "sha256": "a8a5ee26251813abd6f7b57da2b283cfc84ad2e548738603b44b355d0cd32c28",
+    "bytes": 208558
+   },
+   "patched": {
+    "sha256": "b46640dfad763c489b480416717d5723be67475b30fae47fdef01d1c46b82021",
+    "bytes": 211094
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

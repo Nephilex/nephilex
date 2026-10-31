@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
+  "cve_id": "CVE-2026-114130",
+  "ecosystem": "npm",
+  "packages": [
+   "nuxt"
+  ],
+  "published_at": "2026-10-22T16:51:37Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-jjm6-p2m9-9w4x",
+  "label_cwes": [79],
+  "repo": "nuxt/nuxt",
+  "fix_sha": "355ed9565127ff9b1453deb7160059ed55b3cb85",
+  "parent_sha": "e7973c0fa26c31a91e40ec0421a884f889fcb27c",
+  "path_vulnerable": "packages/nuxt/src/app/middleware/route-rules.ts",
+  "path_patched": "packages/nuxt/src/app/middleware/route-rules.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [11, 11]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [11, 11]
+  ],
+  "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
+  "case_id": "290-GHSA-jjm6-p2m9-9w4x",
+  "content": {
+   "vulnerable": {
+    "sha256": "9d5a2acc8296e1fa91a5d9073c135a9038bf81ce350f345c920a672bb9559e12",
+    "bytes": 676
+   },
+   "patched": {
+    "sha256": "750c2f4bc232bf8e74839695b87153404102b7bbf2a5e7bf35716810cd8caf2e",
+    "bytes": 661
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

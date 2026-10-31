@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-ph72-cqr5-qpp7",
+  "cve_id": "CVE-2026-105754",
+  "ecosystem": "pip",
+  "packages": [
+   "vllm"
+  ],
+  "published_at": "2026-10-05T23:42:50Z",
+  "advisory_cwes": [20, 617, 639, 668, 704, 1284],
+  "html_url": "https://github.com/advisories/GHSA-ph72-cqr5-qpp7",
+  "label_cwes": [639],
+  "repo": "vllm-project/vllm",
+  "fix_sha": "1970f3ed4be7fa8620e4ddc4a12c36a8384cfc27",
+  "parent_sha": "f2e2936f91a794513af74d009286c69e3fb2592b",
+  "path_vulnerable": "vllm/entrypoints/scale_out/token_in_token_out/protocol.py",
+  "path_patched": "vllm/entrypoints/scale_out/token_in_token_out/protocol.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [36, 36],
+   [39, 39],
+   [69, 70],
+   [186, 187]
+  ],
+  "patched_lines": [
+   [36, 36],
+   [39, 39],
+   [70, 110],
+   [228, 241]
+  ],
+  "commit_url": "https://github.com/vllm-project/vllm/commit/1970f3ed4be7fa8620e4ddc4a12c36a8384cfc27",
+  "case_id": "042-GHSA-ph72-cqr5-qpp7",
+  "content": {
+   "vulnerable": {
+    "sha256": "297e246bdf9e4f7eb7b957abbae9953978918caa99ae270bba63c38570390621",
+    "bytes": 19336
+   },
+   "patched": {
+    "sha256": "9282bb6a8949655f633355bbe9057ae9150ff891be8109090efbf939b124e02a",
+    "bytes": 21627
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

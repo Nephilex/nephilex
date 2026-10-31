@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6hgp-fmhr-mrg4",
+  "cve_id": "CVE-2026-118255",
+  "ecosystem": "npm",
+  "packages": [
+   "@highcharts/dashboards",
+   "@highcharts/grid-pro"
+  ],
+  "published_at": "2026-10-28T19:57:48Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-6hgp-fmhr-mrg4",
+  "label_cwes": [79],
+  "repo": "highcharts/highcharts",
+  "fix_sha": "45b74403acafbe9f621c4a343506721d9129e991",
+  "parent_sha": "298aa6cca6269b7acdaf0c01a6a5f5557c032570",
+  "path_vulnerable": "ts/Grid/Core/Credits.ts",
+  "path_patched": "ts/Grid/Core/Credits.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [28, 29],
+   [145, 145],
+   [157, 158]
+  ],
+  "patched_lines": [
+   [29, 29],
+   [146, 146],
+   [159, 175]
+  ],
+  "commit_url": "https://github.com/highcharts/highcharts/commit/45b74403acafbe9f621c4a343506721d9129e991",
+  "case_id": "230-GHSA-6hgp-fmhr-mrg4",
+  "content": {
+   "vulnerable": {
+    "sha256": "d3cea9b94e8de330aa5f120b04d0597c8f807a2136fd4c0195a1b4b2242a6a2b",
+    "bytes": 3791
+   },
+   "patched": {
+    "sha256": "47562bdfe11a067a51fe523347f4bb22477c17cf40d088eb209c0149a9b88a55",
+    "bytes": 4336
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

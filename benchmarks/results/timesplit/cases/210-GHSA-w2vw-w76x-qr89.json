@@ -1,0 +1,140 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w2vw-w76x-qr89",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "nx"
+  ],
+  "published_at": "2026-10-05T23:29:06Z",
+  "advisory_cwes": [78, 88],
+  "html_url": "https://github.com/advisories/GHSA-w2vw-w76x-qr89",
+  "label_cwes": [78, 88],
+  "repo": "nrwl/nx",
+  "fix_sha": "c12850ce7b364db08e325c13541641d754db7123",
+  "parent_sha": "73c2cd5c980b59eda65b35e4f2fe3b56abf458d6",
+  "path_vulnerable": "packages/nx/src/utils/git-utils.ts",
+  "path_patched": "packages/nx/src/utils/git-utils.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [7, 7],
+   [9, 10],
+   [12, 12],
+   [29, 32],
+   [47, 47],
+   [56, 56],
+   [61, 63],
+   [67, 67],
+   [71, 71],
+   [85, 85],
+   [93, 93],
+   [97, 99],
+   [102, 102],
+   [112, 116],
+   [120, 122],
+   [126, 126],
+   [130, 130],
+   [133, 133],
+   [137, 137],
+   [141, 141],
+   [146, 146],
+   [159, 170],
+   [175, 175],
+   [181, 185],
+   [194, 198],
+   [207, 208],
+   [218, 224],
+   [226, 237]
+  ],
+  "patched_lines": [
+   [1, 6],
+   [12, 16],
+   [18, 20],
+   [22, 22],
+   [39, 48],
+   [63, 63],
+   [72, 72],
+   [77, 82],
+   [86, 86],
+   [90, 90],
+   [104, 104],
+   [112, 112],
+   [116, 124],
+   [127, 127],
+   [137, 142],
+   [146, 146],
+   [150, 150],
+   [154, 154],
+   [157, 157],
+   [161, 161],
+   [165, 165],
+   [170, 170],
+   [183, 192],
+   [197, 197],
+   [203, 215],
+   [224, 235],
+   [244, 245],
+   [254, 254],
+   [256, 258],
+   [260, 261]
+  ],
+  "commit_url": "https://github.com/nrwl/nx/commit/c12850ce7b364db08e325c13541641d754db7123",
+  "case_id": "210-GHSA-w2vw-w76x-qr89",
+  "content": {
+   "vulnerable": {
+    "sha256": "bec5468da0b1b54a6d2a4f35c8c02b776347276fa5f9d7212f92ed8c34850168",
+    "bytes": 15667
+   },
+   "patched": {
+    "sha256": "ea05939c8d28e47d99ce2a8f7a1c1a9d1e6c57ff70cbe11e5c002e6908bc99b6",
+    "bytes": 15243
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      29,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      392,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ],
+    "patched": [
+     [
+      416,
+      "patterns.weak-hash-md5-sha1",
+      [327]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

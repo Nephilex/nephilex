@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r488-j9vj-wx3q",
+  "cve_id": "CVE-2026-105857",
+  "ecosystem": "npm",
+  "packages": [
+   "@payloadcms/plugin-form-builder"
+  ],
+  "published_at": "2026-10-07T20:28:33Z",
+  "advisory_cwes": [94, 1321],
+  "html_url": "https://github.com/advisories/GHSA-r488-j9vj-wx3q",
+  "label_cwes": [94],
+  "repo": "payloadcms/payload",
+  "fix_sha": "333b82b9f3e685fed6826c2e3270da79df8336c6",
+  "parent_sha": "b703780bf8da0e9364178ff403fce02a448f0ea6",
+  "path_vulnerable": "packages/plugin-form-builder/src/collections/FormSubmissions/index.ts",
+  "path_patched": "packages/plugin-form-builder/src/collections/FormSubmissions/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [113, 113]
+  ],
+  "patched_lines": [
+   [113, 113]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/333b82b9f3e685fed6826c2e3270da79df8336c6",
+  "case_id": "223-GHSA-r488-j9vj-wx3q",
+  "content": {
+   "vulnerable": {
+    "sha256": "79da24948a674b822441f9712b3c51c38be99dbd0115a44cdb07738b6d775580",
+    "bytes": 4382
+   },
+   "patched": {
+    "sha256": "72b639fe75198ba5cfb19402622780316079c3a937dd1516ec76a172cbc6c96f",
+    "bytes": 4400
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

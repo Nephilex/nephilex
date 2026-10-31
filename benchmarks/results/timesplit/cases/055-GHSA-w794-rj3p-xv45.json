@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w794-rj3p-xv45",
+  "cve_id": "CVE-2026-105697",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow",
+   "langflow-base",
+   "lfx"
+  ],
+  "published_at": "2026-10-07T20:36:35Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-w794-rj3p-xv45",
+  "label_cwes": [78],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "eba285edf1dd4a33bf23a9cb8113c991fcdf3d1d",
+  "parent_sha": "16725f004a44a92ec3f3414f06abbf8ba18477ee",
+  "path_vulnerable": "src/backend/base/langflow/api/v2/schemas.py",
+  "path_patched": "src/backend/base/langflow/api/v2/schemas.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 45],
+   [47, 60],
+   [74, 106],
+   [108, 168],
+   [170, 299]
+  ],
+  "patched_lines": [
+   [3, 12],
+   [14, 14],
+   [29, 31]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/eba285edf1dd4a33bf23a9cb8113c991fcdf3d1d",
+  "case_id": "055-GHSA-w794-rj3p-xv45",
+  "content": {
+   "vulnerable": {
+    "sha256": "ae751763f4385103f1d8f55f6b0cd2ce7f91408d42e9d69417fa67d114dd707e",
+    "bytes": 11097
+   },
+   "patched": {
+    "sha256": "07fd661719ac4c4490553a99d8f285d14ff260a797d78a20daea6ec07c663610",
+    "bytes": 1076
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

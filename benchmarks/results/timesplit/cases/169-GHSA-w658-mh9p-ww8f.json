@@ -1,0 +1,77 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w658-mh9p-ww8f",
+  "cve_id": "CVE-2026-115923",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/plugin-catalog-backend"
+  ],
+  "published_at": "2026-10-28T22:42:36Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-w658-mh9p-ww8f",
+  "label_cwes": [22],
+  "repo": "backstage/backstage",
+  "fix_sha": "3214dc8f15d4a08a2fd07a72a8fe4d00aeac0db4",
+  "parent_sha": "af82d39149eb3cfb760dd733d689fde2a39c1bab",
+  "path_vulnerable": "plugins/catalog-backend/src/ingestion/CatalogRules.ts",
+  "path_patched": "plugins/catalog-backend/src/ingestion/CatalogRules.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [138, 139],
+   [155, 155],
+   [177, 178],
+   [205, 205],
+   [210, 210],
+   [261, 262]
+  ],
+  "patched_lines": [
+   [139, 144],
+   [161, 161],
+   [184, 190],
+   [214, 223],
+   [228, 228],
+   [233, 233],
+   [285, 348]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/3214dc8f15d4a08a2fd07a72a8fe4d00aeac0db4",
+  "case_id": "169-GHSA-w658-mh9p-ww8f",
+  "content": {
+   "vulnerable": {
+    "sha256": "8558afb9bd0d96e24c96b852c959ad9eeb5f710c93f3f8427910851f2b454bda",
+    "bytes": 7122
+   },
+   "patched": {
+    "sha256": "fd4914efac95ec0891a963ec0dec3d691de69a2664e2c7eb345ee96027675c46",
+    "bytes": 10695
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

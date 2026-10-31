@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2p8c-gr87-2676",
+  "cve_id": "CVE-2026-113796",
+  "ecosystem": "npm",
+  "packages": [
+   "electron"
+  ],
+  "published_at": "2026-10-22T16:47:54Z",
+  "advisory_cwes": [352],
+  "html_url": "https://github.com/advisories/GHSA-2p8c-gr87-2676",
+  "label_cwes": [352],
+  "repo": "electron/electron",
+  "fix_sha": "079b9b1594ee62c336adc3aa430d4c1cf62bd51e",
+  "parent_sha": "b6a4d492fa1f7b75f4d8dce18ebdfdb902da135d",
+  "path_vulnerable": "lib/browser/api/web-contents.ts",
+  "path_patched": "lib/browser/api/web-contents.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [606, 620],
+   [622, 628],
+   [630, 642],
+   [644, 644]
+  ],
+  "patched_lines": [
+   [606, 622],
+   [624, 630],
+   [632, 646],
+   [648, 648]
+  ],
+  "commit_url": "https://github.com/electron/electron/commit/079b9b1594ee62c336adc3aa430d4c1cf62bd51e",
+  "case_id": "234-GHSA-2p8c-gr87-2676",
+  "content": {
+   "vulnerable": {
+    "sha256": "12eaaec584e1255c6fc7ba0c7b83bdaecb6ccd631dcba8b2c44d1a8cf41ac176",
+    "bytes": 31610
+   },
+   "patched": {
+    "sha256": "7f14b4bdc2a521479e0029cb1fa30ba5670e9adc7eaf76359571d3aa5a17a420",
+    "bytes": 31732
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

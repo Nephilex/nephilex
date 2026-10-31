@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cm62-gvxx-vmxx",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "dulwich"
+  ],
+  "published_at": "2026-10-02T18:52:53Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-cm62-gvxx-vmxx",
+  "label_cwes": [22],
+  "repo": "jelmer/dulwich",
+  "fix_sha": "40a542cb02f9ac39a9eeac1193472903098698f9",
+  "parent_sha": "41f5509e20f873ef5dc8af136785a22a76a317e4",
+  "path_vulnerable": "dulwich/stash.py",
+  "path_patched": "dulwich/stash.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [30, 31],
+   [68, 69],
+   [219, 220],
+   [229, 230]
+  ],
+  "patched_lines": [
+   [31, 31],
+   [70, 115],
+   [267, 267],
+   [278, 282]
+  ],
+  "commit_url": "https://github.com/jelmer/dulwich/commit/40a542cb02f9ac39a9eeac1193472903098698f9",
+  "case_id": "041-GHSA-cm62-gvxx-vmxx",
+  "content": {
+   "vulnerable": {
+    "sha256": "c77bf00ca748331bd792455626342fabdbf87a140a4c3549007aef65f0531018",
+    "bytes": 13738
+   },
+   "patched": {
+    "sha256": "9f02dbd899111a6d7feee20b1490d43862554a1589c4be783617beabf1be31a3",
+    "bytes": 15614
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

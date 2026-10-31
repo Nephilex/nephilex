@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6v38-4h7w-rj9h",
+  "cve_id": "CVE-2026-96760",
+  "ecosystem": "pip",
+  "packages": [
+   "authlib"
+  ],
+  "published_at": "2026-10-27T14:50:18Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6v38-4h7w-rj9h",
+  "label_cwes": [347],
+  "repo": "authlib/authlib",
+  "fix_sha": "6c11a02da8730914cea08ec195f1108a40dc6733",
+  "parent_sha": "c529a61af40e3efe05286140e00fbdced07d7987",
+  "path_vulnerable": "authlib/jose/rfc7515/jws.py",
+  "path_patched": "authlib/jose/rfc7515/jws.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [206, 207]
+  ],
+  "patched_lines": [
+   [207, 211]
+  ],
+  "commit_url": "https://github.com/authlib/authlib/commit/6c11a02da8730914cea08ec195f1108a40dc6733",
+  "case_id": "044-GHSA-6v38-4h7w-rj9h",
+  "content": {
+   "vulnerable": {
+    "sha256": "89b282aa8c555a3b91c8dba6cad898f0a474af6d50c8e9d23ba3aa468369b6d7",
+    "bytes": 13736
+   },
+   "patched": {
+    "sha256": "b0a4318e13c6bafbaf893a4413a9b0ddeca45b5ec6c898eb0b1cc72074e3f7f4",
+    "bytes": 13885
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

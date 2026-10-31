@@ -1,0 +1,91 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-jjm6-p2m9-9w4x",
+  "cve_id": "CVE-2026-114130",
+  "ecosystem": "npm",
+  "packages": [
+   "nuxt"
+  ],
+  "published_at": "2026-10-22T16:51:37Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-jjm6-p2m9-9w4x",
+  "label_cwes": [79],
+  "repo": "nuxt/nuxt",
+  "fix_sha": "355ed9565127ff9b1453deb7160059ed55b3cb85",
+  "parent_sha": "e7973c0fa26c31a91e40ec0421a884f889fcb27c",
+  "path_vulnerable": "packages/nuxt/src/app/plugins/router.ts",
+  "path_patched": "packages/nuxt/src/app/plugins/router.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [3, 3],
+   [40, 40],
+   [51, 51],
+   [53, 53],
+   [55, 56],
+   [63, 63],
+   [130, 130],
+   [136, 136],
+   [202, 202],
+   [231, 233],
+   [235, 235],
+   [237, 237]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [11, 11],
+   [39, 40],
+   [43, 63],
+   [74, 80],
+   [82, 82],
+   [84, 85],
+   [92, 92],
+   [159, 159],
+   [165, 165],
+   [231, 231],
+   [259, 260],
+   [262, 262],
+   [264, 264],
+   [266, 266]
+  ],
+  "commit_url": "https://github.com/nuxt/nuxt/commit/355ed9565127ff9b1453deb7160059ed55b3cb85",
+  "case_id": "291-GHSA-jjm6-p2m9-9w4x",
+  "content": {
+   "vulnerable": {
+    "sha256": "0450630197d6888097e2fc9c2fea3e2bc68066422a77da7ca025adcb20e754e1",
+    "bytes": 12691
+   },
+   "patched": {
+    "sha256": "8f2a172287b56b04b35c756002bc2f278c2b0584e94bb612c2fe9cb2d742502b",
+    "bytes": 14097
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

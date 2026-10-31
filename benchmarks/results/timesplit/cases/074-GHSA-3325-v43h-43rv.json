@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3325-v43h-43rv",
+  "cve_id": "CVE-2026-102904",
+  "ecosystem": "pip",
+  "packages": [
+   "jupyterlab"
+  ],
+  "published_at": "2026-10-01T15:21:17Z",
+  "advisory_cwes": [88, 209, 918],
+  "html_url": "https://github.com/advisories/GHSA-3325-v43h-43rv",
+  "label_cwes": [88, 918],
+  "repo": "jupyterlab/jupyterlab",
+  "fix_sha": "9e1951e57da499ca66ef5e0caf68e71ad2e3d1a5",
+  "parent_sha": "af5f5b3c779f6d7170c1124f5818807fa18f3f63",
+  "path_vulnerable": "jupyterlab/extensions/manager.py",
+  "path_patched": "jupyterlab/extensions/manager.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [556, 557]
+  ],
+  "patched_lines": [
+   [557, 559]
+  ],
+  "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/9e1951e57da499ca66ef5e0caf68e71ad2e3d1a5",
+  "case_id": "074-GHSA-3325-v43h-43rv",
+  "content": {
+   "vulnerable": {
+    "sha256": "6c058fea187635cb337ed1ad19c43099cd506191a01a965ec49cca59d720b1ec",
+    "bytes": 27627
+   },
+   "patched": {
+    "sha256": "b62fac747e02b977d3b6be3240b6e412d8d1fc1ed5d93cf08af2ab1f1ccf2211",
+    "bytes": 27710
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,100 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8r5x-fm3f-whwj",
+  "cve_id": "CVE-2026-106446",
+  "ecosystem": "npm",
+  "packages": [
+   "handlebars"
+  ],
+  "published_at": "2026-10-08T17:52:32Z",
+  "advisory_cwes": [94, 843],
+  "html_url": "https://github.com/advisories/GHSA-8r5x-fm3f-whwj",
+  "label_cwes": [94],
+  "repo": "handlebars-lang/handlebars.js",
+  "fix_sha": "703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+  "parent_sha": "0fcf25c63038b43e78e17adbf029cf073e80554d",
+  "path_vulnerable": "lib/handlebars/compiler/compiler.js",
+  "path_patched": "lib/handlebars/compiler/compiler.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [103, 104],
+   [221, 222],
+   [246, 246],
+   [291, 292],
+   [294, 294],
+   [296, 296],
+   [299, 299],
+   [305, 305],
+   [307, 313],
+   [340, 340],
+   [370, 371],
+   [418, 420],
+   [422, 422],
+   [433, 434],
+   [564, 565]
+  ],
+  "patched_lines": [
+   [104, 104],
+   [223, 225],
+   [250, 250],
+   [295, 301],
+   [303, 303],
+   [305, 305],
+   [308, 308],
+   [314, 314],
+   [316, 316],
+   [321, 321],
+   [326, 326],
+   [331, 331],
+   [346, 356],
+   [387, 389],
+   [431, 433],
+   [435, 435],
+   [438, 443],
+   [447, 448],
+   [450, 450],
+   [461, 464],
+   [595, 704]
+  ],
+  "commit_url": "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+  "case_id": "214-GHSA-8r5x-fm3f-whwj",
+  "content": {
+   "vulnerable": {
+    "sha256": "f0c973c2c4b2f10b70275c205b9c26a72bf75cb12eb156ef0a3fc3f9fd486184",
+    "bytes": 15217
+   },
+   "patched": {
+    "sha256": "dfd6880723b6d5ce8e9b6b2c7345abfafe20ec18677778d8a860ef5bae83a324",
+    "bytes": 20367
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

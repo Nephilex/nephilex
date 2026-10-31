@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m5mm-p8h7-m29v",
+  "cve_id": "CVE-2026-115897",
+  "ecosystem": "npm",
+  "packages": [
+   "serialize-javascript"
+  ],
+  "published_at": "2026-10-23T22:09:52Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-m5mm-p8h7-m29v",
+  "label_cwes": [79],
+  "repo": "yahoo/serialize-javascript",
+  "fix_sha": "2864b3c6260a3bfd52d2db3e70d1a079de108a61",
+  "parent_sha": "6a73fa1ddcbe4bbee8bfb12fc1ad8c086cb1334b",
+  "path_vulnerable": "index.js",
+  "path_patched": "index.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [29, 29],
+   [41, 41]
+  ],
+  "patched_lines": [
+   [29, 33],
+   [45, 45]
+  ],
+  "commit_url": "https://github.com/yahoo/serialize-javascript/commit/2864b3c6260a3bfd52d2db3e70d1a079de108a61",
+  "case_id": "202-GHSA-m5mm-p8h7-m29v",
+  "content": {
+   "vulnerable": {
+    "sha256": "606ddb759394538d457428c4280e1f4f9fe62c7f8e1de3ea63542162cd19ab94",
+    "bytes": 14677
+   },
+   "patched": {
+    "sha256": "c00618d44bdb41ce23446de3fc92b16be86884b40fe4159233600a681707f342",
+    "bytes": 14974
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

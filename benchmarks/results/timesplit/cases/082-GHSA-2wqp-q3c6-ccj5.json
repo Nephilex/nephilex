@@ -1,0 +1,118 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2wqp-q3c6-ccj5",
+  "cve_id": "CVE-2026-115886",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-23T22:07:26Z",
+  "advisory_cwes": [470, 918],
+  "html_url": "https://github.com/advisories/GHSA-2wqp-q3c6-ccj5",
+  "label_cwes": [918],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "bac30b4148c4f40045b4d4db07ae60ab3838803f",
+  "parent_sha": "e3e69c97d200d011ae9f2a57c15dd50248437459",
+  "path_vulnerable": "mlflow/server/handlers.py",
+  "path_patched": "mlflow/server/handlers.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [423, 424],
+   [5432, 5433],
+   [5835, 5836],
+   [5847, 5859],
+   [7310, 7321],
+   [7330, 7331]
+  ],
+  "patched_lines": [
+   [424, 424],
+   [5434, 5438],
+   [5842, 5863],
+   [5875, 5875],
+   [7326, 7326],
+   [7336, 7336]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/bac30b4148c4f40045b4d4db07ae60ab3838803f",
+  "case_id": "082-GHSA-2wqp-q3c6-ccj5",
+  "content": {
+   "vulnerable": {
+    "sha256": "2705c98a272ba51517f845aee27ccac0a46cc0e8eb12ef99385f0bdb4bdfb85d",
+    "bytes": 316720
+   },
+   "patched": {
+    "sha256": "364948cbcf90d3179dc410df48284498873707e61e08400ba4c499343fa16806",
+    "bytes": 316895
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      2517,
+      "ast-python.ast-ssrf",
+      [918]
+     ],
+     [
+      2661,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2663,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      4615,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      2518,
+      "ast-python.ast-ssrf",
+      [918]
+     ],
+     [
+      2662,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2664,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      4616,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cf6m-vc3m-7cgm",
+  "cve_id": "CVE-2026-8505",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow"
+  ],
+  "published_at": "2026-10-05T22:31:22Z",
+  "advisory_cwes": [306],
+  "html_url": "https://github.com/advisories/GHSA-cf6m-vc3m-7cgm",
+  "label_cwes": [306],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "cb6f7508dda83ead9c3e4417e96e4b5bd9a260c3",
+  "parent_sha": "a75496142832f0ad4cd2beee248dbd19eec2288a",
+  "path_vulnerable": "src/lfx/src/lfx/services/settings/auth.py",
+  "path_patched": "src/lfx/src/lfx/services/settings/auth.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [84, 84],
+   [86, 86]
+  ],
+  "patched_lines": [
+   [84, 84],
+   [86, 88]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/cb6f7508dda83ead9c3e4417e96e4b5bd9a260c3",
+  "case_id": "012-GHSA-cf6m-vc3m-7cgm",
+  "content": {
+   "vulnerable": {
+    "sha256": "816b43d998cd986a4ecc3413532867bb28487bc2fd337e8689bf852dc23a35ac",
+    "bytes": 10789
+   },
+   "patched": {
+    "sha256": "e662498d6210261733a119e3629ea9e3c02a72d1399e3284e4db31e13e0a6607",
+    "bytes": 10942
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

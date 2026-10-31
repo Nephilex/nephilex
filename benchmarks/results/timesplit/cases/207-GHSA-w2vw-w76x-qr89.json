@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w2vw-w76x-qr89",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "nx"
+  ],
+  "published_at": "2026-10-05T23:29:06Z",
+  "advisory_cwes": [78, 88],
+  "html_url": "https://github.com/advisories/GHSA-w2vw-w76x-qr89",
+  "label_cwes": [78, 88],
+  "repo": "nrwl/nx",
+  "fix_sha": "11ab38573478172109bb5306cb30ca4af246caf0",
+  "parent_sha": "c973b83db3f27e0513bd7386b06d9e8e67d62c8d",
+  "path_vulnerable": "packages/nx/src/command-line/migrate/migrate-ui-api.ts",
+  "path_patched": "packages/nx/src/command-line/migrate/migrate-ui-api.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [1, 1],
+   [109, 110],
+   [119, 123],
+   [126, 126],
+   [132, 136],
+   [492, 492]
+  ],
+  "patched_lines": [
+   [1, 1],
+   [6, 6],
+   [111, 114],
+   [124, 124],
+   [127, 127],
+   [133, 133],
+   [137, 145],
+   [498, 499]
+  ],
+  "commit_url": "https://github.com/nrwl/nx/commit/11ab38573478172109bb5306cb30ca4af246caf0",
+  "case_id": "207-GHSA-w2vw-w76x-qr89",
+  "content": {
+   "vulnerable": {
+    "sha256": "9cff0694b54a388466f54a28890af694acf4bd216934c91111c8f7f635aaab17",
+    "bytes": 17080
+   },
+   "patched": {
+    "sha256": "f675167986d8753ee3b00d8100addafb1f1b6a9ab1d0d564179b77410af11457",
+    "bytes": 17318
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      119,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      132,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      492,
+      "ast-js.ast-command-injection",
+      [78]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

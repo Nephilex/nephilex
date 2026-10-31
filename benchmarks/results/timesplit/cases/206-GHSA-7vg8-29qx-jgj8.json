@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7vg8-29qx-jgj8",
+  "cve_id": "CVE-2026-105867",
+  "ecosystem": "npm",
+  "packages": [
+   "@payloadcms/storage-s3"
+  ],
+  "published_at": "2026-10-07T20:28:59Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-7vg8-29qx-jgj8",
+  "label_cwes": [639],
+  "repo": "payloadcms/payload",
+  "fix_sha": "2df8238fbf17edfce335c399b90bf524ba9906a2",
+  "parent_sha": "36fa9af73dd04fa59f4b4a06d11454538c4c1409",
+  "path_vulnerable": "packages/storage-s3/src/generateSignedURL.ts",
+  "path_patched": "packages/storage-s3/src/generateSignedURL.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [94, 95],
+   [105, 106]
+  ],
+  "patched_lines": [
+   [95, 95],
+   [107, 111]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/2df8238fbf17edfce335c399b90bf524ba9906a2",
+  "case_id": "206-GHSA-7vg8-29qx-jgj8",
+  "content": {
+   "vulnerable": {
+    "sha256": "d6fe91ffedb65ca6b55d7b793174531f666133944e3e5308872aa6eabddefaf6",
+    "bytes": 2918
+   },
+   "patched": {
+    "sha256": "67f5c2f536acb0e9dbaa3b796c1f157eda7a82f0a5727d24d1db0402d8f7c9ba",
+    "bytes": 3078
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

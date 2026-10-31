@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cw24-x4mj-fw3q",
+  "cve_id": "CVE-2026-107397",
+  "ecosystem": "pip",
+  "packages": [
+   "indico"
+  ],
+  "published_at": "2026-10-08T22:09:45Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-cw24-x4mj-fw3q",
+  "label_cwes": [79],
+  "repo": "indico/indico",
+  "fix_sha": "d4c8c7127176efa4cb53c64119ca8ee2b551be18",
+  "parent_sha": "3c69cba9b1d1dc7ae46e289ae39403597583ec3d",
+  "path_vulnerable": "indico/modules/attachments/forms.py",
+  "path_patched": "indico/modules/attachments/forms.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [11, 11],
+   [94, 94]
+  ],
+  "patched_lines": [
+   [11, 11],
+   [94, 94]
+  ],
+  "commit_url": "https://github.com/indico/indico/commit/d4c8c7127176efa4cb53c64119ca8ee2b551be18",
+  "case_id": "123-GHSA-cw24-x4mj-fw3q",
+  "content": {
+   "vulnerable": {
+    "sha256": "1ecf020be86324aed97dffa838519b3bb141f8ee1555f3c69d96932b689b2b87",
+    "bytes": 10252
+   },
+   "patched": {
+    "sha256": "1a758d2a8147cf45c1f6d454da33bb1510366d52924903aa092d5b7d53e3820f",
+    "bytes": 10264
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

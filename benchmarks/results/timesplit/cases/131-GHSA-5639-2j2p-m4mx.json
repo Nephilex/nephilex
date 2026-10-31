@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5639-2j2p-m4mx",
+  "cve_id": "CVE-2026-102991",
+  "ecosystem": "pip",
+  "packages": [
+   "Mako"
+  ],
+  "published_at": "2026-10-05T23:42:02Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-5639-2j2p-m4mx",
+  "label_cwes": [22],
+  "repo": "sqlalchemy/mako",
+  "fix_sha": "000ed85e4e48771eff460bf4fc721fb43de80e08",
+  "parent_sha": "411b4ac6cf054e61a8fb44c236990fda1e41ade4",
+  "path_vulnerable": "mako/template.py",
+  "path_patched": "mako/template.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [14, 15],
+   [268, 268]
+  ],
+  "patched_lines": [
+   [15, 15],
+   [269, 274]
+  ],
+  "commit_url": "https://github.com/sqlalchemy/mako/commit/000ed85e4e48771eff460bf4fc721fb43de80e08",
+  "case_id": "131-GHSA-5639-2j2p-m4mx",
+  "content": {
+   "vulnerable": {
+    "sha256": "869cb055b2aa13f173626bb2ee86768c8d3eb7ad081a374f09cdde554341424d",
+    "bytes": 28869
+   },
+   "patched": {
+    "sha256": "bb81d4621716ab7bd2d12bce0cb64e3dd3092d1fa5c0712ab0b2b8f27db8951c",
+    "bytes": 29234
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pfhg-q3qv-9q6r",
+  "cve_id": "CVE-2026-114060",
+  "ecosystem": "npm",
+  "packages": [
+   "@sveltejs/kit"
+  ],
+  "published_at": "2026-10-23T20:58:24Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-pfhg-q3qv-9q6r",
+  "label_cwes": [601],
+  "repo": "sveltejs/kit",
+  "fix_sha": "91aae3547c6cd2935d79c09a53e27c740100000a",
+  "parent_sha": "1c1d19c028aca0424d70551d6aacfa1fc189d426",
+  "path_vulnerable": "packages/kit/src/runtime/client/client.js",
+  "path_patched": "packages/kit/src/runtime/client/client.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [3020, 3020]
+  ],
+  "patched_lines": [
+   [3020, 3021]
+  ],
+  "commit_url": "https://github.com/sveltejs/kit/commit/91aae3547c6cd2935d79c09a53e27c740100000a",
+  "case_id": "228-GHSA-pfhg-q3qv-9q6r",
+  "content": {
+   "vulnerable": {
+    "sha256": "9e94ef99b78ac318d6aa38eb6f6fa38421a7501bcd6b93795defe6e7246b77e0",
+    "bytes": 113166
+   },
+   "patched": {
+    "sha256": "b3ae9744e7b24063f2d3607d7f43fca7d372b628d634e476ada2b3ae4ad1b305",
+    "bytes": 113209
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      478,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      3380,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      3569,
+      "ast-js.ast-open-redirect",
+      [601]
+     ]
+    ],
+    "patched": [
+     [
+      478,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      3381,
+      "ast-js.ast-open-redirect",
+      [601]
+     ],
+     [
+      3570,
+      "ast-js.ast-open-redirect",
+      [601]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

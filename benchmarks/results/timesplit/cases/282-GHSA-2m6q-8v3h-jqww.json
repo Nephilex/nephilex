@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2m6q-8v3h-jqww",
+  "cve_id": "CVE-2026-107718",
+  "ecosystem": "npm",
+  "packages": [
+   "@adonisjs/http-server"
+  ],
+  "published_at": "2026-10-08T22:09:06Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-2m6q-8v3h-jqww",
+  "label_cwes": [601],
+  "repo": "adonisjs/http-server",
+  "fix_sha": "4548a0631ce2ef1618f04c7b41465be42cad2f7d",
+  "parent_sha": "f1be0306beacd73f450ab97ed815f50d54299f58",
+  "path_vulnerable": "src/client/helpers.ts",
+  "path_patched": "src/client/helpers.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [133, 133],
+   [151, 151]
+  ],
+  "patched_lines": [
+   [133, 135],
+   [153, 153]
+  ],
+  "commit_url": "https://github.com/adonisjs/http-server/commit/4548a0631ce2ef1618f04c7b41465be42cad2f7d",
+  "case_id": "282-GHSA-2m6q-8v3h-jqww",
+  "content": {
+   "vulnerable": {
+    "sha256": "c12f62a37ae55cafec2abd25174010eca507d33a898ebc1748d8e127d5ced9d9",
+    "bytes": 4906
+   },
+   "patched": {
+    "sha256": "a7dfc724780f9ee44ad24cd774fadeefed503d3d89beba6942f43a2508fe7811",
+    "bytes": 5000
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}
