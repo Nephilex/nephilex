@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7g7c-h8rr-7p6q",
+  "cve_id": "CVE-2026-104871",
+  "ecosystem": "npm",
+  "packages": [
+   "@angular/ssr"
+  ],
+  "published_at": "2026-10-05T22:53:45Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-7g7c-h8rr-7p6q",
+  "label_cwes": [22],
+  "repo": "angular/angular-cli",
+  "fix_sha": "645e41a47d21b7651837a4250de99af0509626e2",
+  "parent_sha": "d3aaa48ef35b80c3297ee3050cd239f84d051899",
+  "path_vulnerable": "packages/angular/ssr/node/src/common-engine/common-engine.ts",
+  "path_patched": "packages/angular/ssr/node/src/common-engine/common-engine.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [13, 13],
+   [170, 174]
+  ],
+  "patched_lines": [
+   [13, 13],
+   [165, 171]
+  ],
+  "commit_url": "https://github.com/angular/angular-cli/commit/645e41a47d21b7651837a4250de99af0509626e2",
+  "case_id": "203-GHSA-7g7c-h8rr-7p6q",
+  "content": {
+   "vulnerable": {
+    "sha256": "a0129f2655559ab13e3290c1e0247d132fd748ad92758dda2ccdebb07a3c909c",
+    "bytes": 8365
+   },
+   "patched": {
+    "sha256": "3ff1f73237d375f413e008e7d7827a996ec709a7362f54c01158b2c4b4494dc2",
+    "bytes": 8503
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

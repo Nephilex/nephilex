@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-4mfg-r38w-w8fg",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "mcp-sanitizer"
+  ],
+  "published_at": "2026-10-28T19:51:39Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-4mfg-r38w-w8fg",
+  "label_cwes": [918],
+  "repo": "starman69/mcp-sanitizer",
+  "fix_sha": "200685889b073f7470859b0941b67b7f46255f09",
+  "parent_sha": "4a1a7595ce18c7708fd85e697628e328220fe615",
+  "path_vulnerable": "src/config/security-policies.js",
+  "path_patched": "src/config/security-policies.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [114, 114],
+   [207, 207],
+   [291, 291],
+   [353, 353],
+   [427, 427]
+  ],
+  "patched_lines": [
+   [113, 114],
+   [205, 206],
+   [288, 289],
+   [349, 350],
+   [422, 423]
+  ],
+  "commit_url": "https://github.com/starman69/mcp-sanitizer/commit/200685889b073f7470859b0941b67b7f46255f09",
+  "case_id": "253-GHSA-4mfg-r38w-w8fg",
+  "content": {
+   "vulnerable": {
+    "sha256": "6af39e1f44f541a84178fac4a664ac72287a71d4b3130959a0d9c9f3b97f1fc9",
+    "bytes": 19242
+   },
+   "patched": {
+    "sha256": "c32eb4c837bdc257f461a4ebdce1c79d646cdc1705174b480c7fc83ef91bd2ef",
+    "bytes": 19044
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

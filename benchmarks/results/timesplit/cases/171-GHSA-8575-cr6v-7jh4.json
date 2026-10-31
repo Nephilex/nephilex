@@ -1,0 +1,84 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8575-cr6v-7jh4",
+  "cve_id": "CVE-2026-105649",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-10-07T20:35:22Z",
+  "advisory_cwes": [79, 434],
+  "html_url": "https://github.com/advisories/GHSA-8575-cr6v-7jh4",
+  "label_cwes": [79],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "80686226d23df56749f6b7ebb484850a8eba8072",
+  "parent_sha": "3f8594eb53de883ac017545c358f59039cb152de",
+  "path_vulnerable": "ghost/core/core/server/web/api/middleware/upload.js",
+  "path_patched": "ghost/core/core/server/web/api/middleware/upload.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [326, 327],
+   [372, 372],
+   [395, 395],
+   [450, 451]
+  ],
+  "patched_lines": [
+   [327, 340],
+   [386, 386],
+   [409, 409],
+   [465, 477]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/80686226d23df56749f6b7ebb484850a8eba8072",
+  "case_id": "171-GHSA-8575-cr6v-7jh4",
+  "content": {
+   "vulnerable": {
+    "sha256": "44a132cd7e6c7d819c9acd580b4783cbd4f96cc32f5d8df88c49e49a0a07bbdb",
+    "bytes": 14252
+   },
+   "patched": {
+    "sha256": "b3bcfd168f0c4c3704d0e1d7618deba8fa3b67a9d18e96d34e38003ed30f3ae1",
+    "bytes": 15059
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      159,
+      "ast-js.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      159,
+      "ast-js.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

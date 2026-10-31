@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
+  "cve_id": "CVE-2026-114615",
+  "ecosystem": "pip",
+  "packages": [
+   "authlib"
+  ],
+  "published_at": "2026-10-27T15:38:48Z",
+  "advisory_cwes": [184, 347],
+  "html_url": "https://github.com/advisories/GHSA-7vr2-2fgp-9w7p",
+  "label_cwes": [347],
+  "repo": "authlib/authlib",
+  "fix_sha": "e3bd41cb29dcfee434453b135ffb487884baeedf",
+  "parent_sha": "d42f8482bb59eccbc992efc66964ec3ce21f2818",
+  "path_vulnerable": "authlib/oidc/core/grants/implicit.py",
+  "path_patched": "authlib/oidc/core/grants/implicit.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [72, 72],
+   [117, 117]
+  ],
+  "patched_lines": [
+   [72, 72],
+   [117, 117]
+  ],
+  "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
+  "case_id": "035-GHSA-7vr2-2fgp-9w7p",
+  "content": {
+   "vulnerable": {
+    "sha256": "b9e39ffb2c3ab229a70bcef163a32a06f0d645ed0fcef268db7481acdc29b80f",
+    "bytes": 7013
+   },
+   "patched": {
+    "sha256": "f7ff221f13c16a1af1487fcb033119d63c05494ae8c2d11429db14beb5b4236a",
+    "bytes": 6997
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x34j-47hf-4xg7",
+  "cve_id": "CVE-2026-108261",
+  "ecosystem": "npm",
+  "packages": [
+   "@tinacms/app",
+   "tinacms"
+  ],
+  "published_at": "2026-10-09T20:56:48Z",
+  "advisory_cwes": [346, 441, 601],
+  "html_url": "https://github.com/advisories/GHSA-x34j-47hf-4xg7",
+  "label_cwes": [601],
+  "repo": "tinacms/tinacms",
+  "fix_sha": "b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
+  "parent_sha": "5295e077f0d279c35686a0e481a15e33a4877e3b",
+  "path_vulnerable": "packages/@tinacms/app/src/lib/graphql-reducer.ts",
+  "path_patched": "packages/@tinacms/app/src/lib/graphql-reducer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [28, 28],
+   [208, 208],
+   [210, 213]
+  ],
+  "patched_lines": [
+   [28, 28],
+   [208, 208],
+   [210, 210]
+  ],
+  "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
+  "case_id": "265-GHSA-x34j-47hf-4xg7",
+  "content": {
+   "vulnerable": {
+    "sha256": "97a62bf876beace659c5e16066548470045a17a4085a049376f5103037226084",
+    "bytes": 32580
+   },
+   "patched": {
+    "sha256": "b2b37b1086bc75247b240ad1620bdcbcd24ddbd9d371570e466eba622496221c",
+    "bytes": 32525
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

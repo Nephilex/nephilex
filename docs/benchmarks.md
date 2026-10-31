@@ -688,7 +688,7 @@ comes from cases nobody looked at while the rules were being written.
 | --- | --- | --- | --- |
 | v1 held-out (`benchmarks/heldout/manifest.json`) | 201 cases from advisories published 2024-01-01 to 2026-09-30, selected and scored on 2026-10-23 | Its results are published above and in `benchmarks/results/heldout/`. Rule work should not use its per-case results | Frozen: its manifest and results are not changed or rescored |
 | Development (`benchmarks/heldout/sets/dev/manifest.json`) | The same window and rule, minus every advisory v1 examined, in a different sampling order | Anyone, in full: every miss is meant to be read | Studying misses and testing rule changes. Its numbers are development data, not a claim |
-| Time-split test (`benchmarks/heldout/sets/timesplit/`) | Advisories published on or after 2026-10-01, up to a freeze date given when it is selected | Nobody, until the detection rules for the release are frozen | The headline number for a release |
+| Time-split test (`benchmarks/heldout/sets/timesplit/`) | 292 cases from advisories published 2026-10-01 to 2026-10-29, selected 2026-10-30 against frozen commit `2d6896` | Its results are published in `benchmarks/results/timesplit/`; seen now, so it becomes development data for the next release | The headline number for 0.12.0 |
 
 **Rule: the headline accuracy number for a release comes from the time-split
 set**, selected after the release's detection rules are frozen and scored once
@@ -696,13 +696,35 @@ with exactly those rules. Development-set numbers are never quoted as a
 claim, and the v1 number stays the number for the release it was published
 with.
 
-### Time-split test set (rule only)
+### Time-split test set: the 0.12.0 number
+
+The rules for 0.12.0 were frozen at commit
+`2d6896005d74ccb6084495feb6d068382ecacf47`, and the set was selected against it
+on 2026-10-30: 292 cases (138 `pip`, 154 `npm`) from advisories published
+2026-10-01 to 2026-10-29, none of which the v1 or development sets had seen.
+Full results are in `benchmarks/results/timesplit/`.
+
+| Measure | Cases | Detected | Recall | Precision proxy |
+| --- | --- | --- | --- | --- |
+| CWE match (mapped, strict) | 292 | 7 | 2.4% | 87.5% |
+| Any finding on the changed lines | 292 | 11 | 3.8% | 91.7% |
+
+This is the honest rate on vulnerabilities disclosed after the rules were
+written, counting every CWE in the window, including classes Nephilex does not
+target by code analysis (access control, SSRF, weak crypto). Recall is low and
+precision is high: when Nephilex flags the vulnerable code it is usually right
+(87.5%) and it almost never still flags the code after the fix. It does best on
+the classes it targets, for example command injection (CWE-78: 4/25, CWE-88:
+4/12); its largest misses are path traversal (CWE-22) and cross-file XSS
+(CWE-79), where the flow crosses files or frameworks it does not yet follow.
+The point of the time-split method is that this number cannot be tuned: it is
+frozen, reproducible, and reported as it came out.
+
+### Time-split test set: the rule
 
 The rule is committed (`timesplit_rule` in `benchmarks/heldout/selection.py`,
 the guard in `benchmarks/heldout/cli.py`, the description in
-`benchmarks/heldout/sets/timesplit/README.md`) but the set has not been
-selected. No advisory published on or after 2026-10-01 has been queried,
-counted, fetched or scanned for it; the tests use synthetic advisories only.
+`benchmarks/heldout/sets/timesplit/README.md`).
 
 - **Window.** Reviewed `pip` and `npm` advisories published from 2026-10-01
   up to and including `--until`, which must be before the day of selection

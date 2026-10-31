@@ -1,0 +1,77 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7rv5-mrxv-xcr9",
+  "cve_id": "CVE-2026-116580",
+  "ecosystem": "npm",
+  "packages": [
+   "seroval"
+  ],
+  "published_at": "2026-10-28T21:17:15Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-7rv5-mrxv-xcr9",
+  "label_cwes": [502],
+  "repo": "lxsmnsyc/seroval",
+  "fix_sha": "50926b3ee198fb757e6ce3aa70efeed38d931c8d",
+  "parent_sha": "e176f9267e59ddd6c9de89cc9fe85c5b37a5b728",
+  "path_vulnerable": "packages/seroval/src/core/context/deserializer.ts",
+  "path_patched": "packages/seroval/src/core/context/deserializer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [33, 33],
+   [739, 744],
+   [747, 747],
+   [757, 763],
+   [766, 766],
+   [870, 871]
+  ],
+  "patched_lines": [
+   [29, 29],
+   [34, 34],
+   [740, 743],
+   [746, 746],
+   [756, 760],
+   [763, 763],
+   [866, 867]
+  ],
+  "commit_url": "https://github.com/lxsmnsyc/seroval/commit/50926b3ee198fb757e6ce3aa70efeed38d931c8d",
+  "case_id": "220-GHSA-7rv5-mrxv-xcr9",
+  "content": {
+   "vulnerable": {
+    "sha256": "dbee2c03aade19d2306a9f8c8d945a1242f09dd2db41e32b90235de4c6966bb5",
+    "bytes": 28196
+   },
+   "patched": {
+    "sha256": "5bb426b5710df56b2e8e53084339777745abff01c0fe342e26c704b3fd15ccb8",
+    "bytes": 27750
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

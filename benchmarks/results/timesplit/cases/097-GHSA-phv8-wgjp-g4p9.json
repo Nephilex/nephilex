@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-phv8-wgjp-g4p9",
+  "cve_id": "CVE-2026-104102",
+  "ecosystem": "pip",
+  "packages": [
+   "copyparty"
+  ],
+  "published_at": "2026-10-15T20:16:38Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-phv8-wgjp-g4p9",
+  "label_cwes": [22],
+  "repo": "9001/copyparty",
+  "fix_sha": "b331bb1c8c8cc306b91e4d94221969335a7a3e86",
+  "parent_sha": "c122e103bd7440e28aa455e2fc9b9a45dc577ed1",
+  "path_vulnerable": "copyparty/ftpd.py",
+  "path_patched": "copyparty/ftpd.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [485, 486],
+   [520, 521]
+  ],
+  "patched_lines": [
+   [486, 489],
+   [525, 527]
+  ],
+  "commit_url": "https://github.com/9001/copyparty/commit/b331bb1c8c8cc306b91e4d94221969335a7a3e86",
+  "case_id": "097-GHSA-phv8-wgjp-g4p9",
+  "content": {
+   "vulnerable": {
+    "sha256": "869e962dc7254026fa4d600f1e243e927603fe7a296d0c7e884d8cd861b2b463",
+    "bytes": 20851
+   },
+   "patched": {
+    "sha256": "5b301be1232675d937310d1c90353f3d8bd0b44c4fa33a68444dfdc631bc6406",
+    "bytes": 21050
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

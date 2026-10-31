@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-qx66-fv34-fjm8",
+  "cve_id": "CVE-2026-102989",
+  "ecosystem": "npm",
+  "packages": [
+   "@tanstack/react-start",
+   "@tanstack/solid-start",
+   "@tanstack/start-server-core",
+   "@tanstack/vue-start"
+  ],
+  "published_at": "2026-10-15T20:22:20Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-qx66-fv34-fjm8",
+  "label_cwes": [79],
+  "repo": "TanStack/router",
+  "fix_sha": "d521abd71c69f1ff010bb3def4d417cb5fa058cb",
+  "parent_sha": "614bc27034c8ec98747bf305ed41d4a619640949",
+  "path_vulnerable": "packages/start-server-core/src/serializer/ServerFunctionSerializationAdapter.ts",
+  "path_patched": "packages/start-server-core/src/serializer/ServerFunctionSerializationAdapter.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [21, 21]
+  ],
+  "patched_lines": [
+   [21, 31]
+  ],
+  "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
+  "case_id": "143-GHSA-qx66-fv34-fjm8",
+  "content": {
+   "vulnerable": {
+    "sha256": "dc64e42e0b6789435762ba4b91c73ad51f060c790f6c1e9321507254a6b2cba2",
+    "bytes": 1104
+   },
+   "patched": {
+    "sha256": "638bd866ed4bc1e9d0197dad24121e55fc220b3b5be0dc70a12f1dc411458784",
+    "bytes": 1311
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

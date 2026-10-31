@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m65p-9j7q-6w33",
+  "cve_id": "CVE-2026-116690",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-27T21:26:56Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m65p-9j7q-6w33",
+  "label_cwes": [22],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "parent_sha": "7e90050109819dff7e0a0404cd12f3849c6fac10",
+  "path_vulnerable": "mlflow/prompt/constants.py",
+  "path_patched": "mlflow/prompt/constants.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [7, 8]
+  ],
+  "patched_lines": [
+   [8, 18]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "case_id": "027-GHSA-m65p-9j7q-6w33",
+  "content": {
+   "vulnerable": {
+    "sha256": "f193ab406a5ca77e50b4c88f59ae3db3cad458f4aa7da39946e84d041be1dcf9",
+    "bytes": 1136
+   },
+   "patched": {
+    "sha256": "4a3f5d83c6a742138c6151e411dc23981fdea171cb73e7b3ef81516d656503a8",
+    "bytes": 1745
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

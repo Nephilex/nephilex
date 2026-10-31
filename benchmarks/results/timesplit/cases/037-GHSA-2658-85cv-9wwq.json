@@ -1,0 +1,81 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2658-85cv-9wwq",
+  "cve_id": "CVE-2026-111059",
+  "ecosystem": "pip",
+  "packages": [
+   "mercury"
+  ],
+  "published_at": "2026-10-19T17:01:20Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-2658-85cv-9wwq",
+  "label_cwes": [79],
+  "repo": "mljar/mercury",
+  "fix_sha": "c798a85924e6614c6fea7afe5a560e4554a1d09b",
+  "parent_sha": "ed44e655ab672633dfa3b10799c1beb5dcdea7d8",
+  "path_vulnerable": "mercury/md.py",
+  "path_patched": "mercury/md.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [4, 4],
+   [14, 18],
+   [42, 42],
+   [58, 64],
+   [68, 81],
+   [209, 210],
+   [230, 230]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [13, 13],
+   [15, 61],
+   [85, 89],
+   [105, 106],
+   [110, 113],
+   [242, 243],
+   [257, 259],
+   [267, 267],
+   [274, 274]
+  ],
+  "commit_url": "https://github.com/mljar/mercury/commit/c798a85924e6614c6fea7afe5a560e4554a1d09b",
+  "case_id": "037-GHSA-2658-85cv-9wwq",
+  "content": {
+   "vulnerable": {
+    "sha256": "8fff8bd63fd1a6cff4f456c7c02889fdada2facd00fb0cdad45d1428b4b64ed8",
+    "bytes": 8931
+   },
+   "patched": {
+    "sha256": "7dca24fabc687b7c176ee08e9304f0d24cc4e9929401ad70a635f82088dfa5c7",
+    "bytes": 10253
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

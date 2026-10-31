@@ -1,0 +1,88 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
+  "cve_id": "CVE-2026-114620",
+  "ecosystem": "pip",
+  "packages": [
+   "authlib"
+  ],
+  "published_at": "2026-10-27T15:39:18Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-x4rv-c3wx-4cr8",
+  "label_cwes": [918],
+  "repo": "authlib/authlib",
+  "fix_sha": "6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
+  "parent_sha": "275b6f9f07219e875f8a893dbc80db0097f6e02b",
+  "path_vulnerable": "authlib/oauth2/rfc9101/authorization_server.py",
+  "path_patched": "authlib/oauth2/rfc9101/authorization_server.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [35, 38],
+   [70, 70],
+   [108, 108],
+   [157, 157],
+   [159, 161],
+   [175, 178],
+   [214, 214],
+   [216, 216],
+   [218, 223],
+   [260, 261]
+  ],
+  "patched_lines": [
+   [34, 36],
+   [38, 39],
+   [46, 46],
+   [72, 73],
+   [111, 111],
+   [160, 162],
+   [164, 173],
+   [188, 193],
+   [196, 197],
+   [233, 260],
+   [262, 262],
+   [264, 268],
+   [270, 301],
+   [339, 339]
+  ],
+  "commit_url": "https://github.com/authlib/authlib/commit/6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
+  "case_id": "101-GHSA-x4rv-c3wx-4cr8",
+  "content": {
+   "vulnerable": {
+    "sha256": "dc1f581aa4ee1e5587ad2fea4bab4175270593966a911adaba4512f248fefb6a",
+    "bytes": 11785
+   },
+   "patched": {
+    "sha256": "2e32c84273b5b819ca9cc49237d3f64a16e5f9f129289fe3f44010c789ed8c41",
+    "bytes": 16002
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

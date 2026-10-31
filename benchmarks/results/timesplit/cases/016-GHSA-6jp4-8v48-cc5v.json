@@ -1,0 +1,91 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6jp4-8v48-cc5v",
+  "cve_id": "CVE-2026-117601",
+  "ecosystem": "pip",
+  "packages": [
+   "electrum"
+  ],
+  "published_at": "2026-10-28T21:23:44Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v",
+  "label_cwes": [347],
+  "repo": "spesmilo/electrum",
+  "fix_sha": "90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "parent_sha": "e8c79fa662123217ac5eba6fa7d62fa53f46b563",
+  "path_vulnerable": "electrum/address_synchronizer.py",
+  "path_patched": "electrum/address_synchronizer.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [30, 30],
+   [35, 35],
+   [85, 85],
+   [94, 95],
+   [97, 98],
+   [106, 107],
+   [310, 311],
+   [374, 374],
+   [388, 389],
+   [455, 456],
+   [479, 479],
+   [663, 664],
+   [670, 673]
+  ],
+  "patched_lines": [
+   [30, 30],
+   [35, 37],
+   [87, 91],
+   [101, 102],
+   [106, 107],
+   [117, 118],
+   [323, 330],
+   [391, 397],
+   [415, 441],
+   [509, 513],
+   [537, 543],
+   [728, 728],
+   [736, 736],
+   [739, 752]
+  ],
+  "commit_url": "https://github.com/spesmilo/electrum/commit/90fe30822561e515a9d2d6e5a352cc07780999eb",
+  "case_id": "016-GHSA-6jp4-8v48-cc5v",
+  "content": {
+   "vulnerable": {
+    "sha256": "118d1dd96a0bee7b1c9fbd066818b5c6f909724a80842a8c3dfce5fd8bd8e896",
+    "bytes": 48569
+   },
+   "patched": {
+    "sha256": "90925db360a217c5c36be2cb51f907b578b18f5bb93f4a45dc7d1215d824227f",
+    "bytes": 52756
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

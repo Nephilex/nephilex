@@ -1,0 +1,75 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-r5wg-q8fc-p6w2",
+  "cve_id": "CVE-2026-118254",
+  "ecosystem": "npm",
+  "packages": [
+   "@highcharts/grid-lite",
+   "@highcharts/grid-pro"
+  ],
+  "published_at": "2026-10-28T19:57:34Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-r5wg-q8fc-p6w2",
+  "label_cwes": [79],
+  "repo": "highcharts/highcharts",
+  "fix_sha": "1e8ded84d52191883965641b863cf0c73eb759aa",
+  "parent_sha": "4f2f35dfca96316494899c6c7fc286a89f0052e9",
+  "path_vulnerable": "ts/Grid/Core/Pagination/Pagination.ts",
+  "path_patched": "ts/Grid/Core/Pagination/Pagination.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [493, 493],
+   [927, 927],
+   [961, 961],
+   [993, 993],
+   [1004, 1004]
+  ],
+  "patched_lines": [
+   [493, 493],
+   [927, 927],
+   [961, 961],
+   [993, 993],
+   [1004, 1004]
+  ],
+  "commit_url": "https://github.com/highcharts/highcharts/commit/1e8ded84d52191883965641b863cf0c73eb759aa",
+  "case_id": "274-GHSA-r5wg-q8fc-p6w2",
+  "content": {
+   "vulnerable": {
+    "sha256": "124c841c3e31718b793670c34d1bca36301c18d2f96bc01ec11430b09e29a9a3",
+    "bytes": 37078
+   },
+   "patched": {
+    "sha256": "72c0445f2d9b6e11c0ffe5275e068b18bb6757ec22b46255320f6e9d8e99baec",
+    "bytes": 37082
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8w7q-29mw-gf5c",
+  "cve_id": "CVE-2026-106509",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/plugin-techdocs-node"
+  ],
+  "published_at": "2026-10-07T16:23:30Z",
+  "advisory_cwes": [94, 1336],
+  "html_url": "https://github.com/advisories/GHSA-8w7q-29mw-gf5c",
+  "label_cwes": [94, 1336],
+  "repo": "backstage/backstage",
+  "fix_sha": "02cd7cdbb18b687446277b5602adaee7f1d53cbb",
+  "parent_sha": "c14f8be6908f0f719b16356e5492352311e28946",
+  "path_vulnerable": "plugins/techdocs-node/src/stages/generate/helpers.ts",
+  "path_patched": "plugins/techdocs-node/src/stages/generate/helpers.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [312, 313]
+  ],
+  "patched_lines": [
+   [313, 335]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/02cd7cdbb18b687446277b5602adaee7f1d53cbb",
+  "case_id": "221-GHSA-8w7q-29mw-gf5c",
+  "content": {
+   "vulnerable": {
+    "sha256": "613821e9ed924d1f71b339f7cc8e3f0ea211ee8120ee81a7bfbf063efb83fb47",
+    "bytes": 15375
+   },
+   "patched": {
+    "sha256": "fff5528a20538d9366c727f75a96b9b7d575b7be1ca3efd58b7371eef28fb0d5",
+    "bytes": 15876
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

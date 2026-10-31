@@ -1,0 +1,78 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-v5mq-3xhg-98m9",
+  "cve_id": "CVE-2026-104250",
+  "ecosystem": "pip",
+  "packages": [
+   "unstructured"
+  ],
+  "published_at": "2026-10-15T20:16:18Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-v5mq-3xhg-98m9",
+  "label_cwes": [79],
+  "repo": "Unstructured-IO/unstructured",
+  "fix_sha": "cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
+  "parent_sha": "445c95735c4045057f51f399bc04c657751923bd",
+  "path_vulnerable": "unstructured/partition/html/transformations.py",
+  "path_patched": "unstructured/partition/html/transformations.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 3],
+   [456, 456],
+   [565, 565],
+   [567, 567],
+   [570, 570],
+   [573, 573],
+   [575, 585]
+  ],
+  "patched_lines": [
+   [9, 9],
+   [456, 456],
+   [565, 565],
+   [567, 576],
+   [579, 580],
+   [583, 583],
+   [585, 590]
+  ],
+  "commit_url": "https://github.com/Unstructured-IO/unstructured/commit/cda16b3f2170019be9c6ea5635946fb3eaa2d66f",
+  "case_id": "050-GHSA-v5mq-3xhg-98m9",
+  "content": {
+   "vulnerable": {
+    "sha256": "a2b58f8aa4d47e717801a158cf21fbff8d281ef0f06fbb6df8ab6059dd47b9da",
+    "bytes": 24104
+   },
+   "patched": {
+    "sha256": "aa9e449e449893c41186cb4c58e5692b395d439faffea71537ce205ece57d5dc",
+    "bytes": 24670
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

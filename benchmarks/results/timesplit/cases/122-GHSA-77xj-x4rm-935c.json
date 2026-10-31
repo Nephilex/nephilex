@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-77xj-x4rm-935c",
+  "cve_id": "CVE-2026-107377",
+  "ecosystem": "pip",
+  "packages": [
+   "datamodel-code-generator"
+  ],
+  "published_at": "2026-10-08T17:58:01Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-77xj-x4rm-935c",
+  "label_cwes": [22, 73],
+  "repo": "datamodel-code-generator/datamodel-code-generator",
+  "fix_sha": "5e94b8f4203198798ec66b8e48217f70af69a0dc",
+  "parent_sha": "834731d56c0a90c182a0919f316069cf5ff0659a",
+  "path_vulnerable": "src/datamodel_code_generator/parser/protobuf.py",
+  "path_patched": "src/datamodel_code_generator/parser/protobuf.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [327, 336],
+   [391, 391]
+  ],
+  "patched_lines": [
+   [327, 341],
+   [390, 390],
+   [395, 398]
+  ],
+  "commit_url": "https://github.com/datamodel-code-generator/datamodel-code-generator/commit/5e94b8f4203198798ec66b8e48217f70af69a0dc",
+  "case_id": "122-GHSA-77xj-x4rm-935c",
+  "content": {
+   "vulnerable": {
+    "sha256": "deccf4473cd7e8e190204431854fc3f0c3ea2588ec7a0cc7acb84744d025bbf3",
+    "bytes": 38444
+   },
+   "patched": {
+    "sha256": "9f37f337302d00fdfc625c489d813631a3dcea6bfe362d947fae94a2edf33ccc",
+    "bytes": 38852
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

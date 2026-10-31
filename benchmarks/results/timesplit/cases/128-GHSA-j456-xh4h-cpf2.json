@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-j456-xh4h-cpf2",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "nltk"
+  ],
+  "published_at": "2026-10-27T14:50:30Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-j456-xh4h-cpf2",
+  "label_cwes": [22, 73],
+  "repo": "nltk/nltk",
+  "fix_sha": "6a17606293fe9d3ea1006f99dd3fed2e2b25d519",
+  "parent_sha": "5662c8f2fe26a08d4eef62305746f9f9b1468f12",
+  "path_vulnerable": "nltk/classify/weka.py",
+  "path_patched": "nltk/classify/weka.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [25, 25],
+   [109, 110],
+   [118, 119],
+   [235, 236]
+  ],
+  "patched_lines": [
+   [25, 25],
+   [110, 113],
+   [123, 128],
+   [246, 254]
+  ],
+  "commit_url": "https://github.com/nltk/nltk/commit/6a17606293fe9d3ea1006f99dd3fed2e2b25d519",
+  "case_id": "128-GHSA-j456-xh4h-cpf2",
+  "content": {
+   "vulnerable": {
+    "sha256": "9356c0e419d258dc121f6fce23f9cbe8adc5387d079a3fd2ff713ccb16ff8e02",
+    "bytes": 16003
+   },
+   "patched": {
+    "sha256": "addb41f72d086d04570698c703d2778529fe13bf212b90e30cb87dc482f1d2d7",
+    "bytes": 17085
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

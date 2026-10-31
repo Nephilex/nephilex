@@ -1,0 +1,82 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-qx66-fv34-fjm8",
+  "cve_id": "CVE-2026-102989",
+  "ecosystem": "npm",
+  "packages": [
+   "@tanstack/react-start",
+   "@tanstack/solid-start",
+   "@tanstack/start-server-core",
+   "@tanstack/vue-start"
+  ],
+  "published_at": "2026-10-15T20:22:20Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-qx66-fv34-fjm8",
+  "label_cwes": [79],
+  "repo": "TanStack/router",
+  "fix_sha": "d521abd71c69f1ff010bb3def4d417cb5fa058cb",
+  "parent_sha": "614bc27034c8ec98747bf305ed41d4a619640949",
+  "path_vulnerable": "packages/start-server-core/src/request-response.ts",
+  "path_patched": "packages/start-server-core/src/request-response.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [68, 69],
+   [101, 102],
+   [104, 104],
+   [106, 111],
+   [115, 115],
+   [118, 118],
+   [138, 141]
+  ],
+  "patched_lines": [
+   [68, 73],
+   [105, 112],
+   [114, 114],
+   [116, 119],
+   [122, 125],
+   [127, 127],
+   [130, 141],
+   [161, 169]
+  ],
+  "commit_url": "https://github.com/TanStack/router/commit/d521abd71c69f1ff010bb3def4d417cb5fa058cb",
+  "case_id": "142-GHSA-qx66-fv34-fjm8",
+  "content": {
+   "vulnerable": {
+    "sha256": "891f8cea9a0374de666f613b2cb135a117fe8184947e45771cf8011a858fd800",
+    "bytes": 11721
+   },
+   "patched": {
+    "sha256": "bbdbb2373580907e0b41da0d0099c2fe741121fcd8a964a814afc1aea410e812",
+    "bytes": 12462
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

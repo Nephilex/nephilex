@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w889-685w-c8fh",
+  "cve_id": "CVE-2026-112900",
+  "ecosystem": "pip",
+  "packages": [
+   "Pillow"
+  ],
+  "published_at": "2026-10-21T19:58:44Z",
+  "advisory_cwes": [78, 88],
+  "html_url": "https://github.com/advisories/GHSA-w889-685w-c8fh",
+  "label_cwes": [78, 88],
+  "repo": "python-pillow/Pillow",
+  "fix_sha": "a2c363141da31a265dd536c945677db4b64f3ec9",
+  "parent_sha": "9d30729003b5dae074c60fa73d7cc135cccae734",
+  "path_vulnerable": "src/PIL/EpsImagePlugin.py",
+  "path_patched": "src/PIL/EpsImagePlugin.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [106, 106]
+  ],
+  "patched_lines": [
+   [106, 109]
+  ],
+  "commit_url": "https://github.com/python-pillow/Pillow/commit/a2c363141da31a265dd536c945677db4b64f3ec9",
+  "case_id": "011-GHSA-w889-685w-c8fh",
+  "content": {
+   "vulnerable": {
+    "sha256": "a0b552acf4edf1a0f6e0bd4f8461402ff277750c2e0c997adfa5e9efa4eaafb1",
+    "bytes": 16875
+   },
+   "patched": {
+    "sha256": "86bba6b605f03157b0854b5107ed2f680e9271fbc0c36f60019e1fef3c63dd22",
+    "bytes": 17080
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

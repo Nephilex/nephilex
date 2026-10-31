@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hrvq-x7jp-36xv",
+  "cve_id": "CVE-2026-104853",
+  "ecosystem": "npm",
+  "packages": [
+   "nx"
+  ],
+  "published_at": "2026-10-05T23:28:35Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-hrvq-x7jp-36xv",
+  "label_cwes": [22, 73],
+  "repo": "nrwl/nx",
+  "fix_sha": "38cd82a0c05e8212e538bdb87ccb198d6504e58f",
+  "parent_sha": "02c5d59e8dbbbe30963c0181c6a22cd8c1190a25",
+  "path_vulnerable": "packages/nx/src/utils/package-json.ts",
+  "path_patched": "packages/nx/src/utils/package-json.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [19, 20],
+   [154, 154],
+   [158, 158]
+  ],
+  "patched_lines": [
+   [20, 20],
+   [148, 160],
+   [168, 168],
+   [172, 174]
+  ],
+  "commit_url": "https://github.com/nrwl/nx/commit/38cd82a0c05e8212e538bdb87ccb198d6504e58f",
+  "case_id": "159-GHSA-hrvq-x7jp-36xv",
+  "content": {
+   "vulnerable": {
+    "sha256": "5fd6a1ade4d6bf280ea4c28d2f686bb603366927c4e6f70c826873c886f3c242",
+    "bytes": 20929
+   },
+   "patched": {
+    "sha256": "415d1e2467e497548b6a8725e9f95090458bac05390d65e8ba2dbe6163208732",
+    "bytes": 21602
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

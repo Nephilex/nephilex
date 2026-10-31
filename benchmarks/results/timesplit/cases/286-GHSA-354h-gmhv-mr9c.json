@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-354h-gmhv-mr9c",
+  "cve_id": "CVE-2026-105682",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-10-07T16:17:57Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-354h-gmhv-mr9c",
+  "label_cwes": [918],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "815962dd2760e55c5dc8d0fb7fac732a7634566f",
+  "parent_sha": "2f6564591f34c519ed5d4c851da282b8c3b5428f",
+  "path_vulnerable": "ghost/core/core/server/services/webhooks/webhook-trigger.js",
+  "path_patched": "ghost/core/core/server/services/webhooks/webhook-trigger.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [3, 4],
+   [19, 19],
+   [126, 127]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [20, 26],
+   [134, 134]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/815962dd2760e55c5dc8d0fb7fac732a7634566f",
+  "case_id": "286-GHSA-354h-gmhv-mr9c",
+  "content": {
+   "vulnerable": {
+    "sha256": "5e13e97cde1ef4308d23141a098505630392d3f57350caaf66f84f37a2b8e2da",
+    "bytes": 5170
+   },
+   "patched": {
+    "sha256": "11249eaf99e26361951e1563a2393b3bd5373ce6526d682df96a26b760cb49eb",
+    "bytes": 5466
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

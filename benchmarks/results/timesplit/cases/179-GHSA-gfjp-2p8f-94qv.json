@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-gfjp-2p8f-94qv",
+  "cve_id": "CVE-2026-105679",
+  "ecosystem": "npm",
+  "packages": [
+   "ghost"
+  ],
+  "published_at": "2026-10-07T20:25:58Z",
+  "advisory_cwes": [79, 434],
+  "html_url": "https://github.com/advisories/GHSA-gfjp-2p8f-94qv",
+  "label_cwes": [79],
+  "repo": "TryGhost/Ghost",
+  "fix_sha": "58669d5c8b898f8b69c1287c2779b29ecc7eb918",
+  "parent_sha": "899ead6ffef3f5a91753c91f784b556860371c29",
+  "path_vulnerable": "ghost/core/core/server/adapters/storage/LocalStorageBase.ts",
+  "path_patched": "ghost/core/core/server/adapters/storage/LocalStorageBase.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [260, 261],
+   [267, 268],
+   [272, 273]
+  ],
+  "patched_lines": [
+   [261, 272],
+   [280, 280],
+   [286, 286]
+  ],
+  "commit_url": "https://github.com/TryGhost/Ghost/commit/58669d5c8b898f8b69c1287c2779b29ecc7eb918",
+  "case_id": "179-GHSA-gfjp-2p8f-94qv",
+  "content": {
+   "vulnerable": {
+    "sha256": "225778b05db3b5fbef7d03d88e41ecb52e335ea47b1fc04f6ba44997d89f6828",
+    "bytes": 11213
+   },
+   "patched": {
+    "sha256": "abe2d78fd78c5a89fcc07061569e34e9c7e8c4ae625db2f79a2fe4fd261dac0f",
+    "bytes": 11807
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

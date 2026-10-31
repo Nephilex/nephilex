@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-6757-hggm-hp2w",
+  "cve_id": "CVE-2026-115912",
+  "ecosystem": "pip",
+  "packages": [
+   "vllm"
+  ],
+  "published_at": "2026-10-28T21:15:15Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-6757-hggm-hp2w",
+  "label_cwes": [502],
+  "repo": "vllm-project/vllm",
+  "fix_sha": "3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
+  "parent_sha": "72e7874fa669617fd20c716e08cb486032f542c1",
+  "path_vulnerable": "vllm/multimodal/cache/base.py",
+  "path_patched": "vllm/multimodal/cache/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [358, 359]
+  ],
+  "patched_lines": [
+   [359, 366]
+  ],
+  "commit_url": "https://github.com/vllm-project/vllm/commit/3d5625cc3c2474994107047d7a6ecb8e4008f9b0",
+  "case_id": "080-GHSA-6757-hggm-hp2w",
+  "content": {
+   "vulnerable": {
+    "sha256": "510d17e566557a19b0f72299cdec2da74a64489ce97e008754d714c6dd335114",
+    "bytes": 15462
+   },
+   "patched": {
+    "sha256": "4473c97940c5ca67cd64485900eeb2b6d16a8ca835517f6981fa86a27a768745",
+    "bytes": 15683
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hhxq-47xx-j5xx",
+  "cve_id": "CVE-2026-113719",
+  "ecosystem": "pip",
+  "packages": [
+   "virtualenv"
+  ],
+  "published_at": "2026-10-23T22:19:15Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-hhxq-47xx-j5xx",
+  "label_cwes": [22],
+  "repo": "pypa/virtualenv",
+  "fix_sha": "e3cea6fa10a50fa29cf1fdddd772458fba076d5f",
+  "parent_sha": "2bfdc0230d1b2685fedfcfe66c835b9a2ec7c440",
+  "path_vulnerable": "src/virtualenv/seed/embed/via_app_data/pip_install/base.py",
+  "path_patched": "src/virtualenv/seed/embed/via_app_data/pip_install/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [14, 14],
+   [185, 185],
+   [188, 189],
+   [192, 193],
+   [198, 198],
+   [200, 200],
+   [204, 205],
+   [208, 211],
+   [213, 213]
+  ],
+  "patched_lines": [
+   [14, 14],
+   [185, 185],
+   [188, 189],
+   [192, 193],
+   [198, 198],
+   [200, 201],
+   [205, 206],
+   [209, 224],
+   [226, 226]
+  ],
+  "commit_url": "https://github.com/pypa/virtualenv/commit/e3cea6fa10a50fa29cf1fdddd772458fba076d5f",
+  "case_id": "059-GHSA-hhxq-47xx-j5xx",
+  "content": {
+   "vulnerable": {
+    "sha256": "afad5de434bea019c37c1b018069bb8e860da77725493084d0cbd55f5eda466b",
+    "bytes": 10422
+   },
+   "patched": {
+    "sha256": "c314adeda6ed7229f2f8a4d22522ed0f22d5a9ff16f5847c35cb0e94736b84b7",
+    "bytes": 11018
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

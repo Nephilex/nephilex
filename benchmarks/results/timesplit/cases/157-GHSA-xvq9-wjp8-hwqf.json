@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xvq9-wjp8-hwqf",
+  "cve_id": "CVE-2026-105800",
+  "ecosystem": "npm",
+  "packages": [
+   "i18next-http-backend"
+  ],
+  "published_at": "2026-10-06T15:33:33Z",
+  "advisory_cwes": [74, 918],
+  "html_url": "https://github.com/advisories/GHSA-xvq9-wjp8-hwqf",
+  "label_cwes": [74, 918],
+  "repo": "i18next/i18next-http-backend",
+  "fix_sha": "07e028862b25d0b9251bf3cafb92be2d35285f85",
+  "parent_sha": "08cb05d3ef8396cb74ab9d6885f4c3ddb43bfbf3",
+  "path_vulnerable": "i18nextHttpBackend.js",
+  "path_patched": "i18nextHttpBackend.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [17, 17],
+   [27, 27]
+  ],
+  "patched_lines": [
+   [17, 17],
+   [27, 29]
+  ],
+  "commit_url": "https://github.com/i18next/i18next-http-backend/commit/07e028862b25d0b9251bf3cafb92be2d35285f85",
+  "case_id": "157-GHSA-xvq9-wjp8-hwqf",
+  "content": {
+   "vulnerable": {
+    "sha256": "1c82ca7a89c544f381a774672e2546e6276137fd943e54f15e83a1843851b526",
+    "bytes": 13307
+   },
+   "patched": {
+    "sha256": "90188303943c13eecddd40a0b1027d00d95c0964a548dadbb8fcc7ee34b29234",
+    "bytes": 13377
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

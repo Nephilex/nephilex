@@ -1,0 +1,79 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-p944-4xh2-x776",
+  "cve_id": "CVE-2026-105748",
+  "ecosystem": "pip",
+  "packages": [
+   "docling",
+   "docling-slim"
+  ],
+  "published_at": "2026-10-07T20:41:08Z",
+  "advisory_cwes": [73, 200],
+  "html_url": "https://github.com/advisories/GHSA-p944-4xh2-x776",
+  "label_cwes": [73],
+  "repo": "docling-project/docling",
+  "fix_sha": "d4bb776884aba9aa3132f54773f420853cf7afe4",
+  "parent_sha": "e4780063bb4c33b2b48222d2106ce9ba45eaf453",
+  "path_vulnerable": "docling/backend/json/docling_json_backend.py",
+  "path_patched": "docling/backend/json/docling_json_backend.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [7, 7],
+   [9, 9],
+   [20, 20],
+   [22, 22],
+   [57, 57]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [8, 8],
+   [10, 11],
+   [15, 15],
+   [19, 52],
+   [57, 60],
+   [62, 62],
+   [97, 100],
+   [104, 128]
+  ],
+  "commit_url": "https://github.com/docling-project/docling/commit/d4bb776884aba9aa3132f54773f420853cf7afe4",
+  "case_id": "001-GHSA-p944-4xh2-x776",
+  "content": {
+   "vulnerable": {
+    "sha256": "fe9d66ecc81d6e3f1689d51063333f42ae35efad91d7f59ec40addac70e9cfdf",
+    "bytes": 2418
+   },
+   "patched": {
+    "sha256": "c2b60fd0df987060cf682b58825bf617e6037bfa1122d021bb79d2d15761e08a",
+    "bytes": 5258
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

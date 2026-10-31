@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2m5v-pch6-74hx",
+  "cve_id": "CVE-2026-109383",
+  "ecosystem": "npm",
+  "packages": [
+   "undici"
+  ],
+  "published_at": "2026-10-27T19:02:26Z",
+  "advisory_cwes": [295],
+  "html_url": "https://github.com/advisories/GHSA-2m5v-pch6-74hx",
+  "label_cwes": [295],
+  "repo": "nodejs/undici",
+  "fix_sha": "04cb74b1db131ff8f5b4557dce811cbf5f4664b4",
+  "parent_sha": "12cfd96c3f430897656e3edc1c5e02be8c1cd309",
+  "path_vulnerable": "lib/dispatcher/agent.js",
+  "path_patched": "lib/dispatcher/agent.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [25, 25],
+   [44, 44]
+  ],
+  "patched_lines": [
+   [25, 25],
+   [44, 48]
+  ],
+  "commit_url": "https://github.com/nodejs/undici/commit/04cb74b1db131ff8f5b4557dce811cbf5f4664b4",
+  "case_id": "236-GHSA-2m5v-pch6-74hx",
+  "content": {
+   "vulnerable": {
+    "sha256": "7cbf227ccf6337e109ce567ebef036a6bab04eb81b3de3645adee5256aa79bf6",
+    "bytes": 4735
+   },
+   "patched": {
+    "sha256": "1b05aeaae1a23bcde54c200211d6292991b30f3a8c39c2dfca3efaa439caf5d7",
+    "bytes": 4819
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

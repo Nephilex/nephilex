@@ -1,0 +1,79 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-27vj-qcqg-25rc",
+  "cve_id": "CVE-2026-104851",
+  "ecosystem": "pip",
+  "packages": [
+   "fsspec"
+  ],
+  "published_at": "2026-10-05T22:53:22Z",
+  "advisory_cwes": [94, 1336],
+  "html_url": "https://github.com/advisories/GHSA-27vj-qcqg-25rc",
+  "label_cwes": [94, 1336],
+  "repo": "fsspec/filesystem_spec",
+  "fix_sha": "86438783f93b1398ef245b92f0e6063b445b611c",
+  "parent_sha": "a1c16ab3f07f354aa371c38f7b1b07ea7fd4c5c8",
+  "path_vulnerable": "fsspec/implementations/cache_metadata.py",
+  "path_patched": "fsspec/implementations/cache_metadata.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [4, 4],
+   [32, 33],
+   [51, 54],
+   [57, 62],
+   [70, 75]
+  ],
+  "patched_lines": [
+   [3, 4],
+   [31, 31],
+   [51, 52],
+   [60, 61]
+  ],
+  "commit_url": "https://github.com/fsspec/filesystem_spec/commit/86438783f93b1398ef245b92f0e6063b445b611c",
+  "case_id": "136-GHSA-27vj-qcqg-25rc",
+  "content": {
+   "vulnerable": {
+    "sha256": "fc018e7f2e3abc80ec792ede41193b22098a31b2a1124b0ebfd3ee5bb2e8e580",
+    "bytes": 8502
+   },
+   "patched": {
+    "sha256": "10f850576ee580f958444629ac3113d6f70c79dd79a5534c8adf936b5963a321",
+    "bytes": 7942
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      62,
+      "patterns.python-pickle-loads",
+      [502]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7587-9684-52r6",
+  "cve_id": "CVE-2026-115324",
+  "ecosystem": "pip",
+  "packages": [
+   "mem0ai"
+  ],
+  "published_at": "2026-10-22T12:31:17Z",
+  "advisory_cwes": [89],
+  "html_url": "https://github.com/advisories/GHSA-7587-9684-52r6",
+  "label_cwes": [89],
+  "repo": "mem0ai/mem0",
+  "fix_sha": "a2ffca32660537b7b304305f36774ae2a13452cb",
+  "parent_sha": "3a9fcdbec25febac83cdad423cce619a10ca0e69",
+  "path_vulnerable": "mem0/vector_stores/databricks.py",
+  "path_patched": "mem0/vector_stores/databricks.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [2, 3],
+   [8, 9],
+   [30, 31],
+   [393, 393],
+   [403, 405],
+   [412, 412],
+   [497, 497],
+   [500, 500],
+   [522, 522],
+   [531, 531],
+   [538, 538],
+   [544, 544],
+   [549, 549]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [10, 10],
+   [33, 35],
+   [396, 396],
+   [399, 399],
+   [401, 401],
+   [406, 409],
+   [414, 425],
+   [432, 435],
+   [520, 520],
+   [523, 526],
+   [549, 549],
+   [557, 560],
+   [567, 572],
+   [577, 577],
+   [579, 580],
+   [585, 588]
+  ],
+  "commit_url": "https://github.com/mem0ai/mem0/commit/a2ffca32660537b7b304305f36774ae2a13452cb",
+  "case_id": "023-GHSA-7587-9684-52r6",
+  "content": {
+   "vulnerable": {
+    "sha256": "201a0beac295637c88d26b4a9f4490dfdcdf3ea6871927b4551bfe202f040113",
+    "bytes": 33331
+   },
+   "patched": {
+    "sha256": "b82d44e11875cb4cdab8a085582a02252078b41b9755611f8658488d8dcf114f",
+    "bytes": 35450
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

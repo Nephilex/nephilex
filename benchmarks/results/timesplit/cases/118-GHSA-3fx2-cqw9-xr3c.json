@@ -1,0 +1,103 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3fx2-cqw9-xr3c",
+  "cve_id": "CVE-2026-118667",
+  "ecosystem": "pip",
+  "packages": [
+   "langgraph",
+   "langgraph-sdk"
+  ],
+  "published_at": "2026-10-28T21:05:47Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-3fx2-cqw9-xr3c",
+  "label_cwes": [22],
+  "repo": "langchain-ai/langgraph",
+  "fix_sha": "d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
+  "parent_sha": "2d942085e214ef6b99b6f54ed4d544a7c7c5ac56",
+  "path_vulnerable": "libs/sdk-py/langgraph_sdk/_sync/stream.py",
+  "path_patched": "libs/sdk-py/langgraph_sdk/_sync/stream.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [24, 25],
+   [197, 197],
+   [1555, 1555]
+  ],
+  "patched_lines": [
+   [25, 25],
+   [198, 198],
+   [1556, 1556]
+  ],
+  "commit_url": "https://github.com/langchain-ai/langgraph/commit/d89c7e100ec6fc1512544d23b0a7c5169699ef3e",
+  "case_id": "118-GHSA-3fx2-cqw9-xr3c",
+  "content": {
+   "vulnerable": {
+    "sha256": "9bc979f63282e6ab82595b249aa7c6963f271667b20434f2daded92f972885aa",
+    "bytes": 67082
+   },
+   "patched": {
+    "sha256": "9ce8850338d44335225244e3d40d8c41c667a1d65abd26bae7dc5b8dafb359d7",
+    "bytes": 67182
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      893,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      999,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      1632,
+      "logic.state-transition",
+      [840]
+     ]
+    ],
+    "patched": [
+     [
+      894,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      1000,
+      "logic.state-transition",
+      [840]
+     ],
+     [
+      1633,
+      "logic.state-transition",
+      [840]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

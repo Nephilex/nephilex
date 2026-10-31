@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-35rr-xwfh-x789",
+  "cve_id": "CVE-2026-118246",
+  "ecosystem": "npm",
+  "packages": [
+   "highcharts"
+  ],
+  "published_at": "2026-10-28T19:56:07Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-35rr-xwfh-x789",
+  "label_cwes": [79],
+  "repo": "highcharts/highcharts",
+  "fix_sha": "b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+  "parent_sha": "b340c5e02d6f20987275e299b1c096742c042903",
+  "path_vulnerable": "ts/Extensions/Breadcrumbs/BreadcrumbsDefaults.ts",
+  "path_patched": "ts/Extensions/Breadcrumbs/BreadcrumbsDefaults.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [268, 268]
+  ],
+  "patched_lines": [
+   [268, 268]
+  ],
+  "commit_url": "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+  "case_id": "165-GHSA-35rr-xwfh-x789",
+  "content": {
+   "vulnerable": {
+    "sha256": "22ac1a2f70d8485dd9ac0686b039be7888ff275b5955782c46d0ef8d626c68f4",
+    "bytes": 7424
+   },
+   "patched": {
+    "sha256": "212a08c265a6f3d17ab6094c5e2d0063dab3b055736d5a34c486a262aaff9db6",
+    "bytes": 7420
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

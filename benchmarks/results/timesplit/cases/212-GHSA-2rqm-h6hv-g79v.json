@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2rqm-h6hv-g79v",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "odf-kit"
+  ],
+  "published_at": "2026-10-23T20:55:31Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-2rqm-h6hv-g79v",
+  "label_cwes": [79],
+  "repo": "GitHubNewbie0/odf-kit",
+  "fix_sha": "1424227d1ca2716a249b623d1456575ff0331dcc",
+  "parent_sha": "aa64c734ebd7e7be40e35fcda83b1144193c3da2",
+  "path_vulnerable": "src/ods/to-html/html-renderer.ts",
+  "path_patched": "src/ods/to-html/html-renderer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [7, 8],
+   [65, 65],
+   [95, 95]
+  ],
+  "patched_lines": [
+   [8, 9],
+   [67, 67],
+   [97, 97]
+  ],
+  "commit_url": "https://github.com/GitHubNewbie0/odf-kit/commit/1424227d1ca2716a249b623d1456575ff0331dcc",
+  "case_id": "212-GHSA-2rqm-h6hv-g79v",
+  "content": {
+   "vulnerable": {
+    "sha256": "3b86abf1a9862ea4245208d76701b72dbe03e1478d737b3f84d86b18f6ded262",
+    "bytes": 7153
+   },
+   "patched": {
+    "sha256": "5231e60b60dee7447bac6ec72872418027c2b7c6ec01c88c60c0332700613589",
+    "bytes": 7228
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

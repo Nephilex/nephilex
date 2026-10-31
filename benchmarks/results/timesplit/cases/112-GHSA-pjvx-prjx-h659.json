@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pjvx-prjx-h659",
+  "cve_id": "CVE-2026-114140",
+  "ecosystem": "pip",
+  "packages": [
+   "nbconvert"
+  ],
+  "published_at": "2026-10-22T16:23:28Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-pjvx-prjx-h659",
+  "label_cwes": [22],
+  "repo": "jupyter/nbconvert",
+  "fix_sha": "ce4bd99aec31d81d759fa8eeb8643179392ec66f",
+  "parent_sha": "1ff189e1b30f0820238e95427c035a9150a5e43f",
+  "path_vulnerable": "nbconvert/preprocessors/extractoutput.py",
+  "path_patched": "nbconvert/preprocessors/extractoutput.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [117, 117]
+  ],
+  "patched_lines": [
+   [117, 132]
+  ],
+  "commit_url": "https://github.com/jupyter/nbconvert/commit/ce4bd99aec31d81d759fa8eeb8643179392ec66f",
+  "case_id": "112-GHSA-pjvx-prjx-h659",
+  "content": {
+   "vulnerable": {
+    "sha256": "00ef95946be33a9bbc2af0dc0e12e94172d906328d310dd9fecdcdad6a3e6481",
+    "bytes": 6445
+   },
+   "patched": {
+    "sha256": "54ee866be69b7f7465bcc8c81c8c8a71a6aa1c6ea3350c543d03d0ebf20902f9",
+    "bytes": 7213
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

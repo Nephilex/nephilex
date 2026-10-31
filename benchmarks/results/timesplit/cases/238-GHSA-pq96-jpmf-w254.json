@@ -1,0 +1,86 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pq96-jpmf-w254",
+  "cve_id": "CVE-2026-106102",
+  "ecosystem": "npm",
+  "packages": [
+   "quasar"
+  ],
+  "published_at": "2026-10-07T16:14:22Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-pq96-jpmf-w254",
+  "label_cwes": [79],
+  "repo": "quasarframework/quasar",
+  "fix_sha": "11505afe5b5218f2c468f130181815b898fd1e40",
+  "parent_sha": "87c89a80ec84f1eb7dbe258e5367161b0598ceb3",
+  "path_vulnerable": "ui/src/plugins/meta/Meta.js",
+  "path_patched": "ui/src/plugins/meta/Meta.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [6, 7],
+   [152, 152],
+   [159, 159],
+   [169, 169],
+   [171, 171],
+   [198, 198],
+   [207, 207],
+   [217, 217],
+   [224, 224],
+   [227, 227]
+  ],
+  "patched_lines": [
+   [7, 48],
+   [193, 194],
+   [196, 196],
+   [203, 203],
+   [212, 212],
+   [214, 214],
+   [216, 217],
+   [244, 246],
+   [255, 255],
+   [265, 265],
+   [272, 272],
+   [275, 275]
+  ],
+  "commit_url": "https://github.com/quasarframework/quasar/commit/11505afe5b5218f2c468f130181815b898fd1e40",
+  "case_id": "238-GHSA-pq96-jpmf-w254",
+  "content": {
+   "vulnerable": {
+    "sha256": "aa5bb945346d94028a8848ed52819d84238804b93fbaf7112622155bb042c636",
+    "bytes": 6232
+   },
+   "patched": {
+    "sha256": "7df750afba24412d9b161f273be5d4223e3c5774ee6d106261d91103e42c3855",
+    "bytes": 7309
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pxh4-856f-4h89",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "pyjwt"
+  ],
+  "published_at": "2026-10-22T15:48:04Z",
+  "advisory_cwes": [347],
+  "html_url": "https://github.com/advisories/GHSA-pxh4-856f-4h89",
+  "label_cwes": [347],
+  "repo": "jpadilla/pyjwt",
+  "fix_sha": "af8181ca0bec5e6b372fbba9afbe23702b787ceb",
+  "parent_sha": "ba4853a75fb9676362da17f67d0f64bd18afd4e1",
+  "path_vulnerable": "jwt/algorithms.py",
+  "path_patched": "jwt/algorithms.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [431, 431]
+  ],
+  "patched_lines": [
+   [431, 434]
+  ],
+  "commit_url": "https://github.com/jpadilla/pyjwt/commit/af8181ca0bec5e6b372fbba9afbe23702b787ceb",
+  "case_id": "070-GHSA-pxh4-856f-4h89",
+  "content": {
+   "vulnerable": {
+    "sha256": "8b2b87d59a52248e174f70bdffb51be26b3808a8c4dc83d5ef655fb3960abb3f",
+    "bytes": 38325
+   },
+   "patched": {
+    "sha256": "75cb456b41071a4ba95c2c23309b73a67541b4c69784451f1ebf93715e0f88b0",
+    "bytes": 38452
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

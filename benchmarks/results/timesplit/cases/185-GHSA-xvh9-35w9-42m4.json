@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xvh9-35w9-42m4",
+  "cve_id": "CVE-2026-106493",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/backend-defaults",
+   "@backstage/plugin-catalog-backend-module-aws",
+   "@backstage/plugin-catalog-backend-module-azure"
+  ],
+  "published_at": "2026-10-07T17:59:55Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-xvh9-35w9-42m4",
+  "label_cwes": [22],
+  "repo": "backstage/backstage",
+  "fix_sha": "47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
+  "parent_sha": "21424faa2e280a6bc6b9e5c5245952f16aafca7b",
+  "path_vulnerable": "plugins/catalog-backend-module-aws/src/providers/AwsS3EntityProvider.ts",
+  "path_patched": "plugins/catalog-backend-module-aws/src/providers/AwsS3EntityProvider.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [43, 44],
+   [202, 202],
+   [255, 255]
+  ],
+  "patched_lines": [
+   [44, 49],
+   [208, 216],
+   [269, 278]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
+  "case_id": "185-GHSA-xvh9-35w9-42m4",
+  "content": {
+   "vulnerable": {
+    "sha256": "7116bafc622bc922f75392d2ea575db3dae01d2eb5c45040809a7b8d96a93b77",
+    "bytes": 8078
+   },
+   "patched": {
+    "sha256": "2f45e142cd120e1d0e7dd8eeecbf7299b5e6a557922035d817fd034c6b475983",
+    "bytes": 8791
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

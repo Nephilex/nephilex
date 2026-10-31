@@ -1,0 +1,84 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-47c3-hpmg-7j6p",
+  "cve_id": "CVE-2026-108258",
+  "ecosystem": "pip",
+  "packages": [
+   "shiny"
+  ],
+  "published_at": "2026-10-09T20:56:37Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-47c3-hpmg-7j6p",
+  "label_cwes": [22],
+  "repo": "posit-dev/py-shiny",
+  "fix_sha": "1d8ecb46cbc9621b7dc8812111d26692e086b376",
+  "parent_sha": "48b4faa0d651476afa84d6423d57503b60716902",
+  "path_vulnerable": "shiny/bookmark/_restore_state.py",
+  "path_patched": "shiny/bookmark/_restore_state.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 3],
+   [12, 12],
+   [112, 113],
+   [115, 116],
+   [128, 131],
+   [136, 136],
+   [143, 143],
+   [192, 193],
+   [265, 266],
+   [268, 268]
+  ],
+  "patched_lines": [
+   [3, 3],
+   [12, 12],
+   [20, 21],
+   [115, 118],
+   [122, 131],
+   [144, 159],
+   [164, 166],
+   [173, 176],
+   [226, 228],
+   [301, 309]
+  ],
+  "commit_url": "https://github.com/posit-dev/py-shiny/commit/1d8ecb46cbc9621b7dc8812111d26692e086b376",
+  "case_id": "108-GHSA-47c3-hpmg-7j6p",
+  "content": {
+   "vulnerable": {
+    "sha256": "ee1df61d58b0037976fb79153142d77e3847a3d1176972bbd9821a80b49fba69",
+    "bytes": 14829
+   },
+   "patched": {
+    "sha256": "e77c1d225ce0ca09ac61656fa94ee8dbf83c17c3183f2b38f7c8623ac1f69b65",
+    "bytes": 17094
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-3jqq-pw4j-pqcj",
+  "cve_id": "CVE-2026-102830",
+  "ecosystem": "pip",
+  "packages": [
+   "jupyterlab",
+   "jupyterlite-core"
+  ],
+  "published_at": "2026-10-01T15:22:17Z",
+  "advisory_cwes": [79, 94, 625],
+  "html_url": "https://github.com/advisories/GHSA-3jqq-pw4j-pqcj",
+  "label_cwes": [79, 94],
+  "repo": "jupyterlab/jupyterlab",
+  "fix_sha": "985a3223cd77fd4f991cd90066342a90711d70f6",
+  "parent_sha": "b64bc88b8ca034cf158604a5cc48ca9170ea453b",
+  "path_vulnerable": "packages/translation/src/gettext.ts",
+  "path_patched": "packages/translation/src/gettext.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [570, 570]
+  ],
+  "patched_lines": [
+   [570, 570]
+  ],
+  "commit_url": "https://github.com/jupyterlab/jupyterlab/commit/985a3223cd77fd4f991cd90066342a90711d70f6",
+  "case_id": "038-GHSA-3jqq-pw4j-pqcj",
+  "content": {
+   "vulnerable": {
+    "sha256": "b11ade526663283cbcb8a3490bdfb410a0426e75119a0772883a16afdf7b532c",
+    "bytes": 19771
+   },
+   "patched": {
+    "sha256": "bfffea2cc3c6256a3eac7f246949a2c3adce85b08eefbf3c37d424c56bee5140",
+    "bytes": 19772
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

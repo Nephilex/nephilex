@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xvh9-35w9-42m4",
+  "cve_id": "CVE-2026-106493",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/backend-defaults",
+   "@backstage/plugin-catalog-backend-module-aws",
+   "@backstage/plugin-catalog-backend-module-azure"
+  ],
+  "published_at": "2026-10-07T17:59:55Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-xvh9-35w9-42m4",
+  "label_cwes": [22],
+  "repo": "backstage/backstage",
+  "fix_sha": "47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
+  "parent_sha": "21424faa2e280a6bc6b9e5c5245952f16aafca7b",
+  "path_vulnerable": "packages/backend-defaults/src/entrypoints/urlReader/lib/AzureBlobStorageUrlReader.ts",
+  "path_patched": "packages/backend-defaults/src/entrypoints/urlReader/lib/AzureBlobStorageUrlReader.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [28, 28],
+   [47, 47]
+  ],
+  "patched_lines": [
+   [28, 28],
+   [46, 49],
+   [51, 54]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/47ddbd8b4a3efd812309f759c38f4877fbd9e5ff",
+  "case_id": "183-GHSA-xvh9-35w9-42m4",
+  "content": {
+   "vulnerable": {
+    "sha256": "d005a1c9772bad3a30f790b979c7154ac2ab1149caa935426c6cf90bb5f16e10",
+    "bytes": 8349
+   },
+   "patched": {
+    "sha256": "50e24ace598abef4ebb153fa329eb721f97806323962e11c1c41f739bb8207e0",
+    "bytes": 8535
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

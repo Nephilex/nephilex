@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vmxc-h2x2-jmf3",
+  "cve_id": "CVE-2026-107289",
+  "ecosystem": "pip",
+  "packages": [
+   "pydantic-ai",
+   "pydantic-ai-slim"
+  ],
+  "published_at": "2026-10-08T16:48:06Z",
+  "advisory_cwes": [918, 1289],
+  "html_url": "https://github.com/advisories/GHSA-vmxc-h2x2-jmf3",
+  "label_cwes": [918],
+  "repo": "pydantic/pydantic-ai",
+  "fix_sha": "02157e1b87bd45d3f2e111ce07afdf89f9fb0e5b",
+  "parent_sha": "c3fd1cc1f15fdbf750d78e4e3ec1e8b4d6a3d920",
+  "path_vulnerable": "pydantic_ai_slim/pydantic_ai/_ssrf.py",
+  "path_patched": "pydantic_ai_slim/pydantic_ai/_ssrf.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [258, 258],
+   [260, 262],
+   [275, 275],
+   [277, 279]
+  ],
+  "patched_lines": [
+   [254, 272],
+   [277, 278],
+   [280, 281],
+   [294, 295],
+   [297, 298]
+  ],
+  "commit_url": "https://github.com/pydantic/pydantic-ai/commit/02157e1b87bd45d3f2e111ce07afdf89f9fb0e5b",
+  "case_id": "086-GHSA-vmxc-h2x2-jmf3",
+  "content": {
+   "vulnerable": {
+    "sha256": "0d055ba89b3131b8400b28ea35e50978be86f6c2d585f566c1e5b70e52f41516",
+    "bytes": 36677
+   },
+   "patched": {
+    "sha256": "30cebdae84f003bde4b7819715d76f50541119770c8cadad124f722a049a036b",
+    "bytes": 37607
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

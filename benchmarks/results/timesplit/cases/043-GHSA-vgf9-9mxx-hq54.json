@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vgf9-9mxx-hq54",
+  "cve_id": "CVE-2026-68549",
+  "ecosystem": "pip",
+  "packages": [
+   "ClickMigrate"
+  ],
+  "published_at": "2026-10-16T19:17:28Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-vgf9-9mxx-hq54",
+  "label_cwes": [22],
+  "repo": "QueueForge/ClickMigrate",
+  "fix_sha": "6b1f2c0202630a82252b3331aa57e64327e112b6",
+  "parent_sha": "6a350e294cf60cd0dfd50d76a92cdfd44787b00c",
+  "path_vulnerable": "src/clickmigrate/manager.py",
+  "path_patched": "src/clickmigrate/manager.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [3, 4],
+   [112, 112]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [113, 113]
+  ],
+  "commit_url": "https://github.com/QueueForge/ClickMigrate/commit/6b1f2c0202630a82252b3331aa57e64327e112b6",
+  "case_id": "043-GHSA-vgf9-9mxx-hq54",
+  "content": {
+   "vulnerable": {
+    "sha256": "eccd9327571c3d875101f8b656ec0e9ce44c92f2e6d825573ed2a561c7913d8e",
+    "bytes": 4114
+   },
+   "patched": {
+    "sha256": "b676ff85c22ca81b5451d8f5991c88cec2007f1b51ce15b17b83618463c7824a",
+    "bytes": 4154
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

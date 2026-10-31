@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x4rv-c3wx-4cr8",
+  "cve_id": "CVE-2026-114620",
+  "ecosystem": "pip",
+  "packages": [
+   "authlib"
+  ],
+  "published_at": "2026-10-27T15:39:18Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-x4rv-c3wx-4cr8",
+  "label_cwes": [918],
+  "repo": "authlib/authlib",
+  "fix_sha": "6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
+  "parent_sha": "275b6f9f07219e875f8a893dbc80db0097f6e02b",
+  "path_vulnerable": "authlib/integrations/base_client/sync_openid.py",
+  "path_patched": "authlib/integrations/base_client/sync_openid.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [43, 43],
+   [81, 84]
+  ],
+  "patched_lines": [
+   [43, 47],
+   [84, 85]
+  ],
+  "commit_url": "https://github.com/authlib/authlib/commit/6563f6f7a8c2f71d2f85ee7511d72a4fbae3acc0",
+  "case_id": "100-GHSA-x4rv-c3wx-4cr8",
+  "content": {
+   "vulnerable": {
+    "sha256": "aa412e4400327bf38c33b6a3a75c2af55ced485c8bd8011000cc5a5506338c43",
+    "bytes": 4336
+   },
+   "patched": {
+    "sha256": "5bdf3938f654ae5d3407121656324d35c383d3c9c83336d34cc4c5e8fc5b5aa2",
+    "bytes": 4342
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

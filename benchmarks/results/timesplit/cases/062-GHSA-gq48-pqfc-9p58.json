@@ -1,0 +1,73 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-gq48-pqfc-9p58",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "GitPython"
+  ],
+  "published_at": "2026-10-27T15:26:57Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-gq48-pqfc-9p58",
+  "label_cwes": [22],
+  "repo": "gitpython-developers/GitPython",
+  "fix_sha": "24b6f95d4b90ab1483fb601c736ac6e7c059cd61",
+  "parent_sha": "b62e91be897f687a622e40cd1e59c33dce45f124",
+  "path_vulnerable": "git/objects/submodule/base.py",
+  "path_patched": "git/objects/submodule/base.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [422, 423],
+   [426, 426],
+   [1042, 1042],
+   [1060, 1060]
+  ],
+  "patched_lines": [
+   [422, 430],
+   [432, 433],
+   [435, 435],
+   [1051, 1052],
+   [1070, 1070]
+  ],
+  "commit_url": "https://github.com/gitpython-developers/GitPython/commit/24b6f95d4b90ab1483fb601c736ac6e7c059cd61",
+  "case_id": "062-GHSA-gq48-pqfc-9p58",
+  "content": {
+   "vulnerable": {
+    "sha256": "a4355d49e0b75c7c7e74d33ac70ff9550f940c977848c99da40eb41e034b189c",
+    "bytes": 67544
+   },
+   "patched": {
+    "sha256": "c9f17e956487e95f6877a7d06c0fd2a6d985cfa33b3cb453e2c82872c48a2089",
+    "bytes": 68115
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

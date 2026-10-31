@@ -1,0 +1,274 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hhww-mrg2-969h",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "litellm"
+  ],
+  "published_at": "2026-10-27T15:31:56Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-hhww-mrg2-969h",
+  "label_cwes": [79],
+  "repo": "BerriAI/litellm",
+  "fix_sha": "13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
+  "parent_sha": "f2e97380d2deeeb8ab4b465f6cf5ee91d94233a9",
+  "path_vulnerable": "litellm/proxy/management_endpoints/ui_sso.py",
+  "path_patched": "litellm/proxy/management_endpoints/ui_sso.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [4080, 4081],
+   [4097, 4102],
+   [4133, 4134]
+  ],
+  "patched_lines": [
+   [4081, 4082],
+   [4099, 4106],
+   [4135, 4153],
+   [4155, 4157],
+   [4159, 4160]
+  ],
+  "commit_url": "https://github.com/BerriAI/litellm/commit/13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
+  "case_id": "111-GHSA-hhww-mrg2-969h",
+  "content": {
+   "vulnerable": {
+    "sha256": "e2f04dd7bc5eb5ff084dea0fcde5dc9abba219d4a83c6b359959cdb7a2747932",
+    "bytes": 168288
+   },
+   "patched": {
+    "sha256": "d7ab94d483e2a5b09c8f1522f43c48d81cc1e37513d6112376729114ee0fcc3f",
+    "bytes": 169150
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      8,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      636,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      675,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      685,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      1461,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1462,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1463,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1633,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      1683,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2293,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2328,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2788,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      3021,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      3022,
+      "authz.cookie-missing-httponly",
+      [1004]
+     ],
+     [
+      3022,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      3568,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      3940,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4014,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4028,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4137,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      8,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      636,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      675,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      685,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      1461,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1462,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1463,
+      "logic.race-hint",
+      [840]
+     ],
+     [
+      1633,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      1683,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2293,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2328,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      2788,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      3021,
+      "ast-python.ast-open-redirect",
+      [601]
+     ],
+     [
+      3022,
+      "authz.cookie-missing-httponly",
+      [1004]
+     ],
+     [
+      3022,
+      "authz.insecure-session-cookie",
+      [614]
+     ],
+     [
+      3568,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      3940,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4014,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4028,
+      "authz.oauth-missing-state",
+      [352]
+     ],
+     [
+      4163,
+      "ast-python.ast-xss",
+      [79]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": true
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": true
+   }
+  }
+ }
+}

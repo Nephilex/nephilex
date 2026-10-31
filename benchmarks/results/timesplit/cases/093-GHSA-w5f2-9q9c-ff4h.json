@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w5f2-9q9c-ff4h",
+  "cve_id": "CVE-2026-105192",
+  "ecosystem": "pip",
+  "packages": [
+   "lmcache"
+  ],
+  "published_at": "2026-10-16T20:08:44Z",
+  "advisory_cwes": [306],
+  "html_url": "https://github.com/advisories/GHSA-w5f2-9q9c-ff4h",
+  "label_cwes": [306],
+  "repo": "LMCache/LMCache",
+  "fix_sha": "160b6dec469edb765efd1fad42aca5a438b08bb5",
+  "parent_sha": "5070f183f260258611c1252e996ad12e2cee5b7f",
+  "path_vulnerable": "lmcache/v1/platform/devices/musa/ipc_wrapper.py",
+  "path_patched": "lmcache/v1/platform/devices/musa/ipc_wrapper.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [24, 25],
+   [267, 268]
+  ],
+  "patched_lines": [
+   [25, 25],
+   [269, 283]
+  ],
+  "commit_url": "https://github.com/LMCache/LMCache/commit/160b6dec469edb765efd1fad42aca5a438b08bb5",
+  "case_id": "093-GHSA-w5f2-9q9c-ff4h",
+  "content": {
+   "vulnerable": {
+    "sha256": "b647872b3c9ed0aa4bafc688f29918d5d614ecc61451368477e67254329d6913",
+    "bytes": 11937
+   },
+   "patched": {
+    "sha256": "c0bf8c944e05c49114415369b9cb7e313d2df73d94a5542e18cb0bd2172c56f1",
+    "bytes": 12642
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

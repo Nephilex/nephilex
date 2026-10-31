@@ -1,0 +1,85 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-4hmc-cfm3-w43c",
+  "cve_id": "CVE-2026-105699",
+  "ecosystem": "pip",
+  "packages": [
+   "langflow"
+  ],
+  "published_at": "2026-10-07T20:35:12Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-4hmc-cfm3-w43c",
+  "label_cwes": [639],
+  "repo": "langflow-ai/langflow",
+  "fix_sha": "b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
+  "parent_sha": "dc2411cb188a0e06ad71972a68e4567f59b2e657",
+  "path_vulnerable": "src/backend/base/langflow/api/v1/mcp_utils.py",
+  "path_patched": "src/backend/base/langflow/api/v1/mcp_utils.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [14, 14],
+   [104, 105],
+   [136, 136],
+   [161, 162],
+   [177, 177],
+   [183, 183],
+   [185, 185],
+   [346, 347]
+  ],
+  "patched_lines": [
+   [14, 14],
+   [103, 110],
+   [112, 116],
+   [146, 150],
+   [152, 152],
+   [177, 185],
+   [200, 200],
+   [203, 237],
+   [241, 241],
+   [243, 243],
+   [396, 402],
+   [410, 412],
+   [414, 417]
+  ],
+  "commit_url": "https://github.com/langflow-ai/langflow/commit/b8fe970493fd5fb2e1fc71dfccc79f90b76058fa",
+  "case_id": "008-GHSA-4hmc-cfm3-w43c",
+  "content": {
+   "vulnerable": {
+    "sha256": "3899d621e2c5bb9eaf79a21eaa5a17251cb321d705ccc0d64d5f7a914e79919b",
+    "bytes": 16908
+   },
+   "patched": {
+    "sha256": "2b7dbd9898dae67f35cb1cf277fe7eba526c51f32a83a1cbebe9cee161d02fd2",
+    "bytes": 20749
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pqg4-j6r4-53mv",
+  "cve_id": "CVE-2026-102422",
+  "ecosystem": "npm",
+  "packages": [
+   "shell-quote"
+  ],
+  "published_at": "2026-10-06T13:40:36Z",
+  "advisory_cwes": [78],
+  "html_url": "https://github.com/advisories/GHSA-pqg4-j6r4-53mv",
+  "label_cwes": [78],
+  "repo": "ljharb/shell-quote",
+  "fix_sha": "6002b2ed90c6b83095eb272b6b0adaf3a172b0bc",
+  "parent_sha": "36f23944db50dd3f0df4da9c7cba0bb63df05f64",
+  "path_vulnerable": "quote.js",
+  "path_patched": "quote.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [28, 30],
+   [55, 56]
+  ],
+  "patched_lines": [
+   [29, 29],
+   [31, 33],
+   [60, 60]
+  ],
+  "commit_url": "https://github.com/ljharb/shell-quote/commit/6002b2ed90c6b83095eb272b6b0adaf3a172b0bc",
+  "case_id": "217-GHSA-pqg4-j6r4-53mv",
+  "content": {
+   "vulnerable": {
+    "sha256": "254c83bb5c04c3ac972e72d9fd1945dce08d812a0fc49dba7480313615daa061",
+    "bytes": 1758
+   },
+   "patched": {
+    "sha256": "8cc7b9dbde6f7736dd78b5517a38f13d284572aa1d45a46ff4e64cfb9ea35916",
+    "bytes": 1970
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

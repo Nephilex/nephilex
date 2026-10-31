@@ -1,0 +1,29 @@
+{
+ "nephilex_source": {
+  "commit": "9f6fa28d39f13cc4e97ddae0724263fde1f6160c",
+  "src_nephilex_modified": false
+ },
+ "runs": {
+  "nephilex": {
+   "tool": "nephilex",
+   "started_at": "2026-10-30T23:08:00+00:00",
+   "version": "0.11.0",
+   "command": [
+    "nephilex",
+    "scan",
+    "<case>/<version>",
+    "--no-ai",
+    "--no-cache",
+    "--quiet",
+    "-f",
+    "json",
+    "-o",
+    "<raw_output>"
+   ],
+   "runs": 584,
+   "seconds": 1066.3,
+   "scanners_failed": {},
+   "notes": "one run per case and version; offline heuristic provider (--no-ai); default scanners incl. the [ast] tier"
+  }
+ }
+}

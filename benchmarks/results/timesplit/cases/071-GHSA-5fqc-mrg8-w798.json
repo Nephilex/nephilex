@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-5fqc-mrg8-w798",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "dulwich"
+  ],
+  "published_at": "2026-10-02T18:53:05Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-5fqc-mrg8-w798",
+  "label_cwes": [22],
+  "repo": "jelmer/dulwich",
+  "fix_sha": "9571ac60b851fce228dae7ededb380c6ce9b3fb8",
+  "parent_sha": "4b6ac339f169ef75994dd3a45b4b386757f9a669",
+  "path_vulnerable": "dulwich/filter_branch.py",
+  "path_patched": "dulwich/filter_branch.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [36, 38],
+   [206, 206],
+   [211, 218],
+   [220, 220],
+   [223, 223]
+  ],
+  "patched_lines": [
+   [36, 38],
+   [210, 224]
+  ],
+  "commit_url": "https://github.com/jelmer/dulwich/commit/9571ac60b851fce228dae7ededb380c6ce9b3fb8",
+  "case_id": "071-GHSA-5fqc-mrg8-w798",
+  "content": {
+   "vulnerable": {
+    "sha256": "eb6c04cd8c8ba9f39afebe5ea1160acbd493de90e4a05efc0bde41ee4ae2e997",
+    "bytes": 20857
+   },
+   "patched": {
+    "sha256": "83f7bec1301b5683b9b33e12f28671879e3c511292b0d1f646dc0293ceff2295",
+    "bytes": 21095
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

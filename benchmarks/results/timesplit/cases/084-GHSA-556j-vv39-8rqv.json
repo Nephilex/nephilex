@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-556j-vv39-8rqv",
+  "cve_id": "CVE-2026-107716",
+  "ecosystem": "pip",
+  "packages": [
+   "banks"
+  ],
+  "published_at": "2026-10-08T22:10:07Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-556j-vv39-8rqv",
+  "label_cwes": [22],
+  "repo": "masci/banks",
+  "fix_sha": "23ed13e50b4e217693fa5f9c30943fac8a41582f",
+  "parent_sha": "b1feadd9bb635e22ea0a68015f357af8b30df3b6",
+  "path_vulnerable": "src/banks/__init__.py",
+  "path_patched": "src/banks/__init__.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [5, 6]
+  ],
+  "patched_lines": [
+   [6, 17]
+  ],
+  "commit_url": "https://github.com/masci/banks/commit/23ed13e50b4e217693fa5f9c30943fac8a41582f",
+  "case_id": "084-GHSA-556j-vv39-8rqv",
+  "content": {
+   "vulnerable": {
+    "sha256": "e08068a715ecb45665882bd28ceb93bab4906f7d95cb6e845ce3e198d6781eeb",
+    "bytes": 334
+   },
+   "patched": {
+    "sha256": "5402bc2f8578613dd632607df1021d7181de68b687cfbc686c66ef9b9bc13fdc",
+    "bytes": 707
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

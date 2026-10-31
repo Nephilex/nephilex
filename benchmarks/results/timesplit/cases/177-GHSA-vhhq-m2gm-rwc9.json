@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-vhhq-m2gm-rwc9",
+  "cve_id": "CVE-2026-106108",
+  "ecosystem": "npm",
+  "packages": [
+   "@quasar/app-vite"
+  ],
+  "published_at": "2026-10-07T16:14:41Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-vhhq-m2gm-rwc9",
+  "label_cwes": [22],
+  "repo": "quasarframework/quasar",
+  "fix_sha": "cdd4daeec839215540221122763c7a17cd478abc",
+  "parent_sha": "f0fad19c1a492043c260c7887e61c231c3435608",
+  "path_vulnerable": "app-vite/lib/modes/ssg/ssg-builder.js",
+  "path_patched": "app-vite/lib/modes/ssg/ssg-builder.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [4, 5],
+   [585, 585],
+   [591, 591],
+   [681, 682]
+  ],
+  "patched_lines": [
+   [5, 5],
+   [579, 579],
+   [587, 587],
+   [593, 593],
+   [601, 601],
+   [683, 684]
+  ],
+  "commit_url": "https://github.com/quasarframework/quasar/commit/cdd4daeec839215540221122763c7a17cd478abc",
+  "case_id": "177-GHSA-vhhq-m2gm-rwc9",
+  "content": {
+   "vulnerable": {
+    "sha256": "a557badcc5d8619770f2d677a95047c64d0c663a47b8eed837c55573ccd7dd8a",
+    "bytes": 22236
+   },
+   "patched": {
+    "sha256": "de1a39fd812800a22292f19ce654847e8d05b0d7872a708c6be89f512be3ebac",
+    "bytes": 22367
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

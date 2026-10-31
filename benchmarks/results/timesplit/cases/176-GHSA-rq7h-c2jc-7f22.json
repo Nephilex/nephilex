@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-rq7h-c2jc-7f22",
+  "cve_id": "CVE-2026-112946",
+  "ecosystem": "npm",
+  "packages": [
+   "vite",
+   "vite-plus"
+  ],
+  "published_at": "2026-10-21T16:47:42Z",
+  "advisory_cwes": [22, 284],
+  "html_url": "https://github.com/advisories/GHSA-rq7h-c2jc-7f22",
+  "label_cwes": [22],
+  "repo": "vitejs/vite",
+  "fix_sha": "170b92791421bcd484f7325936d989a82d6bd4aa",
+  "parent_sha": "e46fc9c77edc7703570e96bd84cd2c7e76f06ae3",
+  "path_vulnerable": "playground/fs-serve/root/vite.config.js",
+  "path_patched": "playground/fs-serve/root/vite.config.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [3, 4],
+   [37, 37]
+  ],
+  "patched_lines": [
+   [4, 4],
+   [38, 42]
+  ],
+  "commit_url": "https://github.com/vitejs/vite/commit/170b92791421bcd484f7325936d989a82d6bd4aa",
+  "case_id": "176-GHSA-rq7h-c2jc-7f22",
+  "content": {
+   "vulnerable": {
+    "sha256": "171b3a02def9e453bdfbebf96a64f525cd138f4a058a029e9a63a61dc81c3a12",
+    "bytes": 961
+   },
+   "patched": {
+    "sha256": "8f2f3106ce6570567838aac0d33cad7d5751176dc4107abcc2a3fa57426ebe68",
+    "bytes": 1060
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

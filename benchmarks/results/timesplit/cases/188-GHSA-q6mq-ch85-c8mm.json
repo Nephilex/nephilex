@@ -1,0 +1,84 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-q6mq-ch85-c8mm",
+  "cve_id": "CVE-2026-105804",
+  "ecosystem": "npm",
+  "packages": [
+   "payload"
+  ],
+  "published_at": "2026-10-06T15:38:37Z",
+  "advisory_cwes": [916],
+  "html_url": "https://github.com/advisories/GHSA-q6mq-ch85-c8mm",
+  "label_cwes": [916],
+  "repo": "payloadcms/payload",
+  "fix_sha": "1bc76e540a10f3ec88340f40591a57dae7456d01",
+  "parent_sha": "f3b911cbe50823b493e2588473d82bbb86e80aa7",
+  "path_vulnerable": "packages/drizzle/src/upsertRow/index.ts",
+  "path_patched": "packages/drizzle/src/upsertRow/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [57, 57],
+   [77, 78],
+   [104, 107],
+   [126, 126],
+   [156, 156],
+   [171, 171],
+   [174, 174],
+   [223, 223],
+   [234, 235]
+  ],
+  "patched_lines": [
+   [57, 57],
+   [78, 80],
+   [107, 107],
+   [126, 126],
+   [130, 133],
+   [160, 160],
+   [163, 166],
+   [179, 179],
+   [182, 191],
+   [240, 242],
+   [254, 257]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
+  "case_id": "188-GHSA-q6mq-ch85-c8mm",
+  "content": {
+   "vulnerable": {
+    "sha256": "0cfa061db0093763bfece44a3f5e9116ec3f7d527e18e707915b63fdbe09a8b1",
+    "bytes": 24912
+   },
+   "patched": {
+    "sha256": "c74409d86c1ca1fb549cd58ddaf2783105f8c52710c93945b46a3776313f7510",
+    "bytes": 25324
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

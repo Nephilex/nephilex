@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g2v6-rqmx-r4w6",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "@vue/server-renderer"
+  ],
+  "published_at": "2026-10-05T22:50:55Z",
+  "advisory_cwes": [79, 116],
+  "html_url": "https://github.com/advisories/GHSA-g2v6-rqmx-r4w6",
+  "label_cwes": [79],
+  "repo": "vuejs/core",
+  "fix_sha": "a2b40db9a83b36ed9da3a16403cf8f040262d73f",
+  "parent_sha": "f8975657d7451d8e4291406427e6a8ae5e50c8d5",
+  "path_vulnerable": "packages/shared/src/domAttrConfig.ts",
+  "path_patched": "packages/shared/src/domAttrConfig.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [36, 36]
+  ],
+  "patched_lines": [
+   [36, 36]
+  ],
+  "commit_url": "https://github.com/vuejs/core/commit/a2b40db9a83b36ed9da3a16403cf8f040262d73f",
+  "case_id": "237-GHSA-g2v6-rqmx-r4w6",
+  "content": {
+   "vulnerable": {
+    "sha256": "3fd029832b234d045b596c730fb63103a9dc15c31eab680da8e38ec47931dd63",
+    "bytes": 7904
+   },
+   "patched": {
+    "sha256": "40638faef48f0be9dd51c5bd29fb6194b85b70a707026010e8ae5a6d2ba25c70",
+    "bytes": 7910
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

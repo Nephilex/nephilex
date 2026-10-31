@@ -1,0 +1,67 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-g8rx-f7m5-7794",
+  "cve_id": "CVE-2026-106486",
+  "ecosystem": "npm",
+  "packages": [
+   "@backstage/plugin-scaffolder-backend-module-bitbucket-cloud",
+   "@backstage/plugin-scaffolder-backend-module-bitbucket-server"
+  ],
+  "published_at": "2026-10-07T18:01:26Z",
+  "advisory_cwes": [22, 59],
+  "html_url": "https://github.com/advisories/GHSA-g8rx-f7m5-7794",
+  "label_cwes": [22],
+  "repo": "backstage/backstage",
+  "fix_sha": "818528e112c36167d76187e9e63fb518399c4dd2",
+  "parent_sha": "bf6bbf7326ada7d96d7b2c4ebc4a71546106f311",
+  "path_vulnerable": "plugins/scaffolder-backend-module-bitbucket-server/src/actions/bitbucketServerPullRequest.ts",
+  "path_patched": "plugins/scaffolder-backend-module-bitbucket-server/src/actions/bitbucketServerPullRequest.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [453, 454]
+  ],
+  "patched_lines": [
+   [453, 453]
+  ],
+  "commit_url": "https://github.com/backstage/backstage/commit/818528e112c36167d76187e9e63fb518399c4dd2",
+  "case_id": "270-GHSA-g8rx-f7m5-7794",
+  "content": {
+   "vulnerable": {
+    "sha256": "785b5ea7d5a0accd476c2ddd5bc9c5ac58a51882137ffe32908961f38ccabcd4",
+    "bytes": 12708
+   },
+   "patched": {
+    "sha256": "2a3011846bcd292520882685bfcd25985b91334abb3984013355b2f7b2dcdeab",
+    "bytes": 12683
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

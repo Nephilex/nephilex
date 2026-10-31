@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xmj3-9gf7-h52w",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "setuptools"
+  ],
+  "published_at": "2026-10-23T21:44:11Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-xmj3-9gf7-h52w",
+  "label_cwes": [22],
+  "repo": "pypa/setuptools",
+  "fix_sha": "6d07b8d17890dda58d944ac51e58f54af92d52af",
+  "parent_sha": "8419f006d4e34c4ecfc7a0bd1bc6993855adc3cc",
+  "path_vulnerable": "setuptools/wheel.py",
+  "path_patched": "setuptools/wheel.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [81, 82],
+   [256, 256]
+  ],
+  "patched_lines": [
+   [82, 119],
+   [294, 294]
+  ],
+  "commit_url": "https://github.com/pypa/setuptools/commit/6d07b8d17890dda58d944ac51e58f54af92d52af",
+  "case_id": "051-GHSA-xmj3-9gf7-h52w",
+  "content": {
+   "vulnerable": {
+    "sha256": "4ea62eda3c94c91e05e8e16f6b77e65557de10f972b72fd6aba9e030360b12fe",
+    "bytes": 9529
+   },
+   "patched": {
+    "sha256": "4e0482ab9dfc5be0d29f6d4f82e8c523f77262bfaac0bb036413e02c77496a98",
+    "bytes": 11121
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

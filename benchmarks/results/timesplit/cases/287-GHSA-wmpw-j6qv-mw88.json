@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-wmpw-j6qv-mw88",
+  "cve_id": "CVE-2026-106103",
+  "ecosystem": "npm",
+  "packages": [
+   "@quasar/icongenie"
+  ],
+  "published_at": "2026-10-07T16:14:14Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-wmpw-j6qv-mw88",
+  "label_cwes": [22, 73],
+  "repo": "quasarframework/quasar",
+  "fix_sha": "87c89a80ec84f1eb7dbe258e5367161b0598ceb3",
+  "parent_sha": "d0a95d95ab3c29d13e1b8ba8c5e5025fd6ce35e7",
+  "path_vulnerable": "icongenie/lib/utils/get-assets-files.js",
+  "path_patched": "icongenie/lib/utils/get-assets-files.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [1, 1],
+   [34, 35]
+  ],
+  "patched_lines": [
+   [1, 2],
+   [5, 5],
+   [8, 38],
+   [65, 69],
+   [72, 73]
+  ],
+  "commit_url": "https://github.com/quasarframework/quasar/commit/87c89a80ec84f1eb7dbe258e5367161b0598ceb3",
+  "case_id": "287-GHSA-wmpw-j6qv-mw88",
+  "content": {
+   "vulnerable": {
+    "sha256": "174203e493ac4533b673f68d593449c97692f9bda9c1297955100b75a42fb3ad",
+    "bytes": 979
+   },
+   "patched": {
+    "sha256": "442acc228ec152d7cb362c09f77125fb625cdd43daf7ab058cadc0159fd806d2",
+    "bytes": 1982
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

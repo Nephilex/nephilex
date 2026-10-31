@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-q6mq-ch85-c8mm",
+  "cve_id": "CVE-2026-105804",
+  "ecosystem": "npm",
+  "packages": [
+   "payload"
+  ],
+  "published_at": "2026-10-06T15:38:37Z",
+  "advisory_cwes": [916],
+  "html_url": "https://github.com/advisories/GHSA-q6mq-ch85-c8mm",
+  "label_cwes": [916],
+  "repo": "payloadcms/payload",
+  "fix_sha": "1bc76e540a10f3ec88340f40591a57dae7456d01",
+  "parent_sha": "f3b911cbe50823b493e2588473d82bbb86e80aa7",
+  "path_vulnerable": "packages/payload/src/auth/operations/login.ts",
+  "path_patched": "packages/payload/src/auth/operations/login.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [27, 28],
+   [220, 221],
+   [295, 296]
+  ],
+  "patched_lines": [
+   [28, 28],
+   [222, 223],
+   [299, 329]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/1bc76e540a10f3ec88340f40591a57dae7456d01",
+  "case_id": "189-GHSA-q6mq-ch85-c8mm",
+  "content": {
+   "vulnerable": {
+    "sha256": "ee83ca4972dab0401cfb658e6da04d2834c237cfafe42e52aeda578e3e4640c0",
+    "bytes": 11674
+   },
+   "patched": {
+    "sha256": "edab5376999448a751493f5a16de2810cfcce56057b68534b002eacf19ccdc69",
+    "bytes": 12843
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

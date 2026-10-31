@@ -1,0 +1,116 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-m65p-9j7q-6w33",
+  "cve_id": "CVE-2026-116690",
+  "ecosystem": "pip",
+  "packages": [
+   "mlflow"
+  ],
+  "published_at": "2026-10-27T21:26:56Z",
+  "advisory_cwes": [22],
+  "html_url": "https://github.com/advisories/GHSA-m65p-9j7q-6w33",
+  "label_cwes": [22],
+  "repo": "mlflow/mlflow",
+  "fix_sha": "81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "parent_sha": "7e90050109819dff7e0a0404cd12f3849c6fac10",
+  "path_vulnerable": "mlflow/server/handlers.py",
+  "path_patched": "mlflow/server/handlers.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [104, 104],
+   [406, 406],
+   [3059, 3060],
+   [3137, 3151],
+   [3216, 3216]
+  ],
+  "patched_lines": [
+   [104, 108],
+   [410, 415],
+   [3069, 3088],
+   [3166, 3166],
+   [3231, 3234]
+  ],
+  "commit_url": "https://github.com/mlflow/mlflow/commit/81730a2ce4ebcd60d5d18f68c96f422ad7e30772",
+  "case_id": "028-GHSA-m65p-9j7q-6w33",
+  "content": {
+   "vulnerable": {
+    "sha256": "da57d1bafea4ba0d5c9d1433233fef0c3f6b4af4a4edde209dc48249b2a7884f",
+    "bytes": 316195
+   },
+   "patched": {
+    "sha256": "2705c98a272ba51517f845aee27ccac0a46cc0e8eb12ef99385f0bdb4bdfb85d",
+    "bytes": 316720
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      2508,
+      "ast-python.ast-ssrf",
+      [918]
+     ],
+     [
+      2652,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2654,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      4597,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ],
+    "patched": [
+     [
+      2517,
+      "ast-python.ast-ssrf",
+      [918]
+     ],
+     [
+      2661,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      2663,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      4615,
+      "ast-python.ast-path-traversal",
+      [22]
+     ]
+    ]
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

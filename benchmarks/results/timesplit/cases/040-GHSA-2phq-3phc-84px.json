@@ -1,0 +1,66 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-2phq-3phc-84px",
+  "cve_id": "CVE-2026-105755",
+  "ecosystem": "pip",
+  "packages": [
+   "vllm"
+  ],
+  "published_at": "2026-10-05T23:42:39Z",
+  "advisory_cwes": [639],
+  "html_url": "https://github.com/advisories/GHSA-2phq-3phc-84px",
+  "label_cwes": [639],
+  "repo": "vllm-project/vllm",
+  "fix_sha": "ee17d0d869203ef9a35ad73358a4987bba14b1fc",
+  "parent_sha": "3f1af35e012a283a58caf17216c108d8fca9e6c5",
+  "path_vulnerable": "vllm/entrypoints/pooling/typing.py",
+  "path_patched": "vllm/entrypoints/pooling/typing.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [116, 117]
+  ],
+  "patched_lines": [
+   [117, 117]
+  ],
+  "commit_url": "https://github.com/vllm-project/vllm/commit/ee17d0d869203ef9a35ad73358a4987bba14b1fc",
+  "case_id": "040-GHSA-2phq-3phc-84px",
+  "content": {
+   "vulnerable": {
+    "sha256": "d3b596fae2efa8f1fffcf03c2cc05eb13989413c9bc9d042f8d9688198e16c98",
+    "bytes": 5391
+   },
+   "patched": {
+    "sha256": "b975356ab30e6bb00d1ac932d93b315de0cf5a9b366dbfe5dbb2e5dfc5f2330f",
+    "bytes": 5448
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

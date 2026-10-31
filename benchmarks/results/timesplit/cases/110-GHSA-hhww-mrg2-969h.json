@@ -1,0 +1,142 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-hhww-mrg2-969h",
+  "cve_id": null,
+  "ecosystem": "pip",
+  "packages": [
+   "litellm"
+  ],
+  "published_at": "2026-10-27T15:31:56Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-hhww-mrg2-969h",
+  "label_cwes": [79],
+  "repo": "BerriAI/litellm",
+  "fix_sha": "13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
+  "parent_sha": "f2e97380d2deeeb8ab4b465f6cf5ee91d94233a9",
+  "path_vulnerable": "litellm/proxy/common_utils/html_forms/jwt_display_template.py",
+  "path_patched": "litellm/proxy/common_utils/html_forms/jwt_display_template.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [17, 17],
+   [30, 30],
+   [35, 35],
+   [41, 41],
+   [49, 49],
+   [61, 61],
+   [64, 64],
+   [69, 69],
+   [81, 81],
+   [90, 90],
+   [94, 94],
+   [98, 98],
+   [104, 104],
+   [108, 108],
+   [112, 112],
+   [115, 115],
+   [120, 120],
+   [125, 125],
+   [129, 129],
+   [137, 137],
+   [149, 149],
+   [154, 154],
+   [158, 158],
+   [160, 160],
+   [172, 172],
+   [176, 176],
+   [191, 191],
+   [202, 204],
+   [206, 206],
+   [214, 214],
+   [217, 217],
+   [220, 220],
+   [225, 225],
+   [229, 229],
+   [237, 246],
+   [248, 265],
+   [269, 269],
+   [278, 278]
+  ],
+  "patched_lines": [
+   [17, 17],
+   [30, 30],
+   [35, 35],
+   [41, 41],
+   [49, 56],
+   [68, 68],
+   [71, 71],
+   [76, 76],
+   [88, 88],
+   [97, 97],
+   [101, 101],
+   [105, 105],
+   [111, 111],
+   [115, 115],
+   [119, 119],
+   [122, 122],
+   [127, 134],
+   [139, 139],
+   [143, 143],
+   [151, 151],
+   [163, 163],
+   [168, 168],
+   [172, 172],
+   [174, 174],
+   [186, 186],
+   [190, 190],
+   [205, 205],
+   [216, 253],
+   [255, 255],
+   [263, 263],
+   [265, 265],
+   [267, 267],
+   [270, 270],
+   [275, 275],
+   [279, 279],
+   [287, 289],
+   [291, 314],
+   [316, 329],
+   [332, 338],
+   [347, 347]
+  ],
+  "commit_url": "https://github.com/BerriAI/litellm/commit/13a193367f0ae2e7e8b29913e0d23a32d3bb0457",
+  "case_id": "110-GHSA-hhww-mrg2-969h",
+  "content": {
+   "vulnerable": {
+    "sha256": "6ed51de0c72d228944f2a3c042dbd2a9acda17f706a130c28daaac0b92f37880",
+    "bytes": 8948
+   },
+   "patched": {
+    "sha256": "606c5cc3e9a073b638a9d40b706769d19b99c5301dd970bb5f177fad7cf9023e",
+    "bytes": 11867
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-p223-2wr2-j562",
+  "cve_id": "CVE-2026-105865",
+  "ecosystem": "npm",
+  "packages": [
+   "payload"
+  ],
+  "published_at": "2026-10-07T20:29:09Z",
+  "advisory_cwes": [22, 73],
+  "html_url": "https://github.com/advisories/GHSA-p223-2wr2-j562",
+  "label_cwes": [22, 73],
+  "repo": "payloadcms/payload",
+  "fix_sha": "6b74418f628fa633c2f297e5919a9f91b383dc11",
+  "parent_sha": "2f94a4205e5ba3ec0e91c92ed54f24f429826dd0",
+  "path_vulnerable": "packages/payload/src/uploads/getBaseFields.ts",
+  "path_patched": "packages/payload/src/uploads/getBaseFields.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [7, 8],
+   [103, 104]
+  ],
+  "patched_lines": [
+   [8, 8],
+   [105, 105]
+  ],
+  "commit_url": "https://github.com/payloadcms/payload/commit/6b74418f628fa633c2f297e5919a9f91b383dc11",
+  "case_id": "251-GHSA-p223-2wr2-j562",
+  "content": {
+   "vulnerable": {
+    "sha256": "db30c581e39017efeb63f91f57deb79b8cb14a3dafc246db8983f6836c00bb0c",
+    "bytes": 9002
+   },
+   "patched": {
+    "sha256": "67ea953895a954e3a2d925221aa064c1e362be6f812b896775167b6eb7b85458",
+    "bytes": 9109
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

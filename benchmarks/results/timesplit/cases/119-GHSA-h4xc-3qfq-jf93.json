@@ -1,0 +1,71 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-h4xc-3qfq-jf93",
+  "cve_id": "CVE-2026-107295",
+  "ecosystem": "pip",
+  "packages": [
+   "pydantic-ai",
+   "pydantic-ai-slim"
+  ],
+  "published_at": "2026-10-08T17:16:36Z",
+  "advisory_cwes": [346, 352],
+  "html_url": "https://github.com/advisories/GHSA-h4xc-3qfq-jf93",
+  "label_cwes": [352],
+  "repo": "pydantic/pydantic-ai",
+  "fix_sha": "d2690201a1834005d382dbf5c47e0ed94ef8bf46",
+  "parent_sha": "ba90e23e143f76faa354287c680cb8211e04e18e",
+  "path_vulnerable": "pydantic_ai_slim/pydantic_ai/ui/_web/api.py",
+  "path_patched": "pydantic_ai_slim/pydantic_ai/ui/_web/api.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [33, 34],
+   [163, 163],
+   [179, 180]
+  ],
+  "patched_lines": [
+   [34, 48],
+   [178, 188],
+   [205, 213]
+  ],
+  "commit_url": "https://github.com/pydantic/pydantic-ai/commit/d2690201a1834005d382dbf5c47e0ed94ef8bf46",
+  "case_id": "119-GHSA-h4xc-3qfq-jf93",
+  "content": {
+   "vulnerable": {
+    "sha256": "9f77d5f4dcbcaead9b7b4138dfb0096879580a26fd84d8981102de66a78187dc",
+    "bytes": 9419
+   },
+   "patched": {
+    "sha256": "93e4e8c9a827ebcb56a47d4da19d9f9b11bda2ac5feb6daf12c835390c5326f6",
+    "bytes": 11629
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

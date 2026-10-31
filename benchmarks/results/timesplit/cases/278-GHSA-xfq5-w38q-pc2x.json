@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-xfq5-w38q-pc2x",
+  "cve_id": "CVE-2026-114133",
+  "ecosystem": "npm",
+  "packages": [
+   "nuxt"
+  ],
+  "published_at": "2026-10-22T16:58:00Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-xfq5-w38q-pc2x",
+  "label_cwes": [79],
+  "repo": "nuxt/nuxt",
+  "fix_sha": "493565e99451a0f52330b1f6b979254a4a39e5d0",
+  "parent_sha": "c65cef3a855dd1a61b010fa8d525cbe1ed776724",
+  "path_vulnerable": "packages/nitro-server/src/runtime/handlers/island.ts",
+  "path_patched": "packages/nitro-server/src/runtime/handlers/island.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [12, 13],
+   [202, 202]
+  ],
+  "patched_lines": [
+   [13, 13],
+   [203, 204]
+  ],
+  "commit_url": "https://github.com/nuxt/nuxt/commit/493565e99451a0f52330b1f6b979254a4a39e5d0",
+  "case_id": "278-GHSA-xfq5-w38q-pc2x",
+  "content": {
+   "vulnerable": {
+    "sha256": "a241ca370c974a8124ed437ad27db2cfd75a91469821c446e0a5520f1c60c46d",
+    "bytes": 15030
+   },
+   "patched": {
+    "sha256": "c603d9d34740aa2a15d7e45bca4290ff4fc0248b83aed43659ddb7565c9c50cc",
+    "bytes": 15157
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

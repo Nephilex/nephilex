@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-x34j-47hf-4xg7",
+  "cve_id": "CVE-2026-108261",
+  "ecosystem": "npm",
+  "packages": [
+   "@tinacms/app",
+   "tinacms"
+  ],
+  "published_at": "2026-10-09T20:56:48Z",
+  "advisory_cwes": [346, 441, 601],
+  "html_url": "https://github.com/advisories/GHSA-x34j-47hf-4xg7",
+  "label_cwes": [601],
+  "repo": "tinacms/tinacms",
+  "fix_sha": "b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
+  "parent_sha": "5295e077f0d279c35686a0e481a15e33a4877e3b",
+  "path_vulnerable": "packages/tinacms/src/admin/index.tsx",
+  "path_patched": "packages/tinacms/src/admin/index.tsx",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [32, 33],
+   [174, 174],
+   [177, 177]
+  ],
+  "patched_lines": [
+   [33, 33],
+   [173, 173],
+   [176, 178],
+   [181, 192]
+  ],
+  "commit_url": "https://github.com/tinacms/tinacms/commit/b57dbf4b56201aef15cd92caa49fd12ab96bbecf",
+  "case_id": "267-GHSA-x34j-47hf-4xg7",
+  "content": {
+   "vulnerable": {
+    "sha256": "5bea64214dc372c501fff1021a94848b3d609223b4a57fc71b8d13a9efab108b",
+    "bytes": 14325
+   },
+   "patched": {
+    "sha256": "b5a7c7f8969eba3d1554dc392152d9a1c6c6871fade44d74a5fb02c11340b7c2",
+    "bytes": 14823
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

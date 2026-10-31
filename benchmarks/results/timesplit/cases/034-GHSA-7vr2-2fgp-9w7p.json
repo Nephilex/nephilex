@@ -1,0 +1,70 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-7vr2-2fgp-9w7p",
+  "cve_id": "CVE-2026-114615",
+  "ecosystem": "pip",
+  "packages": [
+   "authlib"
+  ],
+  "published_at": "2026-10-27T15:38:48Z",
+  "advisory_cwes": [184, 347],
+  "html_url": "https://github.com/advisories/GHSA-7vr2-2fgp-9w7p",
+  "label_cwes": [347],
+  "repo": "authlib/authlib",
+  "fix_sha": "e3bd41cb29dcfee434453b135ffb487884baeedf",
+  "parent_sha": "d42f8482bb59eccbc992efc66964ec3ce21f2818",
+  "path_vulnerable": "authlib/oidc/core/grants/hybrid.py",
+  "path_patched": "authlib/oidc/core/grants/hybrid.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [43, 43],
+   [59, 59],
+   [76, 76]
+  ],
+  "patched_lines": [
+   [43, 43],
+   [59, 59],
+   [76, 76]
+  ],
+  "commit_url": "https://github.com/authlib/authlib/commit/e3bd41cb29dcfee434453b135ffb487884baeedf",
+  "case_id": "034-GHSA-7vr2-2fgp-9w7p",
+  "content": {
+   "vulnerable": {
+    "sha256": "ce285138d77c34841505af0f49d3b6085e4b74332dd1afe14bb9ce06ba864bf4",
+    "bytes": 3445
+   },
+   "patched": {
+    "sha256": "57de50410b13d934a4836ee6e157d6fe8e44b5701bd73cb08a067a5b2e93e521",
+    "bytes": 3421
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

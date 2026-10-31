@@ -1,0 +1,74 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-q344-5v34-gm84",
+  "cve_id": "CVE-2026-62264",
+  "ecosystem": "npm",
+  "packages": [
+   "@sylphx/pdf-reader-mcp"
+  ],
+  "published_at": "2026-10-29T16:34:35Z",
+  "advisory_cwes": [200, 287, 306],
+  "html_url": "https://github.com/advisories/GHSA-q344-5v34-gm84",
+  "label_cwes": [306],
+  "repo": "SylphxAI/anymd",
+  "fix_sha": "4c35f72862d729301e3912ab8c8317d2828cf4c2",
+  "parent_sha": "f776c97978a0316c1d8c7d609abe739ffa1b722e",
+  "path_vulnerable": "src/index.ts",
+  "path_patched": "src/index.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [15, 16],
+   [20, 20],
+   [32, 33],
+   [58, 60]
+  ],
+  "patched_lines": [
+   [15, 18],
+   [22, 22],
+   [26, 29],
+   [39, 39],
+   [66, 66],
+   [68, 73]
+  ],
+  "commit_url": "https://github.com/SylphxAI/anymd/commit/4c35f72862d729301e3912ab8c8317d2828cf4c2",
+  "case_id": "239-GHSA-q344-5v34-gm84",
+  "content": {
+   "vulnerable": {
+    "sha256": "622ce557a5b195c0c53efde2b002ac8b07a0805787180fa19864e3e29e800685",
+    "bytes": 2901
+   },
+   "patched": {
+    "sha256": "ebdb39ec4f6d63889ac3f48241e85b268c27ce7886ab10ee7a8502ff11c224b0",
+    "bytes": 3792
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

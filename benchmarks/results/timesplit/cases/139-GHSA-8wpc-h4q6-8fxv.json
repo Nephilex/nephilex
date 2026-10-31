@@ -1,0 +1,69 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-8wpc-h4q6-8fxv",
+  "cve_id": "CVE-2026-107720",
+  "ecosystem": "npm",
+  "packages": [
+   "fast-jwt"
+  ],
+  "published_at": "2026-10-08T22:02:12Z",
+  "advisory_cwes": [20, 347],
+  "html_url": "https://github.com/advisories/GHSA-8wpc-h4q6-8fxv",
+  "label_cwes": [347],
+  "repo": "nearform/fast-jwt",
+  "fix_sha": "e22a151e83bf6d5e54e281216982d204d5665534",
+  "parent_sha": "378422c62c542d4fe622ce5b957981101fc884b6",
+  "path_vulnerable": "src/verifier.js",
+  "path_patched": "src/verifier.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [507, 507],
+   [509, 509]
+  ],
+  "patched_lines": [
+   [507, 522],
+   [524, 524],
+   [527, 537]
+  ],
+  "commit_url": "https://github.com/nearform/fast-jwt/commit/e22a151e83bf6d5e54e281216982d204d5665534",
+  "case_id": "139-GHSA-8wpc-h4q6-8fxv",
+  "content": {
+   "vulnerable": {
+    "sha256": "95dfc09c102c001bcd4f7eb4f5bdf8572aaf5febe268c192972d78c06e219704",
+    "bytes": 19113
+   },
+   "patched": {
+    "sha256": "db565a05d0625c788debf142a8852172591d0a4ee3a4def2e0d5e2dd50af05d0",
+    "bytes": 20268
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

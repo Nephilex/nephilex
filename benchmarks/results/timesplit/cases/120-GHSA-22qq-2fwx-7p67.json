@@ -1,0 +1,83 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-22qq-2fwx-7p67",
+  "cve_id": "CVE-2026-114608",
+  "ecosystem": "pip",
+  "packages": [
+   "pylint"
+  ],
+  "published_at": "2026-10-27T14:46:51Z",
+  "advisory_cwes": [502],
+  "html_url": "https://github.com/advisories/GHSA-22qq-2fwx-7p67",
+  "label_cwes": [502],
+  "repo": "pylint-dev/pylint",
+  "fix_sha": "58c87cffca9de2b3e89aa07b89686cbc90cfea2d",
+  "parent_sha": "e3f4942a2ff51d28b69435587eee53ab44ebfb9c",
+  "path_vulnerable": "pylint/lint/caching.py",
+  "path_patched": "pylint/lint/caching.py",
+  "language": "python",
+  "vulnerable_lines": [
+   [7, 7],
+   [29, 30],
+   [41, 51],
+   [53, 53],
+   [66, 66],
+   [68, 69]
+  ],
+  "patched_lines": [
+   [7, 7],
+   [11, 11],
+   [31, 55],
+   [67, 78],
+   [80, 81],
+   [94, 94],
+   [96, 97]
+  ],
+  "commit_url": "https://github.com/pylint-dev/pylint/commit/58c87cffca9de2b3e89aa07b89686cbc90cfea2d",
+  "case_id": "120-GHSA-22qq-2fwx-7p67",
+  "content": {
+   "vulnerable": {
+    "sha256": "99d3433d9070616270d7b7bbff542f004fe5f36eca9c97f100be827d2a09db1c",
+    "bytes": 2424
+   },
+   "patched": {
+    "sha256": "f379881e1f40bc573381b078189dd725a8f80f065deb7f69a8602faf1542d6ab",
+    "bytes": 3424
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      42,
+      "patterns.python-pickle-loads",
+      [502]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

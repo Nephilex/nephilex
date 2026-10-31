@@ -1,0 +1,91 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-cjq9-62q9-8jv4",
+  "cve_id": "CVE-2026-94483",
+  "ecosystem": "npm",
+  "packages": [
+   "next"
+  ],
+  "published_at": "2026-10-07T20:30:55Z",
+  "advisory_cwes": [918],
+  "html_url": "https://github.com/advisories/GHSA-cjq9-62q9-8jv4",
+  "label_cwes": [918],
+  "repo": "vercel/next.js",
+  "fix_sha": "e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+  "parent_sha": "4c20699e29178d444994cf5a31b8a617ca3a2c80",
+  "path_vulnerable": "packages/next/src/server/image-optimizer.ts",
+  "path_patched": "packages/next/src/server/image-optimizer.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [3, 3],
+   [36, 37],
+   [872, 880],
+   [882, 882],
+   [894, 897],
+   [899, 906],
+   [911, 911],
+   [913, 913],
+   [933, 934],
+   [936, 936],
+   [941, 941],
+   [949, 968],
+   [970, 972]
+  ],
+  "patched_lines": [
+   [3, 9],
+   [42, 56],
+   [884, 1132],
+   [1139, 1144],
+   [1146, 1154],
+   [1156, 1163],
+   [1176, 1192],
+   [1197, 1202],
+   [1204, 1204],
+   [1208, 1212],
+   [1229, 1231],
+   [1233, 1233],
+   [1238, 1268],
+   [1277, 1279]
+  ],
+  "commit_url": "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+  "case_id": "277-GHSA-cjq9-62q9-8jv4",
+  "content": {
+   "vulnerable": {
+    "sha256": "8533cc00fe55faea6056c8a11ccc09aba6d75f9db1ffd852575b4431e43adf82",
+    "bytes": 35966
+   },
+   "patched": {
+    "sha256": "edaa7dbedaf3c96e85cfb9fee51f71d6d5db6d945bdff1551902151b544f15cc",
+    "bytes": 45206
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-w2vw-w76x-qr89",
+  "cve_id": null,
+  "ecosystem": "npm",
+  "packages": [
+   "nx"
+  ],
+  "published_at": "2026-10-05T23:29:06Z",
+  "advisory_cwes": [78, 88],
+  "html_url": "https://github.com/advisories/GHSA-w2vw-w76x-qr89",
+  "label_cwes": [78, 88],
+  "repo": "nrwl/nx",
+  "fix_sha": "11ab38573478172109bb5306cb30ca4af246caf0",
+  "parent_sha": "c973b83db3f27e0513bd7386b06d9e8e67d62c8d",
+  "path_vulnerable": "packages/nx/src/utils/command-line-utils.ts",
+  "path_patched": "packages/nx/src/utils/command-line-utils.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [6, 6],
+   [280, 280],
+   [284, 284],
+   [289, 296],
+   [299, 304],
+   [314, 316],
+   [319, 320],
+   [325, 325]
+  ],
+  "patched_lines": [
+   [6, 6],
+   [8, 8],
+   [281, 288],
+   [292, 292],
+   [296, 297],
+   [299, 299],
+   [302, 302],
+   [312, 321],
+   [324, 325],
+   [330, 334]
+  ],
+  "commit_url": "https://github.com/nrwl/nx/commit/11ab38573478172109bb5306cb30ca4af246caf0",
+  "case_id": "209-GHSA-w2vw-w76x-qr89",
+  "content": {
+   "vulnerable": {
+    "sha256": "29676ce28c25e95a2e8d756dfed3425e2483c836de978308085b651029bda591",
+    "bytes": 9505
+   },
+   "patched": {
+    "sha256": "94e5f4cd4411dd85d26e3b720415821cf9d48b4a8bccd2e43de842db7279d3e6",
+    "bytes": 9564
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [
+     [
+      178,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      264,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      289,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      299,
+      "ast-js.ast-command-injection",
+      [78]
+     ],
+     [
+      314,
+      "ast-js.ast-command-injection",
+      [78]
+     ]
+    ],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": true,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": true,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

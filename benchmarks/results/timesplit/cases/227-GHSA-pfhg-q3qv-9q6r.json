@@ -1,0 +1,72 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-pfhg-q3qv-9q6r",
+  "cve_id": "CVE-2026-114060",
+  "ecosystem": "npm",
+  "packages": [
+   "@sveltejs/kit"
+  ],
+  "published_at": "2026-10-23T20:58:24Z",
+  "advisory_cwes": [601],
+  "html_url": "https://github.com/advisories/GHSA-pfhg-q3qv-9q6r",
+  "label_cwes": [601],
+  "repo": "sveltejs/kit",
+  "fix_sha": "91aae3547c6cd2935d79c09a53e27c740100000a",
+  "parent_sha": "1c1d19c028aca0424d70551d6aacfa1fc189d426",
+  "path_vulnerable": "packages/kit/src/runtime/app/forms/client.js",
+  "path_patched": "packages/kit/src/runtime/app/forms/client.js",
+  "language": "javascript",
+  "vulnerable_lines": [
+   [13, 14],
+   [89, 90],
+   [93, 93],
+   [104, 104]
+  ],
+  "patched_lines": [
+   [14, 14],
+   [90, 91],
+   [94, 98],
+   [109, 109]
+  ],
+  "commit_url": "https://github.com/sveltejs/kit/commit/91aae3547c6cd2935d79c09a53e27c740100000a",
+  "case_id": "227-GHSA-pfhg-q3qv-9q6r",
+  "content": {
+   "vulnerable": {
+    "sha256": "a82e309ac968d403c5e6c9a6de8cceb03a8e3012220c2a119771e74f955dd597",
+    "bytes": 9215
+   },
+   "patched": {
+    "sha256": "cbcf40c8710e45bdb8ca22c0a98cd411aa596d1c6e988441c44c33a9de00c40c",
+    "bytes": 9374
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}

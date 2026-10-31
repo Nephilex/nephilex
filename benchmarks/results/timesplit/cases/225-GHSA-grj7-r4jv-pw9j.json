@@ -1,0 +1,68 @@
+{
+ "case": {
+  "ghsa_id": "GHSA-grj7-r4jv-pw9j",
+  "cve_id": "CVE-2026-118245",
+  "ecosystem": "npm",
+  "packages": [
+   "@highcharts/dashboards"
+  ],
+  "published_at": "2026-10-28T19:55:41Z",
+  "advisory_cwes": [79],
+  "html_url": "https://github.com/advisories/GHSA-grj7-r4jv-pw9j",
+  "label_cwes": [79],
+  "repo": "highcharts/highcharts",
+  "fix_sha": "98d3652cdc4f66fbccbbb8b4184ecd8f647f74de",
+  "parent_sha": "4f2f35dfca96316494899c6c7fc286a89f0052e9",
+  "path_vulnerable": "ts/Dashboards/Components/HighchartsComponent/HighchartsComponent.ts",
+  "path_patched": "ts/Dashboards/Components/HighchartsComponent/HighchartsComponent.ts",
+  "language": "typescript",
+  "vulnerable_lines": [
+   [632, 636],
+   [639, 639]
+  ],
+  "patched_lines": [
+   [631, 643],
+   [647, 647]
+  ],
+  "commit_url": "https://github.com/highcharts/highcharts/commit/98d3652cdc4f66fbccbbb8b4184ecd8f647f74de",
+  "case_id": "225-GHSA-grj7-r4jv-pw9j",
+  "content": {
+   "vulnerable": {
+    "sha256": "47948f4d21819f57161c8057db4c7211d2df34839665d430e886ead8748dd4de",
+    "bytes": 21583
+   },
+   "patched": {
+    "sha256": "21878e84b2e5866261679c6de3d312fd4c9b3d1cb6830b60cd919a70c9f30cfc",
+    "bytes": 21827
+   }
+  }
+ },
+ "status": "scored",
+ "tools": {
+  "nephilex": {
+   "status": "ok",
+   "parse_error_versions": [],
+   "findings": {
+    "vulnerable": [],
+    "patched": []
+   }
+  }
+ },
+ "outcomes": {
+  "nephilex": {
+   "window": 3,
+   "mapped": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "strict": {
+    "detected": false,
+    "flagged_after_fix": false
+   },
+   "any": {
+    "detected": false,
+    "flagged_after_fix": false
+   }
+  }
+ }
+}
