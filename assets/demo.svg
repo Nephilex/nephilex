@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 452" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">
+  <rect width="820" height="452" rx="10" fill="#0d1117"/>
+  <rect width="820" height="34" rx="10" fill="#161b22"/>
+  <rect y="24" width="820" height="10" fill="#161b22"/>
+  <circle cx="20" cy="17" r="5" fill="#f85149"/>
+  <circle cx="40" cy="17" r="5" fill="#d4a72c"/>
+  <circle cx="60" cy="17" r="5" fill="#3fb950"/>
+  <text x="410" y="22" fill="#8b949e" text-anchor="middle" font-size="12">nephilex scan</text>
+
+  <text x="20" y="66" fill="#58a6ff">$ nephilex scan ./my-app --fail-on high</text>
+  <text x="20" y="90" fill="#8b949e">Analyzing project structure... Python, Flask, Docker</text>
+  <text x="20" y="110" fill="#8b949e">Running 8 scanners across 6 exposure domains...</text>
+
+  <text x="20" y="150" fill="#f85149" font-weight="600">CRIT</text>
+  <text x="90" y="150" fill="#c9d1d9">Hardcoded AWS secret key</text>
+  <text x="800" y="150" fill="#6e7681" text-anchor="end">config.py:4</text>
+
+  <text x="20" y="176" fill="#ff7b29" font-weight="600">HIGH</text>
+  <text x="90" y="176" fill="#c9d1d9">SQL injection (tainted value reaches execute)</text>
+  <text x="800" y="176" fill="#6e7681" text-anchor="end">views.py:12</text>
+
+  <text x="20" y="202" fill="#ff7b29" font-weight="600">HIGH</text>
+  <text x="90" y="202" fill="#c9d1d9">Command execution with shell=True</text>
+  <text x="800" y="202" fill="#6e7681" text-anchor="end">run.py:8</text>
+
+  <text x="20" y="228" fill="#d4a72c" font-weight="600">MED</text>
+  <text x="90" y="228" fill="#c9d1d9">Vulnerable dependency: flask 2.0.1 (CVE, KEV, EPSS 71%)</text>
+  <text x="800" y="228" fill="#6e7681" text-anchor="end">requirements.txt</text>
+
+  <text x="20" y="254" fill="#d4a72c" font-weight="600">MED</text>
+  <text x="90" y="254" fill="#c9d1d9">Container runs as root, image pinned to :latest</text>
+  <text x="800" y="254" fill="#6e7681" text-anchor="end">Dockerfile:1</text>
+
+  <line x1="20" y1="284" x2="800" y2="284" stroke="#21262d"/>
+
+  <text x="20" y="312" fill="#c9d1d9">Risk score 74/100  |  1 critical, 2 high, 2 medium</text>
+  <text x="20" y="338" fill="#8b949e">Each finding explains the why, the attacker path, and the fix.</text>
+  <text x="20" y="368" fill="#3fb950">verified fixes ready for 3 findings  ->  nephilex fix --open-pr</text>
+  <text x="20" y="398" fill="#8b949e">code never left this machine (offline heuristic provider)</text>
+  <text x="20" y="428" fill="#ff7b29">exit 1  (failed threshold: high)</text>
+</svg>

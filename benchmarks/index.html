@@ -1,0 +1,4431 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nephilex, the open-source AI security engineer. Unified, explainable security analysis across code, dependencies, secrets, IaC, and AI, with verified fixes.">
+      
+      
+      
+        <link rel="canonical" href="https://nephilex.github.io/nephilex/benchmarks/">
+      
+      
+        <link rel="prev" href="../trust/">
+      
+      
+        <link rel="next" href="../comparison/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/nephilex-favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Benchmarks & accuracy - Nephilex</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#benchmarks-accuracy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nephilex" class="md-header__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nephilex
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Benchmarks & accuracy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nephilex" class="md-nav__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    Nephilex
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-finding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example finding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understanding-results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding scan results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence and grades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners & coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage & baselines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using in your pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using in your pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing SARIF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infrastructure-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure scanning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy as code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration drift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fixing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixing & pull requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editors & AI assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server (AI agents)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deeper
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deeper
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM / AI security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attack-simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attack simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust and limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks & accuracy
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks & accuracy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#labeled-corpus-precision-and-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labeled corpus (precision and recall)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-labeled-datasets-nephilex-bandit-semgrep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public labeled datasets (Nephilex, Bandit, Semgrep)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public labeled datasets (Nephilex, Bandit, Semgrep)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reproduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datasets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methodology-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methodology checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-changed-since-092" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changed since 0.9.2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-numbers-say" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the numbers say
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#held-out-benchmark-real-fix-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Held-out benchmark: real fix commits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Held-out benchmark: real fix commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selection-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection counts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scoring_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-settings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-numbers-say_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the numbers say
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-benchmark-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three benchmark sets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three benchmark sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-split-test-set-the-0120-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time-split test set: the 0.12.0 number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-split-test-set-the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time-split test set: the rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after-the-python-detection-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After the Python detection work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-all-012-detection-work-combined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With all 0.12 detection work combined
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-reference-apps-finding-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public reference apps (finding inventory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methodology-and-honesty-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methodology and honesty notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How Nephilex compares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#labeled-corpus-precision-and-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Labeled corpus (precision and recall)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-labeled-datasets-nephilex-bandit-semgrep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public labeled datasets (Nephilex, Bandit, Semgrep)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public labeled datasets (Nephilex, Bandit, Semgrep)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reproduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datasets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methodology-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methodology checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-changed-since-092" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What changed since 0.9.2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-numbers-say" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the numbers say
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#held-out-benchmark-real-fix-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Held-out benchmark: real fix commits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Held-out benchmark: real fix commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selection-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-counts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection counts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scoring_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproduce_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-settings_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-numbers-say_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the numbers say
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-benchmark-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three benchmark sets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three benchmark sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-split-test-set-the-0120-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time-split test set: the 0.12.0 number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-split-test-set-the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time-split test set: the rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development set
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development set">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after-the-python-detection-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After the Python detection work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-all-012-detection-work-combined" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With all 0.12 detection work combined
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-reference-apps-finding-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public reference apps (finding inventory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methodology-and-honesty-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methodology and honesty notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="benchmarks-accuracy">Benchmarks &amp; accuracy<a class="headerlink" href="#benchmarks-accuracy" title="Permanent link">&para;</a></h1>
+<p>A scanner's most important number is how accurate it is, and the most honest thing
+a young scanner can do is publish that number with its methodology, and republish
+it when it gets worse. Nephilex measures accuracy three ways: a small in-repo
+labeled corpus, public labeled datasets scored side by side with Bandit and
+Semgrep, and finding inventories on large reference apps.</p>
+<h2 id="labeled-corpus-precision-and-recall">Labeled corpus (precision and recall)<a class="headerlink" href="#labeled-corpus-precision-and-recall" title="Permanent link">&para;</a></h2>
+<p>A small, fully labeled corpus ships in the repo so the numbers are reproducible on
+any machine with one command and no downloads:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>benchmarks/accuracy.py
+</code></pre></div>
+<p>Every case is a single file that is either <strong>vulnerable</strong> (Nephilex must raise at
+least one actionable finding) or <strong>safe</strong> (Nephilex must raise none). From that:</p>
+<ul>
+<li><strong>Recall</strong> = caught vulnerable cases / all vulnerable cases (did we miss a bug?)</li>
+<li><strong>Precision</strong> = caught / (caught + findings on safe cases) (did we cry wolf?)</li>
+</ul>
+<p>Current results:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Recall</th>
+<th>Precision</th>
+<th>Vulnerable cases</th>
+<th>Safe cases</th>
+<th>False positives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secrets</td>
+<td>100%</td>
+<td>100%</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sast</td>
+<td>100%</td>
+<td>100%</td>
+<td>7</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr>
+<td>taint</td>
+<td>100%</td>
+<td>100%</td>
+<td>22</td>
+<td>22</td>
+<td>0</td>
+</tr>
+<tr>
+<td>iac</td>
+<td>100%</td>
+<td>100%</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>llm</td>
+<td>100%</td>
+<td>100%</td>
+<td>17</td>
+<td>17</td>
+<td>0</td>
+</tr>
+<tr>
+<td>mcp</td>
+<td>100%</td>
+<td>100%</td>
+<td>7</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>malware</td>
+<td>100%</td>
+<td>100%</td>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>overall</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>59</strong></td>
+<td><strong>62</strong></td>
+<td><strong>0</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Read this number honestly</p>
+<p>This is a <strong>small sanity-and-regression corpus</strong> (59 vulnerable, 62 safe cases),
+not a claim of 100% real-world accuracy. 100% here means Nephilex classifies
+every case in this set correctly, and the run <strong>exits non-zero if it does
+not</strong>, so a regression fails CI. On independent public datasets the
+numbers are far lower; see the next section.</p>
+</div>
+<p>The <strong>llm</strong> rows are worth calling out: there is no standard public benchmark for
+LLM/AI-application vulnerability classes (prompt injection, insecure model-output
+handling, unsafe model loading, secrets in prompts, excessive agency). This
+labeled set covers OWASP LLM01/02/05/06/08 with a vulnerable and a safe case each,
+so the accuracy claim in Nephilex's strongest and least-crowded domain is measurable
+and reproducible rather than asserted.</p>
+<p>This corpus already earned its keep: building it surfaced two real bugs, both now
+fixed and covered by regression tests:</p>
+<ul>
+<li>A false <strong>negative</strong>: <code>subprocess(..., shell=True)</code> was being dropped by the
+  engine whenever the AST taint tier ran, because that tier does not model a
+  taint-independent smell. Command-execution findings now survive.</li>
+<li>A false <strong>positive</strong>: a properly parameterized query
+  <code>execute("... %s", (uid,))</code> was flagged as SQL injection because a tainted value
+  in the bound-parameters argument counted. Bound parameters are now recognized as
+  the safe form.</li>
+</ul>
+<h2 id="public-labeled-datasets-nephilex-bandit-semgrep">Public labeled datasets (Nephilex, Bandit, Semgrep)<a class="headerlink" href="#public-labeled-datasets-nephilex-bandit-semgrep" title="Permanent link">&para;</a></h2>
+<p>The in-repo corpus is written by the same people who write the rules, so it
+cannot tell you how Nephilex does on code it was not tuned for. For that, Nephilex is
+scored on two independent, public, labeled Python datasets, next to Bandit and
+Semgrep run on the same files and scored by the same code.</p>
+<h3 id="reproduce">Reproduce<a class="headerlink" href="#reproduce" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[ast]"</span><span class="w">                    </span><span class="c1"># Nephilex with the AST tier</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>bandit<span class="w"> </span>semgrep<span class="w">                 </span><span class="c1"># ideally in a separate virtualenv</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python<span class="w"> </span>benchmarks/public/run.py<span class="w">            </span><span class="c1"># both datasets, all three tools</span>
+</code></pre></div>
+<p>Useful variations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>benchmarks/public/run.py<span class="w"> </span>--dataset<span class="w"> </span>owasp-python<span class="w"> </span>--tools<span class="w"> </span>nephilex,bandit,semgrep
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>benchmarks/public/run.py<span class="w"> </span>--offline<span class="w">  </span><span class="c1"># re-score cached outputs, no network, no tool runs</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python<span class="w"> </span>benchmarks/public/run.py<span class="w"> </span>--bandit<span class="w"> </span>/path/to/bandit<span class="w"> </span>--semgrep<span class="w"> </span>/path/to/semgrep
+</code></pre></div>
+<p><code>--bandit</code> and <code>--semgrep</code> (or the <code>NEPHILEX_BENCH_BANDIT</code> and <code>NEPHILEX_BENCH_SEMGREP</code>
+environment variables) point at tools installed outside the current environment.
+A tool that cannot be found is recorded as <code>not_run</code> with the reason; no numbers
+are produced for it.</p>
+<p>Outputs:</p>
+<ul>
+<li><code>benchmarks/results/public/&lt;dataset&gt;.json</code>: dataset commit and archive hash,
+  tool versions, run dates, command lines, the CWE mapping tables used, per-rule
+  CWE inventory, and per-category and overall metrics for every tool and mode,
+  including the list of false-positive and false-negative case ids.</li>
+<li><code>benchmarks/results/public/SUMMARY.md</code>: generated tables.</li>
+<li><code>benchmarks/results/public/findings/&lt;dataset&gt;/&lt;tool&gt;.json</code>: every finding
+  normalized to file, line, rule id and CWEs (no source code), so the scoring
+  can be audited or re-run with <code>--offline</code> without installing the tools.</li>
+<li><code>benchmarks/.corpora/</code> (git-ignored): the downloaded datasets, the cached
+  Semgrep ruleset and each tool's raw JSON output.</li>
+</ul>
+<h3 id="datasets">Datasets<a class="headerlink" href="#datasets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Pinned commit</th>
+<th>Content</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OWASP-Benchmark/BenchmarkPython">OWASP Benchmark for Python</a> v0.1</td>
+<td><code>f1291485808b66e20ddb6b01b10dc71b3df8c8ba</code></td>
+<td>1230 Flask test cases in 14 CWE categories</td>
+<td><code>expectedresults-0.1.csv</code>: 452 vulnerable, 778 safe</td>
+</tr>
+<tr>
+<td><a href="https://github.com/s2e-lab/SecurityEval">SecurityEval</a> v2.1</td>
+<td><code>6f4fb70f782c6d47b02ea24341e8ef8c1eb04a6a</code></td>
+<td>121 short Python samples (<code>dataset.jsonl</code>, field <code>Insecure_code</code>)</td>
+<td>one CWE per sample, 69 CWEs, all vulnerable</td>
+</tr>
+</tbody>
+</table>
+<p>Datasets are downloaded as GitHub archives of the pinned commit. The archive's
+SHA-256 is recorded; GitHub does not promise byte-stable archives, so a hash
+change is reported as a warning while the commit pin fixes the content.</p>
+<h3 id="tools-and-settings">Tools and settings<a class="headerlink" href="#tools-and-settings" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version measured</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>0.10.0 (measured on the release code before its version number was set, so the raw results record 0.9.2)</td>
+<td><code>nephilex scan &lt;root&gt; --no-ai --no-cache -f json</code>: offline heuristic provider, default scanner set; the harness refuses to run if the <code>ast-python</code> tier is missing</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>1.9.4</td>
+<td><code>bandit -r &lt;root&gt; -f json</code>: default plugins, all severities and confidences</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>1.182.1 (Community Edition)</td>
+<td><code>semgrep scan --config p/python --metrics=off --no-git-ignore --json</code>: registry ruleset <code>p/python</code>, 151 rules, cached locally with its SHA-256 recorded because registry rulesets are not version-pinned</td>
+</tr>
+</tbody>
+</table>
+<p>Semgrep needs <code>--no-git-ignore</code> only because the corpora sit in a git-ignored
+directory of this repository; without it Semgrep skips every file. All findings
+each tool emits count, at every severity; no tool gets a severity or confidence
+filter. Runs were made on Windows 11 with Python 3.11 on 2026-10-22.</p>
+<h3 id="scoring">Scoring<a class="headerlink" href="#scoring" title="Permanent link">&para;</a></h3>
+<p><strong>OWASP BenchmarkPython</strong> follows the OWASP Benchmark methodology. A test case is
+<em>flagged</em> when the tool reports at least one finding in that test case's source
+file (<code>testcode/BenchmarkTestNNNNN.py</code>) whose CWE matches the case's CWE. Findings
+in that file with a different CWE are ignored for that case; findings in helpers
+and templates are ignored. Flagged vulnerable case = TP, flagged safe case = FP,
+unflagged safe = TN, unflagged vulnerable = FN. Per category and overall:
+TPR (recall), FPR, precision, F1 and the OWASP score, TPR - FPR. Overall
+numbers are given two ways: <em>pooled</em> (counts summed over all 1230 cases, which
+weights large categories such as weakrand with 326 cases) and <em>category average</em>
+(unweighted mean of the per-category TPR, FPR and score, as on the official
+OWASP scorecard).</p>
+<p><strong>SecurityEval</strong> has no safe samples, so only recall can be measured. Precision,
+FPR and F1 are undefined and are not reported. A sample is detected when the
+tool reports a finding in its file with a matching CWE; the <code>any</code> mode also
+reports how many samples got any finding at all, whatever its CWE.</p>
+<p><strong>CWE matching</strong> comes in two modes, both always published:</p>
+<ul>
+<li><code>strict</code>: one of the tool's own reported CWEs equals the labeled CWE.</li>
+<li><code>mapped</code>: the tool's CWEs, plus documented per-rule overrides, intersect an
+  equivalence group containing the label. The groups join parent and child
+  CWEs (for example 327/328/916 for weak hashing, 22/23/36/73/99 for path
+  traversal, 94/95 for code injection, 330/331/338 for weak randomness). They
+  are in <code>benchmarks/public/mapping.py</code> and apply to every tool equally.</li>
+</ul>
+<p>Manual overrides exist only where a tool reports a generic or wrong CWE for a
+rule with a single documented purpose. After auditing the per-rule inventory,
+the overrides are: Bandit's XML blacklist rules B313 to B320 and B405 to B410
+(reported as CWE-20, mapped to CWE-611), B506 <code>yaml_load</code> (CWE-20 to CWE-502),
+B102 <code>exec_used</code> and B307 <code>eval</code> (reported as CWE-78, mapped to CWE-95), and
+Semgrep's <code>python.flask.security.injection.tainted-sql-string</code> (registry
+metadata says CWE-704, mapped to CWE-89). No Nephilex rule needed an override.
+Overrides only add CWEs. Note that they cut both ways: Bandit's mapped OWASP
+score is <em>lower</em> than its strict one, because the overrides credit rules that
+also fire on safe cases.</p>
+<h3 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h3>
+<p>Measured on 2026-10-22 after the changes listed under "What changed since
+0.9.2". Bandit, Semgrep, the datasets and the Semgrep ruleset (same SHA-256) are
+unchanged from the 0.9.2 run, and their numbers are identical to it.</p>
+<div class="admonition warning">
+<p class="admonition-title">How these Nephilex numbers were produced</p>
+<p>Nephilex's Python rules were revised <strong>with OWASP BenchmarkPython visible</strong>:
+the cases Nephilex got wrong in 0.9.2 were read, and general rules were
+written for the idioms behind them. No OWASP case was held out, so the
+OWASP rows below measure Nephilex on code it was developed against, not on
+unseen code. The checks under "Methodology checks" and the held-out
+benchmark on real fix commits (below) are the evidence on
+generalisation; read them before quoting a number.</p>
+</div>
+<p>OWASP Benchmark for Python v0.1, all 1230 cases:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Mode</th>
+<th>TP</th>
+<th>FP</th>
+<th>TN</th>
+<th>FN</th>
+<th>TPR</th>
+<th>FPR</th>
+<th>Precision</th>
+<th>F1</th>
+<th>Score (pooled)</th>
+<th>Score (category avg)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>mapped</td>
+<td>447</td>
+<td>74</td>
+<td>704</td>
+<td>5</td>
+<td>98.9%</td>
+<td>9.5%</td>
+<td>85.8%</td>
+<td>91.9%</td>
+<td>+89.4</td>
+<td>+91.3</td>
+</tr>
+<tr>
+<td>Nephilex</td>
+<td>strict</td>
+<td>356</td>
+<td>62</td>
+<td>716</td>
+<td>96</td>
+<td>78.8%</td>
+<td>8.0%</td>
+<td>85.2%</td>
+<td>81.8%</td>
+<td>+70.8</td>
+<td>+79.6</td>
+</tr>
+<tr>
+<td>Nephilex 0.9.2</td>
+<td>mapped</td>
+<td>78</td>
+<td>30</td>
+<td>748</td>
+<td>374</td>
+<td>17.3%</td>
+<td>3.9%</td>
+<td>72.2%</td>
+<td>27.9%</td>
+<td>+13.4</td>
+<td>+6.3</td>
+</tr>
+<tr>
+<td>Nephilex 0.9.2</td>
+<td>strict</td>
+<td>37</td>
+<td>24</td>
+<td>754</td>
+<td>415</td>
+<td>8.2%</td>
+<td>3.1%</td>
+<td>60.7%</td>
+<td>14.4%</td>
+<td>+5.1</td>
+<td>+2.4</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>mapped</td>
+<td>130</td>
+<td>79</td>
+<td>699</td>
+<td>322</td>
+<td>28.8%</td>
+<td>10.2%</td>
+<td>62.2%</td>
+<td>39.3%</td>
+<td>+18.6</td>
+<td>+7.5</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>strict</td>
+<td>101</td>
+<td>25</td>
+<td>753</td>
+<td>351</td>
+<td>22.4%</td>
+<td>3.2%</td>
+<td>80.2%</td>
+<td>34.9%</td>
+<td>+19.1</td>
+<td>+8.2</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>mapped</td>
+<td>73</td>
+<td>15</td>
+<td>763</td>
+<td>379</td>
+<td>16.2%</td>
+<td>1.9%</td>
+<td>83.0%</td>
+<td>27.0%</td>
+<td>+14.2</td>
+<td>+6.0</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>strict</td>
+<td>18</td>
+<td>15</td>
+<td>763</td>
+<td>434</td>
+<td>4.0%</td>
+<td>1.9%</td>
+<td>54.5%</td>
+<td>7.4%</td>
+<td>+2.1</td>
+<td>-0.8</td>
+</tr>
+</tbody>
+</table>
+<p>Per category, mapped mode, as TPR / FPR (score):</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>CWE</th>
+<th>Cases (vuln/safe)</th>
+<th>Nephilex</th>
+<th>Nephilex 0.9.2</th>
+<th>Bandit</th>
+<th>Semgrep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmdi</td>
+<td>78</td>
+<td>13/7</td>
+<td>100.0% / 14.3% (+85.7)</td>
+<td>53.8% / 100.0% (-46.2)</td>
+<td>100.0% / 100.0% (+0.0)</td>
+<td>53.8% / 100.0% (-46.2)</td>
+</tr>
+<tr>
+<td>codeinj</td>
+<td>94</td>
+<td>20/33</td>
+<td>100.0% / 36.4% (+63.6)</td>
+<td>20.0% / 18.2% (+1.8)</td>
+<td>95.0% / 90.9% (+4.1)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>deserialization</td>
+<td>502</td>
+<td>18/36</td>
+<td>100.0% / 19.4% (+80.6)</td>
+<td>100.0% / 33.3% (+66.7)</td>
+<td>83.3% / 30.6% (+52.8)</td>
+<td>50.0% / 16.7% (+33.3)</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>328</td>
+<td>71/80</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>52.1% / 0.0% (+52.1)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>76.1% / 0.0% (+76.1)</td>
+</tr>
+<tr>
+<td>ldapi</td>
+<td>90</td>
+<td>16/13</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>pathtraver</td>
+<td>22</td>
+<td>65/103</td>
+<td>92.3% / 15.5% (+76.8)</td>
+<td>18.5% / 4.9% (+13.6)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>3.1% / 1.9% (+1.1)</td>
+</tr>
+<tr>
+<td>redirect</td>
+<td>601</td>
+<td>13/21</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>securecookie</td>
+<td>614</td>
+<td>24/15</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>sqli</td>
+<td>89</td>
+<td>5/11</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>100.0% / 100.0% (+0.0)</td>
+<td>20.0% / 0.0% (+20.0)</td>
+</tr>
+<tr>
+<td>trustbound</td>
+<td>501</td>
+<td>18/19</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>weakrand</td>
+<td>330</td>
+<td>99/227</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>72.7% / 0.0% (+72.7)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>xpathi</td>
+<td>643</td>
+<td>51/135</td>
+<td>100.0% / 28.1% (+71.9)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>xss</td>
+<td>79</td>
+<td>31/58</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+<tr>
+<td>xxe</td>
+<td>611</td>
+<td>8/20</td>
+<td>100.0% / 0.0% (+100.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+<td>75.0% / 100.0% (-25.0)</td>
+<td>0.0% / 0.0% (+0.0)</td>
+</tr>
+</tbody>
+</table>
+<p>SecurityEval v2.1, 121 samples, recall only:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Mode</th>
+<th>Detected</th>
+<th>Recall</th>
+<th>CWE-average recall</th>
+<th>CWEs with a detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>mapped</td>
+<td>32/121</td>
+<td>26.5%</td>
+<td>18.4%</td>
+<td>17/69</td>
+</tr>
+<tr>
+<td>Nephilex</td>
+<td>strict</td>
+<td>26/121</td>
+<td>21.5%</td>
+<td>13.4%</td>
+<td>13/69</td>
+</tr>
+<tr>
+<td>Nephilex</td>
+<td>any</td>
+<td>51/121</td>
+<td>42.1%</td>
+<td>34.4%</td>
+<td>30/69</td>
+</tr>
+<tr>
+<td>Nephilex 0.9.2</td>
+<td>mapped</td>
+<td>12/121</td>
+<td>9.9%</td>
+<td>7.0%</td>
+<td>9/69</td>
+</tr>
+<tr>
+<td>Nephilex 0.9.2</td>
+<td>strict</td>
+<td>8/121</td>
+<td>6.6%</td>
+<td>3.9%</td>
+<td>6/69</td>
+</tr>
+<tr>
+<td>Nephilex 0.9.2</td>
+<td>any</td>
+<td>22/121</td>
+<td>18.2%</td>
+<td>15.5%</td>
+<td>18/69</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>mapped</td>
+<td>32/121</td>
+<td>26.5%</td>
+<td>23.3%</td>
+<td>21/69</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>strict</td>
+<td>23/121</td>
+<td>19.0%</td>
+<td>15.9%</td>
+<td>15/69</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>any</td>
+<td>49/121</td>
+<td>40.5%</td>
+<td>39.6%</td>
+<td>34/69</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>mapped</td>
+<td>13/121</td>
+<td>10.7%</td>
+<td>8.1%</td>
+<td>8/69</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>strict</td>
+<td>10/121</td>
+<td>8.3%</td>
+<td>5.7%</td>
+<td>6/69</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>any</td>
+<td>23/121</td>
+<td>19.0%</td>
+<td>18.2%</td>
+<td>17/69</td>
+</tr>
+</tbody>
+</table>
+<p>The per-CWE SecurityEval table is in <code>benchmarks/results/public/SUMMARY.md</code>.</p>
+<h3 id="methodology-checks">Methodology checks<a class="headerlink" href="#methodology-checks" title="Permanent link">&para;</a></h3>
+<p><strong>Corpus-specific keying.</strong> No rule refers to a benchmark file name, test id,
+helper module or function (<code>helpers.*</code>, the benchmark's request wrapper or
+HTML-escape helper), variable name, comment, or the expected-results CSV. An
+audit before publishing removed three things that were closer to the
+benchmark's own "safe" idioms than to general mitigations: the blocklist
+guards <code>'../' in p</code> (path traversal) and "contains no quote" (XPath), the
+<code>.replace("'", ...)</code> XPath sanitizer and the "quoted literal only" check
+before <code>eval</code>. Those blocklists are incomplete in general (an absolute path or
+another quoting style gets past them), so the engine no longer trusts them.
+That costs 66 OWASP false positives (16 path traversal, 38 XPath, 12 code
+injection), which are in the table above. <code>os.path.exists</code> and other
+existence checks were also dropped as path sinks after the false-positive
+check below, which costs 5 path-traversal true positives. One rule that is
+correct but was motivated by the benchmark stays and is documented:
+<code>request.path</code> is not a source in a Flask view whose routes have no
+<code>&lt;converters&gt;</code>, because routing has already fixed the path.</p>
+<p><strong>Split halves (not a held-out test).</strong> The OWASP score is stable across
+halves, but both halves were visible during development, so this shows the
+rules are not keyed to individual cases, not that they generalise:</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Cases</th>
+<th>Mapped score (pooled)</th>
+<th>Mapped score (category avg)</th>
+<th>Strict score (pooled)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>even test numbers</td>
+<td>615</td>
+<td>+89.4</td>
+<td>+92.2</td>
+<td>+71.5</td>
+</tr>
+<tr>
+<td>odd test numbers</td>
+<td>615</td>
+<td>+89.4</td>
+<td>+89.0</td>
+<td>+70.1</td>
+</tr>
+<tr>
+<td>random half A (seed 20261022)</td>
+<td>611</td>
+<td>+88.8</td>
+<td>+92.7</td>
+<td>+70.9</td>
+</tr>
+<tr>
+<td>random half B</td>
+<td>619</td>
+<td>+90.0</td>
+<td>+90.2</td>
+<td>+70.7</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SecurityEval (a different corpus).</strong> Mapped recall went from 12/121 (9.9%)
+in 0.9.2 to 32/121 (26.5%). Five of the 32 come from rules added after reading
+SecurityEval's misses (<code>compile()</code> as a code sink, a redirect through
+<code>headers["Location"]</code>, and lxml <code>resolve_entities=True</code>, three samples); the
+SQL-from-a-parameter rule was written for a SecurityEval sample named in the
+task (<code>CWE-089_author_1.py</code>). Without the five post-hoc detections the figure
+is 27/121 (22.3%). That is the better estimate of how the OWASP-driven work
+transfers to code it was not developed on: a large gain over 0.9.2, still
+behind Bandit on CWE-average recall (23.3%) and CWE breadth (21 CWEs).</p>
+<p><strong>False positives on code with no known vulnerabilities.</strong> The SAST, taint and
+auth scanners (<code>ast-python</code>, <code>ast-python-xfile</code>, <code>patterns</code>, <code>authz</code>) were run
+on Flask 3.0.3's tutorial and JavaScript example apps, the Flask 3.0.3 and
+Werkzeug 3.0.3 sources, and the installed click, requests, jinja2, rich and
+typer packages. Findings at severity low or above, 0.9.2 scanners against
+these changes:</p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>0.9.2</th>
+<th>Now</th>
+<th>New findings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flask tutorial app (flaskr)</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Flask JavaScript example</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Flask 3.0.3</td>
+<td>3</td>
+<td>3</td>
+<td>none (the same 3: <code>PYTHONSTARTUP</code> read and executed by <code>flask shell</code>, SHA-1 in sessions)</td>
+</tr>
+<tr>
+<td>Werkzeug 3.0.3</td>
+<td>6</td>
+<td>7</td>
+<td><code>subprocess.call(args)</code> re-executing <code>sys.argv</code> in the reloader</td>
+</tr>
+<tr>
+<td>click</td>
+<td>1</td>
+<td>0</td>
+<td>(0.9.2 flagged the editor launch because its <code>env=</code> mapping copies <code>os.environ</code>; only the command argument is a sink now)</td>
+</tr>
+<tr>
+<td>requests</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>jinja2</td>
+<td>1</td>
+<td>1</td>
+<td>none</td>
+</tr>
+<tr>
+<td>rich</td>
+<td>0</td>
+<td>1</td>
+<td><code>pty.spawn(sys.argv[1:])</code> in a demo entry point</td>
+</tr>
+<tr>
+<td>typer</td>
+<td>0</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The two new findings come from treating <code>sys.argv</code>
+as an untrusted source, which Nephilex already did in 0.9.2; the new
+engine simply follows those flows further. Earlier drafts of this change were
+noisier on these projects (<code>eval</code>/<code>exec</code> of a function parameter in template
+engines, <code>os.path.exists</code> on environment paths, <code>x.open()</code> on test clients,
+<code>http.cookiejar</code> <code>set_cookie(cookie)</code> and <code>set_cookie(..., **kwargs)</code>); those
+rules were removed or narrowed before publishing.</p>
+<h3 id="what-changed-since-092">What changed since 0.9.2<a class="headerlink" href="#what-changed-since-092" title="Permanent link">&para;</a></h3>
+<p>Each fix below is a general rule meant to hold on real code. Details per rule
+are in <a href="../scanners/">Scanners</a>.</p>
+<ul>
+<li><strong>Flow-sensitive taint.</strong> Branches, <code>match</code>, loops and <code>try</code> are analyzed
+  separately and joined, so <code>if not p: p = ""</code> keeps the taint (the idiom
+  behind 41 of the 80 false negatives in 0.9.2). Conditions that fold to a
+  constant prune the dead branch. Literal dicts, lists and <code>configparser</code>
+  objects are tracked per key.</li>
+<li><strong>Guards.</strong> Early returns on complete mitigations refine the value after
+  them: allowlist membership, <code>isdigit()</code>-style checks, a
+  <code>urlparse(u).netloc</code> allowlist, and a resolved-path containment check.</li>
+<li><strong>Sources.</strong> Methods that return request data (request wrappers) are sources
+  when called on an object built from the request, in the same file or across
+  files. <code>request.path</code> is not a source in a view whose routes have no
+  converters.</li>
+<li><strong>New Python rules.</strong> Reflected XSS from view return values and <code>Markup</code>,
+  <code>|safe</code> in templates, open redirect, XXE with external entities enabled,
+  LDAP and XPath injection, trust boundary (session stores), weak randomness
+  for tokens and session values, <code>hashlib.new("md5")</code>, pathlib file access,
+  <code>compile()</code> as a code sink, and <code>set_cookie()</code> without <code>secure=True</code>
+  (CWE-614) or <code>httponly=True</code> (CWE-1004).</li>
+<li><strong>Fewer sink-only findings.</strong> <code>shell=True</code>, <code>os.system</code> and <code>pickle.loads</code>
+  whose payload is built only from literals are no longer reported.
+  <code>yaml.load</code> with an unsafe loader is still reported, graded by taint.</li>
+<li><strong>Function parameters.</strong> SQL built by formatting a function parameter is
+  reported at low confidence. The regex tier used to catch some of these, but
+  the engine dropped its CWE-89 findings wherever the taint tier ran.</li>
+</ul>
+<h3 id="what-the-numbers-say">What the numbers say<a class="headerlink" href="#what-the-numbers-say" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>On OWASP BenchmarkPython Nephilex now scores +89.4 pooled and +91.3 by
+  category average (mapped)</strong>, against +18.6 and +7.5 for Bandit and +14.2 and
+  +6.0 for Semgrep. Because the rules were developed with this dataset visible
+  and it is generated from a small set of templates, read this as "Nephilex
+  handles the idioms in this benchmark", not as a real-world detection rate.</li>
+<li><strong>The 74 false positives</strong> are 66 cases guarded only by blocklist checks that
+  Nephilex deliberately does not trust (see above), 5 <code>yaml.load(...,
+  Loader=yaml.Loader)</code> calls on a constant document (an unsafe loader is still
+  reported, at low severity, because it is wrong code even when today's input
+  is constant), and 3 payloads that come from a wrapper method in another file
+  returning a constant, which the regex tier, grading one file at a time,
+  cannot see.</li>
+<li><strong>Strict mode</strong> (+70.8) is lower mainly because Nephilex reports MD5/SHA-1 as
+  CWE-327 against the benchmark's CWE-328 label (71 cases) and <code>eval</code>/<code>exec</code>
+  as CWE-95 against its parent CWE-94 (20 cases); the other 5 misses are the
+  path-traversal cases whose only sink is an existence check.</li>
+<li><strong>On SecurityEval Nephilex ties Bandit on mapped recall (32 samples each)</strong> but
+  trails it on CWE-average recall (18.4% vs 23.3%) and CWE breadth (17 vs 21
+  CWEs). Without the detections from rules added after reading SecurityEval,
+  Nephilex is at 27 samples. SecurityEval covers many classes Nephilex has no Python
+  rule for (hard-coded passwords as CWE-259, log injection, temporary files,
+  regex DoS, SSRF), and most samples are helper functions with no web request.</li>
+</ul>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Labeled-dataset bias.</strong> OWASP BenchmarkPython is synthetic: every case is
+  generated from templates, uses Flask, and contains deliberate traps (dead
+  branches, constant conditions, overwritten values) that reward or punish
+  specific analysis features. Category sizes are uneven (326 weakrand cases,
+  16 sqli cases), which dominates the pooled numbers; the category average is
+  published for that reason. Real applications look different.</li>
+<li><strong>SecurityEval has no negatives,</strong> so it cannot measure false positives at all,
+  and most CWEs have one to six samples. Many samples are snippets whose input
+  is a function parameter rather than a web request, which penalizes tools that
+  require a proven untrusted source (the Nephilex taint tier) relative to tools
+  that flag sinks unconditionally (Bandit).</li>
+<li><strong>CWE mapping caveats.</strong> Tools pick different CWEs for the same issue (MD5 is
+  CWE-327 in Bandit, Semgrep and Nephilex, but the benchmark label is CWE-328), so
+  <code>strict</code> understates every tool and <code>mapped</code> depends on the committed groups
+  and overrides. Both are published; the mapping tables are embedded in each
+  results file.</li>
+<li><strong>Python only.</strong> These datasets measure the Python SAST and taint tiers. They
+  say nothing about Nephilex's JavaScript/TypeScript tiers, secrets, dependency,
+  IaC, container or LLM-application scanners.</li>
+<li><strong>Default configurations only.</strong> Semgrep was run with the <code>p/python</code> registry
+  ruleset on the Community Edition engine (no cross-file Pro analysis); another
+  ruleset (for example <code>p/default</code>) or Semgrep Pro would give different numbers.
+  Nephilex was run without an AI provider (<code>--no-ai</code>), so AI triage is not measured.
+  Bandit and Semgrep were not tuned for these datasets. Nephilex's rules were
+  revised after studying its OWASP misses, with no case held out (see
+  "Methodology checks"); no rule refers to a benchmark file, test id,
+  helper or generated name.</li>
+<li><strong>Single run, single machine.</strong> All three tools are deterministic for a fixed
+  input, but the runs were made once, on Windows. Nephilex's default scanner set
+  includes a dependency scanner that may query OSV for the dataset's
+  <code>requirements.txt</code>; those findings fall outside the test cases and do not
+  affect the scores.</li>
+</ul>
+<h2 id="held-out-benchmark-real-fix-commits">Held-out benchmark: real fix commits<a class="headerlink" href="#held-out-benchmark-real-fix-commits" title="Permanent link">&para;</a></h2>
+<p>The public datasets above have a known weakness: Nephilex's Python rules were
+revised with OWASP BenchmarkPython visible. This benchmark answers that with
+code nobody tuned anything on: real vulnerabilities from real projects, taken
+as before/after pairs from the commits that fixed them. This is the frozen v1
+set; a development set and a time-split test set use the same rule (see
+"Three benchmark sets" below).</p>
+<h3 id="selection-rule">Selection rule<a class="headerlink" href="#selection-rule" title="Permanent link">&para;</a></h3>
+<p>The rule was written down and committed (in <code>benchmarks/heldout/selection.py</code>,
+with the resulting manifest) before any tool was run on the selected files.
+Git history shows the order. In full:</p>
+<ol>
+<li><strong>Source.</strong> GitHub Advisory Database, reviewed advisories only, ecosystems
+   <code>pip</code> and <code>npm</code>, published from 2024-01-01 to 2026-09-30, not withdrawn.</li>
+<li><strong>CWE.</strong> The advisory lists at least one CWE that Nephilex's Python or
+   JavaScript/TypeScript source-code rules report, or a member of the
+   equivalence group that contains one (<code>benchmarks/public/mapping.py</code>). The
+   claimed CWEs, with the scanner modules that report them, are recorded in the
+   manifest: 22, 73, 74, 77, 78, 79, 80, 89, 90, 94, 95, 295, 306, 327, 330, 338,
+   347, 352, 489, 501, 502, 598, 601, 611, 614, 639, 643, 918, 1004, 1336. With
+   their groups the target set adds 23, 36, 88, 99, 297, 328, 331, 564, 776 and</li>
+<li>CWEs reported only by configuration, infrastructure, dependency, CI,
+   secret, other-language or LLM-misuse rules (for example 200, 250, 732) are
+   not claimed here: those rules detect them only in narrow contexts. A case's
+   label is the subset of its advisory's CWEs that is in the target set.</li>
+<li><strong>Fix commit.</strong> At least one advisory reference is a GitHub commit URL
+   (<code>/commit/&lt;sha&gt;</code> or <code>/pull/&lt;n&gt;/commits/&lt;sha&gt;</code>). All such commits are used.</li>
+<li><strong>Files.</strong> From each fix commit, every modified or renamed <code>.py</code>, <code>.js</code>,
+   <code>.mjs</code>, <code>.cjs</code>, <code>.jsx</code>, <code>.ts</code>, <code>.mts</code>, <code>.cts</code> or <code>.tsx</code> file, except tests
+   (<code>test</code>/<code>tests</code>/<code>spec</code>/<code>__tests__</code>/<code>e2e</code> directories, <code>test_*.py</code>,
+   <code>*_test.py</code>, <code>test.py</code>, <code>tests.py</code>, <code>conftest.py</code>, <code>*.test.js</code>, <code>*.spec.ts</code>
+   and similar),
+   documentation and examples (<code>doc</code>, <code>docs</code>, <code>example(s)</code>, <code>sample(s)</code>),
+   vendored or build output (<code>vendor</code>, <code>third_party</code>, <code>node_modules</code>, <code>dist</code>,
+   <code>build</code>, <code>coverage</code>, ...), minified or generated files (<code>*.min.js</code>,
+   bundles, <code>*_pb2.py</code>) and TypeScript declarations (<code>*.d.ts</code>). Files the fix
+   added or deleted have no before/after pair and are skipped. Within one
+   advisory a path is taken once, from the first commit that touches it; a file
+   and commit already used by another advisory is not used twice.</li>
+<li><strong>Localized fixes.</strong> An advisory whose fix touches more than 5 eligible
+   files is dropped as a refactor: most of its changed lines would not be the
+   vulnerable code.</li>
+<li><strong>Sampling.</strong> Candidate advisories are ordered by SHA-256 of their GHSA id,
+   a fixed order nobody chose, and taken until 120 <code>pip</code> and 80 <code>npm</code> cases
+   are reached. Nothing in the order depends on any tool.</li>
+</ol>
+<p>A <strong>case</strong> is one file of one advisory. The vulnerable version is the file at
+the fix commit's first parent; the patched version is the file at the fix
+commit. The manifest (<code>benchmarks/heldout/manifest.json</code>) records for each case
+the advisory id, CVE, CWEs, repository, parent and fix SHAs, paths, the changed
+line ranges on both sides and the SHA-256 of both versions, so anyone can
+re-fetch and verify exactly the same files. It also lists every dropped
+advisory and file with its reason.</p>
+<p>Changed lines come from the fix commit's unified diff: removed lines on the
+vulnerable side and added lines on the patched side. A hunk that only inserts
+lines marks the two vulnerable-side lines around the insertion point, and a
+hunk that only deletes marks the two patched-side lines around the deletion.</p>
+<h3 id="selection-counts">Selection counts<a class="headerlink" href="#selection-counts" title="Permanent link">&para;</a></h3>
+<p>Snapshot taken on 2026-10-23:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>pip</th>
+<th>npm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reviewed advisories in the window with a target CWE (API filter)</td>
+<td>1882</td>
+<td>1874</td>
+</tr>
+<tr>
+<td>Withdrawn</td>
+<td>88</td>
+<td>82</td>
+</tr>
+<tr>
+<td>No GitHub fix commit reference</td>
+<td>789</td>
+<td>737</td>
+</tr>
+<tr>
+<td>Candidates</td>
+<td>1005</td>
+<td>1055</td>
+</tr>
+<tr>
+<td>Examined in sample order before the budget was reached</td>
+<td>99</td>
+<td>51</td>
+</tr>
+<tr>
+<td>Dropped: fix touches more than 5 source files</td>
+<td>18</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Dropped: no eligible source file in the fix commits</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Dropped: fix commit not retrievable</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Selected advisories</td>
+<td>76</td>
+<td>41</td>
+</tr>
+<tr>
+<td>Selected cases (files)</td>
+<td>120</td>
+<td>81</td>
+</tr>
+</tbody>
+</table>
+<p>The 201 cases (117 advisories) are 118 Python, 48 JavaScript and 35 TypeScript files.</p>
+<p><strong>Amendment, made before any score existed.</strong> The first committed selection
+missed test modules named <code>test.py</code> or <code>tests.py</code> (the Django convention):
+three of its 202 cases were such files (Weblate <code>weblate/api/tests.py</code>,
+xml2rfc <code>test.py</code>, Taguette <code>tests.py</code>). The scan was stopped while Nephilex was
+still on its first cases, its partial output was deleted unread, <code>tests?.py</code>
+and <code>tests?.js</code> were added to the test-file rule, and the selection was re-run
+on the cached API responses. The same sampling order then added two files from
+the next advisories (wlc <code>wlc/main.py</code>, picklescan
+<code>src/picklescan/scanner.py</code>). Both manifests are in git history.</p>
+<h3 id="scoring_1">Scoring<a class="headerlink" href="#scoring_1" title="Permanent link">&para;</a></h3>
+<p>Fixed with the selection rule, before any tool ran:</p>
+<ul>
+<li><strong>Window.</strong> A finding belongs to a case when it is in the case's file and its
+  line is within 3 lines of a changed line on that side. Windows of 0 and 10
+  lines are published as a sensitivity check.</li>
+<li><strong>CWE match.</strong> <code>mapped</code> (primary): the finding's CWEs, plus the documented
+  rule overrides, intersect the equivalence group of one of the case's label
+  CWEs, exactly as in the public benchmark (<code>benchmarks/public/mapping.py</code>,
+  unchanged). <code>strict</code>: a finding CWE equals a label CWE. <code>any</code>: any finding in
+  the window, whatever its CWE.</li>
+<li><strong>Detected.</strong> The vulnerable version has a matching finding in the window
+  around its changed lines.</li>
+<li><strong>Flagged after the fix.</strong> The patched version has a matching finding in the
+  window around its changed lines. <strong>Still flagged</strong> counts detected cases
+  that are also flagged after the fix.</li>
+<li><strong>Recall</strong> = detected / cases. <strong>Fix-aware recall</strong> = (detected and not
+  flagged after the fix) / cases: the tool told the vulnerable version apart
+  from the patched one.</li>
+<li><strong>Precision proxy</strong> = detected / (detected + flagged after the fix), treating
+  every match on fixed code as a false positive. Real advisories have no
+  labeled safe code, so this is a proxy, not precision (see Limitations).</li>
+<li>Results are given per case (file) and per advisory (an advisory is detected
+  when any of its files is), by CWE, language and ecosystem, with raw counts.
+  A case with two label CWEs counts once in each CWE row.</li>
+</ul>
+<h3 id="reproduce_1">Reproduce<a class="headerlink" href="#reproduce_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[ast]"</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>pip<span class="w"> </span>install<span class="w"> </span>bandit<span class="w"> </span>semgrep<span class="w">                  </span><span class="c1"># ideally in a separate virtualenv</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>fetch<span class="w">      </span><span class="c1"># files in the manifest, verified by SHA-256</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>scan<span class="w"> </span>--bandit<span class="w"> </span>/path/to/bandit<span class="w"> </span>--semgrep<span class="w"> </span>/path/to/semgrep
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>score<span class="w">      </span><span class="c1"># re-score the committed results, no tools, no network</span>
+</code></pre></div>
+<p><code>select</code> re-applies the rule to the live Advisory Database
+(<code>--api-command</code> or <code>GITHUB_TOKEN</code> for authenticated GETs); because GitHub adds,
+edits and withdraws advisories, reproducing the published numbers starts at
+<code>fetch</code>, from the committed manifest. Downloaded files go to
+<code>benchmarks/.corpora/heldout/</code> (git-ignored); they are scanned as data and never
+imported or run.</p>
+<p>Outputs, in <code>benchmarks/results/heldout/</code>:</p>
+<ul>
+<li><code>heldout.json</code>: Nephilex source commit, manifest hash, tool versions and
+  command lines, Semgrep ruleset digests, the CWE mapping tables, and every
+  metric for every tool and mode, with the window sensitivity.</li>
+<li><code>cases/&lt;case_id&gt;.json</code>: one file per case with its manifest entry, every
+  finding each tool reported on both versions (line, rule id, CWEs; no source
+  code) and each tool's outcome. <code>score</code> re-scores from these.</li>
+<li><code>runs.json</code> (run metadata) and <code>SUMMARY.md</code> (generated tables, including
+  the per-CWE breakdown in <code>any</code> mode and per ecosystem).</li>
+</ul>
+<h3 id="tools-and-settings_1">Tools and settings<a class="headerlink" href="#tools-and-settings_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>0.10.0, source commit <code>200a227a5424c1e6394643456a4fd71cc164528f</code></td>
+<td><code>nephilex scan &lt;case&gt;/&lt;version&gt; --no-ai --no-cache -f json</code>, default scanners, one run per case and version (402 runs); the harness refuses to score if <code>ast-python</code> (Python cases) or <code>ast-js</code> (JS/TS cases) did not run</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>1.9.4</td>
+<td><code>bandit -r &lt;root&gt; -f json</code>, default plugins, all severities and confidences; Python cases only</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>1.182.1 (Community Edition)</td>
+<td><code>semgrep scan --config p/python --config p/javascript --metrics=off --no-git-ignore --json</code>; <code>p/python</code> 151 rules, SHA-256 <code>de5bc79d074c3b4146338a0bf95830406f169bd91ac590a2f1ef111f162e23f5</code>; <code>p/javascript</code> 74 rules, SHA-256 <code>1bcb61b57b5c9ee521d5e1db2d80062fe90b64fc788650564dc1f1c5243419c2</code>; both fetched 2026-10-23</td>
+</tr>
+</tbody>
+</table>
+<p>The Nephilex commit is this benchmark's harness commit; its <code>src/nephilex</code> is
+identical to the code it was branched from, and nothing under <code>src/nephilex</code>
+was changed for or after this benchmark. Each Nephilex run sees one file, so
+its cross-file analysis can never join two unrelated projects. Bandit and
+Semgrep CE analyze one file at a time, so each ran once over the whole tree and
+findings were attributed to cases by path. Every finding at every severity
+counts for every tool. Each case's file is stored under its last three path
+components; a directory name that one of the tools skips by default (<code>env</code>,
+<code>target</code>, ...) gets a trailing underscore. Runs were made on Windows 11 with
+Python 3.11 on 2026-10-23.</p>
+<p>All 201 selected cases were fetched, verified and scored; none was excluded
+at fetch or scan time. Semgrep reported 36 warnings on 22 of the 402 case
+versions: 34 rule timeouts (its default per-rule time limit) and 2 reported as
+"Other syntax error". A timeout skips only the rule that timed out on that
+file. Bandit reported no parse
+errors and no Nephilex scanner failed.</p>
+<h3 id="results_1">Results<a class="headerlink" href="#results_1" title="Permanent link">&para;</a></h3>
+<p>Mapped CWE match, 3-line window (primary):</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Cases</th>
+<th>Detected</th>
+<th>Recall</th>
+<th>Flagged after fix</th>
+<th>Still flagged</th>
+<th>Fix-aware detected</th>
+<th>Fix-aware recall</th>
+<th>Precision proxy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>201</td>
+<td>4</td>
+<td>2.0%</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1.5%</td>
+<td>80.0%</td>
+</tr>
+<tr>
+<td>Bandit (Python only)</td>
+<td>118</td>
+<td>12</td>
+<td>10.2%</td>
+<td>5</td>
+<td>4</td>
+<td>8</td>
+<td>6.8%</td>
+<td>70.6%</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>201</td>
+<td>4</td>
+<td>2.0%</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1.5%</td>
+<td>80.0%</td>
+</tr>
+</tbody>
+</table>
+<p>The same, split by language family:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Python (118): detected / flagged after fix / fix-aware</th>
+<th>JS/TS (83): detected / flagged after fix / fix-aware</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>2 / 1 / 1</td>
+<td>2 / 0 / 2</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>12 / 5 / 8</td>
+<td>not applicable</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>3 / 1 / 2</td>
+<td>1 / 0 / 1</td>
+</tr>
+</tbody>
+</table>
+<p>All three modes (detected / flagged after the fix, out of the tool's cases):</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Cases</th>
+<th>Strict</th>
+<th>Mapped</th>
+<th>Any finding in the changed lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>201</td>
+<td>2 / 1</td>
+<td>4 / 1</td>
+<td>6 / 6</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>118</td>
+<td>6 / 5</td>
+<td>12 / 5</td>
+<td>20 / 10</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>201</td>
+<td>3 / 1</td>
+<td>4 / 1</td>
+<td>5 / 1</td>
+</tr>
+</tbody>
+</table>
+<p>Per advisory (detected when any of its files is), mapped: Nephilex 3 of 117
+(2.6%), Bandit 9 of the 75 advisories with a Python case (12.0%), Semgrep 4 of
+117 (3.4%).</p>
+<p>By CWE, mapped, detected / cases (CWEs with at least 5 cases; the rest are in
+<code>SUMMARY.md</code>). Bandit's case count is lower where some cases are JS/TS:</p>
+<table>
+<thead>
+<tr>
+<th>CWE</th>
+<th>Cases</th>
+<th>Nephilex</th>
+<th>Bandit</th>
+<th>Semgrep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22 path traversal</td>
+<td>40</td>
+<td>0/40</td>
+<td>1/29</td>
+<td>0/40</td>
+</tr>
+<tr>
+<td>79 XSS</td>
+<td>37</td>
+<td>0/37</td>
+<td>0/9</td>
+<td>1/37</td>
+</tr>
+<tr>
+<td>918 SSRF</td>
+<td>25</td>
+<td>0/25</td>
+<td>0/19</td>
+<td>0/25</td>
+</tr>
+<tr>
+<td>94 code injection</td>
+<td>23</td>
+<td>0/23</td>
+<td>5/11</td>
+<td>0/23</td>
+</tr>
+<tr>
+<td>502 deserialization</td>
+<td>13</td>
+<td>1/13</td>
+<td>1/13</td>
+<td>0/13</td>
+</tr>
+<tr>
+<td>601 open redirect</td>
+<td>11</td>
+<td>0/11</td>
+<td>0/7</td>
+<td>0/11</td>
+</tr>
+<tr>
+<td>78 OS command injection</td>
+<td>10</td>
+<td>0/10</td>
+<td>2/7</td>
+<td>2/10</td>
+</tr>
+<tr>
+<td>89 SQL injection</td>
+<td>8</td>
+<td>1/8</td>
+<td>2/5</td>
+<td>1/8</td>
+</tr>
+<tr>
+<td>95 eval injection</td>
+<td>8</td>
+<td>0/8</td>
+<td>6/6</td>
+<td>0/8</td>
+</tr>
+<tr>
+<td>74 injection</td>
+<td>6</td>
+<td>0/6</td>
+<td>0/2</td>
+<td>0/6</td>
+</tr>
+<tr>
+<td>77 command injection</td>
+<td>5</td>
+<td>2/5</td>
+<td>0/1</td>
+<td>0/5</td>
+</tr>
+<tr>
+<td>88 argument injection</td>
+<td>5</td>
+<td>0/5</td>
+<td>0/5</td>
+<td>0/5</td>
+</tr>
+<tr>
+<td>639 authorization bypass</td>
+<td>5</td>
+<td>0/5</td>
+<td>0/3</td>
+<td>0/5</td>
+</tr>
+</tbody>
+</table>
+<p>No case in the sample carries CWE-611 (XXE).</p>
+<p>Window sensitivity, mapped, detected / flagged after the fix:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Window 0</th>
+<th>Window 3</th>
+<th>Window 10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>4 / 0</td>
+<td>4 / 1</td>
+<td>4 / 2</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>11 / 3</td>
+<td>12 / 5</td>
+<td>12 / 5</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>4 / 1</td>
+<td>4 / 1</td>
+<td>4 / 1</td>
+</tr>
+</tbody>
+</table>
+<p>With 4 detections in 201 cases, Nephilex's recall has a 95% Wilson interval of
+0.8% to 5.0%; Bandit's 12 in 118 gives 5.9% to 16.9%. Differences between
+Nephilex and Semgrep here are well inside the noise.</p>
+<h3 id="what-the-numbers-say_1">What the numbers say<a class="headerlink" href="#what-the-numbers-say_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>On real fix commits, all three tools find very little.</strong> Nephilex detects
+  4 of 201 cases (2.0%), the same count as Semgrep; Bandit detects 12 of its
+  118 Python cases (10.2%). Against the +89.4 OWASP score above, this is the
+  number to quote for code Nephilex was not developed on.</li>
+<li><strong>Bandit's lead comes from flagging sinks without asking where the data
+  came from.</strong> Six of its 12 detections are <code>eval()</code> (B307, credited to
+  CWE-94/95 by the committed override), two are <code>shell=True</code> and two are SQL
+  built by string formatting. Real library advisories often have a public
+  function parameter as the attacker-controlled input, which a sink-only rule
+  catches and a source-to-sink taint rule does not.</li>
+<li><strong>Where Nephilex detected, three of its four detections came from the regex
+  <code>patterns</code> tier</strong> (<code>child_process.exec</code> in two JavaScript files,
+  <code>pickle.loads</code> in LangChain's FAISS loader); the fourth is the low-confidence
+  AST rule for SQL formatted from a non-constant value with no traced source
+  (LlamaIndex DuckDB retriever). None of the four is a traced flow from an
+  untrusted source to a sink, the analysis behind the OWASP results.</li>
+<li><strong>Misses worth reading</strong> include Parsl (<code>%</code>-formatted SQL from a Flask route
+  parameter passed to <code>pandas.read_sql_query</code>) and PaddlePaddle (<code>shell=True</code>
+  with an f-string of a URL parameter), both found by Bandit and Semgrep.
+  They are recorded, not fixed: no Nephilex rule was changed because of this
+  benchmark.</li>
+<li><strong>Flagged after the fix</strong> is rare for every tool in mapped mode. Nephilex's
+  one case is the LangChain loader, where the fix kept <code>pickle.loads</code> behind an
+  opt-in flag, so the finding is arguably still correct. In <code>any</code> mode,
+  Nephilex matches 6 fixed files: besides that one, cookie-flag, OAuth <code>state</code>
+  and race-hint findings near the changed lines of open-redirect and XSS fixes
+  (they name other weaknesses), and a command-injection finding in the patched
+  MLflow file of a code-injection advisory.</li>
+</ul>
+<h3 id="limitations_1">Limitations<a class="headerlink" href="#limitations_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Single-file view.</strong> Each case is only the changed file, not the
+  repository. A flow whose source is in another file (a route handler calling
+  a helper) is invisible to every tool. This handicaps taint-based analysis
+  (Nephilex, Semgrep's taint rules) more than sink-only rules (Bandit).</li>
+<li><strong>Changed lines are a proxy for the vulnerable lines.</strong> A fix can add a
+  check far from the sink, or touch several files of which one holds the bug.
+  The window, the 5-file cap and the per-advisory roll-up limit this, they do
+  not remove it.</li>
+<li><strong>The precision proxy is not precision.</strong> A match on the patched lines may
+  still be a real issue (as in the LangChain case), and findings outside the
+  changed lines are not counted at all, so a tool that reports a lot elsewhere
+  in the file pays nothing. There is no labeled safe code in this benchmark.</li>
+<li><strong>Advisory CWE labels are noisy.</strong> Authors pick broad (CWE-74) or
+  neighbouring CWEs; the <code>any</code> mode is published for that reason.</li>
+<li><strong>Small sample.</strong> 201 cases from 117 advisories, with most CWEs under 15
+  cases and none for CWE-611. Per-CWE rows are anecdotes, not rates.</li>
+<li><strong>Snapshot.</strong> The Advisory Database changes; the manifest freezes the
+  2026-10-23 selection. The selection rule was amended once before any score
+  existed (see "Amendment" above).</li>
+<li><strong>Default configurations only,</strong> as in the public benchmark: Semgrep CE
+  with two registry rulesets, Bandit defaults, Nephilex without AI triage.
+  Semgrep timed out on some rules for 22 large case versions.</li>
+</ul>
+<h2 id="three-benchmark-sets">Three benchmark sets<a class="headerlink" href="#three-benchmark-sets" title="Permanent link">&para;</a></h2>
+<p>The held-out benchmark above is one of three sets built with the same
+selection rule and scored by the same harness (<code>benchmarks/heldout/</code>, every
+command takes <code>--set</code>). They exist so that the number quoted for a release
+comes from cases nobody looked at while the rules were being written.</p>
+<table>
+<thead>
+<tr>
+<th>Set</th>
+<th>What it is</th>
+<th>Who may look at it</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1 held-out (<code>benchmarks/heldout/manifest.json</code>)</td>
+<td>201 cases from advisories published 2024-01-01 to 2026-09-30, selected and scored on 2026-10-23</td>
+<td>Its results are published above and in <code>benchmarks/results/heldout/</code>. Rule work should not use its per-case results</td>
+<td>Frozen: its manifest and results are not changed or rescored</td>
+</tr>
+<tr>
+<td>Development (<code>benchmarks/heldout/sets/dev/manifest.json</code>)</td>
+<td>The same window and rule, minus every advisory v1 examined, in a different sampling order</td>
+<td>Anyone, in full: every miss is meant to be read</td>
+<td>Studying misses and testing rule changes. Its numbers are development data, not a claim</td>
+</tr>
+<tr>
+<td>Time-split test (<code>benchmarks/heldout/sets/timesplit/</code>)</td>
+<td>292 cases from advisories published 2026-10-01 to 2026-10-29, selected 2026-10-30 against frozen commit <code>2d6896</code></td>
+<td>Its results are published in <code>benchmarks/results/timesplit/</code>; seen now, so it becomes development data for the next release</td>
+<td>The headline number for 0.12.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule: the headline accuracy number for a release comes from the time-split
+set</strong>, selected after the release's detection rules are frozen and scored once
+with exactly those rules. Development-set numbers are never quoted as a
+claim, and the v1 number stays the number for the release it was published
+with.</p>
+<h3 id="time-split-test-set-the-0120-number">Time-split test set: the 0.12.0 number<a class="headerlink" href="#time-split-test-set-the-0120-number" title="Permanent link">&para;</a></h3>
+<p>The rules for 0.12.0 were frozen at commit
+<code>2d6896005d74ccb6084495feb6d068382ecacf47</code>, and the set was selected against it
+on 2026-10-30: 292 cases (138 <code>pip</code>, 154 <code>npm</code>) from advisories published
+2026-10-01 to 2026-10-29, none of which the v1 or development sets had seen.
+Full results are in <code>benchmarks/results/timesplit/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Cases</th>
+<th>Detected</th>
+<th>Recall</th>
+<th>Precision proxy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CWE match (mapped, strict)</td>
+<td>292</td>
+<td>7</td>
+<td>2.4%</td>
+<td>87.5%</td>
+</tr>
+<tr>
+<td>Any finding on the changed lines</td>
+<td>292</td>
+<td>11</td>
+<td>3.8%</td>
+<td>91.7%</td>
+</tr>
+</tbody>
+</table>
+<p>This is the honest rate on vulnerabilities disclosed after the rules were
+written, counting every CWE in the window, including classes Nephilex does not
+target by code analysis (access control, SSRF, weak crypto). Recall is low and
+precision is high: when Nephilex flags the vulnerable code it is usually right
+(87.5%) and it almost never still flags the code after the fix. It does best on
+the classes it targets, for example command injection (CWE-78: 4/25, CWE-88:
+4/12); its largest misses are path traversal (CWE-22) and cross-file XSS
+(CWE-79), where the flow crosses files or frameworks it does not yet follow.
+The point of the time-split method is that this number cannot be tuned: it is
+frozen, reproducible, and reported as it came out.</p>
+<h3 id="time-split-test-set-the-rule">Time-split test set: the rule<a class="headerlink" href="#time-split-test-set-the-rule" title="Permanent link">&para;</a></h3>
+<p>The rule is committed (<code>timesplit_rule</code> in <code>benchmarks/heldout/selection.py</code>,
+the guard in <code>benchmarks/heldout/cli.py</code>, the description in
+<code>benchmarks/heldout/sets/timesplit/README.md</code>).</p>
+<ul>
+<li><strong>Window.</strong> Reviewed <code>pip</code> and <code>npm</code> advisories published from 2026-10-01
+  up to and including <code>--until</code>, which must be before the day of selection
+  (UTC) so the window is closed. The API's date filter is re-checked on each
+  advisory's <code>published_at</code>.</li>
+<li><strong>Same rule as v1</strong> for CWEs, fix commits, files and the 5-file cap.</li>
+<li><strong>Exclusions.</strong> Every advisory the v1 or development selection examined,
+  any advisory sharing a CVE id with one of them, and any file and commit that
+  is already a v1 or development case.</li>
+<li><strong>Sampling.</strong> SHA-256 of <code>"timesplit:"</code> plus the upper-cased GHSA id, up to
+  200 <code>pip</code> and 150 <code>npm</code> cases.</li>
+<li><strong>Freeze guard.</strong> <code>select --set timesplit</code> refuses to run, before any
+  request, without <code>--rules-frozen-at &lt;full commit sha&gt;</code>, and unless
+  <code>src/nephilex</code> in the checkout is identical to that commit. The commit, the
+  harness commit and the time are recorded in the manifest's <code>freeze</code> entry.
+  The set is selected once, and <code>scan --set timesplit</code> refuses to run if
+  <code>src/nephilex</code> no longer matches the frozen commit.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span><span class="k">select</span><span class="w"> </span>--set<span class="w"> </span>timesplit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>--until<span class="w"> </span>YYYY-MM-DD<span class="w"> </span>--rules-frozen-at<span class="w"> </span>&lt;full<span class="w"> </span>commit<span class="w"> </span>sha&gt;
+</code></pre></div>
+<h3 id="development-set">Development set<a class="headerlink" href="#development-set" title="Permanent link">&para;</a></h3>
+<p><strong>These are development data, not a claim.</strong> The set exists to be studied:
+the people improving detection read every miss, so after the first rule
+change its numbers no longer measure code Nephilex was not developed on. The
+numbers below are the starting point, before any rule was changed with this
+set visible. <code>benchmarks/results/dev/</code> now holds a later run; see "After the
+Python detection work" at the end of this section.</p>
+<p><strong>Rule.</strong> The v1 rule unchanged (window 2024-01-01 to 2026-09-30, CWE list,
+fix-commit, file and 5-file rules), with three differences, all in
+<code>benchmarks/heldout/selection.py</code> (<code>DEV_RULE</code>, <code>PriorSets</code>):</p>
+<ul>
+<li>Every advisory the v1 selection examined is skipped before sampling,
+  whether it became a v1 case or was dropped: 149 GHSA ids (150 listings,
+  one advisory is in both <code>pip</code> and <code>npm</code>), listed in the manifest under
+  <code>excluded_prior_sets</code>. The v1 selection before its amendment examined a
+  subset of these. Advisories sharing a CVE id with one of them are skipped
+  too (none did), and a file and commit that is already a v1 case is never
+  used again (14 files).</li>
+<li>Sampling order: SHA-256 of <code>"dev:"</code> plus the upper-cased GHSA id.</li>
+<li>Budget: 200 <code>pip</code> and 150 <code>npm</code> cases.</li>
+</ul>
+<p>The rule and the manifest were committed before any file was fetched, and the
+content hashes were committed before any tool ran; git history shows the
+order.</p>
+<p>Selection counts, snapshot taken on 2026-10-23:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>pip</th>
+<th>npm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reviewed advisories in the window with a target CWE (API filter)</td>
+<td>1882</td>
+<td>1874</td>
+</tr>
+<tr>
+<td>Skipped: examined by the v1 selection</td>
+<td>99</td>
+<td>51</td>
+</tr>
+<tr>
+<td>Withdrawn</td>
+<td>88</td>
+<td>82</td>
+</tr>
+<tr>
+<td>No GitHub fix commit reference</td>
+<td>789</td>
+<td>737</td>
+</tr>
+<tr>
+<td>Candidates</td>
+<td>906</td>
+<td>1004</td>
+</tr>
+<tr>
+<td>Examined in sample order before the budget was reached</td>
+<td>157</td>
+<td>101</td>
+</tr>
+<tr>
+<td>Dropped: fix touches more than 5 source files</td>
+<td>24</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Dropped: no eligible source file in the fix commits</td>
+<td>13</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Dropped: no fix commit retrievable</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Selected advisories</td>
+<td>116</td>
+<td>77</td>
+</tr>
+<tr>
+<td>Selected cases (files)</td>
+<td>201</td>
+<td>150</td>
+</tr>
+</tbody>
+</table>
+<p>The listed, withdrawn and no-fix-commit counts equal v1's, and the candidates
+plus the skipped advisories equal v1's candidates (1005 and 1055), so the two
+selections saw the same population. No advisory fell outside the window on
+the client-side date check. The 351 cases (193 advisories) are 193 Python, 51
+JavaScript and 107 TypeScript files. All were fetched, verified and scored;
+none was excluded.</p>
+<p><strong>Runs.</strong> Nephilex 0.11.0, harness commit
+<code>008261bcc96357539c3160a382a1634f35f89576</code>, whose <code>src/nephilex</code> is identical
+to <code>main</code> at <code>0beceec8aac330648d0e3637a46d51b815201d2d</code> (702 runs, no scanner
+failed). Bandit 1.9.4 (no parse errors). Semgrep 1.182.1 CE with <code>p/python</code>
+(151 rules) and <code>p/javascript</code> (74 rules), the same SHA-256 digests as the v1
+run; it reported 59 warnings on 31 of the 702 case versions (56 rule
+timeouts, 3 syntax errors). Settings are those of the v1 run (see "Tools and
+settings" above). Windows 11, Python 3.11, 2026-10-23.</p>
+<p>Mapped CWE match, 3-line window:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Cases</th>
+<th>Detected</th>
+<th>Recall</th>
+<th>Flagged after fix</th>
+<th>Still flagged</th>
+<th>Fix-aware detected</th>
+<th>Fix-aware recall</th>
+<th>Precision proxy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>351</td>
+<td>12</td>
+<td>3.4%</td>
+<td>4</td>
+<td>4</td>
+<td>8</td>
+<td>2.3%</td>
+<td>75.0%</td>
+</tr>
+<tr>
+<td>Bandit (Python only)</td>
+<td>193</td>
+<td>23</td>
+<td>11.9%</td>
+<td>11</td>
+<td>9</td>
+<td>14</td>
+<td>7.2%</td>
+<td>67.7%</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>351</td>
+<td>3</td>
+<td>0.9%</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>0.9%</td>
+<td>75.0%</td>
+</tr>
+</tbody>
+</table>
+<p>All three modes (detected / flagged after the fix):</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Cases</th>
+<th>Strict</th>
+<th>Mapped</th>
+<th>Any finding in the changed lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nephilex</td>
+<td>351</td>
+<td>10 / 4</td>
+<td>12 / 4</td>
+<td>20 / 9</td>
+</tr>
+<tr>
+<td>Bandit</td>
+<td>193</td>
+<td>15 / 11</td>
+<td>23 / 11</td>
+<td>34 / 25</td>
+</tr>
+<tr>
+<td>Semgrep</td>
+<td>351</td>
+<td>3 / 1</td>
+<td>3 / 1</td>
+<td>8 / 5</td>
+</tr>
+</tbody>
+</table>
+<p>By language, mapped, detected / cases (flagged after the fix):</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Cases</th>
+<th>Nephilex</th>
+<th>Bandit</th>
+<th>Semgrep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>193</td>
+<td>10/193 (4)</td>
+<td>23/193 (11)</td>
+<td>3/193 (0)</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>51</td>
+<td>1/51 (0)</td>
+<td>not applicable</td>
+<td>0/51 (1)</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td>107</td>
+<td>1/107 (0)</td>
+<td>not applicable</td>
+<td>0/107 (0)</td>
+</tr>
+</tbody>
+</table>
+<p>By CWE, mapped, detected / cases (CWEs with at least 5 cases; the rest are in
+<code>benchmarks/results/dev/SUMMARY.md</code>). Bandit's count covers the Python cases
+only:</p>
+<table>
+<thead>
+<tr>
+<th>CWE</th>
+<th>Cases</th>
+<th>Nephilex</th>
+<th>Bandit</th>
+<th>Semgrep</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22 path traversal</td>
+<td>40</td>
+<td>0/40</td>
+<td>2/23</td>
+<td>0/40</td>
+</tr>
+<tr>
+<td>73 external control of file name</td>
+<td>5</td>
+<td>0/5</td>
+<td>0/2</td>
+<td>0/5</td>
+</tr>
+<tr>
+<td>74 injection</td>
+<td>10</td>
+<td>0/10</td>
+<td>0/5</td>
+<td>0/10</td>
+</tr>
+<tr>
+<td>77 command injection</td>
+<td>16</td>
+<td>1/16</td>
+<td>0/9</td>
+<td>0/16</td>
+</tr>
+<tr>
+<td>78 OS command injection</td>
+<td>28</td>
+<td>2/28</td>
+<td>6/15</td>
+<td>2/28</td>
+</tr>
+<tr>
+<td>79 XSS</td>
+<td>60</td>
+<td>0/60</td>
+<td>2/22</td>
+<td>0/60</td>
+</tr>
+<tr>
+<td>88 argument injection</td>
+<td>8</td>
+<td>0/8</td>
+<td>0/6</td>
+<td>0/8</td>
+</tr>
+<tr>
+<td>89 SQL injection</td>
+<td>18</td>
+<td>3/18</td>
+<td>1/13</td>
+<td>0/18</td>
+</tr>
+<tr>
+<td>94 code injection</td>
+<td>31</td>
+<td>1/31</td>
+<td>7/15</td>
+<td>0/31</td>
+</tr>
+<tr>
+<td>95 eval injection</td>
+<td>8</td>
+<td>1/8</td>
+<td>4/4</td>
+<td>0/8</td>
+</tr>
+<tr>
+<td>295 certificate validation</td>
+<td>5</td>
+<td>0/5</td>
+<td>0/3</td>
+<td>0/5</td>
+</tr>
+<tr>
+<td>306 missing authentication</td>
+<td>7</td>
+<td>0/7</td>
+<td>0/5</td>
+<td>0/7</td>
+</tr>
+<tr>
+<td>347 signature verification</td>
+<td>15</td>
+<td>0/15</td>
+<td>0/9</td>
+<td>0/15</td>
+</tr>
+<tr>
+<td>352 CSRF</td>
+<td>5</td>
+<td>0/5</td>
+<td>0/1</td>
+<td>0/5</td>
+</tr>
+<tr>
+<td>502 deserialization</td>
+<td>13</td>
+<td>2/13</td>
+<td>4/13</td>
+<td>0/13</td>
+</tr>
+<tr>
+<td>601 open redirect</td>
+<td>12</td>
+<td>2/12</td>
+<td>0/5</td>
+<td>0/12</td>
+</tr>
+<tr>
+<td>639 authorization bypass</td>
+<td>17</td>
+<td>0/17</td>
+<td>0/10</td>
+<td>0/17</td>
+</tr>
+<tr>
+<td>918 SSRF</td>
+<td>64</td>
+<td>0/64</td>
+<td>0/35</td>
+<td>0/64</td>
+</tr>
+<tr>
+<td>1336 template injection</td>
+<td>12</td>
+<td>0/12</td>
+<td>1/8</td>
+<td>0/12</td>
+</tr>
+</tbody>
+</table>
+<p>Per advisory, mapped: Nephilex 10 of 193 (5.2%), Bandit 20 of the 110
+advisories with a Python case (18.2%), Semgrep 3 of 193 (1.6%). Window
+sensitivity, mapped, detected / flagged after the fix at windows 0, 3 and 10:
+Nephilex 8/1, 12/4, 13/6; Bandit 20/6, 23/11, 29/17; Semgrep 3/1, 3/1, 6/3.
+95% Wilson intervals for mapped recall: Nephilex 2.0% to 5.9%, Bandit 8.1% to
+17.2%, Semgrep 0.3% to 2.5%.</p>
+<p>What the development set shows, for the people working on detection:</p>
+<ul>
+<li><strong>The largest classes are the emptiest.</strong> CWE-918 (64 cases), CWE-79 (60)
+  and CWE-22 (40) together are 164 of 351 cases, and Nephilex detects none of
+  them in mapped mode; Bandit and Semgrep detect 4 between them. CWE-94 is 1
+  of 31 for Nephilex against 7 of 15 for Bandit: 4 of Bandit's 7 are <code>eval</code>
+  (B307), 1 is Jinja2 autoescape (B701), and 2 are <code>subprocess</code> findings in
+  cases that also carry CWE-78.</li>
+<li><strong>Where Nephilex detected,</strong> 7 of its 12 detections are <code>ast-python</code> rules
+  (code injection, open redirect, SQL string building), 3 are regex
+  <code>patterns</code> rules (<code>shell=True</code>, <code>pickle.loads</code>, <code>child_process.exec</code>) and 2
+  are <code>llm</code> rules (<code>llm.torch-load-pickle</code>, <code>llm.tool-handler-exec</code> in an
+  MCP server). Only 2 of the 12 are JavaScript or TypeScript, from 158 such
+  cases.</li>
+<li><strong>Flagged after the fix:</strong> in Nephilex's 4 cases the same rule still fires
+  on the patched lines: SQL string building in two LangGraph SQLite
+  checkpoint files, open redirect in a Khoj auth router, and <code>pickle.loads</code>
+  in the pdfminer CMap loader. Whether each is a false positive needs a
+  reading of the fix.</li>
+<li>Per-case outcomes for all three tools are in
+  <code>benchmarks/results/dev/SUMMARY.md</code> ("Per case"), and every finding on both
+  versions is in <code>benchmarks/results/dev/cases/&lt;case&gt;.json</code>.</li>
+</ul>
+<p>The limitations listed for v1 apply unchanged: single-file view, changed
+lines as a proxy for the vulnerable lines, a precision proxy that is not
+precision, and noisy advisory CWE labels.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>fetch<span class="w"> </span>--set<span class="w"> </span>dev
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>scan<span class="w"> </span>--set<span class="w"> </span>dev<span class="w"> </span>--bandit<span class="w"> </span>/path/to/bandit<span class="w"> </span>--semgrep<span class="w"> </span>/path/to/semgrep
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>score<span class="w"> </span>--set<span class="w"> </span>dev<span class="w">     </span><span class="c1"># re-score the committed results</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Nephilex only, keeping the recorded Bandit and Semgrep results; a config variant</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>scan<span class="w"> </span>--set<span class="w"> </span>dev<span class="w"> </span>--only<span class="w"> </span>nephilex
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>scan<span class="w"> </span>--set<span class="w"> </span>dev<span class="w"> </span>--only<span class="w"> </span>nephilex<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span>--nephilex-config<span class="w"> </span>library-on.yml<span class="w"> </span>--variant<span class="w"> </span>library-on
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>python<span class="w"> </span>benchmarks/heldout/run.py<span class="w"> </span>score<span class="w"> </span>--set<span class="w"> </span>dev<span class="w"> </span>--variant<span class="w"> </span>library-on
+</code></pre></div>
+<h4 id="after-the-python-detection-work">After the Python detection work<a class="headerlink" href="#after-the-python-detection-work" title="Permanent link">&para;</a></h4>
+<p><strong>Development data, not a claim</strong>, and no longer unseen: the Python rules
+for path traversal, XSS, SSRF and code injection, and library mode (see
+<a href="../scanners/#library-mode">Scanners</a>), were written after reading every
+Python miss in this set. Nephilex was re-run on the same 351 cases with
+<code>scan --set dev --only nephilex</code>, which keeps the committed Bandit and
+Semgrep results; the Nephilex source is commit
+<code>26011609fa7e31854e0a55dae887054af3d6137d</code> (<code>src/nephilex</code> unmodified;
+<code>benchmarks/results/dev/</code> now holds the combined run below; the
+library-mode run records <code>261c48999c9ca36ee4c6992ddc0d792a816341ac</code>, a
+documentation commit with the same <code>src/nephilex</code>). The
+library-mode run used <code>--nephilex-config</code> with <code>library_mode: "on"</code> and
+<code>--variant library-on</code>; its results are in
+<code>benchmarks/results/dev-library-on/</code>. In the default configuration library
+mode stays off on these cases (<code>auto</code> needs a package manifest, and each
+case is a single file).</p>
+<p>Mapped CWE match, 3-line window, Python cases (193), detected / flagged
+after the fix:</p>
+<table>
+<thead>
+<tr>
+<th>Subset</th>
+<th>Cases</th>
+<th>0.11.0 baseline</th>
+<th>Default (auto)</th>
+<th>Library mode on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All Python</td>
+<td>193</td>
+<td>10 / 4</td>
+<td>12 / 4</td>
+<td>21 / 4</td>
+</tr>
+<tr>
+<td>CWE-22 group (22, 23, 36, 73, 99)</td>
+<td>26</td>
+<td>0 / 0</td>
+<td>1 / 0</td>
+<td>4 / 0</td>
+</tr>
+<tr>
+<td>CWE-79 group (79, 80)</td>
+<td>22</td>
+<td>0 / 0</td>
+<td>0 / 0</td>
+<td>1 / 0</td>
+</tr>
+<tr>
+<td>CWE-918</td>
+<td>35</td>
+<td>0 / 0</td>
+<td>1 / 0</td>
+<td>1 / 0</td>
+</tr>
+<tr>
+<td>CWE-94 group (94, 95)</td>
+<td>19</td>
+<td>2 / 0</td>
+<td>2 / 0</td>
+<td>7 / 0</td>
+</tr>
+<tr>
+<td>CWE-1336</td>
+<td>8</td>
+<td>0 / 0</td>
+<td>0 / 0</td>
+<td>0 / 0</td>
+</tr>
+<tr>
+<td>Other CWEs</td>
+<td>87</td>
+<td>8 / 4</td>
+<td>8 / 4</td>
+<td>8 / 4</td>
+</tr>
+</tbody>
+</table>
+<p>Any finding in the changed lines (CWE-agnostic), Python: baseline 16 / 8,
+default 17 / 8, library mode 27 / 8.</p>
+<p>All languages, mapped: Nephilex 14 of 351 (4.0%), flagged after the fix 4,
+fix-aware 10, against 12 / 4 / 8 at 0.11.0; JavaScript and TypeScript are
+unchanged (2 of 158). By CWE over all languages, detected / cases:
+CWE-22 1/40 (was 0/40), CWE-79 0/60 (0/60), CWE-918 1/64 (0/64), CWE-94
+1/31 (1/31), CWE-95 1/8 (1/8). With library mode on: 23 of 351 (6.6%),
+flagged after the fix 4, fix-aware 19; CWE-22 4/40, CWE-79 1/60, CWE-918
+1/64, CWE-94 3/31, CWE-95 4/8.</p>
+<p>What changed and why the gain is small:</p>
+<ul>
+<li><strong>New detections, default mode:</strong> an SSRF through a FastAPI <code>Query()</code>
+  parameter into <code>aiohttp.ClientSession().get()</code> (rembg) and a path traversal
+  from a FastAPI <code>UploadFile.filename</code> into <code>open()</code> (libre-chat). Both fixes
+  are recognized (a URL validator that checks <code>is_private</code> and friends,
+  <code>werkzeug.utils.safe_join</code>), so neither is flagged after the fix.</li>
+<li><strong>Library mode adds nine</strong> vulnerable versions, none flagged after the
+  fix: <code>eval</code> of text a library builds from its caller's data (Amazon
+  Redshift driver vector parsing, OpenStack Vitrage query predicates, two
+  Agno files reading a type name from a caller's dict, a llama-index
+  streaming generator that evaluates server events), path traversal where a
+  library joins a caller's name under its own directory (AGiXT <code>safe_join</code>,
+  Banks prompt registry), a tar archive extracted without a filter (MONAI),
+  and Wagtail's <code>mark_safe</code> of an f-string in a template tag. Bandit's
+  sink-only <code>eval</code> rule finds all five of the code-injection cases, which is
+  where much of its lead on this set came from.</li>
+<li><strong>Most target cases are out of reach of a single-file taint engine.</strong> Of
+  the 106 Python cases labelled 22, 79, 918, 94, 95 or 1336, most change a
+  file that holds neither the source nor the sink: version bumps, settings,
+  a validator in a helper module, allowlist or authorization logic, IP
+  canonicalization or DNS-rebinding pinning on an existing check, or HTML
+  built from data (a parsed APK manifest, an exception, a traceback) that is
+  not modeled as untrusted. Others are logic fixes (Weblate and gradio path
+  handling, litellm request field checks) that no source-to-sink rule
+  describes. Rules keyed to those projects would not generalize, so none
+  were written.</li>
+<li><strong>Findings outside the changed lines.</strong> In the default run, Python
+  findings rose from 473 to 505 over both versions (path traversal 22 to 39
+  on vulnerable files, open redirect 13 to 14, one new SSRF; XSS fell from 19 to 15 after route
+  returns of <code>jsonify</code> and <code>TemplateResponse</code> stopped counting as HTML).
+  Reading them: a zip-slip extraction in Weblate's backup restore (member
+  names checked only with <code>normpath</code>) and a reflected XSS in a
+  changedetection.io Flask route (the very bug of that advisory, but outside
+  its changed lines) are real; a flow through an imported <code>safe_join_path</code>
+  helper (xiaomusic) is most likely a false positive, because a helper in
+  another file is not summarized; gradio's file route has its own allowlist
+  logic that is not modeled.</li>
+<li><strong>Flagged after the fix</strong> stays at the baseline's 4 cases: SQL built with
+  an f-string in two LangGraph SQLite checkpoint files, an open redirect in
+  a Khoj auth router, and <code>pickle.loads</code> in the pdfminer CMap loader. None is
+  in the CWE classes this work targeted, and the rules that report them did
+  not change. Library mode flags the same four.</li>
+</ul>
+<p><strong>False-positive check</strong> (the projects and scanners of "False positives on
+code with no known vulnerabilities" above, findings at severity low or
+above, same Flask 3.0.3 sources; click 8.5.0, requests 2.34.2, jinja2 3.1.6,
+rich 15.0.0 and typer 0.27.3 installed on 2026-10-23):</p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>0.11.0</th>
+<th>Now (auto)</th>
+<th>Library mode on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flask tutorial app (flaskr)</td>
+<td>0</td>
+<td>0</td>
+<td>0 (auto keeps it off: <code>Flask()</code> entry point)</td>
+</tr>
+<tr>
+<td>Flask JavaScript example</td>
+<td>0</td>
+<td>0</td>
+<td>0 (auto keeps it off)</td>
+</tr>
+<tr>
+<td>Flask 3.0.3</td>
+<td>3</td>
+<td>2</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Werkzeug 3.0.3</td>
+<td>7</td>
+<td>7</td>
+<td>9</td>
+</tr>
+<tr>
+<td>click</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>requests</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jinja2</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr>
+<td>rich</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>typer</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The installed packages have no manifest in their directories, so <code>auto</code>
+leaves library mode off on them; the last column forces it on. Flask loses
+<code>flask shell</code>'s exec of the <code>PYTHONSTARTUP</code> file, whose content was counted
+as tainted only because its file name was (<code>compile()</code> now takes taint from
+its source alone). Werkzeug's reloader and rich's <code>pty.spawn</code> demo stay, now
+at low confidence as operator input. The weak-hash findings that remain all
+sit in security code (session signing, the debugger PIN) and keep their
+severity. Library mode adds 12 low-confidence <code>public-api</code> findings, none
+counted by <code>--fail-on</code>: Flask's <code>open_resource</code>, <code>open_instance_resource</code>,
+<code>Config.from_pyfile</code> and <code>Config.from_file</code>, which join a caller's name
+under the app's root by design; two HTML fragments in Werkzeug's debugger
+<code>repr</code> that embed <code>repr()</code> text; and in jinja2 the file-system bytecode
+cache (names built from a bucket key), <code>PackageLoader.get_source</code> (whose
+<code>split_template_path</code> check is not modeled) and the traceback rewriter's
+<code>exec</code> of a code object. Reviewers of a library should expect findings of
+this kind.</p>
+<h4 id="with-all-012-detection-work-combined">With all 0.12 detection work combined<a class="headerlink" href="#with-all-012-detection-work-combined" title="Permanent link">&para;</a></h4>
+<p><strong>Development data, not a claim.</strong> Nephilex re-run on the same 351 cases at
+commit <code>1692d69164140f534ac2f87f76cc3010b386d3fa</code>, which combines the Python
+work above with the JavaScript/TypeScript taint engine, the authorization
+and malware precision fixes and the instruction-file rules (Bandit and
+Semgrep results kept, default configuration). The results are in
+<code>benchmarks/results/dev/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Subset</th>
+<th>Cases</th>
+<th>0.11.0</th>
+<th>Combined</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All languages</td>
+<td>351</td>
+<td>12 / 4</td>
+<td>24 / 5</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>193</td>
+<td>10 / 4</td>
+<td>12 / 4</td>
+</tr>
+<tr>
+<td>JavaScript and TypeScript</td>
+<td>158</td>
+<td>2 / 0</td>
+<td>12 / 1</td>
+</tr>
+</tbody>
+</table>
+<p>Detected / flagged after the fix, mapped CWE match, 3-line window. Every
+case's result equals that of the separate Python and JavaScript/TypeScript
+runs, so the two kinds of work do not interact. The scan took 859 s against
+735 s for 0.11.0 on the same machine.</p>
+<p>After the precision fixes that followed (JavaScript/TypeScript containment
+checks, example code at low confidence, same-site redirect targets), a rerun
+at <code>d00bdf64e1a939a9724a36740c6bd990d1b39302</code> detects the same 24 of 351
+with 5 flagged after the fix; the only per-case change is a MobSF redirect to
+<code>f"/download/{file_name}"</code>, no longer reported as an open redirect because
+its literal start keeps it on the same site.</p>
+<h2 id="public-reference-apps-finding-inventory">Public reference apps (finding inventory)<a class="headerlink" href="#public-reference-apps-finding-inventory" title="Permanent link">&para;</a></h2>
+<p>The larger harness scans real, known-vulnerable applications:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>benchmarks/run_benchmarks.py<span class="w">            </span><span class="c1"># all available corpora</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python<span class="w"> </span>benchmarks/run_benchmarks.py<span class="w"> </span>juice-shop<span class="w"> </span><span class="c1"># just one</span>
+</code></pre></div>
+<p>It publishes a <strong>finding inventory</strong> (counts by scanner and severity, plus scan
+time) for OWASP Juice Shop, DVWA, WebGoat, and (with a manual download) NIST
+SARD/Juliet. An inventory is not precision/recall, it needs a ground-truth
+mapping per corpus, which is tracked as a <code>ground_truth</code> hook and where
+contributions are welcome, but it shows coverage shape and catches per-release
+regressions in what Nephilex finds and how fast.</p>
+<h2 id="methodology-and-honesty-notes">Methodology and honesty notes<a class="headerlink" href="#methodology-and-honesty-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Runs are deterministic and offline (<code>--no-ai</code>, caching disabled) so numbers are
+  comparable across machines.</li>
+<li>Numbers that get worse are published anyway. A benchmark that only ever improves
+  is marketing, not measurement.</li>
+<li>The labeled corpus is intentionally small and unambiguous. Growing it (more
+  languages, more classes, adversarial safe cases) directly improves the quality
+  signal, and pull requests that add labeled cases are among the most valuable
+  contributions to the project.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../trust/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Trust and limits">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Trust and limits
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../comparison/" class="md-footer__link md-footer__link--next" aria-label="Next: How Nephilex compares">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                How Nephilex compares
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nephilex, Apache-2.0. The command is <code>nephilex</code>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.footer", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

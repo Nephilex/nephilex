@@ -1,0 +1,2414 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nephilex, the open-source AI security engineer. Unified, explainable security analysis across code, dependencies, secrets, IaC, and AI, with verified fixes.">
+      
+      
+      
+        <link rel="canonical" href="https://nephilex.github.io/nephilex/trust/">
+      
+      
+        <link rel="prev" href="../performance/">
+      
+      
+        <link rel="next" href="../benchmarks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/nephilex-favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Trust and limits - Nephilex</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#trust-and-limits" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nephilex" class="md-header__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nephilex
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Trust and limits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nephilex" class="md-nav__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    Nephilex
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-finding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example finding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understanding-results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding scan results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence and grades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners & coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage & baselines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using in your pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using in your pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing SARIF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infrastructure-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure scanning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy as code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration drift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fixing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixing & pull requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editors & AI assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server (AI agents)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deeper
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deeper
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM / AI security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attack-simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attack simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust and limits
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust and limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-accuracy-is-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How accuracy is measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-a-finding-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking a finding yourself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-runs-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What runs where
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What runs where">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-live-target-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The --live-target checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-nephilex-does-not-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Nephilex does not do
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capability-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Capability matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies-and-supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies and supply chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-pipelines-and-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure, pipelines and agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-not-in-0110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned (not in 0.11.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-details-that-change-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install details that change coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-of-nephilex-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security of Nephilex itself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-nephilex-is-weaker-than-established-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where Nephilex is weaker than established tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks & accuracy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How Nephilex compares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-accuracy-is-measured" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How accuracy is measured
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-a-finding-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking a finding yourself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-runs-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What runs where
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What runs where">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-live-target-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The --live-target checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-nephilex-does-not-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Nephilex does not do
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capability-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capability matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Capability matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependencies-and-supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies and supply chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infrastructure-pipelines-and-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure, pipelines and agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planned-not-in-0110" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned (not in 0.11.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#report-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-details-that-change-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install details that change coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-of-nephilex-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security of Nephilex itself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-nephilex-is-weaker-than-established-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where Nephilex is weaker than established tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="trust-and-limits">Trust and limits<a class="headerlink" href="#trust-and-limits" title="Permanent link">&para;</a></h1>
+<p>This is the page to read before you rely on Nephilex. It covers how accuracy
+is measured, what Nephilex does on your machine and on the network, what each
+scanner covers and how deeply, and where established tools are stronger.</p>
+<p>Facts on this page were checked against Nephilex <strong>0.11.0</strong> on <strong>2026-10-23</strong>,
+by running the commands shown and reading the code in <code>src/nephilex/</code>.</p>
+<h2 id="how-accuracy-is-measured">How accuracy is measured<a class="headerlink" href="#how-accuracy-is-measured" title="Permanent link">&para;</a></h2>
+<p>Nephilex publishes five kinds of measurement, with methodology and caveats,
+on <a href="../benchmarks/">Benchmarks &amp; accuracy</a> and <a href="../llm-security/">LLM / AI security</a>:</p>
+<ol>
+<li><strong>A labeled corpus in the repository.</strong> Small single-file cases, each either
+   vulnerable (Nephilex must report it) or safe (Nephilex must stay quiet). It
+   runs offline with one command and fails CI on any regression. It is a
+   regression guard, not a measure of real-world accuracy.</li>
+<li><strong>Public labeled datasets.</strong> OWASP Benchmark for Python and SecurityEval,
+   scored for Nephilex, Bandit and Semgrep by the same code, with the dataset
+   commits, tool versions and every finding recorded so the scoring can be
+   re-run.</li>
+<li><strong>A held-out benchmark of real fix commits.</strong> 201 files from 117 GitHub
+   advisories (pip and npm, 2024 to 2026), each scanned before and after its
+   fix. The selection rule was committed before any tool ran, and no rule was
+   changed for it. This is the closest to real-world accuracy, and the result
+   is low for every tool: Nephilex 2.0% recall (4 of 201), Semgrep 2.0%, and
+   Bandit 10.2% on the Python cases. Each case is a single file, so flows that
+   cross files are invisible here.</li>
+<li><strong>An LLM and agent-security corpus</strong> of 38 vulnerable and safe pairs, with a
+   held-out split scored once after the rules were frozen: 64.3% recall and
+   69.2% precision on the held-out cases, against 100% on the cases the rules
+   were written for.</li>
+<li><strong>Finding inventories on reference apps</strong> (OWASP Juice Shop, DVWA, WebGoat):
+   counts by scanner and severity per release. These show coverage shape and
+   regressions; they are not precision or recall.</li>
+</ol>
+<p>The labeled corpus, run for this page:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>benchmarks/accuracy.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Nephilex, labeled-corpus accuracy
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>====================================================
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>NOTE: This is a small in-repo labeled corpus for regression detection only.
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      It is NOT a claim of real-world 100% accuracy on production codebases.
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>domain       recall   precision   vuln   safe-FP
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>----------------------------------------------------
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>iac           100%       100%      1         0
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>llm           100%       100%     17         0
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>mcp           100%       100%      7         0
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>sast          100%       100%      6         0
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>secrets       100%       100%      1         0
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>taint         100%       100%     11         0
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>----------------------------------------------------
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>OVERALL       100%       100%     43         0
+</code></pre></div>
+<p>Read the benchmark page before quoting any number. In short:</p>
+<ul>
+<li>The Python rules were revised with OWASP Benchmark for Python visible, so
+  that dataset is not an independent test. SecurityEval is closer to one, and
+  the held-out fix commits are closest; Nephilex's results drop sharply on
+  both. Quote the held-out number, not the OWASP one.</li>
+<li>The public datasets measure only the Python SAST and taint scanners. Every
+  case in the in-repo <code>sast</code> and <code>taint</code> domains is Python too. Nothing
+  published measures the JavaScript/TypeScript taint scanner, and the secrets,
+  IaC and agent-config domains have one to seven cases each.</li>
+<li>All runs use <code>--no-ai</code>, so AI enrichment is not measured.</li>
+</ul>
+<h2 id="checking-a-finding-yourself">Checking a finding yourself<a class="headerlink" href="#checking-a-finding-yourself" title="Permanent link">&para;</a></h2>
+<p>Each finding carries evidence: a grade (<code>confirmed</code>, <code>likely</code> or
+<code>possible</code>), the path from where the data comes from to where it is used when
+a taint engine recorded one, and a few steps to confirm or rule it out by
+reading the code. A grade describes the kind of proof behind one finding; it
+is not an accuracy figure and is not measured by the benchmarks above. See
+<a href="../evidence/">Evidence and grades</a>.</p>
+<h2 id="what-runs-where">What runs where<a class="headerlink" href="#what-runs-where" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>When</th>
+<th>What leaves your machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static analysis of files</td>
+<td>Every scan</td>
+<td>Nothing. Files are read locally.</td>
+</tr>
+<tr>
+<td>Dependency advisories (<a href="https://osv.dev">OSV</a>), EPSS and CISA KEV</td>
+<td>When a dependency manifest is found</td>
+<td>Package names, versions and CVE ids. Offline, the scan falls back to a small bundled advisory list and prints a warning.</td>
+</tr>
+<tr>
+<td><code>docker inspect</code> on base images named in Dockerfiles</td>
+<td>When Docker is installed</td>
+<td>Nothing; reads local image metadata.</td>
+</tr>
+<tr>
+<td>Live secret verification</td>
+<td>Only with <code>--verify-secrets</code>, local targets only</td>
+<td>The candidate credential, sent to its issuer (GitHub, Stripe, Slack, OpenAI, Google) in a read-only call.</td>
+</tr>
+<tr>
+<td>Live posture checks</td>
+<td>Only with <code>--live-target &lt;url&gt;</code></td>
+<td>Ordinary GET requests to that URL (below).</td>
+</tr>
+<tr>
+<td>AI enrichment</td>
+<td>Default provider <code>heuristic</code> is offline; <code>ollama</code> is local</td>
+<td>Code is sent only if you choose <code>anthropic</code> or <code>openai</code>. <code>--no-ai</code> turns enrichment off.</td>
+</tr>
+<tr>
+<td>Attack simulation (<code>--attack-sim</code>)</td>
+<td>Opt-in</td>
+<td>Nothing. Scenarios are written, never executed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="static-analysis">Static analysis<a class="headerlink" href="#static-analysis" title="Permanent link">&para;</a></h3>
+<p>By default Nephilex is a static analyzer. It reads source, manifests, lock
+files and configuration, and never runs the code it scans.</p>
+<h3 id="the-live-target-checks">The <code>--live-target</code> checks<a class="headerlink" href="#the-live-target-checks" title="Permanent link">&para;</a></h3>
+<p>With <code>--live-target https://app.example.com</code> (or the <code>NEPHILEX_DAST_URL</code>
+environment variable) Nephilex makes a small, fixed set of GET requests to a
+URL you are authorized to test, and reports:</p>
+<ul>
+<li>plain HTTP that does not redirect to HTTPS;</li>
+<li>missing security headers (HSTS, CSP, X-Frame-Options or <code>frame-ancestors</code>,
+  X-Content-Type-Options, Referrer-Policy, Permissions-Policy);</li>
+<li>cookies without Secure, HttpOnly or SameSite;</li>
+<li><code>Server</code> or <code>X-Powered-By</code> headers that disclose versions;</li>
+<li>eight well-known paths that should not be public, such as <code>/.env</code>,
+  <code>/.git/config</code> and <code>/actuator/env</code>;</li>
+<li><code>Access-Control-Allow-Origin: *</code>;</li>
+<li>whether a harmless marker string, placed in up to five of the URL's existing
+  query parameters, comes back in the response.</li>
+</ul>
+<p>Redirects are followed with SSRF checks, private and internal addresses are
+refused, response bodies are capped, and a URL set in the scanned project's own
+<code>.nephilex.yml</code> is ignored so a pull request cannot aim your CI runner at
+internal services. It does not inspect TLS certificates or protocol versions.
+This list was read from <code>src/nephilex/dynamic/posture.py</code> and
+<code>src/nephilex/scanners/dast.py</code>; it was not run against a live site for this
+page.</p>
+<h3 id="what-nephilex-does-not-do">What Nephilex does not do<a class="headerlink" href="#what-nephilex-does-not-do" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No crawling, no fuzzing, no attack payloads, no authenticated testing.</li>
+<li>No exploitation and no execution of generated exploit code.</li>
+<li>No assessment of running infrastructure: IaC and Kubernetes checks read
+  files, not a live cluster.</li>
+<li>No proof of correctness for fixes: "verified" means the rule no longer fires
+  on the rewritten line and the file still parses (see the
+  <a href="../example-finding/#verification-status">example finding</a>).</li>
+</ul>
+<h2 id="capability-matrix">Capability matrix<a class="headerlink" href="#capability-matrix" title="Permanent link">&para;</a></h2>
+<p>Built from <code>nephilex scanners</code>, <code>nephilex reporters</code> and the scanner modules in
+<code>src/nephilex/scanners/</code>.</p>
+<p><strong>Nephilex 0.11.0. Last verified 2026-10-23.</strong></p>
+<p>Analysis depth:</p>
+<ul>
+<li><strong>AST taint</strong>: parses the code with tree-sitter and follows untrusted values
+  into dangerous calls. Needs the <code>[ast]</code> extra.</li>
+<li><strong>Pattern</strong>: matches source lines against rules.</li>
+<li><strong>Configuration</strong>: reads structured files (YAML, JSON, HCL, manifests) and
+  checks settings.</li>
+<li><strong>Lookup</strong>: compares what the project declares against advisory or
+  known-bad lists.</li>
+</ul>
+<p>Status, as assessed for this page:</p>
+<ul>
+<li><strong>Stable</strong>: runs by default, its behaviour and limits are documented in
+  <a href="../scanners/">Scanners &amp; coverage</a>, and its accuracy is measured in the
+  labeled corpus or the public datasets, or its result is a deterministic
+  lookup.</li>
+<li><strong>Experimental</strong>: works and has tests, but no published accuracy
+  measurement, or the code describes it as a foundation or heuristic.</li>
+<li><strong>Planned</strong>: listed in the README roadmap as planned; not in 0.11.0.</li>
+</ul>
+<h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scanner</th>
+<th>Languages and files</th>
+<th>Depth</th>
+<th>Status</th>
+<th>Accuracy evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ast-python</code></td>
+<td>Python</td>
+<td>AST taint, flow-sensitive within a function</td>
+<td>Stable</td>
+<td>Corpus (11 taint cases), public Python datasets</td>
+</tr>
+<tr>
+<td><code>ast-python-xfile</code></td>
+<td>Python</td>
+<td>AST taint, one call hop across functions and files</td>
+<td>Stable</td>
+<td>Public Python datasets (default scanner set)</td>
+</tr>
+<tr>
+<td><code>ast-js</code></td>
+<td>JavaScript, TypeScript, TSX</td>
+<td>AST taint</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>patterns</code></td>
+<td>Mostly Python; also JavaScript/TypeScript, Go, HTML templates, and a few checks for any language</td>
+<td>Pattern; some Python rules graded by AST data flow when <code>[ast]</code> is installed</td>
+<td>Stable</td>
+<td>Corpus (6 SAST cases), public Python datasets</td>
+</tr>
+<tr>
+<td><code>lang-sast</code></td>
+<td>Java, PHP, Ruby, Rust, C, C++, Go, C#, Kotlin, Swift, shell, PowerShell</td>
+<td>Pattern, one or two rules per file type (22 in total)</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>llm</code></td>
+<td>Python and JavaScript/TypeScript files that use an LLM or agent library</td>
+<td>AST taint (with <code>[ast]</code>) and pattern</td>
+<td>Stable</td>
+<td>Corpus (17 LLM cases)</td>
+</tr>
+<tr>
+<td><code>malware</code></td>
+<td>Python, JavaScript/TypeScript, PHP, PowerShell, package scripts, any text</td>
+<td>Pattern</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>authz</code></td>
+<td>Python and JavaScript/TypeScript routes, JWT use, cookies</td>
+<td>Pattern heuristics ("foundation" in the code)</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>business-logic</code></td>
+<td>Python, JavaScript, TypeScript, Java, PHP, Ruby</td>
+<td>Pattern heuristics</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>secrets</code></td>
+<td>Any text file</td>
+<td>Pattern: 10 token signatures plus entropy; optional live verification and git-history scan</td>
+<td>Stable</td>
+<td>Corpus (1 case)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dependencies-and-supply-chain">Dependencies and supply chain<a class="headerlink" href="#dependencies-and-supply-chain" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scanner</th>
+<th>Ecosystems and files</th>
+<th>Depth</th>
+<th>Status</th>
+<th>Accuracy evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dependencies</code></td>
+<td>PyPI (<code>requirements.txt</code> pins, <code>poetry.lock</code>, <code>Pipfile.lock</code>), npm (<code>package.json</code>, <code>package-lock.json</code>, <code>yarn.lock</code>), Go (<code>go.mod</code>), crates.io (<code>Cargo.lock</code>), RubyGems (<code>Gemfile.lock</code>), Packagist (<code>composer.lock</code>)</td>
+<td>Lookup against OSV, plus EPSS and KEV</td>
+<td>Stable</td>
+<td>Deterministic lookup; bounded by OSV</td>
+</tr>
+<tr>
+<td>Import-level reachability (<code>--reachability</code>)</td>
+<td>Python, npm</td>
+<td>Heuristic: is the package imported</td>
+<td>Experimental (off by default; labeled experimental in the CLI)</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>supply-chain</code></td>
+<td>The same manifests</td>
+<td>Lookup (bundled known-malicious list) and heuristics (typosquats, npm install scripts)</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>dependency-diff</code></td>
+<td>Manifests changed in a <code>--diff</code> range</td>
+<td>Diff of versions</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td>SLSA / in-toto provenance files</td>
+<td>Configuration</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+</tbody>
+</table>
+<h3 id="infrastructure-pipelines-and-agents">Infrastructure, pipelines and agents<a class="headerlink" href="#infrastructure-pipelines-and-agents" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scanner</th>
+<th>Files</th>
+<th>Depth</th>
+<th>Status</th>
+<th>Accuracy evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>iac</code></td>
+<td>Dockerfile, Kubernetes manifests, Terraform</td>
+<td>Configuration, line rules (10 in total)</td>
+<td>Stable</td>
+<td>Corpus (1 case)</td>
+</tr>
+<tr>
+<td><code>container</code></td>
+<td>Docker Compose, Kubernetes manifests, Helm values, Dockerfile</td>
+<td>Configuration</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>container-image</code></td>
+<td>Local images named in <code>FROM</code> lines (runs <code>docker inspect</code>)</td>
+<td>Configuration of image metadata: root user, privileged mode, exposed ports</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>cloud</code></td>
+<td>Terraform and CloudFormation for AWS, Azure, GCP</td>
+<td>Configuration, pattern</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>cicd</code></td>
+<td>GitHub Actions, GitLab CI, Jenkinsfile, Bitbucket Pipelines, Azure Pipelines, CircleCI</td>
+<td>Configuration, pattern</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>api</code></td>
+<td>OpenAPI / Swagger specs</td>
+<td>Configuration</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>agent-config</code></td>
+<td>MCP and coding-agent config (<code>.mcp.json</code>, <code>.claude/settings.json</code>, <code>.cursor/mcp.json</code>, <code>.vscode/mcp.json</code>, and others)</td>
+<td>Configuration</td>
+<td>Stable</td>
+<td>Corpus (7 MCP cases)</td>
+</tr>
+<tr>
+<td><code>git-security</code></td>
+<td>The scanned folder's git history (only when the scan root holds <code>.git</code>)</td>
+<td>Git history</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+<tr>
+<td><code>dast</code></td>
+<td>A URL you pass with <code>--live-target</code></td>
+<td>Live, read-only GET requests</td>
+<td>Experimental</td>
+<td>None published</td>
+</tr>
+</tbody>
+</table>
+<p>Findings with the rule prefix <code>chains.</code> (for example
+<code>chains.secret-plus-injection</code>) are not a separate scanner: the engine adds
+them when findings from different scanners combine into a worse outcome.</p>
+<h3 id="planned-not-in-0110">Planned (not in 0.11.0)<a class="headerlink" href="#planned-not-in-0110" title="Permanent link">&para;</a></h3>
+<p>From the <a href="https://github.com/nephilex/nephilex#roadmap">README roadmap</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full dynamic analysis (DAST) beyond the posture checks</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>Multi-hop cross-file taint</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>AST analysis for more languages</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>Richer compliance rule packs</td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<h3 id="report-formats">Report formats<a class="headerlink" href="#report-formats" title="Permanent link">&para;</a></h3>
+<p><code>nephilex reporters</code> in 0.11.0:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extension</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>badge</code></td>
+<td>json</td>
+<td>shields.io endpoint JSON for a README security badge.</td>
+</tr>
+<tr>
+<td><code>csv</code></td>
+<td>csv</td>
+<td>Flat one-row-per-finding export for spreadsheets.</td>
+</tr>
+<tr>
+<td><code>gitlab</code></td>
+<td>json</td>
+<td>GitLab SAST report (schema 15.x) for GitLab CI security widgets.</td>
+</tr>
+<tr>
+<td><code>html</code></td>
+<td>html</td>
+<td>Self-contained styled HTML report.</td>
+</tr>
+<tr>
+<td><code>json</code></td>
+<td>json</td>
+<td>Full machine-readable scan result.</td>
+</tr>
+<tr>
+<td><code>junit</code></td>
+<td>xml</td>
+<td>JUnit XML format for CI test result integration.</td>
+</tr>
+<tr>
+<td><code>markdown</code></td>
+<td>md</td>
+<td>Human-readable Markdown report for PRs and issues.</td>
+</tr>
+<tr>
+<td><code>sarif</code></td>
+<td>sarif</td>
+<td>SARIF 2.1.0 for GitHub Code Scanning and enterprise platforms.</td>
+</tr>
+<tr>
+<td><code>vex</code></td>
+<td>json</td>
+<td>OpenVEX document: exploitability status of vulnerable dependencies.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-details-that-change-coverage">Install details that change coverage<a class="headerlink" href="#install-details-that-change-coverage" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The <code>[ast]</code> extra.</strong> Without it, <code>ast-python</code>, <code>ast-python-xfile</code> and
+  <code>ast-js</code> are skipped (the progress line says "not applicable"), the <code>llm</code>
+  scanner loses its data-flow rules, and pattern findings are not graded by
+  data flow. On the demo app that is 19 findings instead of 20; see
+  <a href="../quickstart/#common-problems">Common problems</a>.</li>
+<li><strong>The official GitHub Action</strong> installs <code>nephilex[ast]</code> (see <code>action.yml</code>),
+  so the taint scanners run in CI as they do locally. Releases up to 0.10.0
+  installed it without the extra, so pin a later version to get them.</li>
+</ul>
+<h2 id="security-of-nephilex-itself">Security of Nephilex itself<a class="headerlink" href="#security-of-nephilex-itself" title="Permanent link">&para;</a></h2>
+<p>A scanner reads hostile input by design. How Nephilex defends itself (remote
+clones, symlinks, parser limits, untrusted repository config, secret
+redaction, report escaping) and the residual risks are documented in:</p>
+<ul>
+<li><a href="../security/">Security &amp; threat model</a> and the full
+  <a href="https://github.com/nephilex/nephilex/blob/main/THREAT_MODEL.md">THREAT_MODEL.md</a></li>
+<li><a href="https://github.com/nephilex/nephilex/blob/main/SECURITY.md">SECURITY.md</a>: how to
+  report a vulnerability privately, and which versions get fixes (0.10.x only)</li>
+</ul>
+<h2 id="where-nephilex-is-weaker-than-established-tools">Where Nephilex is weaker than established tools<a class="headerlink" href="#where-nephilex-is-weaker-than-established-tools" title="Permanent link">&para;</a></h2>
+<p>Nephilex is early alpha. If one of these is your main need, use a specialist
+alongside it or instead of it (see also <a href="../comparison/">How Nephilex compares</a>):</p>
+<ul>
+<li><strong>SAST rule breadth.</strong> Outside Python, coverage is thin: <code>lang-sast</code> has one
+  or two regex rules per file type, and the pattern rules are mostly for
+  Python. Semgrep and CodeQL ship larger rule sets per language. In the
+  SecurityEval run published on 2026-10-22, Nephilex detected fewer CWE
+  classes than Bandit (see <a href="../benchmarks/">Benchmarks</a>).</li>
+<li><strong>Data-flow depth.</strong> Taint analysis covers Python and JavaScript/TypeScript
+  only, cross-file tracking is Python only and one call hop deep, and the
+  JavaScript/TypeScript tier has no published accuracy figures.</li>
+<li><strong>Secrets.</strong> Ten built-in token signatures plus entropy, and live
+  verification for five issuers. Dedicated secret scanners such as
+  GitGuardian and TruffleHog cover many more credential types.</li>
+<li><strong>Dependencies.</strong> Advisory coverage is whatever OSV has. There is no curated
+  vulnerability database, and reachability is an opt-in import check, not a
+  call graph.</li>
+<li><strong>Containers and IaC.</strong> No scanning of image layers or OS packages, and a
+  small IaC rule set. Trivy, Grype and dedicated IaC policy tools cover these
+  areas in more depth.</li>
+<li><strong>Dynamic testing.</strong> Only the read-only posture checks above. Use a DAST tool
+  such as OWASP ZAP for crawling and active testing.</li>
+<li><strong>Explanations without a model.</strong> With the offline provider, explanations
+  come from templates per rule or CWE. For dependency findings that text is
+  generic ("An attacker can use the public advisory/exploit for this known
+  vulnerability directly against the running application.").</li>
+<li><strong>Maturity.</strong> Version 0.x, one listed maintainer
+  (<a href="https://github.com/nephilex/nephilex/blob/main/MAINTAINERS.md">MAINTAINERS.md</a>),
+  and no enterprise features such as SSO or ticketing.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../performance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Performance">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Performance
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../benchmarks/" class="md-footer__link md-footer__link--next" aria-label="Next: Benchmarks &amp; accuracy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Benchmarks & accuracy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nephilex, Apache-2.0. The command is <code>nephilex</code>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.footer", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
