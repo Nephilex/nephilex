@@ -134,7 +134,7 @@ def allowed_chars(pattern: str, kind: str, flags: int = 0) -> frozenset[str] | N
     all_flags = flags | getattr(parsed.state, "flags", 0)
     if all_flags & re.MULTILINE and kind != "fullmatch":
         return None
-    items = list(parsed)
+    items = [parsed[i] for i in range(len(parsed))]
     extra: set[str] = set()
     if kind != "fullmatch":
         if not items:
