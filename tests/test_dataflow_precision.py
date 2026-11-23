@@ -640,3 +640,18 @@ def test_regex_allowlist_guard_clears_what_it_rules_out(tmp_path):
         + "    return '<b>' + v + '</b>'\n"
     )
     assert "ast-xss" not in _rules(tmp_path / "f", const)
+
+
+def test_sink_shape_rules_stay_quiet_on_validated_input(tmp_path):
+    # Input that passed an allowlist check is known, not "unknown" text.
+    for i, use in enumerate(("exec(str(v))", "return Markup(f'<b>{v}</b>')")):
+        code = (
+            FLASK
+            + "import re\nfrom markupsafe import Markup\n"
+            + "@app.route('/x', methods=['POST'])\ndef view():\n"
+            + "    v = request.args.get('v', '')\n"
+            + "    if not re.fullmatch('^(asc|desc)$', str(v)):\n        return 'no', 400\n"
+            + f"    {use}\n"
+        )
+        rules = _rules(tmp_path / str(i), code)
+        assert not rules & {"ast-dynamic-code", "ast-markup-interpolation", "ast-code-injection"}

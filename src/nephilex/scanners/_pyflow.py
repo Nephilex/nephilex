@@ -4050,6 +4050,7 @@ class Flow:
                 and fn in ("eval", "exec")
                 and code is not None
                 and not code.lit
+                and not code.taint  # input that a guard cleared is not "unknown"
                 and not self._is_code_object(c.pos_nodes[0] if c.pos_nodes else None)
                 and not self._is_bare_parameter(c.pos_nodes[0] if c.pos_nodes else None, code)
             ):
@@ -4083,6 +4084,7 @@ class Flow:
             last in MARKUP_FNS
             and c.pos
             and not self._report("ast-xss", c.node, [c.pos[0]])
+            and not c.pos[0].taint  # input that a guard cleared is not "unknown"
             and c.pos_nodes
             and self._unescaped_interpolation(c.pos_nodes[0])
         ):

@@ -21,13 +21,14 @@ from __future__ import annotations
 
 import re
 import string
+import sys
 from functools import lru_cache
 from typing import Any
 
-try:  # Python 3.11+
+if sys.version_info >= (3, 11):
     import re._parser as _sre_parse
-except ImportError:  # pragma: no cover - Python 3.10
-    import sre_parse as _sre_parse  # type: ignore[no-redef]
+else:  # pragma: no cover - Python 3.10
+    import sre_parse as _sre_parse
 
 _MAX_CHARS = 512
 _WORD = frozenset(string.ascii_letters + string.digits + "_")
