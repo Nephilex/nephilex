@@ -1056,8 +1056,11 @@ this set: each of the 327 misses was sorted by cause (source not modelled 75,
 existing check too weak 73, logic bug 58, flow spans files 53, not a code
 flaw in the changed file 39, sink not modelled 29), and rules were written
 only for shapes that generalize. Nephilex was re-run with `scan --set dev
---only nephilex` (Bandit and Semgrep results kept) on the source of the
-commit that adds this section; `benchmarks/results/dev/` holds the run.
+--only nephilex` (Bandit and Semgrep results kept) at commit
+`297e27a578cba80aafe145b04d1019b3e2fa6a97`, which also treats anchored
+regular-expression allowlists as validation; `benchmarks/results/dev/` holds
+the run. A run before the allowlist change gave the same result for every
+case, so the allowlists removed no detection here.
 
 | Subset | Cases | Before | After |
 | --- | --- | --- | --- |
