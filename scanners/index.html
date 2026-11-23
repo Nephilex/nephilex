@@ -1,0 +1,2660 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Nephilex, the open-source AI security engineer. Unified, explainable security analysis across code, dependencies, secrets, IaC, and AI, with verified fixes.">
+      
+      
+      
+        <link rel="canonical" href="https://nephilex.github.io/nephilex/scanners/">
+      
+      
+        <link rel="prev" href="../evidence/">
+      
+      
+        <link rel="next" href="../configuration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/brand/nephilex-favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Scanners & coverage - Nephilex</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scanners-coverage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nephilex" class="md-header__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nephilex
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scanners & coverage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nephilex" class="md-nav__button md-logo" aria-label="Nephilex" data-md-component="logo">
+      
+  <img src="../assets/brand/nephilex-mark.svg" alt="logo">
+
+    </a>
+    Nephilex
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nephilex/nephilex" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    nephilex/nephilex
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-finding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Example finding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understanding-results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding scan results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence and grades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners & coverage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scanners & coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-sca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies (SCA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supply chain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sast-pattern-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SAST (pattern rules)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taint-data-flow-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taint / data-flow (AST)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Taint / data-flow (AST)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#library-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Library mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure as Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-ai-application-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM / AI application security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-session-authz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication and session (authz)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#malicious-code-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Malicious code (malware)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent config
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage & baselines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using in your pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Using in your pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../importing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importing SARIF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../infrastructure-scanning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure scanning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy as code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration drift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fixing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixing & pull requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editors & AI assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP server (AI agents)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deeper
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deeper
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM / AI security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attack-simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attack simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Trust
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trust and limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks & accuracy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How Nephilex compares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security & threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-sca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies (SCA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supply chain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sast-pattern-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SAST (pattern rules)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taint-data-flow-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taint / data-flow (AST)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Taint / data-flow (AST)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#library-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Library mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-as-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure as Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-ai-application-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM / AI application security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-session-authz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication and session (authz)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#malicious-code-malware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Malicious code (malware)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent config
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="scanners-coverage">Scanners &amp; coverage<a class="headerlink" href="#scanners-coverage" title="Permanent link">&para;</a></h1>
+<p>Nephilex runs a set of scanners over one project view in a single pass. They share a
+severity model and a report, so you get one prioritized list, not six. Run
+<code>nephilex scanners</code> to see which are active in your install.</p>
+<p>Each scanner below lists what it detects, what it deliberately does not, and its
+current limitations. Stating the limits is intentional: it is how you know where
+to still apply human review.</p>
+<h2 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Hardcoded credentials by signature (cloud keys, tokens, private
+keys) and by entropy, with common false positives (placeholders, sample values)
+filtered out. Optional live verification (<code>--verify-secrets</code>) checks whether a
+found credential is still active, using read-only endpoints.</p>
+<p><strong>Does not.</strong> Scan git history by default (working tree only), and never stores or
+prints a full secret: values are redacted to a short prefix plus length
+everywhere.</p>
+<p><strong>Git history (opt-in).</strong> Pass <code>--secrets-history</code> to also scan every commit for
+secrets that were committed and later deleted, the most dangerous case, since a
+credential removed from the current files is still recoverable from history. Each
+history finding says plainly: rotate it, deleting it from history is not enough.
+Needs a local git repository with full history.</p>
+<p><strong>Limits.</strong> Entropy detection trades recall for low noise. The history scan reads
+a bounded amount of diff text (and says so if it truncates on a very large repo).</p>
+<h2 id="dependencies-sca">Dependencies (SCA)<a class="headerlink" href="#dependencies-sca" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Known-vulnerable dependencies using live <a href="https://osv.dev">OSV</a>
+data, including transitive packages resolved from lockfiles across PyPI, npm, Go,
+Rust, Ruby, and PHP. With <code>--reachability</code> (experimental, off by default), a CVE
+in a Python or npm package your code never imports is marked lower priority. A
+release that OSV lists as malware (a <code>MAL-</code> record) is not a vulnerable
+dependency: it is reported as a known malicious package (see
+<a href="#supply-chain">Supply chain</a>).</p>
+<p><strong>Prioritizes with exploit signals.</strong> Each CVE finding is enriched, best-effort,
+with two free feeds: <strong>EPSS</strong> (FIRST.org, the probability the CVE is exploited in
+the wild) and the <strong>CISA KEV</strong> catalog (confirmed exploited in the wild). KEV
+membership raises a finding's likelihood so "reachable + KEV + high EPSS" sorts to
+the top, without ever changing the severity your <code>--fail-on</code> gate depends on.
+Disable with <code>exploit_signals: false</code> under the <code>dependencies</code> scanner options.</p>
+<p><strong>Machine-readable exploitability (VEX).</strong> Export an OpenVEX document with
+<code>nephilex scan ... -f vex</code>. CVEs are <code>affected</code> with the fix. When the scan ran with
+<code>--reachability</code>, a CVE in a package your code never imports is <code>not_affected</code>
+with the standard <code>vulnerable_code_not_in_execute_path</code> justification; without it,
+every CVE is <code>affected</code>. It pairs with an SBOM for the exposure story enterprises
+increasingly request.</p>
+<p><strong>Does not.</strong> Prove exploitability. Reachability is an import-level heuristic, not
+a call-graph proof, and EPSS is a probability, not a guarantee.</p>
+<p><strong>Limits.</strong> Coverage is bounded by OSV. Network access is required to refresh
+advisories and exploit signals; results are cached on disk with a TTL and degrade
+cleanly offline (a missing feed simply means no enrichment, never a failed scan).
+Only package names, versions, and CVE ids ever leave your machine.</p>
+<h2 id="supply-chain">Supply chain<a class="headerlink" href="#supply-chain" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Dependencies that are dangerous independently of published CVEs:
+known-malicious packages, typosquats of popular names, and suspicious npm
+lifecycle scripts (<code>preinstall</code> / <code>postinstall</code> that run a shell, download code,
+or read credentials). The malicious-package intelligence is a list bundled with
+Nephilex. No remote feed is fetched by default; to merge your own list, set
+<code>NEPHILEX_INTEL_FEED</code> to one or more comma-separated HTTPS URLs serving a JSON
+file in the bundled format. Fresh known malware for pinned dependencies comes
+from OSV, described next.</p>
+<p><strong>Known malware from OSV.</strong> OSV also serves the OpenSSF malicious-packages
+records (<code>MAL-</code> ids; GitHub's malware advisories are aliases of them). The
+OpenSSF repository has no single file per ecosystem to download, so those
+records reach Nephilex through the OSV query the dependency scanner makes for
+every pinned dependency, in every ecosystem. A malware record is reported as
+<code>supply-chain.known-malicious</code>: <strong>Critical</strong>, high confidence, CWE-506, "Known
+malicious package", with the advice to remove the package (no version is safe)
+and, if it was ever installed, to treat that environment as compromised and
+rotate its credentials. It never says "upgrade to a patched version", and CVE
+advisories for the same release are not listed next to it. When the supply-chain
+intelligence and OSV both know the package, the scan keeps one finding (the one
+that names the advisory) and records the other scanner on it.</p>
+<p><strong>Typosquats.</strong> A name one edit away from a popular package is reported, unless
+the name is itself a popular or well-known package (<code>preact</code> next to <code>react</code>,
+<code>pipx</code> next to <code>pip</code>).</p>
+<p><strong>Version-aware malicious matching.</strong> A package name on the malicious list is
+only flagged at the versions that were actually compromised. The intel stores,
+per package, the affected versions as an exact list (OSV <code>affected[].versions</code>)
+and as <code>[introduced, fixed)</code> ranges (OSV <code>affected[].ranges</code>), compared with the
+right grammar per ecosystem: PEP 440 for PyPI and SemVer for npm and the others.</p>
+<ul>
+<li>When the installed version is in the affected set, the finding is <strong>Critical</strong>,
+  high confidence, and names the affected versions.</li>
+<li>When the installed version is pinned and outside the affected set, nothing is
+  reported. For example the npm <code>coa</code> compromise (Nov 2021) affects versions
+  <code>2.0.3, 2.0.4, 2.1.1, 2.1.3, 3.0.1, 3.1.3</code>, so a project pinned to the clean
+  <code>coa 2.0.2</code> is no longer flagged.</li>
+<li>When the installed version cannot be confirmed (unpinned, a range or wildcard
+  spec, or unparseable), the name match is still reported, but as "version
+  unconfirmed" at <strong>low confidence</strong>, with text saying only some versions are
+  affected and that the version could not be confirmed.</li>
+</ul>
+<p>An intel entry with no version information keeps the original behaviour and
+matches every version. This is the safe default for name-only seed entries and
+for any feed record whose affected versions could not be parsed.</p>
+<p><strong>Does not.</strong> Decide that a name-only entry is safe at some version: with no
+per-version intel, every version is treated as affected.</p>
+<p><strong>Limits.</strong> Version comparison covers the exact-version and introduced/fixed
+shapes the feeds emit, not the full SemVer range grammar (<code>^</code>, <code>~</code>, <code>||</code>). A
+package.json range spec (<code>^2.0.0</code>, <code>2.x</code>, <code>*</code>, <code>latest</code>) has no single resolved
+version without a lockfile, so a malicious name pinned to a range is reported as
+version-unconfirmed rather than resolved or dropped; when a lockfile pins the
+same package, that exact version is used instead. Set <code>online_intel: false</code>
+under the <code>supply-chain</code> scanner options to use only the bundled seed.</p>
+<h2 id="sast-pattern-rules">SAST (pattern rules)<a class="headerlink" href="#sast-pattern-rules" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Dangerous code patterns across many languages: <code>shell=True</code>,
+<code>os.system</code> on dynamic input, unsafe <code>yaml.load</code>, weak hashing (including
+<code>hashlib.new("md5")</code>), insecure deserialization, <code>Markup()</code>/<code>mark_safe()</code> on a
+formatted string, <code>|safe</code> and <code>{% autoescape false %}</code> in templates, lxml
+<code>resolve_entities=True</code>, and more, each with a CWE mapping and a concrete fix.</p>
+<p><strong>Graded by data flow (Python).</strong> When the <code>ast</code> extra is installed, a few rules
+ask the data-flow engine what the payload is before reporting:</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Payload built only from literals</th>
+<th>Unknown origin</th>
+<th>Request data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python-shell-true</code>, <code>python-os-system</code></td>
+<td>not reported</td>
+<td>reported (medium confidence)</td>
+<td>reported; the taint tier adds a high-confidence finding</td>
+</tr>
+<tr>
+<td><code>python-pickle-loads</code></td>
+<td>not reported</td>
+<td>reported (low confidence)</td>
+<td>reported; the taint tier adds a high-confidence finding</td>
+</tr>
+<tr>
+<td><code>python-yaml-load</code> (unsafe loader)</td>
+<td>reported, low severity and confidence</td>
+<td>reported as before</td>
+<td>reported, high confidence</td>
+</tr>
+</tbody>
+</table>
+<p>"Built only from literals" includes values that passed a numeric conversion
+(<code>int()</code>), an allowlist check, or a module-level constant bound once. The
+finding's <code>metadata.dataflow</code> records the verdict. An unsafe YAML loader is
+always reported because it is wrong even when today's input is constant.</p>
+<p><strong>Weak hashes.</strong> <code>weak-hash-md5-sha1</code> is not reported when the call passes
+<code>usedforsecurity=False</code> (Python 3.9+), even when the call spans several lines.
+A hash that is evidently a checksum, ETag or cache key (the assigned variable
+or the enclosing function is named <code>etag</code>, <code>checksum</code>, <code>fingerprint</code>,
+<code>cache...</code>, <code>digest</code>, <code>content_hash</code> and the like) and that names no password,
+secret, token, signature, salt, session or HMAC is reported at <strong>low</strong>
+severity and confidence with <code>metadata.hash_purpose: checksum</code>: a collision
+there lets two inputs share a key, it does not forge a credential. Everything
+else, password hashing included, keeps medium severity and the KDF guidance
+(bcrypt, scrypt or Argon2 for passwords, SHA-256 or better for integrity).</p>
+<p><strong>Does not.</strong> Follow data across functions and files on its own (that is the
+taint tier below). Flag every dynamic call, on purpose, to stay low-noise.</p>
+<p><strong>Limits.</strong> Pattern rules are precise but shallow. Long lines are scanned in
+bounded, overlapping windows so a regex never sees more than 2000 characters at
+once. Findings carry 1-based <code>start_column</code>/<code>end_column</code> (end exclusive, SARIF
+style) and the source line with its indentation as the snippet.</p>
+<h2 id="taint-data-flow-ast">Taint / data-flow (AST)<a class="headerlink" href="#taint-data-flow-ast" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Untrusted input flowing into a dangerous sink across function and
+file boundaries (injection, SSRF, path traversal, command execution), using
+tree-sitter for Python and JavaScript/TypeScript.</p>
+<p><strong>Does not.</strong> Cover every language at this depth. Requires the <code>ast</code> extra
+(<code>pip install "nephilex[ast]"</code>); without it, Nephilex falls back to the
+lightweight-taint code scanner and says so.</p>
+<p><strong>Python sinks and rule ids</strong> (<code>ast-python.*</code>, and <code>ast-python-xfile.*</code> when the
+source or the sink is in another file):</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>CWE</th>
+<th>Sink</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ast-sql-injection</code></td>
+<td>89</td>
+<td><code>execute()</code>/<code>executemany()</code> query argument</td>
+</tr>
+<tr>
+<td><code>ast-sql-string-building</code></td>
+<td>89</td>
+<td>query built with <code>%</code>, <code>+</code>, <code>.format()</code> or an f-string from a function parameter (low confidence, no traced source)</td>
+</tr>
+<tr>
+<td><code>ast-command-injection</code></td>
+<td>78</td>
+<td>with a shell (<code>shell=True</code>, <code>os.system</code>, <code>os.popen</code>, <code>subprocess.getoutput</code>): any tainted part of the command. Without one (an argv list, <code>os.exec*</code>, <code>os.spawn*</code>, <code>pty.spawn</code>): only a tainted program (argv[0]) or the code after an interpreter option such as <code>-c</code>, <code>-e</code>, <code>/c</code>, <code>-Command</code></td>
+</tr>
+<tr>
+<td><code>ast-path-traversal</code></td>
+<td>22</td>
+<td><code>open</code>, <code>io.open</code>, <code>codecs.open</code>, <code>aiofiles.open</code>, <code>os</code>/<code>shutil</code> file operations, <code>send_file</code>, Starlette/FastAPI <code>FileResponse</code>, the directory of <code>send_from_directory</code>, file methods on a <code>pathlib.Path</code> built from the value (<code>Path(x)</code>, <code>base / x</code>, <code>base / f"{x}.txt"</code>), and <code>read_text</code>/<code>write_text</code>/<code>read_bytes</code>/<code>write_bytes</code> on any tainted path</td>
+</tr>
+<tr>
+<td><code>ast-archive-extraction</code></td>
+<td>22</td>
+<td><code>TarFile.extractall()</code>/<code>extract()</code> and <code>shutil.unpack_archive()</code> on an archive from input, without <code>filter=</code> (or with <code>filter="fully_trusted"</code>) and without <code>members=</code></td>
+</tr>
+<tr>
+<td><code>ast-code-injection</code></td>
+<td>95</td>
+<td><code>eval</code>, <code>exec</code>, <code>compile</code> (its source argument)</td>
+</tr>
+<tr>
+<td><code>ast-template-injection</code></td>
+<td>1336, 94</td>
+<td>template source from input: Flask <code>render_template_string</code>, <code>jinja2.Template</code>, Mako <code>Template</code>, <code>Environment().from_string()</code> (a <code>SandboxedEnvironment</code> / <code>ImmutableSandboxedEnvironment</code> is not reported)</td>
+</tr>
+<tr>
+<td><code>ast-unsafe-deserialization</code></td>
+<td>502</td>
+<td><code>pickle</code>/<code>dill</code>/<code>marshal</code> loads, <code>yaml.load</code> without a safe loader, <code>yaml.unsafe_load</code></td>
+</tr>
+<tr>
+<td><code>ast-xss</code></td>
+<td>79</td>
+<td>value returned from a Flask/Bottle view (<code>@app.route</code>, or <code>@app.get</code> in a Flask file) or a FastAPI route declared with <code>response_class=HTMLResponse</code>, <code>Markup()</code>, <code>mark_safe()</code>, Django <code>HttpResponse</code>, Starlette <code>HTMLResponse</code></td>
+</tr>
+<tr>
+<td><code>ast-jinja-autoescape-off</code></td>
+<td>79</td>
+<td>a Jinja2 <code>Environment</code>/<code>SandboxedEnvironment</code>/<code>Template</code> created with <code>autoescape=False</code> (no source needed)</td>
+</tr>
+<tr>
+<td><code>ast-ssrf</code></td>
+<td>918</td>
+<td>URL of <code>requests.*</code>, <code>httpx.*</code>, <code>urllib.request.urlopen</code>, <code>urllib3.request</code>, <code>aiohttp.request</code>, and the request methods of <code>requests.Session</code>, <code>httpx.Client</code>/<code>AsyncClient</code>, <code>aiohttp.ClientSession</code>, <code>urllib3.PoolManager</code> and <code>build_opener()</code> objects</td>
+</tr>
+<tr>
+<td><code>ast-open-redirect</code></td>
+<td>601</td>
+<td><code>redirect()</code>, <code>HttpResponseRedirect</code>, <code>RedirectResponse</code>, <code>headers["Location"] = ...</code></td>
+</tr>
+<tr>
+<td><code>ast-xxe</code></td>
+<td>611</td>
+<td>XML parse of the value with a parser that has external entities enabled (<code>setFeature(feature_external_ges, True)</code>, lxml <code>resolve_entities=True</code>)</td>
+</tr>
+<tr>
+<td><code>ast-ldap-injection</code></td>
+<td>90</td>
+<td>ldap3 <code>search()</code> base/filter, python-ldap <code>search_s()</code> (only in files importing ldap/ldap3)</td>
+</tr>
+<tr>
+<td><code>ast-xpath-injection</code></td>
+<td>643</td>
+<td>lxml <code>xpath()</code>/<code>XPath()</code>, <code>elementpath.select()</code>, ElementTree <code>find*()</code> in XML files</td>
+</tr>
+<tr>
+<td><code>ast-trust-boundary</code></td>
+<td>501</td>
+<td>request data written into <code>session[...]</code> (key or value)</td>
+</tr>
+<tr>
+<td><code>ast-weak-random</code></td>
+<td>330, 338</td>
+<td>a <code>random</code> module value (not <code>SystemRandom</code>) stored as a token, password, salt, nonce, session or cookie value, or returned from a function named like one</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sources.</strong> Request data (<code>request.args</code>, <code>.form</code>, <code>.json</code>, <code>.files</code>,
+<code>.headers</code>, <code>.cookies</code>, <code>.GET</code>, <code>.POST</code>, <code>.match_info</code> and the rest of the
+Flask, Django, aiohttp and Starlette request attributes), and parameters the
+web framework fills from the request: Flask route converters (<code>&lt;name&gt;</code>,
+<code>&lt;path:name&gt;</code>; not <code>int</code>, <code>float</code>, <code>uuid</code> or <code>any</code>), FastAPI parameters with a
+<code>Query()</code>, <code>Path()</code>, <code>Body()</code>, <code>Form()</code>, <code>File()</code>, <code>Header()</code> or <code>Cookie()</code>
+default or <code>Annotated[...]</code> metadata (the marker must come from <code>fastapi</code>:
+<code>Path(".")</code> from <code>pathlib</code> is a file path, and an <code>Annotated[...]</code> type alone
+is not request input), every parameter of a FastAPI path operation
+(<code>@app.get(...)</code>) except <code>Depends()</code> dependencies and numeric, boolean, UUID
+and date annotations,
+<code>UploadFile</code> uploads (<code>f.filename</code>, <code>await f.read()</code>), and any parameter
+annotated as the request object (<code>Request</code>, <code>HttpRequest</code>, <code>WebSocket</code>), whose
+<code>query_params</code>, <code>headers</code>, <code>cookies</code>, <code>url</code>, <code>json()</code>, <code>form()</code> and <code>body()</code> are
+sources. Member names read from a zip or tar archive (<code>namelist()</code>,
+<code>getnames()</code>, <code>ZipInfo.filename</code>, <code>TarInfo.name</code>/<code>linkname</code>) are sources for
+path traversal ("zip slip"), reported at medium confidence with the tag
+<code>archive-entry</code>. <code>sys.argv</code>, <code>os.environ</code> and <code>input()</code> are controlled by
+whoever runs the program. A finding whose only source is one of them
+(directly or through a same-file helper that reads them) is reported at low
+confidence with the tag <code>operator-input</code> (it matters when another program
+passes untrusted data through the command line or the environment). For SSRF
+and open redirect such a value is not reported at all: a server URL taken from
+an environment variable is the operator configuring the program.</p>
+<p>The parameters of a Typer or Click command are not taint sources. A command is
+a function with a Typer or Click decorator (<code>@app.command()</code>,
+<code>@app.callback()</code>, <code>@click.command()</code>, <code>@click.group()</code>, <code>@click.argument()</code>,
+<code>@click.option()</code>), one registered as <code>app.command(...)(func)</code> or
+<code>typer.run(func)</code>, or one with a parameter declared as <code>typer.Argument()</code> or
+<code>typer.Option()</code> (as the default or inside <code>Annotated[...]</code>). Passing a path
+or a command to a command-line tool is what the tool is for, and the person
+running it already controls the machine, so reporting these parameters would
+flag nearly every command-line tool.</p>
+<p><strong>How values are tracked.</strong> The engine is flow-sensitive within a function:
+<code>if</code>/<code>elif</code>/<code>else</code>, <code>match</code>, loops and <code>try</code> are analyzed per branch and joined,
+so <code>if not p: p = ""</code> keeps the taint of the other branch. Conditions that fold
+to a constant (<code>if 7 * 18 + num &gt; 200</code>, a <code>match</code> on a constant) prune the dead
+branch. Literal dicts, lists (<code>append</code>, <code>pop</code>, indexing) and <code>configparser</code>
+objects are tracked per key, so storing request data under one key does not
+taint a read of another. A method returns request data when it reads the
+request (<code>return self.request.form.get(name)</code>); calling it on an object built
+from the request (<code>Wrapper(request).get_form_parameter("q")</code>) is a source, in
+the same file (<code>ast-python</code>) or across files (<code>ast-python-xfile</code>). A nested
+function (a callback, a generator) sees the variables of the function it is
+defined in. A call to a helper defined once in the same file (<code>helper(x)</code>, or
+<code>self.helper(x)</code> for a method) is analyzed through a summary of the helper's
+body instead of assuming the result carries every argument's taint: what it
+returns when its parameters are tainted (a sanitizing helper returns a clean
+value; one that ignores its argument returns clean data), and which classes it
+validates a parameter for when it raises, or returns a boolean, unless the
+value passed a check. <code>validate(x)</code> on its own line, or <code>if not
+is_safe(x): return</code>, then clears <code>x</code> for those classes. Summaries are computed
+on demand, bounded in depth (two helpers deep) and in work, and generators are
+not summarized.</p>
+<p>Helpers imported from another file of the same project are summarized the
+same way, in the file that defines them and with the caller's settings
+(project context, sources). What crosses files:</p>
+<ul>
+<li>module functions imported with <code>from pkg.mod import f</code>, <code>from .mod import f</code>
+  (relative), <code>from pkg.mod import f as g</code>, <code>import pkg.mod</code> then
+  <code>pkg.mod.f(x)</code>, and <code>import pkg.mod as m</code> then <code>m.f(x)</code>;</li>
+<li>a name re-exported by a package's <code>__init__.py</code> (<code>from pkg import f</code> where
+  <code>pkg/__init__.py</code> has <code>from .impl import f</code>), one re-export deep;</li>
+<li>static and class methods called on an imported class (<code>Paths.clean(x)</code>), and
+  methods called on a module-level instance (<code>service = Service()</code> in the
+  helper's module, or in the caller's module for an imported class).</li>
+</ul>
+<p>Module names come from file paths and package roots (directories with an
+<code>__init__.py</code>), so <code>src/</code> layouts and directories without an <code>__init__.py</code>
+resolve too. What does not cross files: methods called on any other receiver
+(an object passed in, <code>self</code> inherited from a base class in another file),
+star imports, a name that two modules could provide (two top-level <code>utils.py</code>
+files that the importing file's location does not tell apart), a name the
+importing file also defines itself, and anything outside the scanned project
+(installed packages stay opaque). A chain of summaries crosses at most two
+file boundaries; past that the call is opaque and its result keeps the
+arguments' taint. Each file is parsed once per scan and each helper is
+summarized once per scan and settings. When an imported helper passes taint
+on, the finding's evidence shows the call with the file and line where the
+helper is defined. A validation done by every caller of a function (rather
+than inside a helper it calls) is not modeled. A record looked up by a key (Django <code>Model.objects.get()</code> /
+<code>filter()</code>, <code>Model.query.get()</code>, SQLAlchemy <code>session.get(Model, key)</code> and
+<code>session.query(...)</code>, <code>get_object_or_404</code>, and methods named by the
+repository convention <code>get_..._by_id</code> / <code>find_by_...</code>) is stored data, not
+the key's text, so a request key does not taint it (stored, second-order
+flows are not modeled). Objects created by a known constructor at module level
+(<code>env = Environment()</code>, <code>http = requests.Session()</code>) are recognized inside
+functions.</p>
+<p><strong>Guards and sanitizers.</strong> CWE-specific sanitizers clear a value only for their
+class: HTML escaping (<code>html.escape</code>, <code>markupsafe.escape</code>, any <code>*escape*</code>,
+Django <code>format_html</code>) for XSS, <code>escape_filter_chars</code> for LDAP. Numeric
+conversion, <code>secure_filename</code>, <code>basename</code>, <code>safe_join</code>, <code>shlex.quote</code>, <code>quote</code>
+and <code>url_for</code> clear every class. A block that returns or raises when a check
+fails refines the value after it, for checks that are complete mitigations: an
+allowlist membership test (<code>x not in (...)</code>), <code>x.isdigit()</code> or
+<code>isinstance(x, (int, float))</code> clears everything; a host allowlist on the parsed
+URL (<code>urlparse(u).hostname in ALLOWED</code>, <code>== "api.example.com"</code>,
+<code>.endswith(".example.com")</code>) clears open redirect and SSRF; a helper that
+rejects a URL by the class of address it resolves to (<code>ipaddress</code> /
+<code>netaddr</code> <code>is_private</code>, <code>is_loopback</code>, <code>is_link_local</code>, <code>is_reserved</code>,
+<code>is_global</code>) clears SSRF; and a resolved path (<code>resolve()</code>,
+<code>os.path.realpath</code>, <code>abspath</code>, <code>normpath</code>) checked with <code>startswith</code>,
+<code>is_relative_to</code>, <code>os.path.commonpath([base, p]) == base</code>, or an <code>or</code> of such
+checks, clears path traversal. <code>send_from_directory</code> is safe for its file
+name (Flask joins it with <code>werkzeug.security.safe_join</code>). A tar extraction
+with <code>filter="data"</code>, <code>"tar"</code>, <code>tarfile.data_filter</code>, a filter of the
+program's own, or an explicit <code>members=</code> list is not reported. Flask's
+<code>render_template</code> and <code>render_template_string</code>, Starlette's
+<code>TemplateResponse</code> and Django's <code>render()</code> autoescape their variables.
+Blocklist checks (<code>'../' in p</code>, "contains no quote") are deliberately not
+trusted: an absolute path or another quoting style gets past them.
+<code>request.path</code> is not a source inside a view whose routes have no
+<code>&lt;converters&gt;</code>, because routing already fixed it. A known gap: a
+<code>startswith(base)</code> check whose base does not end in a separator is accepted,
+though <code>/srv/data_evil</code> passes <code>startswith("/srv/data")</code>.</p>
+<h3 id="library-mode">Library mode<a class="headerlink" href="#library-mode" title="Permanent link">&para;</a></h3>
+<p>In an application the attacker's input arrives through a request, the command
+line or the environment. In a library it arrives as an argument of a public
+function, and many advisories are in libraries. In library mode the
+parameters of public functions and methods are sources:</p>
+<ul>
+<li><strong>When.</strong> <code>library_mode: auto</code> (the default) turns it on for a project with
+  a package manifest (<code>pyproject.toml</code>, <code>setup.py</code> or <code>setup.cfg</code> at the scan
+  root) and no web application entry point Nephilex recognizes: a call to
+  <code>Flask()</code>, <code>Quart()</code>, <code>FastAPI()</code>, <code>Starlette()</code>, <code>Sanic()</code>, <code>Bottle()</code>,
+  <code>Litestar()</code>, <code>FastMCP()</code>, aiohttp or tornado <code>Application()</code>,
+  <code>falcon.App()</code>, <code>uvicorn.run()</code>, <code>waitress.serve()</code>,
+  <code>get_wsgi_application()</code>, <code>get_asgi_application()</code> or
+  <code>execute_from_command_line()</code> outside test, documentation and example
+  directories (found with Python's own parser, so a name in a docstring does
+  not count). <code>on</code> and <code>off</code> override the detection; see
+  <a href="../configuration/">Configuration</a>. The decision and its reason are in the
+  JSON report under <code>project_summary.library_mode</code>.</li>
+<li><strong>Which parameters.</strong> Those of functions and methods that are not
+  underscore-prefixed (dunder methods such as <code>__init__</code> count), in classes
+  that are not underscore-prefixed, listed in <code>__all__</code> when the module defines
+  one, in modules outside underscore-prefixed packages and outside tests,
+  docs, examples, <code>setup.py</code> and <code>__main__.py</code>. Nested functions are not public
+  but see their enclosing function's parameters. Parameters annotated as
+  numbers, booleans, UUIDs or dates are not sources.</li>
+<li><strong>What is reported.</strong> A public function that hands its own argument to
+  <code>open()</code>, <code>eval()</code>, <code>subprocess.run()</code> or <code>Markup()</code> usually does so by design:
+  that is its API. The injection advisories describe the library placing the
+  caller's value inside a path, command, query, page or expression it builds
+  itself, or treating a field of caller data as code. So a flow whose only
+  source is a public parameter is reported when the value is embedded after
+  content the library chose (<code>os.path.join(ROOT, name)</code>, <code>"ping " + host</code>,
+  <code>f'&lt;td class="{value}"&gt;'</code>, <code>"[" + data + "]"</code>, <code>root / f"{item.name}.txt"</code>)
+  for path traversal, command, SQL, LDAP, XPath and XSS sinks (including a
+  public function that returns HTML built around its argument), when it is
+  embedded or is a field of caller data (<code>eval(data["type"])</code>) for code and
+  template injection, when it is a field of caller data for deserialization,
+  and in any form for tar extraction without a filter. Argv-list commands
+  without a shell are not reported from public parameters. SSRF, open
+  redirect, session and XML parser sinks are never reported from public
+  parameters: fetching, redirecting to or parsing what the caller passes is
+  what such APIs are for.</li>
+<li><strong>How it is reported.</strong> Same rule ids and CWEs, confidence <strong>low</strong>, tags
+  <code>public-api</code> and <code>library-mode</code>, <code>metadata.source: public-api</code> and
+  <code>metadata.public_function</code> (for example <code>Field.from_dict</code>), and a
+  description saying the value comes from a caller of that public function.
+  A request-derived flow to the same sink takes precedence.</li>
+<li><strong>Gate.</strong> Library-mode findings do <strong>not</strong> count toward <code>--fail-on</code> /
+  <code>fail_on</code> (or the editor hook's blocking threshold); they are still reported
+  and still filtered by <code>min_severity</code>. Whether they are exploitable depends
+  on how code outside the project calls the API, which the scan cannot see,
+  and turning library mode on (or <code>auto</code> deciding it) must not start failing CI
+  for code nobody changed. Gate on them with a policy or review them as a
+  report.</li>
+</ul>
+<p><strong>JavaScript/TypeScript sinks and rule ids</strong> (<code>ast-js.*</code>, for <code>.js</code>, <code>.jsx</code>,
+<code>.mjs</code>, <code>.cjs</code>, <code>.ts</code>, <code>.mts</code>, <code>.cts</code> and <code>.tsx</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>CWE</th>
+<th>Sink</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ast-command-injection</code></td>
+<td>78</td>
+<td><code>child_process</code> <code>exec</code>/<code>execSync</code>, <code>spawn</code>/<code>execFile</code> with <code>shell: true</code> or running <code>sh -c</code>/<code>cmd /c</code>/<code>powershell -Command</code>, shelljs <code>exec</code>, execa <code>execaCommand</code>; <code>promisify(exec)</code> and <code>require('child_process').exec</code> bindings are resolved</td>
+</tr>
+<tr>
+<td><code>ast-code-injection</code></td>
+<td>95</td>
+<td><code>eval</code> (also <code>window.eval</code>, <code>window['eval']</code>), the <code>Function</code> constructor, <code>vm.runInThisContext</code>/<code>runInNewContext</code>/<code>runInContext</code>/<code>compileFunction</code>, <code>new vm.Script</code>, <code>setTimeout</code>/<code>setInterval</code> with a string</td>
+</tr>
+<tr>
+<td><code>ast-path-traversal</code></td>
+<td>22</td>
+<td><code>fs</code>, <code>fs/promises</code> and <code>fs-extra</code> file operations (read, write, open, stream, mkdir, rm, rename, copy), <code>res.sendFile</code>/<code>res.download</code> without a <code>root</code> option, <code>express.static</code>/<code>serve-static</code> roots</td>
+</tr>
+<tr>
+<td><code>ast-path-prefix-check</code></td>
+<td>22</td>
+<td>a resolved path checked with <code>startsWith(baseDir)</code> where the base has no trailing separator, so a sibling directory passes (no traced source)</td>
+</tr>
+<tr>
+<td><code>ast-ssrf</code></td>
+<td>918</td>
+<td><code>fetch</code>, <code>$fetch</code>, <code>node-fetch</code>, <code>undici</code>, <code>axios</code>/<code>got</code>/<code>superagent</code>/<code>needle</code>/<code>ky</code> calls and their <code>url</code>/<code>baseURL</code>/<code>host</code> options, <code>http(s).get</code>/<code>request</code></td>
+</tr>
+<tr>
+<td><code>ast-xss</code></td>
+<td>79</td>
+<td><code>innerHTML</code>/<code>outerHTML</code>/<code>srcdoc</code> assignment, <code>document.write</code>, <code>insertAdjacentHTML</code>, <code>createContextualFragment</code>, JSX <code>dangerouslySetInnerHTML</code>, jQuery <code>$(html)</code>/<code>.html()</code>, <code>setAttribute('on*')</code>, Angular <code>bypassSecurityTrust*</code>, Lit <code>unsafeHTML</code>, Handlebars <code>SafeString</code>; on the server Express <code>res.send</code> of a string, <code>res.end</code>/<code>res.write</code>/<code>reply.send</code> with markup or a <code>text/html</code> type, Koa <code>ctx.body</code>, Hono <code>c.html</code></td>
+</tr>
+<tr>
+<td><code>ast-template-autoescape-off</code></td>
+<td>79</td>
+<td>Nunjucks <code>configure</code>/<code>Environment</code> with <code>autoescape: false</code>, Handlebars <code>compile</code> with <code>noEscape: true</code> (configuration, no traced source)</td>
+</tr>
+<tr>
+<td><code>ast-open-redirect</code></td>
+<td>601</td>
+<td><code>.redirect()</code> on a response or context (Express, Koa, Fastify, <code>NextResponse</code>), <code>redirect()</code> from <code>next/navigation</code> or React Router, a <code>Location</code> header, <code>location.href</code>/<code>window.location</code> assignment, <code>location.assign</code>/<code>replace</code>, <code>window.open</code></td>
+</tr>
+<tr>
+<td><code>ast-template-injection</code></td>
+<td>1336</td>
+<td>the template text of <code>ejs.render</code>/<code>compile</code>, <code>pug.render</code>/<code>compile</code>, <code>Handlebars.compile</code>, <code>nunjucks.renderString</code>, <code>_.template</code></td>
+</tr>
+<tr>
+<td><code>ast-sql-injection</code></td>
+<td>89</td>
+<td>the query text of <code>.query()</code>, <code>.execute()</code>, <code>.raw()</code>, <code>$queryRawUnsafe</code>/<code>$executeRawUnsafe</code>, <code>prepare()</code> on a database object; bound parameters and <code>sql</code>-tagged templates are not flagged</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JS/TS sources.</strong> Server request input: <code>req</code>/<code>request</code> <code>.query</code>, <code>.body</code>,
+<code>.params</code>, <code>.headers</code>, <code>.cookies</code>, <code>.url</code>, <code>.originalUrl</code>, <code>.path</code>, <code>.files</code>
+(not the upload fields the server generates, such as <code>path</code> and
+<code>tempFilePath</code>), <code>req.get()</code>/<code>req.header()</code>; Koa <code>ctx.query</code>, <code>ctx.params</code>,
+<code>ctx.request.*</code>, <code>ctx.get()</code>; Next.js <code>request.nextUrl.searchParams</code>, <code>await
+request.json()</code>/<code>formData()</code>/<code>text()</code> and the <code>searchParams</code> page prop; h3/Nuxt
+<code>getQuery</code>, <code>readBody</code>, <code>getRouterParam</code>, <code>getRequestURL</code>, <code>getHeader</code>; Hono
+<code>c.req.*</code>. Browser input (<code>location.*</code>, <code>document.URL</code>, <code>document.referrer</code>,
+<code>document.cookie</code>, <code>window.name</code>, <code>postMessage</code> event data, <code>useSearchParams</code>)
+is reported at HTML, redirect and code sinks only. Archive entry names
+(tar-stream, yauzl and unzipper <code>on('entry')</code>, adm-zip <code>getEntries()</code>) are
+reported at file sinks (zip slip). <code>process.env</code> and <code>process.argv</code> are
+reported at SQL sinks only.</p>
+<p><strong>JS/TS library parameters.</strong> A function parameter that is concatenated or
+interpolated into a shell command or an <code>eval</code>/<code>vm</code> string together with
+literal text (<code>exec('ping ' + host)</code>) is reported at medium confidence, because
+whoever calls the function with user input gets the injection. Passing a
+parameter through unchanged (<code>exec(cmd)</code>), parameters named like a command or
+code (<code>cmd</code>, <code>command</code>, <code>script</code>, <code>code</code>), parameters typed <code>number</code> or
+<code>boolean</code>, and the <code>Function</code> constructor (how template engines compile) are
+not reported. When the command is built in one function and run by a helper
+defined in the same file, the finding is shown at the call into the helper.</p>
+<p><strong>How JS/TS values are tracked.</strong> One walk per file in statement order:
+assignments, destructuring with defaults, template literals, <code>+</code> chains,
+<code>join</code>/<code>concat</code>/<code>replace</code>, <code>await</code>, optional chaining, TypeScript <code>as</code>/<code>!</code>/
+<code>satisfies</code>, <code>for...of</code>, array callbacks (<code>forEach</code>, <code>map</code>, <code>then</code>), closures
+(nested functions see their enclosing scope) and calls to functions and <code>this</code>
+methods defined once in the file (followed with the caller's argument taint).
+Object literals, spreads and <code>Object.assign</code>/<code>$.extend</code> keep a taint per field,
+so <code>{ label: 'x', target: req.query.t }.label</code> is clean. A file system, HTTP or
+<code>exec</code> call returns fresh data, not its argument.</p>
+<p><strong>JS/TS guards and sanitizers.</strong> Sanitizers clear only their class: HTML
+escapers (<code>escape-html</code>, <code>he</code>, DOMPurify, <code>sanitize-html</code>, <code>xss</code>, any
+<code>*escape*</code>/<code>*sanitize*</code> name) for XSS, <code>shell-quote</code> and <code>*shellEscape*</code> names
+for commands, <code>path.basename</code> and <code>sanitize-filename</code> for paths, <code>jsesc</code>,
+<code>serialize-javascript</code>, <code>devalue</code> and <code>JSON.stringify</code> for code,
+<code>encodeURIComponent</code> for XSS, SSRF, redirects and commands, and numeric
+coercion for everything. <code>htmlSafe()</code> is not a sanitizer (it marks HTML as
+trusted). A block that returns or throws when a check fails clears the value
+after it: allowlist membership (<code>includes</code>, <code>has</code>, <code>in</code>, <code>Object.hasOwn</code>),
+equality with a literal, an anchored regex test, a predicate named like a
+validator (<code>isValid*</code>, <code>isAllowed*</code>, <code>isSafe*</code>, <code>isPathInside</code>) or a blocklist
+(<code>isPrivate*</code>, <code>isBlocked*</code>), a URL host compared with an allowlist or with the
+request's own host, a resolved path checked with <code>startsWith(base + path.sep)</code>
+or <code>path.relative(base, p)</code> against <code>..</code>, and a regex <code>replace</code> that removes
+everything outside a character class. <code>p.slice(0, base.length) === base</code> (or
+<code>substring</code>/<code>substr</code> with the same arguments) is the same test as
+<code>p.startsWith(base)</code>; it is trusted only when <code>base</code> ends with a separator
+(<code>base + path.sep</code>, or <code>path.join(dir, '/')</code>, which keeps the trailing slash),
+since otherwise a sibling such as <code>/srv/www-evil</code> passes a check for
+<code>/srv/www</code>. A check of a path also covers a value built from it with a literal
+suffix that has no separator and is not only dots (<code>`${file}.gz`</code>), even
+when that value was built before the check. A statement call such as
+<code>assertValidRegion(r)</code> or <code>validateName(n)</code> is taken to throw and clears its
+argument. <code>path.join(root, path.normalize('/' + p))</code> stays under <code>root</code>. Host
+pinned URLs (<code>`https://api.example.com/${id}`</code>) and relative URLs are not
+SSRF or open redirect. String blocklists (<code>p.includes('..')</code>) are not trusted.
+Express's <code>res.send</code> of a string is HTML unless the handler sets another
+content type.</p>
+<p><strong>JS/TS test and example code.</strong> Findings in test files (<code>test/</code>, <code>tests/</code>,
+<code>__tests__/</code>, <code>spec/</code>, <code>fixtures/</code>) and in example or demo code (<code>example/</code>,
+<code>examples/</code>, <code>sample/</code>, <code>samples/</code>, <code>demo/</code>, <code>demos/</code>) are still reported, one
+severity step lower and at low confidence, tagged <code>test-context</code> or
+<code>example-context</code>. Such code is not part of what a package runs, but readers
+copy examples, so the finding is kept.</p>
+<p><strong>Limits.</strong> Strongest for Python and JS/TS. Interprocedural analysis is bounded
+(one call hop across files, plus request wrappers and helper summaries that
+cross at most two files); extremely dynamic code can defeat static tracing. Guards are
+recognized only in the simple forms above. Option injection into an argv list
+(CWE-88) is not reported. A file that needs more than a fixed amount of
+analysis work, or nests statements deeper than 60 levels, falls back to a
+conservative flat scan or is reported as skipped.</p>
+<h2 id="infrastructure-as-code">Infrastructure as Code<a class="headerlink" href="#infrastructure-as-code" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Misconfiguration in Dockerfiles, Terraform, and Kubernetes
+manifests: running as root, privileged containers, exposed services, weak
+defaults.</p>
+<p><strong>Does not.</strong> Assess a live cluster (that is the commercial <code>nephilex-k8s</code> add-on).</p>
+<p><strong>Limits.</strong> Static file analysis only; it evaluates the declared config, not the
+running state.</p>
+<h2 id="llm-ai-application-security">LLM / AI application security<a class="headerlink" href="#llm-ai-application-security" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> The OWASP Top 10 for LLM Apps: insecure model-output handling,
+prompt injection, secrets in prompts, over-privileged agent tools, and unsafe
+model loading. See <a href="../llm-security/">LLM / AI security</a>.</p>
+<p><strong>Does not.</strong> Test a deployed model or run prompts against it.</p>
+<p><strong>Limits.</strong> A newer domain; rules are evolving. This is the area under the most
+active development.</p>
+<h2 id="authentication-and-session-authz">Authentication and session (authz)<a class="headerlink" href="#authentication-and-session-authz" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Sensitive routes without an auth decorator, object-id routes with
+no visible ownership check, weak JWT validation, OAuth callbacks without
+state/PKCE, tokens in URLs, and cookies set without security flags:
+<code>set_cookie(...)</code> with <code>secure=False</code> or without <code>secure=True</code> is
+<code>authz.insecure-session-cookie</code> (CWE-614), and without <code>httponly=True</code> is
+<code>authz.cookie-missing-httponly</code> (CWE-1004). The call is read across lines; an
+explicit <code>False</code> is high confidence, a missing flag medium.</p>
+<p><strong>Global authentication.</strong> Before reporting <code>authz.missing-authentication</code>, the
+scanner looks for authentication registered once for the whole application:</p>
+<ul>
+<li>FastAPI and Starlette: an <code>@app.middleware("http")</code> function; a class passed to
+  <code>app.add_middleware(...)</code> or <code>FastAPI(middleware=[Middleware(...)])</code> whose
+  <code>dispatch</code> or <code>__call__</code> does the check; <code>FastAPI(dependencies=[...])</code>; and
+  <code>include_router(router, dependencies=[...])</code>, which covers only the routes of
+  that router's module. <code>APIRouter(dependencies=[...])</code> already covered the
+  routes in its own file.</li>
+<li>Flask: <code>@app.before_request</code> (or <code>app.before_request(func)</code>) for the whole app,
+  <code>@blueprint.before_request</code> for that blueprint's routes, and
+  <code>before_app_request</code>.</li>
+<li>Django: <code>LoginRequiredMiddleware</code> or a project middleware in <code>MIDDLEWARE</code>
+  whose <code>__call__</code>, <code>process_request</code> or <code>process_view</code> does the check. A route
+  marked <code>@login_not_required</code> stays reported. <code>@login_required</code> and the
+  <code>LoginRequiredMixin</code>, <code>PermissionRequiredMixin</code> and <code>UserPassesTestMixin</code>
+  classes count as route-level auth.</li>
+</ul>
+<p>A middleware or hook counts only if it reads a credential (an <code>Authorization</code>,
+API-key or token header, a cookie, the session, <code>request.user</code>, or a call such
+as <code>verify_token()</code> or <code>compare_digest()</code>) and, when that check fails, returns
+or raises 401 or 403 (<code>abort(401)</code>, <code>HTTPException(status_code=401)</code>,
+<code>HttpResponseForbidden</code>, <code>PermissionDenied</code>). A middleware that only logs, adds
+headers, applies CORS or rate-limits is not authentication. Dependencies count
+when their callable is named like authentication (<code>get_current_user</code>,
+<code>verify_api_key</code>) or is a function that does the check; <code>Depends(get_db)</code> does
+not.</p>
+<p>Path exemptions are read from the guard: <code>if request.url.path == "/health"</code>,
+<code>in PUBLIC_PATHS</code> (a literal or a module constant), <code>.startswith(...)</code>, and
+Flask <code>request.endpoint in (...)</code>. A route the guard skips is reported as
+before.</p>
+<p>Method conditions are read the same way. A guard such as
+<code>if request.method != "GET" and not key: return 401</code>, or a check nested under
+<code>if request.method in ("POST", "PUT"):</code>, covers only the methods it checks, so
+a <code>GET</code> route under a writes-only guard stays High while a <code>PUT</code> route is
+covered. <code>==</code>, <code>!=</code>, <code>in</code> and <code>not in</code> against literal methods, tuples or
+constants are read on <code>request.method</code>, <code>scope["method"]</code> and
+<code>scope.get("method")</code>. The route's method comes from the decorator
+(<code>@router.put</code>) or Flask's <code>methods=[...]</code> (default <code>GET</code>); implicit <code>HEAD</code> and
+<code>OPTIONS</code> are not counted, so a CORS preflight bypass still covers the route.
+A method test that also requires the credential
+(<code>if request.method == "GET" and token_ok: ...</code>) is part of the check, not a
+skip.</p>
+<p>If a path or method condition cannot be read (for example a function call), the
+guard covers nothing. With more than one FastAPI or Flask application in the
+project, an app-wide guard covers only the routes in its own file.</p>
+<p>A covered route is not dropped. It is reported at Info as "Sensitive route
+relies on global authentication", naming the guard in <code>metadata.global_auth</code>,
+so the assumption that the route is mounted behind that guard stays visible
+without failing a gate.</p>
+<p>A guard that fails open still counts, but the note says so. If the guard, or a
+helper its check calls, lets every request through when the expected
+credential is not configured (<code>if not API_TOKEN: return await call_next(...)</code>,
+<code>if not settings.token: return True</code>) or when an auth switch is set
+(<code>os.environ.get("AUTH_DISABLED")</code>), the description says the guard allows all
+requests when the credential is not configured, and
+<code>metadata.global_auth.fails_open</code> is <code>true</code>.</p>
+<p><strong>Does not.</strong> Judge a flag set from configuration (<code>secure=app.config[...]</code>), or
+know whether a cookie is a session cookie. Follow which application a router is
+finally mounted on when there are several, or treat a redirect to a login page
+as a rejection (only 401 and 403 are).</p>
+<h2 id="malicious-code-malware">Malicious code (malware)<a class="headerlink" href="#malicious-code-malware" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Shapes that point at a backdoor, a malicious package or a
+compromised repository. Two layers work together.</p>
+<p><em>Behaviour of Python code</em>, read from the syntax tree (the standard library
+parser, so it needs no optional extra):</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>What it reports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>malware.obfuscated-exec</code></td>
+<td><code>exec</code>, <code>eval</code> or <code>compile</code> of decoded data (base64, base85, ascii85, zlib and other decompressors, <code>marshal.loads</code>, <code>codecs</code> rot13, <code>bytes.fromhex</code>, character-code joins, reversed strings), or a builtin reached through <code>getattr</code>, <code>__import__</code>, a builtins dictionary or a computed name</td>
+</tr>
+<tr>
+<td><code>malware.download-exec</code></td>
+<td>Downloaded content passed to <code>exec</code> or run as a process (the command itself, or what an interpreter is given), and a downloaded file that is then run</td>
+</tr>
+<tr>
+<td><code>malware.credential-exfil</code></td>
+<td>The environment (a copy or dump of <code>os.environ</code>) or a credential file (<code>~/.ssh</code> keys, <code>~/.aws</code>, <code>~/.npmrc</code>, <code>~/.pypirc</code>, <code>.netrc</code>, browser profiles and wallets) reaching an HTTP body, a socket send or a DNS name</td>
+</tr>
+<tr>
+<td><code>malware.host-beacon</code></td>
+<td>The host or user name sent over the network</td>
+</tr>
+<tr>
+<td><code>malware.lolbin-launch</code></td>
+<td>A process launch of a Windows system binary that fetches or runs remote code (<code>regsvr32</code> with <code>/i:</code> and a URL, <code>mshta</code>, <code>rundll32</code> with <code>javascript:</code>, <code>certutil -urlcache</code>, <code>bitsadmin /transfer</code>, encoded PowerShell, a download handed to <code>iex</code>)</td>
+</tr>
+<tr>
+<td><code>malware.python-backdoor-import</code></td>
+<td>A process launch reached through <code>__import__</code>, <code>getattr</code> or a computed name</td>
+</tr>
+<tr>
+<td><code>malware.python-reverse-shell</code></td>
+<td>A socket wired to a shell process</td>
+</tr>
+<tr>
+<td><code>malware.install-hook</code></td>
+<td>Other code that runs at install time (see below) and uses the network, runs processes or writes to start-up locations</td>
+</tr>
+<tr>
+<td><code>malware.import-time-code</code></td>
+<td>Other top-level code in a package <code>__init__.py</code>, or code in a <code>.pth</code> file, that uses the network or runs processes or code</td>
+</tr>
+</tbody>
+</table>
+<p><em>Text rules</em> for every file type: reverse shells, PHP webshells, cryptominers,
+remote scripts piped to a shell or interpreter, encoded PowerShell and download
+cradles, Windows living-off-the-land launches, credential or environment
+exfiltration with <code>curl</code> or <code>wget</code>, and suspicious npm lifecycle scripts.</p>
+<p><strong>When code runs decides the severity.</strong> Code in <code>setup.py</code> and in setuptools or
+distutils command classes (<code>install</code>, <code>develop</code>, <code>egg_info</code>, <code>build_py</code>,
+<code>build_ext</code> and the others) runs when pip installs or builds the package; a <code>.pth</code>
+file runs at every Python start; the top level of a package <code>__init__.py</code> runs on
+import. A function called from there runs then too. Values are followed through
+assignments in a function and through calls to functions in the same file
+(return values and parameters).</p>
+<ul>
+<li>A combination that only malware needs (downloaded code executed, credentials
+  or the environment sent out, a living-off-the-land launch, obfuscated
+  execution) is <strong>High</strong>, and <strong>Critical</strong> with high confidence when it runs at
+  install, start-up or import time. Obfuscated execution is always Critical.</li>
+<li>The host or user name sent out is Critical at install time, High at import
+  time and Medium with low confidence otherwise (telemetry does this too).</li>
+<li>A single weak signal at install time is Low (a subprocess in a build step) or
+  Medium (a download); persistence writes (shell start-up files, autostart, cron,
+  <code>.pth</code>) are High.</li>
+<li>A text-rule match inside a process or exec call that runs at install or
+  start-up time is raised to Critical, and to at least High at import time.</li>
+</ul>
+<p>For npm, the JavaScript that a lifecycle script runs (<code>node &lt;file&gt;</code> in
+<code>preinstall</code>, <code>install</code>, <code>postinstall</code> or <code>prepare</code>) and the package's <code>main</code>
+entry are checked for the same combinations: a download plus <code>eval</code>,
+<code>new Function</code> or <code>vm</code>, and the environment or credential files plus a send.
+They are Critical when npm runs them on install and High when the package loads.</p>
+<p><strong>Noise control.</strong> A malware alarm has to be believable, so:</p>
+<ul>
+<li>Documentation and package metadata are not scanned: README, CHANGELOG,
+  CONTRIBUTING, LICENSE and similar names, <code>*.md</code>, <code>*.rst</code>, <code>*.txt</code> and other
+  text formats, <code>PKG-INFO</code> and <code>METADATA</code>, and HTML pages under <code>docs/</code> or
+  <code>site/</code>. They describe commands; they do not run them.</li>
+<li>In Python, docstrings, comments and regular-expression literals (arguments to
+  <code>re</code> functions, and strings that are clearly regex syntax) are not read by the
+  text rules, so a security tool's own detection patterns are not reported.</li>
+<li>Test files are reported at Low with low confidence (<code>conftest.py</code> and
+  <code>setup.py</code> excepted: tools run them on their own). So are matches in the rule,
+  signature and attack-corpus files of security tools (directories or files
+  named <code>rules</code>, <code>signatures</code>, <code>patterns</code>, <code>corpus</code>, <code>payloads</code>, <code>probes</code> and
+  similar) and lines that are regular expressions.</li>
+<li>A remote script piped to a shell is not reported when every URL is a well-known
+  installer (uv and ruff from astral.sh, rustup, nvm, Homebrew, bun, deno, pnpm,
+  Poetry, pyenv, SDKMAN, the Docker convenience script, NodeSource, the Google
+  Cloud SDK, pixi, mise, starship, Scoop, Chocolatey). Another fixed HTTPS host
+  is Medium; plain HTTP, an IP address or a variable destination is High. Text
+  without any URL, host or variable ("download and run, curl ... sh") is prose.</li>
+<li>Encoded PowerShell needs the PowerShell command word or the full
+  <code>-EncodedCommand</code> flag, so <code>pip install -e &lt;path&gt;</code> and <code>docker run -e VAR=...</code>
+  are not reported.</li>
+<li>A cryptominer needs a real indicator: the stratum protocol, a known miner
+  binary (<code>xmrig</code> and others), <code>--donate-level</code>, a browser-mining library or a
+  known mining-pool host. The word "miner" or "monero" is not enough.</li>
+<li>A reverse shell needs an interactive shell wired to the socket. A shell
+  script probing a port through <code>/dev/tcp</code> is not one.</li>
+<li><code>malware.suspicious-postinstall</code> reads only the <code>scripts</code> of a <code>package.json</code>;
+  an <code>install</code> key in another JSON file is not an npm lifecycle script.</li>
+</ul>
+<p><code>malware.data-exfil-env</code> needs evidence that data leaves the host. A <code>curl</code> or
+<code>wget</code> command is read word by word and reported when one of these holds:</p>
+<ul>
+<li>a data or upload flag (<code>-d</code>, <code>--data*</code>, <code>--json</code>, <code>-F</code>, <code>--form</code>, <code>-T</code>,
+  <code>--upload-file</code>, wget <code>--post-data</code>, <code>--post-file</code>, <code>--body-data</code>,
+  <code>--body-file</code>) carries a secret-named variable (<code>$NPM_TOKEN</code>,
+  <code>${AWS_SECRET_ACCESS_KEY}</code>, <code>%DB_PASSWORD%</code>, <code>process.env.API_KEY</code>), the
+  whole environment (<code>$(env)</code>, <code>printenv</code>, <code>/proc/*/environ</code>) or a credential
+  file (<code>~/.aws</code>, <code>~/.ssh</code>, <code>.env</code>, <code>id_rsa</code>, <code>/etc/shadow</code>);</li>
+<li><code>env</code> or <code>printenv</code> is piped into the command, a credential file is piped or
+  redirected into it, or a secret is piped in and read with <code>@-</code>;</li>
+<li>a secret-named variable or the environment appears in the URL, a header
+  (<code>-H</code>, <code>--header</code>), <code>-u</code>/<code>--user</code> or <code>--cookie</code>, except for the
+  authenticated API call described below.</li>
+</ul>
+<p>A command continued over several lines with a trailing <code>\</code> is read as one
+command.</p>
+<p>A variable counts as a secret when its name contains a word such as <code>TOKEN</code>,
+<code>SECRET</code>, <code>PASSWORD</code>, <code>PASS</code>, <code>KEY</code>, <code>AUTH</code>, <code>SESSION</code> or <code>COOKIE</code>, and does not
+end in <code>URL</code>, <code>HOST</code>, <code>PORT</code>, <code>NAME</code> or similar; a key that names a record
+(<code>ISSUE_KEY</code>, <code>CACHE_KEY</code>, <code>PRIMARY_KEY</code>) is not a secret. The Python form still
+reports <code>requests</code>, <code>httpx</code> or <code>urllib</code> calls on a literal URL with <code>os.environ</code>,
+<code>getenv</code> or <code>process.env</code> in the arguments.</p>
+<p>The grade follows what is sent. The environment, a credential file or a secret
+in the request body is <strong>High</strong>. A secret in the URL or in a header that is not a
+credential header is <strong>Medium</strong>, or Low when every destination is a fixed HTTPS
+host. A credential header sent to a literal plain-HTTP or public IP destination
+is Medium; sent to a destination held in a variable, which is how scripts and
+API documentation call their own services, it is Info. A credential file only
+counts when it is uploaded (<code>-d @file</code>, <code>-F field=@file</code>, <code>-T file</code>, a command
+substitution), not when its path is plain text in a query.</p>
+<p><strong>Does not.</strong> Report a request that sends nothing: a readiness loop such as
+<code>curl --fail --max-time 15 "$url" &gt;/dev/null</code>, <code>wget --spider "$READY_URL"</code> or a
+download to <code>-o "$OUT_DIR/file"</code> is not exfiltration however many variables it
+uses.</p>
+<p>It also does not report an authenticated API call: a secret in a credential
+header (<code>Authorization</code>, <code>Cookie</code>, <code>PRIVATE-TOKEN</code>, or a name containing
+<code>token</code>, <code>api-key</code>, <code>auth</code>, <code>secret</code> or <code>session</code>), in <code>-u</code>/<code>--user</code>, or in
+<code>--oauth2-bearer</code>, when every destination is an <code>https://</code> URL whose host is
+written literally, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$GITHUB_TOKEN</span><span class="s2">"</span><span class="w"> </span>https://api.github.com/user
+</code></pre></div>
+<p>Variables later in the path or query are fine.
+The same header is reported (graded as above) when the destination comes from a
+variable, uses plain <code>http://</code>, has an IP-literal host, or when the request also
+has a data or upload flag carrying a secret or the environment.</p>
+<p><strong>Limits.</strong> The behaviour analysis follows values inside one file only, and
+over-approximates within a function (it does not track the order of
+statements). Python files the running interpreter cannot parse (Python 2, or
+syntax newer than the interpreter) and files over 1 MB fall back to the text
+rules. For npm, only the files a lifecycle script runs with <code>node</code> and the
+<code>main</code> entry are checked, by text, so a payload split across modules or loaded
+dynamically is not followed. In the shell form, a command assembled in a
+variable or through a function, or a secret copied into a neutrally named
+variable first, is not followed. A credential header sent to a literal <code>https://</code>
+host the attacker controls is not reported; the scanner cannot tell the intended
+service from another host. The well-known installer list is fixed; a vendor's
+own installer on another HTTPS host is reported at Medium.</p>
+<h2 id="agent-config">Agent config<a class="headerlink" href="#agent-config" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Risky settings in MCP server and coding-agent configuration files
+that a teammate or CI agent runs simply by opening the project (<code>.mcp.json</code>,
+<code>.claude/settings.json</code>, <code>.cursor/mcp.json</code>, <code>.vscode/mcp.json</code>,
+<code>claude_desktop_config.json</code>, Windsurf <code>mcp_config.json</code>, Cline, Roo Code and
+Gemini CLI settings):</p>
+<ul>
+<li><code>mcp-hardcoded-secret</code> (OWASP LLM02): a literal credential in a server's
+  <code>env</code>, <code>headers</code> or <code>args</code> instead of a variable reference. Uses the secrets
+  scanner's signatures; the value is redacted.</li>
+<li><code>mcp-unpinned-package</code> (LLM03): a server started with <code>npx</code>, <code>bunx</code>,
+  <code>pnpm dlx</code>, <code>uvx</code>, <code>pipx run</code> or <code>docker run</code> on a package or image without a
+  pinned version.</li>
+<li><code>mcp-plaintext-http</code> (LLM03): a remote server reached over plain <code>http://</code>
+  (loopback excepted).</li>
+<li><code>mcp-broad-filesystem-root</code> (LLM06): a filesystem server or
+  <code>additionalDirectories</code> entry granted <code>/</code>, a drive root or a home directory.</li>
+<li><code>agent-auto-approve</code> (LLM06): tools that run without confirmation (Cline
+  <code>autoApprove</code>, Roo Code <code>alwaysAllow</code>, Gemini CLI <code>trust: true</code>, Claude Code
+  <code>enableAllProjectMcpServers</code>, a bare <code>Bash</code> allow rule, <code>bypassPermissions</code>).</li>
+</ul>
+<p><strong>Does not.</strong> Start or contact the configured servers, or judge what a pinned
+package actually does.</p>
+<p><strong>Limits.</strong> Only the documented file names and keys are read; a client with a
+different layout is not covered until it is added.</p>
+<h2 id="custom-rules">Custom rules<a class="headerlink" href="#custom-rules" title="Permanent link">&para;</a></h2>
+<p><strong>Detects.</strong> Whatever you define. Drop YAML rules in <code>.nephilex/rules/*.yml</code> or point
+Nephilex at a rules file; no code needed. See <a href="../plugins/">Writing plugins</a>.</p>
+<p><strong>Limits.</strong> Custom rules loaded from a scanned repository are ignored for remote
+targets by default, so an untrusted repo cannot define rules that reconfigure the
+scanner.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../evidence/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Evidence and grades">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Evidence and grades
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../configuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Configuration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Nephilex, Apache-2.0. The command is <code>nephilex</code>.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.footer", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

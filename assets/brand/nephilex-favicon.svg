@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Nephilex">
+  <title>Nephilex</title>
+  <rect width="64" height="64" rx="14.1" fill="#0E1726"/>
+  <polygon points="36.65,19.81 43.23,26.39 43.23,35.69 36.65,42.27 27.35,42.27 20.77,35.69 20.77,26.39 27.35,19.81" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="41.31,8.57 54.47,21.73 54.47,40.35 41.31,53.51 22.69,53.51 9.53,40.35 9.53,21.73 22.69,8.57" fill="none" stroke="#E3A63B" stroke-width="3.84" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="41.31" y2="8.57" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="54.47" y2="40.35" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="41.31" y2="53.51" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="22.69" y2="53.51" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="9.53" y2="40.35" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="9.53" y2="21.73" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="22.69" y2="8.57" stroke="#E3A63B" stroke-width="3.20" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="32.00" y1="31.04" x2="54.47" y2="21.73" stroke="#3CC8C0" stroke-width="5.12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32.00" cy="31.04" r="10.34" fill="none" stroke="#3CC8C0" stroke-width="3.84"/>
+  <circle cx="43.23" cy="26.39" r="3.37" fill="#3CC8C0"/>
+  <circle cx="32.00" cy="31.04" r="5.44" fill="#E3A63B"/>
+</svg>

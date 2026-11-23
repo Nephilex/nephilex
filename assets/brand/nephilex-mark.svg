@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Nephilex">
+  <title>Nephilex</title>
+  <rect width="512" height="512" rx="112.6" fill="#0E1726"/>
+  <polygon points="272.67,186.11 301.54,202.78 318.21,231.65 318.21,264.99 301.54,293.86 272.67,310.53 239.33,310.53 210.46,293.86 193.79,264.99 193.79,231.65 210.46,202.78 239.33,186.11" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="285.42,138.53 336.37,167.95 365.79,218.90 365.79,277.74 336.37,328.69 285.42,358.11 226.58,358.11 175.63,328.69 146.21,277.74 146.21,218.90 175.63,167.95 226.58,138.53" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="296.21,98.27 365.84,138.48 406.05,208.11 406.05,288.53 365.84,358.16 296.21,398.37 215.79,398.37 146.16,358.16 105.95,288.53 105.95,208.11 146.16,138.48 215.79,98.27" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="305.03,65.34 389.95,114.37 438.98,199.29 438.98,297.35 389.95,382.27 305.03,431.30 206.97,431.30 122.05,382.27 73.02,297.35 73.02,199.29 122.05,114.37 206.97,65.34" fill="none" stroke="#E3A63B" stroke-width="10.24" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="305.03" y2="65.34" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="438.98" y2="199.29" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="438.98" y2="297.35" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="389.95" y2="382.27" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="305.03" y2="431.30" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="206.97" y2="431.30" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="122.05" y2="382.27" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="73.02" y2="297.35" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="73.02" y2="199.29" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="122.05" y2="114.37" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="206.97" y2="65.34" stroke="#E3A63B" stroke-width="7.17" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="256.00" y1="248.32" x2="389.95" y2="114.37" stroke="#3CC8C0" stroke-width="11.47" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="256.00" cy="248.32" r="38.91" fill="none" stroke="#3CC8C0" stroke-width="8.60"/>
+  <circle cx="365.84" cy="138.48" r="12.70" fill="#3CC8C0"/>
+  <circle cx="256.00" cy="248.32" r="20.48" fill="#E3A63B"/>
+</svg>

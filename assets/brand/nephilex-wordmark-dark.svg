@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="Nephilex">
+  <title>Nephilex</title>
+  <rect width="1200" height="300" rx="28" fill="#0E1726"/>
+  <polygon points="159.15,115.84 175.00,125.00 184.16,140.85 184.16,159.15 175.00,175.00 159.15,184.16 140.85,184.16 125.00,175.00 115.84,159.15 115.84,140.85 125.00,125.00 140.85,115.84" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="166.15,89.73 194.12,105.88 210.27,133.85 210.27,166.15 194.12,194.12 166.15,210.27 133.85,210.27 105.88,194.12 89.73,166.15 89.73,133.85 105.88,105.88 133.85,89.73" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="172.07,67.63 210.30,89.70 232.37,127.93 232.37,172.07 210.30,210.30 172.07,232.37 127.93,232.37 89.70,210.30 67.63,172.07 67.63,127.93 89.70,89.70 127.93,67.63" fill="none" stroke="#E3A63B" stroke-opacity="0.85" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="176.92,49.54 223.54,76.46 250.46,123.08 250.46,176.92 223.54,223.54 176.92,250.46 123.08,250.46 76.46,223.54 49.54,176.92 49.54,123.08 76.46,76.46 123.08,49.54" fill="none" stroke="#E3A63B" stroke-width="4.40" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="176.92" y2="49.54" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="250.46" y2="123.08" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="250.46" y2="176.92" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="223.54" y2="223.54" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="176.92" y2="250.46" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="123.08" y2="250.46" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="76.46" y2="223.54" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="49.54" y2="176.92" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="49.54" y2="123.08" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="76.46" y2="76.46" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="123.08" y2="49.54" stroke="#E3A63B" stroke-width="3.00" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="150.00" y1="150.00" x2="223.54" y2="76.46" stroke="#3CC8C0" stroke-width="4.80" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="150.00" cy="150.00" r="18.05" fill="none" stroke="#3CC8C0" stroke-width="3.60"/>
+  <circle cx="210.30" cy="89.70" r="5.89" fill="#3CC8C0"/>
+  <circle cx="150.00" cy="150.00" r="9.50" fill="#E3A63B"/>
+  <text x="300" y="168" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="124" font-weight="700" letter-spacing="-2" fill="#FFFFFF">nephilex</text>
+  <text x="304" y="226" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" font-weight="500" letter-spacing="1" fill="#9AA7BD">Application security that feels every thread</text>
+</svg>
