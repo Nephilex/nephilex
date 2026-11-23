@@ -1057,7 +1057,7 @@ existing check too weak 73, logic bug 58, flow spans files 53, not a code
 flaw in the changed file 39, sink not modelled 29), and rules were written
 only for shapes that generalize. Nephilex was re-run with `scan --set dev
 --only nephilex` (Bandit and Semgrep results kept) at commit
-`297e27a578cba80aafe145b04d1019b3e2fa6a97`, which also treats anchored
+`5b1e6e197f343ce83b8586035cbea8bfdd6fd9f7`, which also treats anchored
 regular-expression allowlists as validation; `benchmarks/results/dev/` holds
 the run. A run before the allowlist change gave the same result for every
 case, so the allowlists removed no detection here.
