@@ -46,6 +46,7 @@ from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING, Any
 
 from nephilex.scanners._pyproject import MAX_XFILE_DEPTH
+from nephilex.scanners._regexguard import cleared_cwes
 
 if TYPE_CHECKING:
     from nephilex.context import LanguageContext
@@ -256,6 +257,10 @@ _HTML_SAFE_CALLS = frozenset(
 )
 #: Names that evaluate to the path separator.
 _SEP_NAMES = frozenset({"os.sep", "os.path.sep", "os.altsep", "posixpath.sep"})
+#: Regex calls whose success proves the value matched an allowlist pattern.
+_REGEX_GUARD_FNS = frozenset(
+    f"{m}.{k}" for m in ("re", "regex") for k in ("fullmatch", "match", "search")
+)
 
 # Calls whose result is literal-derived when the receiver and arguments are.
 PURE_FUNCTIONS = frozenset(
@@ -2635,6 +2640,8 @@ class Flow:
             self._guard_where = saved_where
         if not holds:
             return
+        if self._compact(fn) in _REGEX_GUARD_FNS:
+            self._regex_guard(last, arg_nodes, st)
         if recv is None and last == "isinstance" and len(arg_nodes) == 2:
             # isinstance(x, (int, float)): on this branch x is a number, not text.
             p = self._path(arg_nodes[0])
@@ -2660,6 +2667,50 @@ class Flow:
             p = self._path(arg_nodes[0])
             if p is not None:
                 self._clean(st, p, frozenset({CWE_REDIRECT}))
+
+    def _regex_guard(self, kind: str, arg_nodes: list[Any], st: State) -> None:
+        """``re.fullmatch(PATTERN, x)`` held: clear ``x`` for what PATTERN rules out.
+
+        Only a constant pattern is trusted (a literal or a name bound to one);
+        see :mod:`nephilex.scanners._regexguard` for the anchoring rules.
+        """
+        pos = [a for a in arg_nodes if a.type != "keyword_argument"]
+        kws = {}
+        for a in arg_nodes:
+            if a.type == "keyword_argument":
+                name = a.child_by_field_name("name")
+                value = a.child_by_field_name("value")
+                if name is not None and value is not None:
+                    kws[self.text(name)] = value
+        pattern_node = pos[0] if pos else kws.get("pattern")
+        value_node = pos[1] if len(pos) > 1 else kws.get("string")
+        flags_node = pos[2] if len(pos) > 2 else kws.get("flags")
+        if pattern_node is None or value_node is None:
+            return
+        pattern = self._ev_quiet(pattern_node, st).const
+        if not isinstance(pattern, str):
+            return
+        flags = 0
+        if flags_node is not None:
+            names = set(re.findall(r"[A-Z]+", self._compact(flags_node)))
+            if names & {"M", "MULTILINE"}:
+                flags |= re.MULTILINE
+            if names & {"I", "IGNORECASE"}:
+                flags |= re.IGNORECASE
+            if names - {"M", "MULTILINE", "I", "IGNORECASE", "A", "ASCII", "U", "UNICODE"}:
+                return  # VERBOSE, DOTALL, ...: not modelled
+        target = self._unwrap(value_node)
+        if target.type == "call":  # re.fullmatch(P, str(x))
+            fn = target.child_by_field_name("function")
+            args = target.child_by_field_name("arguments")
+            inner = [a for a in args.named_children if a.type != "comment"] if args else []
+            if fn is None or self._compact(fn) != "str" or len(inner) != 1:
+                return
+            target = inner[0]
+        p = self._path(target)
+        cwes = cleared_cwes(pattern, kind, flags)
+        if p is not None and cwes:
+            self._clean(st, p, cwes)
 
     def _clean(self, st: State, path: str, cwes: frozenset[str]) -> None:
         v = st.vars.get(path)

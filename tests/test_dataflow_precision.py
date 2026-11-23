@@ -611,3 +611,32 @@ def test_module_level_literal_constants_are_literal_in_functions(tmp_path):
     assert not [f for f in _patterns(tmp_path, const) if "shell-true" in f.rule_id]
     rebound = const + "def reset():\n    global CMD\n    CMD = input()\n"
     assert [f for f in _patterns(tmp_path, rebound) if "shell-true" in f.rule_id]
+
+
+def test_regex_allowlist_guard_clears_what_it_rules_out(tmp_path):
+    def guarded(pattern: str, use: str, call: str = "fullmatch") -> str:
+        return _view(
+            "import re\nv = request.args.get('v', '')\n"
+            f"if not re.{call}({pattern!r}, str(v)):\n    return 'no', 400\n{use}"
+        )
+
+    xss_use = "return '<div>' + v + '</div>'"
+    path_use = "return open('/srv/' + v).read()"
+    # An enumeration or a word-only pattern clears HTML and paths.
+    assert "ast-xss" not in _rules(tmp_path / "a", guarded("^(asc|desc)$", xss_use))
+    assert "ast-path-traversal" not in _rules(tmp_path / "b", guarded(r"^\w+$", path_use))
+    # A pattern that allows "." still allows "..": the path stays tainted.
+    assert "ast-path-traversal" in _rules(tmp_path / "c", guarded(r"^[a-z.]+$", path_use))
+    # Unanchored or wildcard patterns prove nothing.
+    assert "ast-xss" in _rules(tmp_path / "d", guarded("[a-z]+", xss_use, "search"))
+    assert "ast-xss" in _rules(tmp_path / "e", guarded("^.+$", xss_use))
+    # A module constant holding the pattern, with re.match and \Z.
+    const = (
+        FLASK
+        + "import re\nSAFE = r'^[a-z]+\\Z'\n"
+        + "@app.route('/x', methods=['POST'])\ndef view():\n"
+        + "    v = request.args.get('v', '')\n"
+        + "    if not re.match(SAFE, v):\n        return 'no', 400\n"
+        + "    return '<b>' + v + '</b>'\n"
+    )
+    assert "ast-xss" not in _rules(tmp_path / "f", const)

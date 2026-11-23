@@ -313,7 +313,16 @@ program's own, or an explicit `members=` list is not reported. Flask's
 `render_template` and `render_template_string`, Starlette's
 `TemplateResponse` and Django's `render()` autoescape their variables.
 Blocklist checks (`'../' in p`, "contains no quote") are deliberately not
-trusted: an absolute path or another quoting style gets past them.
+trusted: an absolute path or another quoting style gets past them. A regular
+expression allowlist is: after `re.fullmatch(PATTERN, x)` holds (or
+`re.match`/`re.search` with a pattern anchored at both ends, `PATTERN` a
+literal or a module constant), `x` is cleared for each class whose special
+characters the pattern cannot produce. `^(asc|desc)$` and `^\w+$` clear
+everything; `^[a-zA-Z0-9 _.-]+$` clears XSS, command, LDAP and XPath
+injection but not path traversal (`..`) or SQL (spaces and `-`). With
+`match`/`search`, `$` also accepts a trailing newline, so command and SQL
+injection stay open unless the pattern ends in `\Z`. A pattern with `.`, a
+negated class, a very wide range or `re.MULTILINE` clears nothing.
 `request.path` is not a source inside a view whose routes have no
 `<converters>`, because routing already fixed it.
 

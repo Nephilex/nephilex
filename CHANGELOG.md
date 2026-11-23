@@ -73,6 +73,15 @@ include breaking changes, noted explicitly).
   reported at low confidence, and jQuery's `.append()`, `.prepend()`,
   `.after()`, `.before()`, `.replaceWith()` and `.wrap*()` with markup, and
   `.html()` on a chained call (`$(sel).find(x).html(...)`), are XSS sinks.
+- **Regular-expression allowlists count as validation.** After
+  `if not re.fullmatch(PATTERN, x): return` (also `re.match` and `re.search`
+  when the pattern is anchored at both ends, and a pattern held in a module
+  constant), `x` is cleared for each class the pattern's characters cannot
+  exploit: no `<` or quotes clears XSS, no `/`, `\` or `.` clears path
+  traversal, an enumeration such as `^(asc|desc)$` clears everything. A
+  `$` with `match`/`search` also accepts a trailing newline, which keeps
+  command and SQL injection open. Patterns with `.`, negated classes or
+  `re.MULTILINE` clear nothing.
 
 ### Changed
 - Releases go through a staging phase. A release candidate (`0.12.0rc1`, a
