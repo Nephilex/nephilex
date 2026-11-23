@@ -60,6 +60,11 @@
    "findings": {
     "vulnerable": [
      [
+      311,
+      "ast-python.ast-dynamic-code",
+      [95]
+     ],
+     [
       865,
       "ast-python.ast-path-traversal",
       [22]
@@ -71,6 +76,11 @@
      ]
     ],
     "patched": [
+     [
+      399,
+      "ast-python.ast-dynamic-code",
+      [95]
+     ],
      [
       953,
       "ast-python.ast-path-traversal",

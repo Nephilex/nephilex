@@ -1049,6 +1049,44 @@ with 5 flagged after the fix; the only per-case change is a MobSF redirect to
 `f"/download/{file_name}"`, no longer reported as an open redirect because
 its literal start keeps it on the same site.
 
+#### After the sink-shape rules
+
+**Development data, not a claim**, and written after reading every miss in
+this set: each of the 327 misses was sorted by cause (source not modelled 75,
+existing check too weak 73, logic bug 58, flow spans files 53, not a code
+flaw in the changed file 39, sink not modelled 29), and rules were written
+only for shapes that generalize. Nephilex was re-run with `scan --set dev
+--only nephilex` (Bandit and Semgrep results kept) on the source of the
+commit that adds this section; `benchmarks/results/dev/` holds the run.
+
+| Subset | Cases | Before | After |
+| --- | --- | --- | --- |
+| All languages | 351 | 24 / 5 | 32 / 6 |
+| Python | 193 | 12 / 4 | 19 / 5 |
+| JavaScript and TypeScript | 158 | 12 / 1 | 13 / 1 |
+
+Detected / flagged after the fix, mapped CWE match, 3-line window.
+Fix-aware recall went from 5.4% to 7.4%.
+
+- **New detections:** `ast-dynamic-code` (eval of text built from a database
+  wire value in the Amazon Redshift driver, of command-line arguments in
+  pgAdmin, of server-sent event data in llama-index, of a query predicate in
+  OpenStack Vitrage, of a type name from a dict in Agno),
+  `ast-markup-interpolation` (Wagtail's table block, changedetection.io) and a
+  JSX inline `<script>` that embeds `JSON.stringify` of a prop (react-router).
+- **The new flagged-after-fix case is real.** The changedetection.io fix
+  escapes the error text only where there is no app context; the patched file
+  still formats `last_error` and the watch URL into `Markup()` unescaped.
+- **False-positive check** (the projects of "False positives on code with no
+  known vulnerabilities" above): click, Flask, jinja2, requests, rich, typer
+  and Werkzeug report exactly what they reported before. Two Flask findings
+  that appeared on the way (`exec(compile(f.read(), ...))` of a startup
+  script and of a config file) led to the rule exempting code read from a
+  source file.
+- The bare `startswith(base)` change turned one labeled-corpus case from
+  "safe" to vulnerable, which it is (`name=../files-evil/x`); the corpus now
+  has both the bypassable and the guarded form.
+
 ## Public reference apps (finding inventory)
 
 The larger harness scans real, known-vulnerable applications:

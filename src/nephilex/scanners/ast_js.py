@@ -317,8 +317,8 @@ _FLAVOR_NOTE = {
     "dom": "",
     "archive": "",
     "env": " (an environment value or command-line argument, which the operator controls)",
-    "param": " (a function parameter built into the command or code string; whoever "
-    "calls this function with user input gets the injection)",
+    "param": " (a function parameter built into the command, code or HTML string; "
+    "whoever calls this function with user input gets the injection)",
 }
 
 
@@ -460,6 +460,10 @@ class _JsAnalyzer:
         confidence = (
             Confidence.HIGH if t.flavor in ("request", "dom", "archive") else Confidence.MEDIUM
         )
+        if t.flavor == "param" and report.kind == "html":
+            # Markup built from a caller's value: unsafe only if callers pass
+            # untrusted text, which this file does not show.
+            confidence = Confidence.LOW
         tags = ["sast", "ast", "taint"]
         if self._in_test or self._in_example:
             # Still reported, one severity step down and at low confidence: the code

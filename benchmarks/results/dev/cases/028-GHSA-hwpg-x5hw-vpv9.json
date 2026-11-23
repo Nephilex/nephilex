@@ -47,8 +47,50 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      92,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      684,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      686,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      691,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      93,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      685,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      687,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ],
+     [
+      692,
+      "ast-python.ast-markup-interpolation",
+      [79]
+     ]
+    ]
    }
   },
   "bandit": {
@@ -134,16 +176,16 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    },
    "strict": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    },
    "any": {
-    "detected": false,
-    "flagged_after_fix": false
+    "detected": true,
+    "flagged_after_fix": true
    }
   },
   "bandit": {

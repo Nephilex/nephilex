@@ -43,8 +43,20 @@
    "status": "ok",
    "parse_error_versions": [],
    "findings": {
-    "vulnerable": [],
-    "patched": []
+    "vulnerable": [
+     [
+      468,
+      "ast-js.ast-xss",
+      [79]
+     ]
+    ],
+    "patched": [
+     [
+      469,
+      "ast-js.ast-xss",
+      [79]
+     ]
+    ]
    }
   },
   "bandit": {

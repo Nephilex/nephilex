@@ -62,6 +62,17 @@ include breaking changes, noted explicitly).
 - Documentation for pinning the GitHub Action by commit SHA, and for giving
   `--open-pr` a least-privilege token on GitHub, GitLab and Bitbucket
   (Bitbucket's `BITBUCKET_TOKEN` was supported but undocumented).
+- **Sink-shape rules for the misses seen on real fix commits.** Two Python
+  rules report a dangerous shape even when no untrusted source is traced in
+  the file, at low confidence: `ast-dynamic-code` for `eval()`/`exec()` of
+  text that is built at run time, read from a field or returned by a call
+  (a parameter passed on untouched and `compile(f.read(), ...)` are not
+  reported), and `ast-markup-interpolation` for `Markup()`/`mark_safe()` of
+  text formatted from an unescaped value. In JavaScript and TypeScript a
+  function parameter formatted into markup that reaches an HTML sink is
+  reported at low confidence, and jQuery's `.append()`, `.prepend()`,
+  `.after()`, `.before()`, `.replaceWith()` and `.wrap*()` with markup, and
+  `.html()` on a chained call (`$(sel).find(x).html(...)`), are XSS sinks.
 
 ### Changed
 - Releases go through a staging phase. A release candidate (`0.12.0rc1`, a
@@ -80,6 +91,13 @@ include breaking changes, noted explicitly).
   ETag and cache-key uses at low severity.
 
 ### Fixed
+- Python path traversal: a resolved path checked with a bare
+  `startswith(base)` no longer counts as contained, because
+  `/srv/data-evil` passes `startswith("/srv/data")`. The prefix must end in a
+  separator (`base + os.sep`, `f"{base}/"`, a literal ending in `/`).
+  `is_relative_to` and `commonpath` checks are unchanged. A labeled corpus case
+  that called the bare check safe now expects a finding, and a separate case
+  covers the guarded form.
 - Malware: far fewer false alarms on ordinary projects. The rules no longer
   read documentation and package metadata
   (README, CHANGELOG, `*.md`, `*.rst`, `*.txt`, PKG-INFO, METADATA, LICENSE),

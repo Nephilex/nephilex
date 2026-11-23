@@ -717,6 +717,19 @@ CASES: list[Case] = [
         _FLASK + "import pathlib\n@app.route('/file')\ndef read_file():\n"
         "    base = pathlib.Path('/srv/files')\n"
         "    p = (base / request.args.get('name')).resolve()\n"
+        "    if not str(p).startswith(str(base) + os.sep):\n        return 'no'\n"
+        "    return p.read_text()\n",
+    ),
+    # A bare prefix check: name=../files-evil/x resolves to /srv/files-evil/x,
+    # which still starts with "/srv/files".
+    Case(
+        "taint-pathlib-prefix-without-separator",
+        "taint",
+        "view.py",
+        True,
+        _FLASK + "import pathlib\n@app.route('/file')\ndef read_file():\n"
+        "    base = pathlib.Path('/srv/files')\n"
+        "    p = (base / request.args.get('name')).resolve()\n"
         "    if not str(p).startswith(str(base)):\n        return 'no'\n"
         "    return p.read_text()\n",
     ),

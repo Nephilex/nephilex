@@ -301,7 +301,8 @@ SINKS: list[Sink] = [
         "outside the intended location.",
         impact="Disclosure of sensitive files, or writing outside the intended area.",
         fix="Resolve the path and confirm it stays within an allowed base directory "
-        "(e.g. os.path.realpath + prefix check, or secure_filename).",
+        "(os.path.realpath, then a startswith(base + os.sep) or commonpath check, "
+        "or secure_filename).",
     ),
     Sink(
         id="ast-archive-extraction",
@@ -502,6 +503,42 @@ SINKS: list[Sink] = [
         impact="Session hijacking, password-reset or token forgery.",
         fix="Use the secrets module (secrets.token_urlsafe, secrets.token_hex) or "
         "random.SystemRandom.",
+    ),
+    Sink(
+        id="ast-dynamic-code",
+        fn=re.compile(r"^(?:eval|exec)$"),
+        cwe=["CWE-95"],
+        owasp=_INJECTION,
+        severity=Severity.MEDIUM,
+        confidence=Confidence.LOW,
+        title="eval()/exec() of text that is not a constant",
+        why="eval() or exec() runs text that is built or received at run time. No "
+        "untrusted source was traced to it in this file, but a value that reaches it "
+        "from a caller, a parsed document, a database or a server response is run "
+        "as Python code.",
+        attack="If any part of the text can be influenced, supply "
+        "`__import__('os').system('id')` to run commands.",
+        impact="Arbitrary code execution if the text is attacker-influenced.",
+        fix="Parse data with ast.literal_eval(), json.loads() or a dedicated parser, "
+        "or map names to functions with a dict instead of evaluating them.",
+    ),
+    Sink(
+        id="ast-markup-interpolation",
+        fn=re.compile(r"(?:^|\.)(?:Markup|mark_safe|SafeString|SafeText)$"),
+        cwe=["CWE-79"],
+        owasp=_INJECTION,
+        severity=Severity.MEDIUM,
+        confidence=Confidence.LOW,
+        title="HTML marked safe after formatting an unescaped value into it",
+        why="Markup()/mark_safe() is given text built with an f-string, +, % or "
+        ".format() from a value that is not escaped. Marking it safe turns off the "
+        "template's autoescaping, so any markup in that value reaches the page.",
+        attack="If the formatted value can carry text such as "
+        "`<img src=x onerror=alert(1)>`, it runs as script in the viewer's browser.",
+        impact="Cross-site scripting: session theft or actions as the viewing user.",
+        fix="Use format_html() (Django) or Markup('...{}...').format(value) "
+        "(MarkupSafe), which escape each value, or escape() the value before "
+        "formatting it in.",
     ),
 ]
 _SINK_BY_ID = {s.id: s for s in SINKS}

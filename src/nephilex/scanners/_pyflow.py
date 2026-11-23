@@ -102,10 +102,18 @@ SINK_CWES: dict[str, frozenset[str]] = {
     "ast-xpath-injection": frozenset({CWE_XPATH}),
     "ast-trust-boundary": frozenset({CWE_TRUST}),
     "ast-weak-random": frozenset({CWE_WEAKRAND}),
+    "ast-dynamic-code": frozenset({CWE_CODE}),
+    "ast-markup-interpolation": frozenset({CWE_XSS}),
 }
 #: Sinks that do not depend on a tainted source (excluded from summaries).
 NON_TAINT_SINKS = frozenset(
-    {"ast-sql-string-building", "ast-weak-random", "ast-jinja-autoescape-off"}
+    {
+        "ast-sql-string-building",
+        "ast-weak-random",
+        "ast-jinja-autoescape-off",
+        "ast-dynamic-code",
+        "ast-markup-interpolation",
+    }
 )
 TAINT_CWES: frozenset[str] = frozenset(
     c for sid, cwes in SINK_CWES.items() if sid not in NON_TAINT_SINKS for c in cwes
@@ -219,6 +227,35 @@ _XSS_CLEAN = frozenset({CWE_XSS, "CWE-80"})
 _SQL_ESCAPES = frozenset({"escape", "escape_string", "escape_literal", "real_escape_string"})
 _LDAP_ESCAPES = frozenset({"escape_filter_chars", "escape_dn_chars", "escape_rdn", "filter_format"})
 _XSS_SANITIZER_NAMES = frozenset({"quoteattr", "strip_tags", "sanitize_html", "clean", "linkify"})
+#: Calls whose result is safe to place in HTML text: they escape, produce a
+#: number or a URL the framework built, or return developer-written text.
+_HTML_SAFE_CALLS = frozenset(
+    {
+        "format_html",
+        "format_html_join",
+        "mark_safe",
+        "Markup",
+        "int",
+        "float",
+        "len",
+        "bool",
+        "round",
+        "quote",
+        "quote_plus",
+        "urlencode",
+        "url_for",
+        "reverse",
+        "static",
+        "_",
+        "gettext",
+        "gettext_lazy",
+        "ugettext",
+        "ngettext",
+        "pgettext",
+    }
+)
+#: Names that evaluate to the path separator.
+_SEP_NAMES = frozenset({"os.sep", "os.path.sep", "os.altsep", "posixpath.sep"})
 
 # Calls whose result is literal-derived when the receiver and arguments are.
 PURE_FUNCTIONS = frozenset(
@@ -2436,6 +2473,8 @@ class Flow:
             body = args.child_by_field_name("body")
             return self._path_contained(body, st, depth + 1) if body is not None else None
         if last in ("is_relative_to", "startswith") and fn.type == "attribute":
+            if last == "startswith" and not self._prefix_has_sep(node, st):
+                return None
             recv = fn.child_by_field_name("object")
             p = self._path(self._unwrap(recv)) if recv is not None else None
             if p is not None and "normalized" in st.get(p).flags:
@@ -2611,7 +2650,10 @@ class Flow:
             if last in ("isdigit", "isnumeric", "isdecimal", "isalnum", "isalpha", "isidentifier"):
                 v = st.get(rpath)
                 st.vars[rpath] = Val(lit=True, weak=v.weak)
-            elif last in ("startswith", "is_relative_to") and "normalized" in st.get(rpath).flags:
+            elif (
+                last == "is_relative_to"
+                or (last == "startswith" and self._prefix_has_sep(node, st))
+            ) and "normalized" in st.get(rpath).flags:
                 self._clean(st, rpath, frozenset({CWE_PATH}))
         safe_url = ("url_has_allowed_host_and_scheme", "is_safe_url", "is_safe_redirect_url")
         if last in safe_url and arg_nodes:
@@ -3025,6 +3067,8 @@ class Flow:
                                 vals.append(self.ev(e, st, depth))
             v = combine(vals)
             flags = (frozenset() if v.lit else frozenset({"dyn"})) | tag
+            if self._fstring_ends_with_sep(node):
+                flags = flags | {"sepend"}
             v = replace(v, flags=flags, embed=v.taint and _ordered_embed(ordered))
             return _pin_redirect(v, ordered)
         return Val(lit=True, const=self._literal(node), flags=tag)
@@ -3083,7 +3127,200 @@ class Flow:
         a = self.ev(node.child_by_field_name("left"), st, depth)
         b = self.ev(node.child_by_field_name("right"), st, depth)
         op_node = node.child_by_field_name("operator")
-        return self._binop(self.text(op_node) if op_node is not None else "", a, b)
+        op = self.text(op_node) if op_node is not None else ""
+        v = self._binop(op, a, b)
+        if op == "+" and self._ends_with_sep(node.child_by_field_name("right"), b):
+            v = replace(v, flags=v.flags | {"sepend"})
+        return v
+
+    def _ends_with_sep(self, node, v: Val) -> bool:
+        """``node`` (with value ``v``) ends in a path separator: ``os.sep``, ``"/"``."""
+        if "sepend" in v.flags:
+            return True
+        if isinstance(v.const, str) and v.const.endswith(("/", "\\")):
+            return True
+        if node is None:
+            return False
+        return self._compact(node) in _SEP_NAMES
+
+    def _fstring_ends_with_sep(self, node) -> bool:
+        """An f-string whose last part is ``/``, ``\\`` or ``{os.sep}``."""
+        last = None
+        for ch in node.children:
+            if ch.type in ("string_content", "interpolation"):
+                last = ch
+        if last is None:
+            return False
+        if last.type == "string_content":
+            return self.text(last).endswith(("/", "\\"))
+        expr = last.child_by_field_name("expression")
+        return expr is not None and self._compact(expr) in _SEP_NAMES
+
+    def _prefix_has_sep(self, call_node, st: State) -> bool:
+        """The prefix given to ``startswith`` ends in a path separator.
+
+        ``p.startswith(base)`` after ``realpath`` still accepts a sibling
+        directory that shares the prefix (``/srv/data-evil`` for ``/srv/data``),
+        so only ``base + os.sep``, ``f"{base}/"`` or a literal ending in ``/``
+        prove containment. A tuple of prefixes must all end in one.
+        """
+        args = call_node.child_by_field_name("arguments")
+        if args is None:
+            return False
+        named = [a for a in args.named_children if a.type != "comment"]
+        if not named:
+            return False
+        first = self._unwrap(named[0])
+        items = (
+            [e for e in first.named_children if e.type != "comment"]
+            if first.type == "tuple"
+            else [first]
+        )
+        if not items:
+            return False
+        return all(self._ends_with_sep(e, self._ev_quiet(e, st)) for e in items)
+
+    @staticmethod
+    def _is_bare_parameter(node, v: Val) -> bool:
+        """A function parameter passed on untouched (``def run(code): exec(code)``).
+
+        Template engines, debuggers and REPLs take code as an argument by
+        design; that is their API. Text the function builds, a field of a
+        parameter or a value returned by a call is not exempt.
+        """
+        return (
+            node is not None
+            and node.type == "identifier"
+            and v.param
+            and not v.taint
+            and not v.flags
+            and v.const is NOCONST
+        )
+
+    def _is_code_object(self, node) -> bool:
+        """``compile(...)`` of a constant or of a source file's contents.
+
+        ``exec(compile(f.read(), path, "exec"), ns)`` runs a Python file (a
+        config file, a startup script), the way ``runpy`` does: loading code
+        on purpose, not evaluating data.
+        """
+        if node is None or node.type != "call":
+            return False
+        fn = node.child_by_field_name("function")
+        args = node.child_by_field_name("arguments")
+        if fn is None or args is None or self._compact(fn) != "compile":
+            return False
+        named = [a for a in args.named_children if a.type != "comment"]
+        if not named:
+            return False
+        src = self._unwrap(named[0])
+        if src.type == "string":
+            return not any(c.type == "interpolation" for c in src.named_children)
+        if src.type == "call":
+            read = src.child_by_field_name("function")
+            return read is not None and self._compact(read).rsplit(".", 1)[-1] in (
+                "read",
+                "read_text",
+                "read_bytes",
+            )
+        return False
+
+    def _unescaped_interpolation(self, node, depth: int = 0) -> bool:
+        """HTML text built by formatting a non-constant, unescaped value into it.
+
+        Recognizes f-strings, ``"..." + x``, ``"..." % x`` and
+        ``"...".format(x)`` where at least one formatted value is neither a
+        literal, an UPPER_CASE constant nor the result of an escaping call.
+        """
+        if node is None or depth > 6:
+            return False
+        node = self._unwrap(node)
+        t = node.type
+        if t == "string":
+            return any(
+                self._raw_value(c.child_by_field_name("expression"))
+                for c in node.named_children
+                if c.type == "interpolation"
+            )
+        if t == "concatenated_string":
+            return any(self._unescaped_interpolation(c, depth + 1) for c in node.named_children)
+        if t == "binary_operator":
+            op_node = node.child_by_field_name("operator")
+            op = self.text(op_node) if op_node is not None else ""
+            left = node.child_by_field_name("left")
+            right = node.child_by_field_name("right")
+            if op == "%" and left is not None and self._unwrap(left).type == "string":
+                r = self._unwrap(right) if right is not None else None
+                parts = r.named_children if r is not None and r.type == "tuple" else [r]
+                return any(self._raw_value(p) for p in parts)
+            if op == "+":
+                operands = self._plus_operands(node, 0)
+                has_text = any(self._unwrap(o).type == "string" for o in operands)
+                return has_text and any(
+                    self._unescaped_interpolation(o, depth + 1)
+                    if self._unwrap(o).type == "string"
+                    else self._raw_value(o)
+                    for o in operands
+                )
+            return False
+        if t == "call":
+            fn = node.child_by_field_name("function")
+            args = node.child_by_field_name("arguments")
+            if fn is not None and fn.type == "attribute" and args is not None:
+                obj = fn.child_by_field_name("object")
+                attr = fn.child_by_field_name("attribute")
+                if (
+                    attr is not None
+                    and self.text(attr) == "format"
+                    and obj is not None
+                    and self._unwrap(obj).type == "string"
+                ):
+                    vals = [
+                        a.child_by_field_name("value") if a.type == "keyword_argument" else a
+                        for a in args.named_children
+                        if a.type != "comment"
+                    ]
+                    return any(self._raw_value(v) for v in vals)
+        return False
+
+    def _plus_operands(self, node, depth: int) -> list[Any]:
+        node = self._unwrap(node)
+        if depth < 12 and node.type == "binary_operator":
+            op_node = node.child_by_field_name("operator")
+            if op_node is not None and self.text(op_node) == "+":
+                out: list[Any] = []
+                for side in ("left", "right"):
+                    sub = node.child_by_field_name(side)
+                    if sub is not None:
+                        out.extend(self._plus_operands(sub, depth + 1))
+                return out
+        return [node]
+
+    def _raw_value(self, node) -> bool:
+        """``node`` is a non-constant value that was not escaped for HTML."""
+        if node is None:
+            return False
+        node = self._unwrap(node)
+        t = node.type
+        if t in ("integer", "float", "true", "false", "none"):
+            return False
+        if t == "string":
+            return any(c.type == "interpolation" for c in node.named_children) and (
+                self._unescaped_interpolation(node, 1)
+            )
+        if t == "identifier":
+            name = self.text(node)
+            return not (name.isupper() and len(name) > 1)
+        if t == "call":
+            fn = node.child_by_field_name("function")
+            last = self._compact(fn).rsplit(".", 1)[-1] if fn is not None else ""
+            low = last.lower()
+            return not ("escape" in low or last in _XSS_SANITIZER_NAMES or last in _HTML_SAFE_CALLS)
+        if t == "conditional_expression":
+            # ``a if cond else b``: the values are the first and third children.
+            named = [c for c in node.named_children if c.type != "comment"]
+            return any(self._raw_value(c) for c in named[0:1] + named[2:3])
+        return t not in ("comparison_operator", "boolean_operator", "not_operator")
 
     def _ev_unary(self, node, st: State, depth: int) -> Val:
         v = self.ev(node.child_by_field_name("argument"), st, depth)
@@ -3756,7 +3993,21 @@ class Flow:
             self._report("ast-path-traversal", c.node, [c.recv])
         self._check_archive(c)
         if CODE_FN.search(fn):
-            self._report("ast-code-injection", c.node, [c.arg(0, "source", "object")])
+            code = c.arg(0, "source", "object")
+            if (
+                not self._report("ast-code-injection", c.node, [code])
+                and fn in ("eval", "exec")
+                and code is not None
+                and not code.lit
+                and not self._is_code_object(c.pos_nodes[0] if c.pos_nodes else None)
+                and not self._is_bare_parameter(c.pos_nodes[0] if c.pos_nodes else None, code)
+            ):
+                # Sink-shape: eval/exec of text that is not a constant. No
+                # untrusted source was traced to it in this file, but the
+                # text is built at run time (a caller's argument, a field of
+                # parsed data, a server response), which is how most real
+                # eval injections look.
+                self._emit("ast-dynamic-code", c.node)
         self._check_template(c)
         if DESER_FN.search(fn) or (YAML_LOAD_FN.search(fn) and self._yaml_unsafe(c)):
             v = c.arg(0, "data", "stream", "file", "s")
@@ -3777,8 +4028,16 @@ class Flow:
             self._report(
                 "ast-open-redirect", c.node, [c.arg(0, "location", "url", "redirect_to", "to")]
             )
-        if last in MARKUP_FNS and c.pos:
-            self._report("ast-xss", c.node, [c.pos[0]])
+        if (
+            last in MARKUP_FNS
+            and c.pos
+            and not self._report("ast-xss", c.node, [c.pos[0]])
+            and c.pos_nodes
+            and self._unescaped_interpolation(c.pos_nodes[0])
+        ):
+            # Sink-shape: HTML marked safe after formatting a value into it
+            # without escaping that value.
+            self._emit("ast-markup-interpolation", c.node)
         if last in DJANGO_RESPONSES and c.pos:
             ctype = self._kw_text(c, "content_type")
             if ctype is None or "html" in ctype:

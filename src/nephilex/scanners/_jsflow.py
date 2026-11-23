@@ -70,8 +70,10 @@ FLAVOR_KINDS: dict[str, frozenset[str]] = {
     "archive": frozenset({"file"}),
     "env": frozenset({"sql"}),
     # Not file: Node code builds paths from parameters everywhere (roots, config dirs),
-    # so a parameter-built path is the norm, not a signal.
-    "param": frozenset({"shell", "code"}),
+    # so a parameter-built path is the norm, not a signal. HTML is: markup built by
+    # formatting a caller's value into a string, unescaped, is how most real XSS in
+    # components and renderers looks (reported at low confidence).
+    "param": frozenset({"shell", "code", "html"}),
 }
 #: Parameters that name a command or code to run: the function is a runner by design.
 _RUNNER_PARAM = re.compile(
@@ -315,6 +317,10 @@ _SHELL_BINARIES = re.compile(
     re.IGNORECASE,
 )
 _SHELL_FLAGS = {"-c", "/c", "/C", "/s", "/S", "-Command", "-command", "-lc", "-ic"}
+#: jQuery methods that parse a string argument as HTML when it holds markup.
+_JQUERY_INSERT = frozenset(
+    {"append", "prepend", "after", "before", "replaceWith", "wrap", "wrapAll", "wrapInner"}
+)
 _VM_MODULES = {"vm", "node:vm"}
 _VM_SINKS = {"runInThisContext", "runInNewContext", "runInContext", "compileFunction"}
 _HTTP_MODULES = {"http", "https", "node:http", "node:https"}
@@ -2481,18 +2487,14 @@ class JsFlow:
         if last == "createContextualFragment":
             self._sink(node, "html", first, "createContextualFragment()", scope)
             return
-        if (
-            fn.type == "member_expression"
-            and last == "html"
-            and len(args) == 1
-            and head
-            in (
-                "$",
-                "jQuery",
-            )
-        ):
-            self._sink(node, "html", first, ".html()", scope)
-            return
+        if fn.type == "member_expression" and len(args) == 1 and self._is_jquery(fn, head):
+            if last == "html":
+                self._sink(node, "html", first, ".html()", scope)
+                return
+            if last in _JQUERY_INSERT and self._has_markup(first):
+                # .append("<li>" + x + "</li>") parses the string as HTML.
+                self._sink(node, "html", first, f".{last}() with markup", scope)
+                return
         if fn.type == "member_expression" and last == "html" and len(args) == 1 and head == "c":
             self._sink(node, "html", first, "c.html()", scope)  # Hono
             return
@@ -2642,6 +2644,22 @@ class JsFlow:
                     kind=kind, node=anchor, sink_line=node.start_point[0] + 1, label=label, taint=t
                 )
             )
+
+    def _is_jquery(self, fn, head: str) -> bool:
+        """``fn`` is a method on a jQuery object: ``$.x``, ``$(sel).x``, ``jQuery(sel).x``."""
+        if head in ("$", "jQuery"):
+            return True
+        obj = fn.child_by_field_name("object")
+        while obj is not None and obj.type == "call_expression":
+            callee = obj.child_by_field_name("function")
+            if callee is None:
+                return False
+            if callee.type == "identifier":
+                return self.text(callee) in ("$", "jQuery")
+            if callee.type != "member_expression":
+                return False
+            obj = callee.child_by_field_name("object")  # $(a).find(b).html(...)
+        return False
 
     def _host_pinned(self, node) -> bool:
         """A URL whose scheme and host are literal (``https://api.x.com/${id}``) or a local path."""

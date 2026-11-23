@@ -187,12 +187,29 @@ def test_pathlib_join_and_construction_are_path_sinks(tmp_path):
 
 def test_resolve_and_prefix_check_clears_path(tmp_path):
     code = _view(
-        "import pathlib\nbar = request.args.get('f')\nbase = pathlib.Path('/data')\n"
-        "p = (base / bar).resolve()\nif not str(p).startswith(str(base)):\n    return 'no'\np.read_text()"
+        "import pathlib, os\nbar = request.args.get('f')\nbase = pathlib.Path('/data')\n"
+        "p = (base / bar).resolve()\nif not str(p).startswith(str(base) + os.sep):\n"
+        "    return 'no'\np.read_text()"
     )
     assert "ast-path-traversal" not in _rules(tmp_path, code)
     unresolved = code.replace(").resolve()", ")")
     assert "ast-path-traversal" in _rules(tmp_path, unresolved)
+
+
+def test_prefix_check_without_separator_does_not_clear_path(tmp_path):
+    # "/data-evil/x" starts with "/data": a bare prefix does not prove containment.
+    bare = _view(
+        "import pathlib\nbar = request.args.get('f')\nbase = pathlib.Path('/data')\n"
+        "p = (base / bar).resolve()\nif not str(p).startswith(str(base)):\n    return 'no'\np.read_text()"
+    )
+    assert "ast-path-traversal" in _rules(tmp_path, bare)
+    for prefix in ("f'{base}/'", "str(base) + '/'", "(str(base) + os.sep, '/tmp/')"):
+        guarded = _view(
+            "import pathlib, os\nbar = request.args.get('f')\nbase = pathlib.Path('/data')\n"
+            f"p = (base / bar).resolve()\nif not str(p).startswith({prefix}):\n"
+            "    return 'no'\np.read_text()"
+        )
+        assert "ast-path-traversal" not in _rules(tmp_path, guarded), prefix
 
 
 # --- 10. SQL from a function parameter -------------------------------------------
@@ -481,7 +498,7 @@ def test_inline_urlparse_allowlist_and_inline_resolve(tmp_path):
     resolved = _view(
         "import pathlib\nbase = pathlib.Path('/data')\n"
         "p = (base / request.args.get('f')).resolve()\n"
-        "if not str(p).startswith(str(base)):\n    return 'no'\nreturn p.read_text()"
+        "if not str(p).startswith(f'{base}/'):\n    return 'no'\nreturn p.read_text()"
     )
     assert not _rules(tmp_path, resolved)
 
@@ -512,6 +529,65 @@ def test_compile_is_a_code_sink_but_parameters_are_not_sources(tmp_path):
     # debuggers; with no traced source it is not reported.
     assert not _scan(tmp_path / "b", {"m.py": "def run(code, ns):\n    exec(code, ns)\n"})
     assert not _scan(tmp_path / "d", {"m.py": "import re\ndef pat(p):\n    return re.compile(p)\n"})
+
+
+def test_eval_of_non_constant_text_is_low_confidence(tmp_path):
+    def hits(name, code):
+        return [
+            f
+            for f in _scan(tmp_path / name, {"m.py": code})
+            if f.rule_id.endswith("ast-dynamic-code")
+        ]
+
+    # Text built from, or read out of, something the function received.
+    for name, code in {
+        "built": "def where(field, op):\n    return eval(f'row.{field} {op} 1')\n",
+        "field": "def load(spec):\n    return eval(spec['type'])\n",
+        "attr": "def on_event(event):\n    return eval(event.data)\n",
+        "call": "def parse(resp):\n    return eval(resp.read())\n",
+    }.items():
+        found = hits(name, code)
+        assert found and found[0].confidence == Confidence.LOW, name
+        assert "CWE-95" in found[0].cwe
+    # Constants, constant code objects and a parameter passed through untouched.
+    for name, code in {
+        "const": "def f():\n    code = '1 + 1'\n    return eval(code)\n",
+        "compiled": "def f(ns):\n    exec(compile('x = 1', '<s>', 'exec'), ns)\n",
+        "run_file": "def load(path, ns):\n    with open(path) as f:\n"
+        "        exec(compile(f.read(), path, 'exec'), ns)\n",
+        "api": "def run(code, ns):\n    exec(code, ns)\n",
+    }.items():
+        assert not hits(name, code), name
+
+
+def test_markup_of_unescaped_formatting_is_low_confidence(tmp_path):
+    def hits(name, code):
+        return [
+            f
+            for f in _scan(tmp_path / name, {"m.py": code})
+            if f.rule_id.endswith("ast-markup-interpolation")
+        ]
+
+    head = "from markupsafe import Markup, escape\nfrom django.utils.html import format_html\n"
+    for name, expr in {
+        "fstring": "Markup(f'<td>{value}</td>')",
+        "concat": "Markup('<td>' + value + '</td>')",
+        "percent": "Markup('<td>%s</td>' % value)",
+        "format": "Markup('<td>{}</td>'.format(value))",
+        "call": "Markup(f'<td>{str(value)}</td>')",
+    }.items():
+        found = hits(name, f"{head}def cell(value):\n    return {expr}\n")
+        assert found and found[0].confidence == Confidence.LOW, name
+        assert "CWE-79" in found[0].cwe
+    for name, expr in {
+        "escaped": "Markup(f'<td>{escape(value)}</td>')",
+        "constant": "Markup(f'<td>{ICON}</td>')",
+        "number": "Markup(f'<td>{int(value)}</td>')",
+        "markup_format": "Markup('<td>{}</td>').format(value)",
+        "literal": "Markup('<br>')",
+    }.items():
+        code = f"{head}ICON = 'x'\ndef cell(value):\n    return {expr}\n"
+        assert not hits(name, code), name
 
 
 def test_location_header_redirect(tmp_path):

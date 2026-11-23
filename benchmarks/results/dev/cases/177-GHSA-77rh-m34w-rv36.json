@@ -44,6 +44,11 @@
    "findings": {
     "vulnerable": [
      [
+      59,
+      "ast-python.ast-dynamic-code",
+      [95]
+     ],
+     [
       936,
       "logic.race-hint",
       [840]
@@ -158,15 +163,15 @@
   "nephilex": {
    "window": 3,
    "mapped": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "strict": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    },
    "any": {
-    "detected": false,
+    "detected": true,
     "flagged_after_fix": false
    }
   },

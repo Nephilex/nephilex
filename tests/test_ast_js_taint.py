@@ -842,3 +842,46 @@ def test_koa_same_origin_referrer_check_clears_redirect():
     )
     assert "CWE-601" in _cwes("a.js", vulnerable)
     assert "CWE-601" not in _cwes("a.js", fixed)
+
+
+def test_param_built_into_html_is_low_confidence():
+    code = "export function row(name) {\n  document.getElementById('r').innerHTML = `<td>${name}</td>`;\n}\n"
+    [finding] = _scan("a.js", code)
+    assert "CWE-79" in finding.cwe
+    assert finding.confidence.label == "Low"
+    assert finding.metadata["source_kind"] == "param"
+    escaped = code.replace("${name}", "${escapeHtml(name)}")
+    assert not _scan("a.js", escaped)
+
+
+def test_param_passed_whole_to_html_sink_is_not_reported():
+    # A setter that takes markup from its caller is the API, not a bug in it.
+    code = "export function setBody(html) {\n  document.body.innerHTML = html;\n}\n"
+    assert not _scan("a.js", code)
+
+
+def test_json_in_inline_script_from_param():
+    code = (
+        "export function State({ data }) {\n"
+        "  return <script dangerouslySetInnerHTML={{ __html: `window.S = ${JSON.stringify(data)}` }} />;\n"
+        "}\n"
+    )
+    assert "CWE-79" in _cwes("a.tsx", code)
+
+
+def test_jquery_chained_html_and_insert_methods():
+    code = (
+        "export function add(label) {\n"
+        "  $('#list').append('<li>' + label + '</li>');\n"
+        "  $('#t').find('b').html('<i>' + label + '</i>');\n"
+        "}\n"
+    )
+    lines = {f.location.start_line for f in _scan("a.js", code) if "CWE-79" in f.cwe}
+    assert lines == {2, 3}
+    safe = (
+        "export function add(label) {\n"
+        "  $('#list').append($('<li>').text(label));\n"
+        "  $('#list').append(label);\n"
+        "}\n"
+    )
+    assert not _scan("a.js", safe)

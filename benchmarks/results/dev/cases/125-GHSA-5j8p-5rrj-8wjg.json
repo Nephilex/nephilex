@@ -70,6 +70,16 @@
       921,
       "ast-python.ast-path-traversal",
       [22]
+     ],
+     [
+      1002,
+      "ast-python.ast-path-traversal",
+      [22]
+     ],
+     [
+      1027,
+      "ast-python.ast-path-traversal",
+      [22]
      ]
     ],
     "patched": [

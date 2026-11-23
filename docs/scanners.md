@@ -182,9 +182,11 @@ source or the sink is in another file):
 | `ast-path-traversal` | 22 | `open`, `io.open`, `codecs.open`, `aiofiles.open`, `os`/`shutil` file operations, `send_file`, Starlette/FastAPI `FileResponse`, the directory of `send_from_directory`, file methods on a `pathlib.Path` built from the value (`Path(x)`, `base / x`, `base / f"{x}.txt"`), and `read_text`/`write_text`/`read_bytes`/`write_bytes` on any tainted path |
 | `ast-archive-extraction` | 22 | `TarFile.extractall()`/`extract()` and `shutil.unpack_archive()` on an archive from input, without `filter=` (or with `filter="fully_trusted"`) and without `members=` |
 | `ast-code-injection` | 95 | `eval`, `exec`, `compile` (its source argument) |
+| `ast-dynamic-code` | 95 | `eval`/`exec` of text that is not a constant: built with formatting, read from a field or item, or returned by a call (low confidence, no traced source). Not reported for a function parameter passed on untouched (a template engine's or REPL's API) or for `compile(f.read(), ...)`, which runs a source file |
 | `ast-template-injection` | 1336, 94 | template source from input: Flask `render_template_string`, `jinja2.Template`, Mako `Template`, `Environment().from_string()` (a `SandboxedEnvironment` / `ImmutableSandboxedEnvironment` is not reported) |
 | `ast-unsafe-deserialization` | 502 | `pickle`/`dill`/`marshal` loads, `yaml.load` without a safe loader, `yaml.unsafe_load` |
 | `ast-xss` | 79 | value returned from a Flask/Bottle view (`@app.route`, or `@app.get` in a Flask file) or a FastAPI route declared with `response_class=HTMLResponse`, `Markup()`, `mark_safe()`, Django `HttpResponse`, Starlette `HTMLResponse` |
+| `ast-markup-interpolation` | 79 | `Markup()`, `mark_safe()`, `SafeString` of text built with an f-string, `+`, `%` or `.format()` from a value that is not escaped, a constant or a number (low confidence, no traced source). `Markup("...{}").format(x)` and `format_html()` escape and are not reported |
 | `ast-jinja-autoescape-off` | 79 | a Jinja2 `Environment`/`SandboxedEnvironment`/`Template` created with `autoescape=False` (no source needed) |
 | `ast-ssrf` | 918 | URL of `requests.*`, `httpx.*`, `urllib.request.urlopen`, `urllib3.request`, `aiohttp.request`, and the request methods of `requests.Session`, `httpx.Client`/`AsyncClient`, `aiohttp.ClientSession`, `urllib3.PoolManager` and `build_opener()` objects |
 | `ast-open-redirect` | 601 | `redirect()`, `HttpResponseRedirect`, `RedirectResponse`, `headers["Location"] = ...` |
@@ -299,9 +301,12 @@ URL (`urlparse(u).hostname in ALLOWED`, `== "api.example.com"`,
 rejects a URL by the class of address it resolves to (`ipaddress` /
 `netaddr` `is_private`, `is_loopback`, `is_link_local`, `is_reserved`,
 `is_global`) clears SSRF; and a resolved path (`resolve()`,
-`os.path.realpath`, `abspath`, `normpath`) checked with `startswith`,
-`is_relative_to`, `os.path.commonpath([base, p]) == base`, or an `or` of such
-checks, clears path traversal. `send_from_directory` is safe for its file
+`os.path.realpath`, `abspath`, `normpath`) checked with `is_relative_to`,
+`os.path.commonpath([base, p]) == base`, `startswith` with a prefix that ends
+in a separator (`base + os.sep`, `f"{base}/"`, a literal ending in `/`, or a
+variable built that way), or an `or` of such checks, clears path traversal.
+A bare `startswith(base)` does not: `/srv/data-evil` passes
+`startswith("/srv/data")`. `send_from_directory` is safe for its file
 name (Flask joins it with `werkzeug.security.safe_join`). A tar extraction
 with `filter="data"`, `"tar"`, `tarfile.data_filter`, a filter of the
 program's own, or an explicit `members=` list is not reported. Flask's
@@ -310,9 +315,7 @@ program's own, or an explicit `members=` list is not reported. Flask's
 Blocklist checks (`'../' in p`, "contains no quote") are deliberately not
 trusted: an absolute path or another quoting style gets past them.
 `request.path` is not a source inside a view whose routes have no
-`<converters>`, because routing already fixed it. A known gap: a
-`startswith(base)` check whose base does not end in a separator is accepted,
-though `/srv/data_evil` passes `startswith("/srv/data")`.
+`<converters>`, because routing already fixed it.
 
 ### Library mode
 
@@ -380,7 +383,7 @@ parameters of public functions and methods are sources:
 | `ast-path-traversal` | 22 | `fs`, `fs/promises` and `fs-extra` file operations (read, write, open, stream, mkdir, rm, rename, copy), `res.sendFile`/`res.download` without a `root` option, `express.static`/`serve-static` roots |
 | `ast-path-prefix-check` | 22 | a resolved path checked with `startsWith(baseDir)` where the base has no trailing separator, so a sibling directory passes (no traced source) |
 | `ast-ssrf` | 918 | `fetch`, `$fetch`, `node-fetch`, `undici`, `axios`/`got`/`superagent`/`needle`/`ky` calls and their `url`/`baseURL`/`host` options, `http(s).get`/`request` |
-| `ast-xss` | 79 | `innerHTML`/`outerHTML`/`srcdoc` assignment, `document.write`, `insertAdjacentHTML`, `createContextualFragment`, JSX `dangerouslySetInnerHTML`, jQuery `$(html)`/`.html()`, `setAttribute('on*')`, Angular `bypassSecurityTrust*`, Lit `unsafeHTML`, Handlebars `SafeString`; on the server Express `res.send` of a string, `res.end`/`res.write`/`reply.send` with markup or a `text/html` type, Koa `ctx.body`, Hono `c.html` |
+| `ast-xss` | 79 | `innerHTML`/`outerHTML`/`srcdoc` assignment, `document.write`, `insertAdjacentHTML`, `createContextualFragment`, JSX `dangerouslySetInnerHTML`, jQuery `$(html)`/`.html()` (also on chained calls such as `$(sel).find(x).html()`) and `.append`/`.prepend`/`.after`/`.before`/`.replaceWith`/`.wrap*` of a string with markup, `setAttribute('on*')`, Angular `bypassSecurityTrust*`, Lit `unsafeHTML`, Handlebars `SafeString`; on the server Express `res.send` of a string, `res.end`/`res.write`/`reply.send` with markup or a `text/html` type, Koa `ctx.body`, Hono `c.html` |
 | `ast-template-autoescape-off` | 79 | Nunjucks `configure`/`Environment` with `autoescape: false`, Handlebars `compile` with `noEscape: true` (configuration, no traced source) |
 | `ast-open-redirect` | 601 | `.redirect()` on a response or context (Express, Koa, Fastify, `NextResponse`), `redirect()` from `next/navigation` or React Router, a `Location` header, `location.href`/`window.location` assignment, `location.assign`/`replace`, `window.open` |
 | `ast-template-injection` | 1336 | the template text of `ejs.render`/`compile`, `pug.render`/`compile`, `Handlebars.compile`, `nunjucks.renderString`, `_.template` |
@@ -409,6 +412,11 @@ code (`cmd`, `command`, `script`, `code`), parameters typed `number` or
 `boolean`, and the `Function` constructor (how template engines compile) are
 not reported. When the command is built in one function and run by a helper
 defined in the same file, the finding is shown at the call into the helper.
+The same holds for HTML at low confidence: a parameter formatted into markup
+that reaches an HTML sink (`el.innerHTML = `<td>${name}</td>``, `JSON.stringify`
+of a prop inside an inline `<script>`) is reported, unless it passed through an
+escaping or sanitizing call; a parameter assigned whole (`el.innerHTML = html`)
+is the function's API and is not.
 
 **How JS/TS values are tracked.** One walk per file in statement order:
 assignments, destructuring with defaults, template literals, `+` chains,
