@@ -7,6 +7,8 @@ include breaking changes, noted explicitly).
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-23
+
 ### Added
 - **Python taint follows helpers imported from other files.** A call to a
   function defined in another module of the same project (`from .utils
@@ -661,7 +663,8 @@ Simulation Mode; deterministic verified auto-fix with branch + pull-request
 creation (`nephilex fix`); JSON, SARIF, Markdown, HTML, and CSV reporters; plugin
 entry-point system for scanners, reporters, and providers.
 
-[Unreleased]: https://github.com/nephilex/nephilex/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/nephilex/nephilex/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/nephilex/nephilex/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/nephilex/nephilex/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/nephilex/nephilex/compare/v0.9.0...v0.10.0
 [0.9.1]: https://github.com/nephilex/nephilex/compare/v0.9.0...v0.9.1

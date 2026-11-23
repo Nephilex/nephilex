@@ -126,7 +126,7 @@ permissions:
 steps:
   - uses: actions/checkout@v4
     with: { fetch-depth: 0 }
-  - uses: nephilex/nephilex@v0.11.0
+  - uses: nephilex/nephilex@v0.12.0
     with:
       fail-on: high
 ```

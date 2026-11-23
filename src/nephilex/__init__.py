@@ -14,7 +14,7 @@ from nephilex.core.models import (
 )
 from nephilex.core.project import Project
 
-__version__ = "0.12.0rc1"
+__version__ = "0.12.0"
 
 __all__ = [
     "Confidence",
