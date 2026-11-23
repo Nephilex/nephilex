@@ -170,7 +170,7 @@ nephilex scan . --audience auditor  # CWE / OWASP taxonomy for evidence
 ### CI/CD (automatic on every PR)
 
 ```yaml
-- uses: nephilex/nephilex@v0.11.0
+- uses: nephilex/nephilex@v0.12.0
   with:
     fail-on: high
     profile: ci

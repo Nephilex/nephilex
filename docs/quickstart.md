@@ -281,7 +281,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0     # full history enables diff-aware PR scanning
-      - uses: nephilex/nephilex@v0.11.0
+      - uses: nephilex/nephilex@v0.12.0
         with:
           fail-on: high      # block merges on newly introduced High+ findings
 ```
